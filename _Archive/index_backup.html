@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Ngọc Dũng's - Một chiếc web nhỏ xinh</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Có vài thông tin trong đó nếu bạn muốn liên lạc với tôi, sau này có
+    thời gian tôi sẽ cập nhật thêm nhiều bài viết hay ho sau." />
+    
+    <!--==================== OPEN GRAPH META TAGS ===================== -->
+    <meta property="og:title" content="Ngọc Dũng's - Một chiếc web nhỏ xinh" />
+    <meta property="og:image" content="/assets/img/PwaImages/ios/512fb.png" />
+    <meta property="og:description" content="Có vài thông tin trong đó nếu bạn muốn liên lạc với tôi, sau này có
+    thời gian tôi sẽ cập nhật thêm nhiều bài viết hay ho sau." />
+
+    <!--==================== FACEBOOK META TAGS ===================== -->
+    <meta property="og:title" content="Ngọc Dũng's - Một chiếc web nhỏ xinh" />
+    <meta property="og:type" content="Có vài thông tin trong đó nếu bạn muốn liên lạc với tôi, sau này có
+      thời gian tôi sẽ cập nhật thêm nhiều bài viết hay ho sau." />
+    <meta property="og:url" content="https://www.ngocdung.tk" />
+    <meta property="og:image" content="/assets/img/PwaImages/ios/512fb.png" />
+
+    <!--==================== UNICONS ====================-->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+    <!-- ====================PWA================== -->
+    <link rel="manifest" href="manifest.json" />
+    <!-- ios support -->
+    <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/32.png" />
+    <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/72.png" />
+    <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/100.png" />
+    <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/128.png" />
+    <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/144.png" />
+    <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/152.png" />
+    <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/192.png" />
+    <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/256.png" />
+    <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/512.png" />
+    <meta name="apple-mobile-web-app-status-bar" content="#6E57E0" />
+    <meta name="theme-color" content="#6E57E0" />
+
+    <!-- ============FAVICONS============== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets//img/favicons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png" />
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico" />
+
+    <!--==================== SWIPER CSS ====================-->
+    <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css" />
+
+    <!--==================== CSS ====================-->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-44V9QEHL9J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+
+        gtag("config", "G-44V9QEHL9J");
+    </script>
+</head>
+
+<body>
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo noSelect">Ngọc Dũng ツ</a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list grid">
+                    <li class="nav__item">
+                        <a href="#home" class="nav__link noSelect active-link">
+                            <i class="uil uil-estate nav__icon"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#Qualification" class="nav__link noSelect">
+                            <i class="uil uil-briefcase-alt nav__icon"></i> Qualification
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#Skills" class="nav__link noSelect">
+                            <i class="uil uil-file-alt nav__icon"></i> Skills
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="#Project" class="nav__link noSelect">
+                            <i class="uil uil-scenery nav__icon"></i> Project
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#Photos" class="nav__link noSelect">
+                            <i class="uil uil-scenery nav__icon"></i> Ảnh
+                        </a>
+                    </li>
+                </ul>
+                <i class="uil uil-times nav__close noSelect" id="nav-close"></i>
+            </div>
+            <div class="nav__btns">
+
+                <div class="nav__toggle noSelect" id="nav-toggle">
+                    <i class="uil uil-apps"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--==================== MAIN ====================-->
+    <main class="main">
+        <!--==================== HOME ====================-->
+        <section class="home section" id="home">
+
+            <div class="home__container container grid">
+                <div class="home__content grid">
+
+                    <div class="home__social">
+                        <a href="https://www.facebook.com/tangocdungx" target="_blank" class="home__social-icon">
+                            <i class="uil uil-facebook-f"></i>
+                        </a>
+                        <a href="https://zalo.me/0969080811"
+                          target="_blank" class="home__social-icon">
+                            <i class="uil uil-comment-lines"></i>
+                        </a>
+                        <a href="tel:0969080811" class="home__social-icon"><i class="uil uil-phone contact__icon"></i></a>
+                        <a href="mailto:ngocdung.email@gmail.com" target="_blank" class="home__social-icon"><i class="uil uil-envelope contact__icon"></i></a>
+                    </div>
+
+                    <div class="home__img">
+                        <svg class="home__blob" viewBox="0 0 200 187" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <mask id="mask0" mask-type="alpha">
+                  <path
+                    d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 165.547 
+                                130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 129.362C2.45775 
+                                97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 -0.149132 97.9666 
+                                0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z"
+                  />
+                </mask>
+                <g mask="url(#mask0)">
+                  <path
+                    d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 
+                                165.547 130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 
+                                129.362C2.45775 97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 
+                                -0.149132 97.9666 0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z"
+                  />
+                  <image
+                    class="home__blob-img"
+                    x="0"
+                    xlink:href="assets/img/tnd.jpg"
+                  ></image>
+                </g>
+              </svg>
+                    </div>
+
+                    <div class="home__data">
+                        <h1 class="home__title">Xin chào! Tôi là Dũng</h1>
+                        <h3 class="home__subtitle">Chào mừng đã đến đây</h3>
+                        <p class="home__description">
+                            "Nếu tình yêu chính là ánh sáng, thì hôn nhân là hoá đơn tiền điện"
+                        </p>
+                        <div class="donate-label">
+                            <h3 class="donate-label__subtitle">TÀI KHOẢN CỦA TÔI<br/><br/></h3>
+                        </div>
+                        <div class="donate-card-buttons">
+                            <a
+                              class="donate-button momo"
+                              title="Momo Wallet"
+                              href="https://me.momo.vn/ngocdung"
+                            >
+                              <svg class="svg-icon fill-current imgLogo " fill="#fff" height="87" viewBox="0 0 96 87" width="96" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M75.5326 0C64.2284 0 55.0651 8.74843 55.0651 19.5409C55.0651 30.3333 64.2284 39.0818 75.5326 39.0818C86.8368 39.0818 96 30.3333 96 19.5409C96 8.74843 86.8368 0 75.5326 0ZM75.5326 27.8805C70.7368 27.8805 66.8403 24.1604 66.8403 19.5818C66.8403 15.0031 70.7368 11.283 75.5326 11.283C80.3283 11.283 84.2248 15.0031 84.2248 19.5818C84.2248 24.1604 80.3283 27.8805 75.5326 27.8805ZM49.1561 14.6761V39.1226H37.3809V14.5535C37.3809 12.7138 35.8394 11.2421 33.9126 11.2421C31.9857 11.2421 30.4442 12.7138 30.4442 14.5535V39.1226H18.669V14.5535C18.669 12.7138 17.1276 11.2421 15.2007 11.2421C13.2739 11.2421 11.7324 12.7138 11.7324 14.5535V39.1226H0V14.6761C0 6.58176 6.89385 0 15.372 0C18.8403 0 22.0089 1.10377 24.5781 2.9434C27.1472 1.10377 30.3586 0 33.7841 0C42.2623 0 49.1561 6.58176 49.1561 14.6761ZM75.5326 47.544C64.2284 47.544 55.0651 56.2925 55.0651 67.0849C55.0651 77.8774 64.2284 86.6258 75.5326 86.6258C86.8368 86.6258 96 77.8774 96 67.0849C96 56.2925 86.8368 47.544 75.5326 47.544ZM75.5326 75.4245C70.7368 75.4245 66.8403 71.7044 66.8403 67.1258C66.8403 62.5472 70.7368 58.827 75.5326 58.827C80.3283 58.827 84.2248 62.5472 84.2248 67.1258C84.2248 71.7044 80.3283 75.4245 75.5326 75.4245ZM49.1561 62.2201V86.6667H37.3809V62.0975C37.3809 60.2579 35.8394 58.7862 33.9126 58.7862C31.9857 58.7862 30.4442 60.2579 30.4442 62.0975V86.6667H18.669V62.0975C18.669 60.2579 17.1276 58.7862 15.2007 58.7862C13.2739 58.7862 11.7324 60.2579 11.7324 62.0975V86.6667H0V62.2201C0 54.1258 6.89385 47.544 15.372 47.544C18.8403 47.544 22.0089 48.6478 24.5781 50.4874C27.1472 48.6478 30.3158 47.544 33.7841 47.544C42.2623 47.544 49.1561 54.1258 49.1561 62.2201Z" fill=""></path>
+                              </svg>
+                            </a>
+                            <br/><br/>
+                            
+                            <div class="bank__data">
+                                <div>
+                                    <h3 class="bank__title">Vietcombank</h3>
+                                    <span class="bank__subtitle">Người nhận: Ta Ngoc Dung</span>
+                                    <br/>
+                                    <span class="stk">STK: tangocdung</span>&ensp;
+                                    <button onclick="copyText()">Copy</button>
+                                    <script>
+                                        function copyText() {
+                                            /* Copy text into clipboard */
+                                            navigator.clipboard.writeText
+                                                ("tangocdung");
+                                        }
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="home__scroll">
+                    <a href="#Photos" class="home__scroll-button button--flex">
+                        <i class="uil uil-mouse-alt home__scroll-mouse"></i>
+                        <span class="home__scroll-name">Cuộn xuống</span>
+                        <i class="uil uil-arrow-down home__scroll-arrow"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!--==================== QUALIFICATOIN ====================-->
+
+    <section class="qualification section">
+        <h2 class="section__title" id="Qualification">Qualification</h2>
+        <span class="section__subtitle">My personal journey</span>
+
+        <div class="qualification__container container">
+            <div class="qualification__tabs">
+
+                <div class="qualification__button button--flex qualification__active" data-target="#work">
+                    <i class="uil uil-graduation-cap qualification__icon"> </i> Education
+                </div>
+                <div class="qualification__button button--flex " data-target="#education">
+                    <i class="uil uil-briefcase-alt qualification__icon"> </i> Work
+                </div>
+
+            </div>
+
+            <div class="qualification__sections">
+                <!--==================== QUALIFICATOIN CONTENT 1====================-->
+                <div class="qualification__content qualification__active" data-content id="work">
+                    <!--==================== QUALIFICATOIN 1====================-->
+                    <div class="qualification__data">
+                        <div>
+                            <h3 class="qualification__title">Trường Tiểu học</h3>
+                            <span class="qualification__subtitle"> Tên trường là gì còn lâu mới nói 
+                                 </span>
+                            <div class="qualification__calender">
+                                <i class="uil uil-calendar-alt"></i> 1997-2002
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="qualification__rounder"></span>
+                            <span class="qualification__line"></span>
+                        </div>
+                    </div>
+
+                    <!--==================== QUALIFICATOIN 2====================-->
+                    <div class="qualification__data">
+                        <div></div>
+                        <div>
+                            <span class="qualification__rounder"></span>
+                            <span class="qualification__line"></span>
+                        </div>
+                        <div>
+                            <h3 class="qualification__title">Trường THCS</h3>
+                            <span class="qualification__subtitle">  </span>
+                            <div class="qualification__calender">
+                                <i class="uil uil-calendar-alt"></i> 2002-2009
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--==================== QUALIFICATOIN 3====================-->
+                    <div class="qualification__data">
+                        <div>
+                            <h3 class="qualification__title">Trường THPT
+                            </h3>
+                            <span class="qualification__subtitle">  </span>
+                            <div class="qualification__calender">
+                                <i class="uil uil-calendar-alt"></i>2009-2013
+                            </div>
+                        </div>
+                        <div>
+                            <span class="qualification__rounder"></span>
+                            <!-- <span class="qualification__line"></span> -->
+                        </div>
+                    </div>
+
+                    <!--==================== QUALIFICATOIN 4====================-->
+                    <div class="qualification__data">
+                        <div></div>
+                        <div>
+                            <!-- <span class="qualification__rounder"></span> -->
+                            <!-- <span class="qualification__line"></span> -->
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--==================== QUALIFICATOIN CONTENT 2====================-->
+                <div class="qualification__content" data-content id="education">
+                    <!--==================== QUALIFICATOIN 1====================-->
+                    <div class="qualification__data">
+                        <div>
+                            <h3 class="qualification__title">Công ty 1</h3>
+                            <span class="qualification__subtitle">
+                                 Digital
+
+                </span>
+                            <div class="qualification__calender">
+                                <i class="uil uil-calendar-alt"></i> 2021-2022
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="qualification__rounder"></span>
+                            <span class="qualification__line"></span>
+                        </div>
+                    </div>
+
+                    <!--==================== QUALIFICATOIN 2====================-->
+                    <div class="qualification__data">
+                        <div></div>
+                        <div>
+                            <span class="qualification__rounder"></span>
+                            <!-- <span class="qualification__line"></span> -->
+                        </div>
+                        <div>
+                            <h3 class="qualification__title">Công ty 2</h3>
+                            <span class="qualification__subtitle">Demo </span>
+                            <div class="qualification__calender">
+                                <i class="uil uil-calendar-alt"></i> 2022-2023
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--==================== SERVICES ====================-->
+
+    <section class="services section" id="Skills">
+        <h2 class="section__title">Skills</h2>
+        <span class="section__subtitle"></span>
+
+        <div class="services__container container grid">
+            <!--==================== SERVICE 1 ====================-->
+            <div class="services__content">
+                <div>
+                    <i class="uil uil-arrow services__icon"></i>
+                    <h3 class="services__title">Gì cũng<br />hay</h3>
+                </div>
+
+                <span class="button button--flex button--small button--link services__button">
+            View Skills
+            <i class="uil uil-arrow-right button__icon"></i>
+          </span>
+
+                <div class="services__modal">
+                    <div class="services__modal-content">
+                        <h4 class="services__modal-title">Gì cũng<br />hay</h4>
+                        <i class="uil uil-times services__modal-close"></i>
+                        <ul class="services__modal-services grid">
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Demo
+                                </p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Data
+                                </p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Computer
+                                </p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p> Machine</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Deep</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Learning</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Collection</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Visualisation</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Analytics</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!--==================== SERVICE 2 ====================-->
+            <div class="services__content">
+                <div>
+                    <i class="uil uil-briefcase-alt services__icon"> </i>
+                    <h3 class="services__title">Framework<br />Libraries</h3>
+                </div>
+
+                <span class="button button--flex button--small button--link services__button">
+            View Skills
+            <i class="uil uil-arrow-right button__icon"></i>
+          </span>
+
+                <div class="services__modal">
+                    <div class="services__modal-content">
+                        <h4 class="services__modal-title">Framework <br />Libraries</h4>
+                        <i class="uil uil-times services__modal-close"></i>
+                        <ul class="services__modal-services grid">
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Keras</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Tensorflow</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Matplotlib</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Numpy</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Opencv</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Pandas</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Pytorch</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Seaborn</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Scikit-learn</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--==================== SERVICE 2 ====================-->
+            <div class="services__content">
+                <div>
+                    <i class="uil uil-mobile-android services__icon"></i>
+                    <h3 class="services__title">Mobile<br />Dev</h3>
+                </div>
+
+                <span class="button button--flex button--small button--link services__button">
+            View Skills
+            <i class="uil uil-arrow-right button__icon"></i>
+          </span>
+
+                <div class="services__modal">
+                    <div class="services__modal-content">
+                        <h4 class="services__modal-title">Mobile<br />Dev</h4>
+                        <i class="uil uil-times services__modal-close"></i>
+                        <ul class="services__modal-services grid">
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Html</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>CSS</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>javascript</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Wordpress</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>PHP</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Flutter</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Android</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--==================== SERVICE 2 ====================-->
+            <div class="services__content">
+                <div>
+                    <i class="uil uil-message services__icon"></i>
+                    <h3 class="services__title">Others<br/><br/></h3>
+                </div>
+
+                <span class="button button--flex button--small button--link services__button">
+            View Skills
+            <i class="uil uil-arrow-right button__icon"></i>
+          </span>
+
+                <div class="services__modal">
+                    <div class="services__modal-content">
+                        <h4 class="services__modal-title">Others</h4>
+                        <i class="uil uil-times services__modal-close"></i>
+                        <ul class="services__modal-services grid">
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Github</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Docker</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>MySQL</p>
+                            </li>
+                            <li class="services__modal-service">
+                                <i class="uil uil-check-circle services__modal-icon"></i>
+                                <p>Linux-Ubuntu</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!--==================== PORTFOLIO ====================-->
+
+<section class="portfolio section" id="Project">
+    <h2 class="section__title">Project</h2>
+    <span class="section__subtitle">Mini Apps</span>
+
+    <div class="portfolio__container container swiper-container">
+        <div class="swiper-wrapper">
+                <!--==================== PORTFOLIO 0====================-->
+                <div class="portfolio__content grid swiper-slide">
+                    <div class="portfolio__data">
+                        <h3 class="portfolio__title">Linux Guide</h3>
+                        <p class="portfolio__description">Hướng dẫn Linux</p>
+                        <a href="./project/htmlinux.html" target="_blank" class="button button--flex button--small portfolio__button">
+                View
+                <i class="uil uil-arrow-right button__icon"></i>
+              </a>
+                    </div>
+                </div>    
+                <!--==================== PORTFOLIO 1====================-->
+                <div class="portfolio__content grid swiper-slide">
+                    <div class="portfolio__data">
+                        <h3 class="portfolio__title">Downloads</h3>
+                        <p class="portfolio__description">Trang tải ứng dụng ATV</p>
+                        <a href="./project/downloads.html" target="_blank" class="button button--flex button--small portfolio__button">
+                Downloads
+                <i class="uil uil-arrow-right button__icon"></i>
+              </a>
+                    </div>
+                </div>
+
+                <!--==================== PORTFOLIO 2====================-->
+                <div class="portfolio__content grid swiper-slide">
+                    <div class="portfolio__data">
+                        <h3 class="portfolio__title">Digital Clock</h3>
+                        <p class="portfolio__description">Đồng hồ Digital</p>
+                        <a href="./project/clock.html" target="_blank" class="button button--flex button--small portfolio__button">
+                View
+                <i class="uil uil-arrow-right button__icon"></i>
+              </a>
+                    </div>
+                </div>
+
+                <!--==================== PORTFOLIO 3====================-->
+                <div class="portfolio__content grid swiper-slide">
+                    <div class="portfolio__data">
+                        <h3 class="portfolio__title">Color Clock</h3>
+                        <p class="portfolio__description">Đồng hồ sắc màu</p>
+                        <a href="./project/colorclock.html" target="_blank" class="button button--flex button--small portfolio__button">
+                View
+                <i class="uil uil-arrow-right button__icon"></i>
+              </a>
+                    </div>
+                </div>
+
+                <!--==================== PORTFOLIO 4====================-->
+                <div class="portfolio__content grid swiper-slide">
+                    <div class="portfolio__data">
+                        <h3 class="portfolio__title">Cá lớn ăn cá bé</h3>
+                        <p class="portfolio__description">
+                            Trò cá lớn ăn cá bé
+                        </p>
+                        <a href="./project/fishies.html" target="_blank" class="button button--flex button--small portfolio__button">
+                View
+                <i class="uil uil-arrow-right button__icon"></i>
+              </a>
+                    </div>
+                </div>
+
+                <!--==================== PORTFOLIO 4====================-->
+                <div class="portfolio__content grid swiper-slide">
+                    <div class="portfolio__data">
+                        <h3 class="portfolio__title">Pi đi tìm sữa</h3>
+                        <p class="portfolio__description">
+                            Bé đi tìm sữa
+                        </p>
+                        <a href="./project/BabyWantsMilk.html" target="_blank" class="button button--flex button--small portfolio__button">
+                View
+                <i class="uil uil-arrow-right button__icon"></i>
+              </a>
+                    </div>
+                </div>
+
+                <!--==================== PORTFOLIO 4====================-->
+                <div class="portfolio__content grid swiper-slide">
+                    <div class="portfolio__data">
+                        <h3 class="portfolio__title">Pháo hoa</h3>
+                        <p class="portfolio__description">Xem pháo hoa ở nhà, dành cho Hội người hướng nội</p>
+                        <a href="./project/auto-fireworks.html" target="_blank" class="button button--flex button--small portfolio__button">
+                View
+                <i class="uil uil-arrow-right button__icon"></i>
+              </a>
+                    </div>
+                </div>
+
+                <!--==================== PORTFOLIO 4====================-->
+                <div class="portfolio__content grid swiper-slide">
+                    <div class="portfolio__data">
+                        <h3 class="portfolio__title">Fireworks 2023</h3>
+                        <p class="portfolio__description">
+                            Vẫn là pháo hoa nhưng mà đẹp hơn
+                        </p>
+                        <a href="./project/firework/index.html" target="_blank" class="button button--flex button--small portfolio__button">
+                View
+                <i class="uil uil-arrow-right button__icon"></i>
+              </a>
+                    </div>
+                </div>
+
+
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+
+
+    <!--=====C E R T I F I C A T I O N S=============== SKILLS ====================-->
+
+    <section class="skills section" id="Photos">
+        <h2 class="section__title">Ảnh</h2>
+        <span class="section__subtitle">Một vài cái ảnh</span>
+        <div class="gallery" id="gallery">
+            <div class="contain">
+                <figure class="snip1577">
+                    <img src="assets/photos/c1.png" alt="sample99" />
+                    <figcaption>
+                        <h3>Fundamentals of Reinforcement </h3>
+                        <h3>Learning</h3>
+                    </figcaption>
+                </figure>
+                <figure class="snip1577">
+                    <img src="assets/photos/c2.png" alt="sample99" />
+                    <figcaption>
+                        <h3> Sample-based Learning Methods
+                        </h3><br>
+                    </figcaption>
+                </figure>
+                <figure class="snip1577">
+                    <img src="assets/photos/c3.png" alt="sample99" />
+                    <figcaption>
+                        <h3>Improving Deep Neural Networks: Hyperparameter Tuning, Regularization and Optimization
+                        </h3>
+                    </figcaption>
+                </figure>
+                <figure class="snip1577">
+                    <img src="assets/photos/c1.png" alt="sample109" />
+                    <figcaption>
+                        <h3>Structuring Machine Learning Projects</h3>
+                        <br>
+                    </figcaption>
+                </figure>
+                <figure class="snip1577">
+                    <img src="assets/photos/c2.png" alt="sample117" />
+                    <figcaption>
+                        <h3>Analyze Datasets and Train ML Models using AutoML</h3>
+                    </figcaption>
+                </figure>
+                <figure class="snip1577">
+                    <img src="assets/photos/c3.png" alt="sample117" />
+                    <figcaption>
+                        <h3>Machine Learning</h3>
+                        <br>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+
+    </section>
+
+    <!--==================== FOOTER ====================-->
+
+    <footer class="footer">
+        <div class="footer__bg">
+            <div class="footer__container container grid">
+                <div>
+                    <h1 class="footer__title">Ngọc Dũng</h1>
+                    <span class="footer__subtitle">Một chiếc web nhỏ xinh</span>
+                </div>
+
+                <ul class="footer__links">
+                    <li>
+                        <a href="#Qualification" class="footer__link">Qualification</a>
+                    </li>
+                    <li>
+                        <a href="#Skills" class="footer__link">Skills</a>
+                    </li>
+                    <li>
+                        <a href="#Project" class="footer__link">Project</a>
+                    </li>
+                </ul>
+
+                <div class="footer__socials">
+                    <a href="https://www.youtube.com/@tangocdung" target="_blank" class="footer__social">
+                        <i class="uil uil-youtube"></i>
+                    </a>
+
+                    <a href="https://www.instagram.com/ngocdungvn" target="_blank" class="footer__social">
+                        <i class="uil uil-instagram"></i>
+                    </a>
+
+                    <a href="https://twitter.com/ngocdungvn" target="_blank" class="footer__social">
+                        <i class="uil uil-twitter-alt"></i>
+                    </a>
+
+                </div>
+                <p></p>
+            </div>
+        </div>
+    </footer>
+
+    <!--==================== SCROLL TOP ====================-->
+
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="uil uil-arrow-up scrollup__icon"></i>
+    </a>
+
+    <!--==================== SWIPER JS ====================-->
+    <script src="/assets/js/swiper-bundle.min.js"></script>
+
+    <!--==================== MAIN JS ====================-->
+    <script src="assets/js/main.js"></script>
+
+    <!-- =====================REGISTER SERVICE WORKER================ -->
+    <script>
+        /* Demo purposes only */
+        $(".hover").mouseleave(
+            function() {
+                $(this).removeClass("hover");
+            }
+        );
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function() {
+                navigator.serviceWorker
+                    .register("/serviceWorker.js")
+                    .then((res) => console.log("service worker registered"))
+                    .catch((err) => console.log("service worker not registered", err));
+            });
+        }
+    </script>
+    <script type="text/javascript" src="vanilla-tilt.js"></script>
+    <script type="text/javascript">
+        VanillaTilt.init(document.querySelector(".home__img"), {
+            max: 25,
+            speed: 200
+        });
+    </script>
+</body>
+
+</html>
