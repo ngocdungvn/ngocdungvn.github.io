@@ -324,6 +324,7 @@ function initServiceWorker() {
             navigator.serviceWorker
                 .register('/serviceWorker.js')
                 .then((reg) => {
+                    reg.update();
                     console.log('Service Worker Registered successfully:', reg.scope);
                 })
                 .catch((err) => {

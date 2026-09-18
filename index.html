@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
 
     <!--==================== MAIN CSS ====================-->
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=2.1" />
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-44V9QEHL9J"></script>
@@ -219,11 +219,11 @@
                         <div class="skill-tags">
                             <span class="skill-tag"><i class="uil uil-check"></i> JavaScript (ES6+)</span>
                             <span class="skill-tag"><i class="uil uil-check"></i> HTML5 & CSS3</span>
-                            <span class="skill-tag"><i class="uil uil-check"></i> Glassmorphism UI</span>
                             <span class="skill-tag"><i class="uil uil-check"></i> Responsive Layout</span>
+                            <span class="skill-tag"><i class="uil uil-check"></i> Glassmorphism UI</span>
                             <span class="skill-tag"><i class="uil uil-check"></i> WordPress</span>
                             <span class="skill-tag"><i class="uil uil-check"></i> Canvas 2D Games</span>
-                            <span class="skill-tag"><i class="uil uil-check"></i> PWA & Service Workers</span>
+                            <span class="skill-tag"><i class="uil uil-check"></i> PWA & Offline</span>
                         </div>
                     </div>
 
@@ -238,15 +238,15 @@
                         <div class="skill-tags">
                             <span class="skill-tag"><i class="uil uil-check"></i> Flutter</span>
                             <span class="skill-tag"><i class="uil uil-check"></i> Dart</span>
-                            <span class="skill-tag"><i class="uil uil-check"></i> Android</span>
+                            <span class="skill-tag"><i class="uil uil-check"></i> Android App</span>
                             <span class="skill-tag"><i class="uil uil-check"></i> PHP</span>
-                            <span class="skill-tag"><i class="uil uil-check"></i> RESTful API</span>
+                            <span class="skill-tag"><i class="uil uil-check"></i> RESTful APIs</span>
                             <span class="skill-tag"><i class="uil uil-check"></i> MySQL Database</span>
                             <span class="skill-tag"><i class="uil uil-check"></i> SQLite</span>
                         </div>
                     </div>
 
-                    <!-- Cat 4: DevOps & Cloud -->
+                    <!-- Cat 4: DevOps & System -->
                     <div class="skill-category-card glass-card">
                         <div class="skill-cat-header">
                             <div class="skill-cat-icon">
@@ -255,12 +255,13 @@
                             <h3 class="skill-cat-title">DevOps & Hệ Thống</h3>
                         </div>
                         <div class="skill-tags">
-                            <span class="skill-tag"><i class="uil uil-check"></i> Linux (Ubuntu Server)</span>
+                            <span class="skill-tag"><i class="uil uil-check"></i> Linux (Ubuntu)</span>
                             <span class="skill-tag"><i class="uil uil-check"></i> Docker</span>
-                            <span class="skill-tag"><i class="uil uil-check"></i> Git & GitHub CI/CD</span>
-                            <span class="skill-tag"><i class="uil uil-check"></i> Google Analytics</span>
+                            <span class="skill-tag"><i class="uil uil-check"></i> Git & GitHub</span>
                             <span class="skill-tag"><i class="uil uil-check"></i> Bash Scripting</span>
-                            <span class="skill-tag"><i class="uil uil-check"></i> Nginx / Caddy Proxy</span>
+                            <span class="skill-tag"><i class="uil uil-check"></i> Nginx & Caddy</span>
+                            <span class="skill-tag"><i class="uil uil-check"></i> Google Analytics</span>
+                            <span class="skill-tag"><i class="uil uil-check"></i> CI/CD Workflow</span>
                         </div>
                     </div>
                 </div>
@@ -602,69 +603,83 @@
                 </div>
 
                 <div class="donate-grid">
-                    <!-- Left: Modern Glassmorphism Bank Card -->
-                    <div class="bank-card" data-tilt>
-                        <div class="bank-card__top">
-                            <span class="bank-card__brand">Vietcombank</span>
-                            <div class="bank-card__chip-group">
-                                <div class="emv-chip"></div>
-                                <i class="uil uil-wifi contactless-icon"></i>
+                    <!-- Left: Combined Vietcombank & VietQR Card -->
+                    <div class="bank-combined-card" data-tilt>
+                        <div class="bank-side">
+                            <div class="bank-card__top">
+                                <div class="bank-brand-wrap">
+                                    <span class="bank-card__brand">Vietcombank</span>
+                                    <span class="bank-card__tag">VCB Digital</span>
+                                </div>
+                                <div class="bank-card__chip-group">
+                                    <div class="emv-chip"></div>
+                                    <i class="uil uil-wifi contactless-icon"></i>
+                                </div>
+                            </div>
+
+                            <div class="bank-card__number-wrap">
+                                <div class="bank-card__label">Số tài khoản ngân hàng</div>
+                                <div class="bank-card__number">
+                                    <span>9969080811</span>
+                                    <button class="copy-badge-btn" onclick="copyBankNumber('9969080811')" title="Nhấn để sao chép STK">
+                                        <i class="uil uil-copy"></i> Copy
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="bank-card__bottom">
+                                <div>
+                                    <div class="bank-card__label">Chủ tài khoản</div>
+                                    <div class="bank-card__holder">TA NGOC DUNG</div>
+                                </div>
+                                <div class="bank-card__bankname">Vietcombank Digital</div>
                             </div>
                         </div>
 
-                        <div class="bank-card__number-wrap">
-                            <div class="bank-card__label">Số tài khoản ngân hàng</div>
-                            <div class="bank-card__number">
-                                <span>tangocdung</span>
-                                <button class="copy-badge-btn" onclick="copyBankNumber('tangocdung')" title="Nhấn để sao chép">
-                                    <i class="uil uil-copy"></i> Copy
-                                </button>
+                        <!-- Integrated QR Code -->
+                        <div class="qr-side">
+                            <div class="qr-badge">
+                                <i class="uil uil-qrcode-scan"></i> VietQR 24/7
                             </div>
-                        </div>
-
-                        <div class="bank-card__bottom">
-                            <div>
-                                <div class="bank-card__label">Chủ tài khoản</div>
-                                <div class="bank-card__holder">TA NGOC DUNG</div>
+                            <div class="qr-img-box">
+                                <img src="https://img.vietqr.io/image/VCB-9969080811-compact.png?amount=0&addInfo=Ung%20ho%20Ngoc%20Dung" alt="Mã VietQR Vietcombank" loading="lazy" />
                             </div>
-                            <div style="text-align: right;">
-                                <div class="bank-card__label">Chi nhánh</div>
-                                <div style="font-size: 0.95rem; font-weight: 600;">VCB Digital</div>
-                            </div>
+                            <p class="qr-note">Quét tự động qua 50+ app ngân hàng</p>
                         </div>
                     </div>
 
-                    <!-- Right: VietQR Code & MoMo -->
-                    <div class="donate-channels">
-                        <!-- VietQR Card -->
-                        <div class="vietqr-card glass-card">
-                            <div class="vietqr-img-wrap">
-                                <img src="https://img.vietqr.io/image/VCB-tangocdung-compact.png?amount=0&addInfo=Ung%20ho%20Ngoc%20Dung" alt="Mã VietQR Vietcombank" loading="lazy" />
+                    <!-- Right: Big MoMo Card -->
+                    <div class="momo-card-large" data-tilt>
+                        <div class="momo-card-header">
+                            <div class="momo-logo-big">
+                                <svg viewBox="0 0 96 87" fill="#a50064" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M75.5326 0C64.2284 0 55.0651 8.74843 55.0651 19.5409C55.0651 30.3333 64.2284 39.0818 75.5326 39.0818C86.8368 39.0818 96 30.3333 96 19.5409C96 8.74843 86.8368 0 75.5326 0ZM75.5326 27.8805C70.7368 27.8805 66.8403 24.1604 66.8403 19.5818C66.8403 15.0031 70.7368 11.283 75.5326 11.283C80.3283 11.283 84.2248 15.0031 84.2248 19.5818C84.2248 24.1604 80.3283 27.8805 75.5326 27.8805ZM49.1561 14.6761V39.1226H37.3809V14.5535C37.3809 12.7138 35.8394 11.2421 33.9126 11.2421C31.9857 11.2421 30.4442 12.7138 30.4442 14.5535V39.1226H18.669V14.5535C18.669 12.7138 17.1276 11.2421 15.2007 11.2421C13.2739 11.2421 11.7324 12.7138 11.7324 14.5535V39.1226H0V14.6761C0 6.58176 6.89385 0 15.372 0C18.8403 0 22.0089 1.10377 24.5781 2.9434C27.1472 1.10377 30.3586 0 33.7841 0C42.2623 0 49.1561 6.58176 49.1561 14.6761ZM75.5326 47.544C64.2284 47.544 55.0651 56.2925 55.0651 67.0849C55.0651 77.8774 64.2284 86.6258 75.5326 86.6258C86.8368 86.6258 96 77.8774 96 67.0849C96 56.2925 86.8368 47.544 75.5326 47.544ZM75.5326 75.4245C70.7368 75.4245 66.8403 71.7044 66.8403 67.1258C66.8403 62.5472 70.7368 58.827 75.5326 58.827C80.3283 58.827 84.2248 62.5472 84.2248 67.1258C84.2248 71.7044 80.3283 75.4245 75.5326 75.4245ZM49.1561 62.2201V86.6667H37.3809V62.0975C37.3809 60.2579 35.8394 58.7862 33.9126 58.7862C31.9857 58.7862 30.4442 60.2579 30.4442 62.0975V86.6667H18.669V62.0975C18.669 60.2579 17.1276 58.7862 15.2007 58.7862C13.2739 58.7862 11.7324 60.2579 11.7324 62.0975V86.6667H0V62.2201C0 54.1258 6.89385 47.544 15.372 47.544C18.8403 47.544 22.0089 48.6478 24.5781 50.4874C27.1472 48.6478 30.3158 47.544 33.7841 47.544C42.2623 47.544 49.1561 54.1258 49.1561 62.2201Z"></path>
+                                </svg>
                             </div>
-                            <div class="vietqr-info">
-                                <h4>Quét Mã VietQR Nhanh</h4>
-                                <p>Hỗ trợ quét qua 50+ ứng dụng Ngân hàng số & Ví điện tử Việt Nam. Tiện lợi, không cần gõ STK.</p>
-                                <button class="btn btn-secondary btn-sm" onclick="copyBankNumber('tangocdung')">
-                                    <i class="uil uil-copy"></i> Sao chép STK: tangocdung
-                                </button>
+                            <div class="momo-brand-info">
+                                <span class="momo-badge">Ví Điện Tử</span>
+                                <h3 class="momo-title">MoMo Chuyển Nhanh</h3>
                             </div>
                         </div>
 
-                        <!-- MoMo Card Banner -->
-                        <a href="https://me.momo.vn/ngocdung" target="_blank" rel="noopener noreferrer" class="momo-banner">
-                            <div class="momo-left">
-                                <div class="momo-logo-wrap">
-                                    <svg viewBox="0 0 96 87" fill="#a50064" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M75.5326 0C64.2284 0 55.0651 8.74843 55.0651 19.5409C55.0651 30.3333 64.2284 39.0818 75.5326 39.0818C86.8368 39.0818 96 30.3333 96 19.5409C96 8.74843 86.8368 0 75.5326 0ZM75.5326 27.8805C70.7368 27.8805 66.8403 24.1604 66.8403 19.5818C66.8403 15.0031 70.7368 11.283 75.5326 11.283C80.3283 11.283 84.2248 15.0031 84.2248 19.5818C84.2248 24.1604 80.3283 27.8805 75.5326 27.8805ZM49.1561 14.6761V39.1226H37.3809V14.5535C37.3809 12.7138 35.8394 11.2421 33.9126 11.2421C31.9857 11.2421 30.4442 12.7138 30.4442 14.5535V39.1226H18.669V14.5535C18.669 12.7138 17.1276 11.2421 15.2007 11.2421C13.2739 11.2421 11.7324 12.7138 11.7324 14.5535V39.1226H0V14.6761C0 6.58176 6.89385 0 15.372 0C18.8403 0 22.0089 1.10377 24.5781 2.9434C27.1472 1.10377 30.3586 0 33.7841 0C42.2623 0 49.1561 6.58176 49.1561 14.6761ZM75.5326 47.544C64.2284 47.544 55.0651 56.2925 55.0651 67.0849C55.0651 77.8774 64.2284 86.6258 75.5326 86.6258C86.8368 86.6258 96 77.8774 96 67.0849C96 56.2925 86.8368 47.544 75.5326 47.544ZM75.5326 75.4245C70.7368 75.4245 66.8403 71.7044 66.8403 67.1258C66.8403 62.5472 70.7368 58.827 75.5326 58.827C80.3283 58.827 84.2248 62.5472 84.2248 67.1258C84.2248 71.7044 80.3283 75.4245 75.5326 75.4245ZM49.1561 62.2201V86.6667H37.3809V62.0975C37.3809 60.2579 35.8394 58.7862 33.9126 58.7862C31.9857 58.7862 30.4442 60.2579 30.4442 62.0975V86.6667H18.669V62.0975C18.669 60.2579 17.1276 58.7862 15.2007 58.7862C13.2739 58.7862 11.7324 60.2579 11.7324 62.0975V86.6667H0V62.2201C0 54.1258 6.89385 47.544 15.372 47.544C18.8403 47.544 22.0089 48.6478 24.5781 50.4874C27.1472 48.6478 30.3158 47.544 33.7841 47.544C42.2623 47.544 49.1561 54.1258 49.1561 62.2201Z"></path>
-                                    </svg>
+                        <div class="momo-card-body">
+                            <div class="momo-info-box">
+                                <div class="momo-label">Số điện thoại / ID MoMo</div>
+                                <div class="momo-number-row">
+                                    <span class="momo-number">0969 080 811</span>
+                                    <button class="copy-badge-btn momo-copy-btn" onclick="copyBankNumber('0969080811')" title="Sao chép SĐT MoMo">
+                                        <i class="uil uil-copy"></i> Copy
+                                    </button>
                                 </div>
-                                <div>
-                                    <div style="font-size: 0.8rem; opacity: 0.85;">Ủng hộ qua ví điện tử</div>
-                                    <strong style="font-size: 1.1rem;">Ví MoMo: ngocdung</strong>
-                                </div>
+                                <div class="momo-holder">Người nhận: Tạ Ngọc Dũng (ngocdung)</div>
                             </div>
-                            <i class="uil uil-arrow-right" style="font-size: 1.4rem;"></i>
-                        </a>
+                        </div>
+
+                        <div class="momo-card-actions">
+                            <a href="https://me.momo.vn/ngocdung" target="_blank" rel="noopener noreferrer" class="btn-momo-cta">
+                                <i class="uil uil-external-link-alt"></i> Mở MoMo Chuyển Tiền Tức Thì
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -909,7 +924,7 @@
 
     <!--==================== SCRIPTS ====================-->
     <script src="vanilla-tilt.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js?v=2.1"></script>
 </body>
 
 </html>
