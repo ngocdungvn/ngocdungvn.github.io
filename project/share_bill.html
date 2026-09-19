@@ -1104,9 +1104,9 @@
       const totalLoseHomeSub = payLoseHome * nLoseHome;
       const grandTotal = totalWinSub + totalLoseEatSub + totalLoseHomeSub;
 
-      priceWin.innerText = formatVND(payWin);
-      priceLoseEat.innerText = formatVND(payLoseEat);
-      priceLoseHome.innerText = formatVND(payLoseHome);
+      priceWin.innerText = nWin > 0 ? formatVND(payWin) : '0';
+      priceLoseEat.innerText = nLoseEat > 0 ? formatVND(payLoseEat) : '0';
+      priceLoseHome.innerText = nLoseHome > 0 ? formatVND(payLoseHome) : '0';
 
       subtotalWin.innerText = formatVND(totalWinSub);
       subtotalLoseEat.innerText = formatVND(totalLoseEatSub);
@@ -1175,13 +1175,13 @@
 
     // Copy summary to clipboard
     btnCopy.addEventListener('click', async () => {
-      const payWinText = priceWin.innerText;
-      const payLoseEatText = priceLoseEat.innerText;
-      const payLoseHomeText = priceLoseHome.innerText;
+      const payWinText = membersWin.length > 0 ? priceWin.innerText : '0';
+      const payLoseEatText = membersLoseEat.length > 0 ? priceLoseEat.innerText : '0';
+      const payLoseHomeText = membersLoseHome.length > 0 ? priceLoseHome.innerText : '0';
 
-      const listWinStr = membersWin.length > 0 ? membersWin.map(m => m.name).join(', ') : '(Chưa có tên)';
-      const listLoseEatStr = membersLoseEat.length > 0 ? membersLoseEat.map(m => m.name).join(', ') : '(Chưa có tên)';
-      const listLoseHomeStr = membersLoseHome.length > 0 ? membersLoseHome.map(m => m.name).join(', ') : '(Chưa có tên)';
+      const listWinStr = membersWin.length > 0 ? membersWin.map(m => m.name).join(', ') : '(Không có)';
+      const listLoseEatStr = membersLoseEat.length > 0 ? membersLoseEat.map(m => m.name).join(', ') : '(Không có)';
+      const listLoseHomeStr = membersLoseHome.length > 0 ? membersLoseHome.map(m => m.name).join(', ') : '(Không có)';
 
       const summary = `⚽ KÈO BÓNG ĐÁ & CHIA TIỀN\n` +
         `🧾 Hóa đơn: ${bill.toLocaleString('vi-VN')}\n` +
