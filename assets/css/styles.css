@@ -314,12 +314,10 @@ input {
 .btn-coffee {
     background: linear-gradient(135deg, #f59e0b 0%, #ea580c 50%, #b45309 100%);
     color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.32);
-    box-shadow: 0 4px 18px rgba(234, 88, 12, 0.4), 0 1px 2px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.45);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    border: none;
+    box-shadow: none;
     position: relative;
     overflow: hidden;
-    animation: coffeePulse 3s infinite ease-in-out;
 }
 
 .btn-coffee::after {
@@ -341,15 +339,14 @@ input {
 }
 
 .btn-coffee:hover {
-    transform: translateY(-3px) scale(1.03);
+    transform: translateY(-3px) scale(1.02);
     background: linear-gradient(135deg, #fbbf24 0%, #f97316 50%, #c2410c 100%);
-    box-shadow: 0 8px 30px rgba(234, 88, 12, 0.65), 0 0 0 3px rgba(251, 191, 36, 0.35);
     color: #ffffff;
-    animation-play-state: paused;
+    box-shadow: none;
 }
 
 .btn-coffee:hover .coffee-icon-wrap {
-    transform: rotate(-12deg) scale(1.18);
+    transform: rotate(-12deg) scale(1.15);
 }
 
 .btn-coffee:active {
@@ -372,41 +369,58 @@ input {
 
 .steam {
     position: absolute;
-    top: -5px;
-    width: 3px;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.85);
-    border-radius: 4px;
+    top: 2px;
+    width: 2px;
+    height: 6px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
+    border-radius: 2px;
     opacity: 0;
-    filter: blur(0.4px);
+    filter: blur(0.3px);
     pointer-events: none;
-    animation: coffeeSteam 2s infinite ease-out;
 }
 
 .steam.steam-1 {
-    left: 2px;
-    animation-delay: 0s;
+    left: 4px;
+    animation: coffeeSteam1 2.4s infinite ease-out;
 }
 
 .steam.steam-2 {
-    left: 8px;
-    animation-delay: 1s;
+    left: 9px;
+    animation: coffeeSteam2 2.4s infinite ease-out 1.2s;
 }
 
-@keyframes coffeeSteam {
+@keyframes coffeeSteam1 {
     0% {
         transform: translateY(0) scaleX(1);
         opacity: 0;
     }
-    25% {
-        opacity: 0.85;
+    20% {
+        opacity: 0.9;
     }
-    65% {
-        transform: translateY(-8px) scaleX(1.35) skewX(-8deg);
+    55% {
+        transform: translateY(-4px) scaleX(1.3) skewX(-7deg);
         opacity: 0.45;
     }
-    100% {
-        transform: translateY(-15px) scaleX(1.9) skewX(8deg);
+    85%, 100% {
+        transform: translateY(-7px) scaleX(1.6) skewX(5deg);
+        opacity: 0;
+    }
+}
+
+@keyframes coffeeSteam2 {
+    0% {
+        transform: translateY(0) scaleX(1);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.9;
+    }
+    55% {
+        transform: translateY(-4px) scaleX(1.3) skewX(7deg);
+        opacity: 0.45;
+    }
+    85%, 100% {
+        transform: translateY(-7px) scaleX(1.6) skewX(-5deg);
         opacity: 0;
     }
 }
@@ -426,15 +440,6 @@ input {
     100% {
         left: 140%;
         opacity: 0;
-    }
-}
-
-@keyframes coffeePulse {
-    0%, 100% {
-        box-shadow: 0 4px 18px rgba(234, 88, 12, 0.4), 0 0 0 0 rgba(245, 158, 11, 0.45);
-    }
-    50% {
-        box-shadow: 0 6px 26px rgba(234, 88, 12, 0.65), 0 0 0 6px rgba(245, 158, 11, 0);
     }
 }
 
