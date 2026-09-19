@@ -1059,14 +1059,23 @@
       const nEating = nWin + nLoseEat;
 
       if (nEating === 0) {
-        errorBanner.classList.add('show');
-        errorMsg.innerText = 'Cần ít nhất 1 người có mặt đi ăn để chia hóa đơn!';
+        if (bill > 0) {
+          errorBanner.classList.add('show');
+          errorMsg.innerText = 'Cần ít nhất 1 người có mặt đi ăn để chia hóa đơn!';
+        } else {
+          errorBanner.classList.remove('show');
+        }
         priceWin.innerText = '0';
         priceLoseEat.innerText = '0';
-        priceLoseHome.innerText = formatVND(penalty);
+        priceLoseHome.innerText = nLoseHome > 0 ? formatVND(penalty) : '0';
         subtotalWin.innerText = '0';
         subtotalLoseEat.innerText = '0';
         subtotalLoseHome.innerText = formatVND(nLoseHome * penalty);
+        auditTotalCollected.innerText = formatVND(nLoseHome * penalty);
+        auditBadge.innerHTML = '<i class="uil uil-info-circle"></i> Sẵn sàng nhập liệu';
+        auditBadge.style.color = '#475569';
+        auditBadge.style.background = '#f1f5f9';
+        auditBadge.style.border = '1px solid #cbd5e1';
         return;
       } else {
         errorBanner.classList.remove('show');
@@ -1081,9 +1090,13 @@
       let payLoseEat = finalX + penalty;
       let payLoseHome = penalty;
 
-      if (totalPenalty >= bill) {
+      if (totalPenalty >= bill && bill > 0) {
         payWin = 0;
         payLoseEat = penalty;
+      } else if (bill === 0) {
+        payWin = 0;
+        payLoseEat = 0;
+        payLoseHome = 0;
       }
 
       const totalWinSub = payWin * nWin;
@@ -1100,6 +1113,14 @@
       subtotalLoseHome.innerText = formatVND(totalLoseHomeSub);
 
       auditTotalCollected.innerText = formatVND(grandTotal);
+
+      if (bill === 0 && grandTotal === 0) {
+        auditBadge.innerHTML = '<i class="uil uil-info-circle"></i> Sẵn sàng nhập liệu';
+        auditBadge.style.color = '#475569';
+        auditBadge.style.background = '#f1f5f9';
+        auditBadge.style.border = '1px solid #cbd5e1';
+        return;
+      }
 
       const diff = grandTotal - bill;
       if (diff === 0) {
@@ -1122,8 +1143,14 @@
 
     // Bill input formatting
     billInput.addEventListener('input', () => {
-      bill = parseVND(billInput.value);
-      billInput.value = bill.toLocaleString('vi-VN');
+      const raw = billInput.value.replace(/[^\d]/g, '');
+      if (raw) {
+        bill = parseInt(raw, 10) || 0;
+        billInput.value = bill.toLocaleString('vi-VN');
+      } else {
+        bill = 0;
+        billInput.value = '';
+      }
       calculate();
     });
 
@@ -1195,46 +1222,36 @@
       }, 3000);
     }
 
-    // Reset
+    // Reset - Xóa trắng toàn bộ thông tin nhập
     btnReset.addEventListener('click', () => {
-      bill = 1500000;
-      penalty = 50000;
-      roundMode = '1000';
+      bill = 0;
+      billInput.value = '';
 
-      billInput.value = '1.500.000';
-      membersWin = [
-        { name: 'Bình', paid: false },
-        { name: 'Nam', paid: false },
-        { name: 'Tú', paid: false },
-        { name: 'Triều', paid: false },
-        { name: 'Thanh', paid: false },
-        { name: 'Dũng', paid: false },
-        { name: 'Tuấn Anh', paid: false },
-        { name: 'Ngọc', paid: false }
-      ];
-      membersLoseEat = [
-        { name: 'Minh', paid: false },
-        { name: 'Long', paid: false },
-        { name: 'Khánh', paid: false },
-        { name: 'Huy', paid: false }
-      ];
-      membersLoseHome = [
-        { name: 'Đức', paid: false },
-        { name: 'Hải', paid: false }
-      ];
+      membersWin = [];
+      membersLoseEat = [];
+      membersLoseHome = [];
+
+      const inputWin = document.getElementById('input-win');
+      const inputLoseEat = document.getElementById('input-lose-eat');
+      const inputLoseHome = document.getElementById('input-lose-home');
+      if (inputWin) inputWin.value = '';
+      if (inputLoseEat) inputLoseEat.value = '';
+      if (inputLoseHome) inputLoseHome.value = '';
 
       penaltyBtns.forEach(b => b.classList.remove('active'));
       penaltyBtns[0].classList.add('active');
+      penalty = parseInt(penaltyBtns[0].dataset.penalty, 10);
 
       roundPills.forEach(p => p.classList.remove('active'));
       roundPills[1].classList.add('active');
+      roundMode = roundPills[1].dataset.round;
 
       renderTeamChips('win');
       renderTeamChips('lose-eat');
       renderTeamChips('lose-home');
 
       calculate();
-      showToast('Đã đặt lại danh sách & hóa đơn về mặc định!');
+      showToast('Đã đặt lại toàn bộ tên người và số tiền hóa đơn!');
     });
 
     // Initialize Tag Inputs

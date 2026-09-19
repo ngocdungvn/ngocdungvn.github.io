@@ -153,38 +153,134 @@ function initQualificationTabs() {
     });
 }
 
-/*==================== PROJECTS TOOLBAR (FILTER & SEARCH) ====================*/
+/*==================== PROJECTS TOOLBAR (FILTER & SEARCH & PAGINATION) ====================*/
 function initProjectToolbar() {
     const filterBtns = document.querySelectorAll('.filter-btn');
     const searchInput = document.getElementById('project-search');
-    const projectCards = document.querySelectorAll('.project-card');
+    const projectCards = Array.from(document.querySelectorAll('.project-card'));
     const noResultsMsg = document.getElementById('no-results-msg');
+    const paginationContainer = document.getElementById('project-pagination');
+    const paginationPages = document.getElementById('pagination-pages');
+    const prevBtn = document.getElementById('pagination-prev');
+    const nextBtn = document.getElementById('pagination-next');
+    const statusEl = document.getElementById('pagination-status');
 
-    let currentFilter = 'all';
+    const ITEMS_PER_PAGE = 6;
+    const initialActive = document.querySelector('.filter-btn.active');
+    let currentFilter = initialActive ? initialActive.getAttribute('data-filter') : 'tool';
     let currentQuery = '';
+    let currentPage = 1;
 
-    function applyFilterAndSearch() {
-        let visibleCount = 0;
-
-        projectCards.forEach((card) => {
+    function getMatchingCards() {
+        return projectCards.filter((card) => {
             const cardCat = card.getAttribute('data-category');
             const cardTitle = card.querySelector('.project-title')?.textContent.toLowerCase() || '';
             const cardDesc = card.querySelector('.project-desc')?.textContent.toLowerCase() || '';
 
-            const matchesCategory = (currentFilter === 'all' || cardCat === currentFilter);
+            // If searching with query, search across all projects; otherwise filter by active category tab
+            const matchesCategory = currentQuery ? true : (cardCat === currentFilter);
             const matchesQuery = (cardTitle.includes(currentQuery) || cardDesc.includes(currentQuery));
 
-            if (matchesCategory && matchesQuery) {
-                card.style.display = 'flex';
-                visibleCount++;
-            } else {
-                card.style.display = 'none';
-            }
+            return matchesCategory && matchesQuery;
+        });
+    }
+
+    function renderPage(page, shouldScroll = false) {
+        const matchingCards = getMatchingCards();
+        const totalItems = matchingCards.length;
+        const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) || 1;
+
+        if (page < 1) page = 1;
+        if (page > totalPages) page = totalPages;
+        currentPage = page;
+
+        // Hide all cards first
+        projectCards.forEach((card) => {
+            card.style.display = 'none';
         });
 
+        // Show cards for current page
+        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+        const endIndex = startIndex + ITEMS_PER_PAGE;
+        const pageCards = matchingCards.slice(startIndex, endIndex);
+
+        pageCards.forEach((card) => {
+            card.style.display = 'flex';
+        });
+
+        // No results message
         if (noResultsMsg) {
-            noResultsMsg.style.display = (visibleCount === 0) ? 'block' : 'none';
+            noResultsMsg.style.display = (totalItems === 0) ? 'block' : 'none';
         }
+
+        // Render pagination controls
+        renderPaginationControls(totalPages, totalItems);
+
+        // Smooth scroll to top of section if page changed by user click
+        if (shouldScroll) {
+            const projectSection = document.getElementById('Project');
+            if (projectSection) {
+                const navHeight = 90;
+                const targetY = projectSection.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                window.scrollTo({ top: targetY, behavior: 'smooth' });
+            }
+        }
+    }
+
+    function renderPaginationControls(totalPages, totalItems) {
+        if (!paginationContainer) return;
+
+        if (totalItems <= ITEMS_PER_PAGE) {
+            paginationContainer.style.display = 'none';
+            return;
+        }
+
+        paginationContainer.style.display = 'flex';
+
+        if (prevBtn) {
+            prevBtn.disabled = (currentPage <= 1);
+        }
+        if (nextBtn) {
+            nextBtn.disabled = (currentPage >= totalPages);
+        }
+
+        if (statusEl) {
+            statusEl.textContent = `Trang ${currentPage} / ${totalPages} (${totalItems} ứng dụng)`;
+        }
+
+        if (paginationPages) {
+            paginationPages.innerHTML = '';
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.className = `page-num ${i === currentPage ? 'active' : ''}`;
+                btn.textContent = i;
+                btn.setAttribute('aria-label', `Trang ${i}`);
+                btn.addEventListener('click', () => {
+                    if (i !== currentPage) {
+                        renderPage(i, true);
+                    }
+                });
+                paginationPages.appendChild(btn);
+            }
+        }
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                renderPage(currentPage - 1, true);
+            }
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            const matchingCards = getMatchingCards();
+            const totalPages = Math.ceil(matchingCards.length / ITEMS_PER_PAGE) || 1;
+            if (currentPage < totalPages) {
+                renderPage(currentPage + 1, true);
+            }
+        });
     }
 
     filterBtns.forEach((btn) => {
@@ -192,16 +288,23 @@ function initProjectToolbar() {
             filterBtns.forEach((b) => b.classList.remove('active'));
             btn.classList.add('active');
             currentFilter = btn.getAttribute('data-filter');
-            applyFilterAndSearch();
+            if (searchInput && searchInput.value) {
+                searchInput.value = '';
+                currentQuery = '';
+            }
+            renderPage(1, false);
         });
     });
 
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             currentQuery = e.target.value.toLowerCase().trim();
-            applyFilterAndSearch();
+            renderPage(1, false);
         });
     }
+
+    // Initial render on page load
+    renderPage(1, false);
 }
 
 /*==================== COPY BANK NUMBER TOAST ====================*/

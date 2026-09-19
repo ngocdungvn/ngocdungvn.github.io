@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
 
     <!--==================== MAIN CSS ====================-->
-    <link rel="stylesheet" href="assets/css/styles.css?v=3.4" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=3.5" />
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-44V9QEHL9J"></script>
@@ -310,14 +310,12 @@
                         tôi xây dựng và lưu trữ.</p>
                 </div>
 
-                <!-- Filter & Search Toolbar -->
+                <!-- Filter & Search Toolbar (Bỏ tab Tất cả, chia danh mục rõ ràng) -->
                 <div class="project-toolbar">
                     <div class="project-filters">
-                        <button class="filter-btn active" data-filter="all">Tất cả</button>
+                        <button class="filter-btn active" data-filter="tool"><i class="uil uil-wrench"></i> Tiện ích</button>
                         <button class="filter-btn" data-filter="game"><i class="uil uil-play"></i> Trò chơi</button>
-                        <button class="filter-btn" data-filter="tool"><i class="uil uil-wrench"></i> Tiện ích</button>
-                        <button class="filter-btn" data-filter="guide"><i class="uil uil-book-open"></i> Hướng
-                            dẫn</button>
+                        <button class="filter-btn" data-filter="guide"><i class="uil uil-palette"></i> Hiệu ứng & Nghệ thuật</button>
                     </div>
 
                     <div class="project-search-box">
@@ -327,330 +325,10 @@
                     </div>
                 </div>
 
-                <!-- Projects Grid -->
+                <!-- Projects Grid: Chỉ chứa 15 ứng dụng thực tế hoạt động -->
                 <div class="projects-grid" id="projects-grid">
 
-                    <!-- Project 1: Fishies -->
-                    <div class="project-card glass-card" data-category="game">
-                        <div class="project-card-top">
-                            <div class="project-badge-row">
-                                <span class="project-cat-badge badge-game">Game Canvas</span>
-                                <i class="uil uil-trophy project-icon-indicator"></i>
-                            </div>
-                            <h3 class="project-title">Cá Lớn Nuốt Cá Bé</h3>
-                            <p class="project-desc">Trò chơi săn mồi biển sâu kinh điển với đồ họa canvas mượt mà và âm
-                                thanh sống động.</p>
-                        </div>
-                        <div class="project-card-bottom">
-                            <span class="project-tech">HTML5 Canvas • JS</span>
-                            <a href="./project/fishies.html" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-secondary btn-sm">
-                                Chơi ngay <i class="uil uil-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 2: BabyWantsMilk -->
-                    <div class="project-card glass-card" data-category="game">
-                        <div class="project-card-top">
-                            <div class="project-badge-row">
-                                <span class="project-cat-badge badge-game">Game Canvas</span>
-                                <i class="uil uil-smile project-icon-indicator"></i>
-                            </div>
-                            <h3 class="project-title">Pi Đi Tìm Sữa</h3>
-                            <p class="project-desc">Mini game phiêu lưu vui nhộn vượt qua chướng ngại vật giúp bé Pi tìm
-                                bình sữa thơm ngon.</p>
-                        </div>
-                        <div class="project-card-bottom">
-                            <span class="project-tech">JavaScript • Web Audio</span>
-                            <a href="./project/BabyWantsMilk.html" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-secondary btn-sm">
-                                Chơi ngay <i class="uil uil-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 3: Fireworks 2023 -->
-                    <div class="project-card glass-card" data-category="guide">
-                        <div class="project-card-top">
-                            <div class="project-badge-row">
-                                <span class="project-cat-badge badge-guide">Visual Art</span>
-                                <i class="uil uil-fire project-icon-indicator"></i>
-                            </div>
-                            <h3 class="project-title">Pháo Hoa Tương Tác 2023</h3>
-                            <p class="project-desc">Trình diễn pháo hoa nghệ thuật hiệu ứng vật lý hạt rực rỡ, thích hợp
-                                thư giãn và đón năm mới.</p>
-                        </div>
-                        <div class="project-card-bottom">
-                            <span class="project-tech">Particle Physics • Canvas</span>
-                            <a href="./project/firework/index.html" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-secondary btn-sm">
-                                Trải nghiệm <i class="uil uil-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 4: Linux Guide -->
-                    <div class="project-card glass-card" data-category="guide">
-                        <div class="project-card-top">
-                            <div class="project-badge-row">
-                                <span class="project-cat-badge badge-guide">Cẩm Nang</span>
-                                <i class="uil uil-linux project-icon-indicator"></i>
-                            </div>
-                            <h3 class="project-title">Sổ Tay Lệnh Linux</h3>
-                            <p class="project-desc">Tổng hợp toàn diện các câu lệnh quản trị hệ thống Linux từ cơ bản
-                                đến nâng cao.</p>
-                        </div>
-                        <div class="project-card-bottom">
-                            <span class="project-tech">CheatSheet • SysAdmin</span>
-                            <a href="./project/htmlinux.html" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-secondary btn-sm">
-                                Xem tài liệu <i class="uil uil-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 5: Downloads ATV -->
-                    <div class="project-card glass-card" data-category="tool">
-                        <div class="project-card-top">
-                            <div class="project-badge-row">
-                                <span class="project-cat-badge badge-tool">Kho Ứng Dụng</span>
-                                <i class="uil uil-cloud-download project-icon-indicator"></i>
-                            </div>
-                            <h3 class="project-title">Downloads Android TV</h3>
-                            <p class="project-desc">Cổng tải nhanh các ứng dụng xem phim, truyền hình và tiện ích tối ưu
-                                cho Android Box.</p>
-                        </div>
-                        <div class="project-card-bottom">
-                            <span class="project-tech">App Repository • Fast DL</span>
-                            <a href="./project/downloads.html" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-secondary btn-sm">
-                                Mở trang tải <i class="uil uil-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 6: Digital Clock -->
-                    <div class="project-card glass-card" data-category="tool">
-                        <div class="project-card-top">
-                            <div class="project-badge-row">
-                                <span class="project-cat-badge badge-tool">Tiện Ích</span>
-                                <i class="uil uil-clock project-icon-indicator"></i>
-                            </div>
-                            <h3 class="project-title">Digital Clock Hiện Đại</h3>
-                            <p class="project-desc">Đồng hồ kỹ thuật số thiết kế tối giản, phong cách LED sắc nét hiển
-                                thị thời gian chính xác.</p>
-                        </div>
-                        <div class="project-card-bottom">
-                            <span class="project-tech">CSS LED • JS Timer</span>
-                            <a href="./project/clock.html" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-secondary btn-sm">
-                                Mở đồng hồ <i class="uil uil-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 7: Color Clock -->
-                    <div class="project-card glass-card" data-category="tool">
-                        <div class="project-card-top">
-                            <div class="project-badge-row">
-                                <span class="project-cat-badge badge-tool">Tiện Ích</span>
-                                <i class="uil uil-palette project-icon-indicator"></i>
-                            </div>
-                            <h3 class="project-title">Color Clock Sắc Màu</h3>
-                            <p class="project-desc">Đồng hồ đổi màu nền thời gian thực dựa trên mã màu Hex tương ứng với
-                                giờ phút giây.</p>
-                        </div>
-                        <div class="project-card-bottom">
-                            <span class="project-tech">Hex Color • Dynamic CSS</span>
-                            <a href="./project/colorclock.html" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-secondary btn-sm">
-                                Khám phá <i class="uil uil-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 8: Snake Game -->
-                    <div class="project-card glass-card" data-category="game">
-                        <div class="project-card-top">
-                            <div class="project-badge-row">
-                                <span class="project-cat-badge badge-game">Game Canvas</span>
-                                <i class="uil uil-game-structure project-icon-indicator"></i>
-                            </div>
-                            <h3 class="project-title">Rắn Săn Mồi Cổ Điển</h3>
-                            <p class="project-desc">Tái hiện trò chơi Snake huyền thoại với tính năng tính điểm và tăng
-                                tốc độ cuốn hút.</p>
-                        </div>
-                        <div class="project-card-bottom">
-                            <span class="project-tech">Retro 2D • Canvas</span>
-                            <a href="./project/Snakegame.html" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-secondary btn-sm">
-                                Chơi ngay <i class="uil uil-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 9: Webmine -->
-                    <div class="project-card glass-card" data-category="game">
-                        <div class="project-card-top">
-                            <div class="project-badge-row">
-                                <span class="project-cat-badge badge-game">Trí Tuệ</span>
-                                <i class="uil uil-bomb project-icon-indicator"></i>
-                            </div>
-                            <h3 class="project-title">Dò Mìn Minesweeper</h3>
-                            <p class="project-desc">Trò chơi gỡ bom kinh điển rèn luyện tư duy logic và phán đoán vị trí
-                                bom chính xác.</p>
-                        </div>
-                        <div class="project-card-bottom">
-                            <span class="project-tech">DOM Logic • Vanilla JS</span>
-                            <a href="./project/webmine.html" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-secondary btn-sm">
-                                Thử thách <i class="uil uil-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 10: Ping Pong -->
-                    <div class="project-card glass-card" data-category="game">
-                        <div class="project-card-top">
-                            <div class="project-badge-row">
-                                <span class="project-cat-badge badge-game">Game Đối Kháng</span>
-                                <i class="uil uil-table-tennis project-icon-indicator"></i>
-                            </div>
-                            <h3 class="project-title">Bóng Bàn 2D Ping Pong</h3>
-                            <p class="project-desc">Trò chơi bóng bàn cổ điển đối đầu với máy tính (AI bot) với vật lý
-                                va chạm chân thực.</p>
-                        </div>
-                        <div class="project-card-bottom">
-                            <span class="project-tech">Collision Physics • Canvas</span>
-                            <a href="./project/ping-pong.html" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-secondary btn-sm">
-                                Đấu ngay <i class="uil uil-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 11: Simon Game -->
-                    <div class="project-card glass-card" data-category="game">
-                        <div class="project-card-top">
-                            <div class="project-badge-row">
-                                <span class="project-cat-badge badge-game">Trí Nhớ</span>
-                                <i class="uil uil-bell project-icon-indicator"></i>
-                            </div>
-                            <h3 class="project-title">Thử Thách Simon Memory</h3>
-                            <p class="project-desc">Thử thách trí nhớ âm thanh và màu sắc: lặp lại chuỗi tín hiệu tăng
-                                dần độ khó.</p>
-                        </div>
-                        <div class="project-card-bottom">
-                            <span class="project-tech">Audio Synthesis • JS</span>
-                            <a href="./project/simon-game.html" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-secondary btn-sm">
-                                Thử thách <i class="uil uil-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 12: Whack A Mole -->
-                    <div class="project-card glass-card" data-category="game">
-                        <div class="project-card-top">
-                            <div class="project-badge-row">
-                                <span class="project-cat-badge badge-game">Phản Xạ</span>
-                                <i class="uil uil-bolt project-icon-indicator"></i>
-                            </div>
-                            <h3 class="project-title">Đập Chuột Whack-A-Mole</h3>
-                            <p class="project-desc">Rèn luyện tốc độ phản xạ của mắt và tay bằng trò chơi đập chuột
-                                chuỗi điểm combo.</p>
-                        </div>
-                        <div class="project-card-bottom">
-                            <span class="project-tech">Animation • Game Loop</span>
-                            <a href="./project/whack-a-mole.html" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-secondary btn-sm">
-                                Chơi ngay <i class="uil uil-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 13: Sudoku -->
-                    <div class="project-card glass-card" data-category="game">
-                        <div class="project-card-top">
-                            <div class="project-badge-row">
-                                <span class="project-cat-badge badge-game">Trí Tuệ</span>
-                                <i class="uil uil-grid project-icon-indicator"></i>
-                            </div>
-                            <h3 class="project-title">Giải Đố Sudoku</h3>
-                            <p class="project-desc">Bảng giải đố Sudoku 9x9 trực quan với thuật toán sinh câu đố và kiểm
-                                tra tính hợp lệ.</p>
-                        </div>
-                        <div class="project-card-bottom">
-                            <span class="project-tech">Algorithm • Board Game</span>
-                            <a href="./project/UdhavSudoku.html" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-secondary btn-sm">
-                                Giải đố <i class="uil uil-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 14: Stop Watch -->
-                    <div class="project-card glass-card" data-category="tool">
-                        <div class="project-card-top">
-                            <div class="project-badge-row">
-                                <span class="project-cat-badge badge-tool">Tiện Ích</span>
-                                <i class="uil uil-stopwatch project-icon-indicator"></i>
-                            </div>
-                            <h3 class="project-title">Đồng Hồ Bấm Giờ StopWatch</h3>
-                            <p class="project-desc">Bộ đếm thời gian thể thao và làm việc chuẩn mili giây với chức năng
-                                ghi lap chia chặng.</p>
-                        </div>
-                        <div class="project-card-bottom">
-                            <span class="project-tech">Precision Timer • JS</span>
-                            <a href="./project/stopWatch.html" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-secondary btn-sm">
-                                Sử dụng <i class="uil uil-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 15: Hours Worked Calculator -->
-                    <div class="project-card glass-card" data-category="tool">
-                        <div class="project-card-top">
-                            <div class="project-badge-row">
-                                <span class="project-cat-badge badge-tool">Công Cụ</span>
-                                <i class="uil uil-calculator-alt project-icon-indicator"></i>
-                            </div>
-                            <h3 class="project-title">Tính Giờ Làm Việc</h3>
-                            <p class="project-desc">Tiện ích tính tổng số giờ công, thời gian nghỉ và ước tính lương làm
-                                việc theo ca.</p>
-                        </div>
-                        <div class="project-card-bottom">
-                            <span class="project-tech">Date Math • Productivity</span>
-                            <a href="./project/calculate_hours_worked.html" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-secondary btn-sm">
-                                Tính ngay <i class="uil uil-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 16: Conway's Game of Life -->
-                    <div class="project-card glass-card" data-category="guide">
-                        <div class="project-card-top">
-                            <div class="project-badge-row">
-                                <span class="project-cat-badge badge-guide">Toán Học</span>
-                                <i class="uil uil-dna project-icon-indicator"></i>
-                            </div>
-                            <h3 class="project-title">Conway's Game of Life</h3>
-                            <p class="project-desc">Mô phỏng toán học nổi tiếng về sự sinh tồn và tiến hóa của các tế
-                                bào trong không gian 2D.</p>
-                        </div>
-                        <div class="project-card-bottom">
-                            <span class="project-tech">Cellular Automata • Canvas</span>
-                            <a href="./project/game_of_life.html" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-secondary btn-sm">
-                                Khám phá <i class="uil uil-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 17: Random Number Picker -->
+                    <!-- App 1: Random Number (Tiện ích) -->
                     <div class="project-card glass-card" data-category="tool">
                         <div class="project-card-top">
                             <div class="project-badge-row">
@@ -658,7 +336,7 @@
                                 <i class="uil uil-dice-six project-icon-indicator"></i>
                             </div>
                             <h3 class="project-title">Quay Số Ngẫu Nhiên</h3>
-                            <p class="project-desc">Quay số và bốc thăm trúng thưởng ngẫu nhiên trong khoảng từ A đến Z, giao diện hiện đại mượt mà.</p>
+                            <p class="project-desc">Quay số và bốc thăm trúng thưởng ngẫu nhiên trong khoảng tùy chọn từ A đến Z, giao diện Light hiện đại mượt mà.</p>
                         </div>
                         <div class="project-card-bottom">
                             <span class="project-tech">RNG • Confetti Canvas</span>
@@ -669,7 +347,7 @@
                         </div>
                     </div>
 
-                    <!-- Project 18: Football Bill Splitter -->
+                    <!-- App 2: Share Bill (Tiện ích) -->
                     <div class="project-card glass-card" data-category="tool">
                         <div class="project-card-top">
                             <div class="project-badge-row">
@@ -677,7 +355,7 @@
                                 <i class="uil uil-bill project-icon-indicator"></i>
                             </div>
                             <h3 class="project-title">Chia Tiền Kèo Bóng Đá</h3>
-                            <p class="project-desc">Tính toán và chia tiền ăn nhậu, kèo phạt trận bóng đá thông minh với tính năng sao chép thông báo Zalo.</p>
+                            <p class="project-desc">Tính toán và chia tiền ăn nhậu, kèo phạt trận bóng đá thông minh dạng chip liền dòng, sao chép thông báo Zalo.</p>
                         </div>
                         <div class="project-card-bottom">
                             <span class="project-tech">Finance Logic • Clipboard API</span>
@@ -688,7 +366,7 @@
                         </div>
                     </div>
 
-                    <!-- Project 19: Calculator -->
+                    <!-- App 3: Calculator (Tiện ích) -->
                     <div class="project-card glass-card" data-category="tool">
                         <div class="project-card-top">
                             <div class="project-badge-row">
@@ -696,7 +374,7 @@
                                 <i class="uil uil-calculator project-icon-indicator"></i>
                             </div>
                             <h3 class="project-title">Máy Tính Neumorphic</h3>
-                            <p class="project-desc">Máy tính cầm tay bỏ túi giao diện kính mờ Neumorphic sang trọng, hỗ trợ các phép tính số học chính xác.</p>
+                            <p class="project-desc">Máy tính cầm tay bỏ túi giao diện kính mờ Neumorphic sang trọng, bộ xử lý số học an toàn và chính xác cao.</p>
                         </div>
                         <div class="project-card-bottom">
                             <span class="project-tech">Neumorphism • Safe Math</span>
@@ -707,7 +385,64 @@
                         </div>
                     </div>
 
-                    <!-- Project 20: Fall Game -->
+                    <!-- App 4: Downloads ATV (Tiện ích) -->
+                    <div class="project-card glass-card" data-category="tool">
+                        <div class="project-card-top">
+                            <div class="project-badge-row">
+                                <span class="project-cat-badge badge-tool">Kho Ứng Dụng</span>
+                                <i class="uil uil-cloud-download project-icon-indicator"></i>
+                            </div>
+                            <h3 class="project-title">Downloads Android TV</h3>
+                            <p class="project-desc">Cổng tải nhanh các ứng dụng xem phim, truyền hình và tiện ích tối ưu cho Android Box kèm bộ lọc danh mục.</p>
+                        </div>
+                        <div class="project-card-bottom">
+                            <span class="project-tech">App Repository • Fast DL</span>
+                            <a href="./project/downloads.html" target="_blank" rel="noopener noreferrer"
+                                class="btn btn-secondary btn-sm">
+                                Mở trang tải <i class="uil uil-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- App 5: Color Clock (Tiện ích) -->
+                    <div class="project-card glass-card" data-category="tool">
+                        <div class="project-card-top">
+                            <div class="project-badge-row">
+                                <span class="project-cat-badge badge-tool">Tiện Ích</span>
+                                <i class="uil uil-palette project-icon-indicator"></i>
+                            </div>
+                            <h3 class="project-title">Color Clock Sắc Màu</h3>
+                            <p class="project-desc">Đồng hồ đổi màu nền thời gian thực theo mã Hex tương ứng với giờ phút giây, drawer cài đặt tinh chỉnh tiện lợi.</p>
+                        </div>
+                        <div class="project-card-bottom">
+                            <span class="project-tech">Hex Color • Dynamic CSS</span>
+                            <a href="./project/colorclock.html" target="_blank" rel="noopener noreferrer"
+                                class="btn btn-secondary btn-sm">
+                                Khám phá <i class="uil uil-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- App 6: Snake Game (Trò chơi) -->
+                    <div class="project-card glass-card" data-category="game">
+                        <div class="project-card-top">
+                            <div class="project-badge-row">
+                                <span class="project-cat-badge badge-game">Game Canvas</span>
+                                <i class="uil uil-game-structure project-icon-indicator"></i>
+                            </div>
+                            <h3 class="project-title">Rắn Săn Mồi Cổ Điển</h3>
+                            <p class="project-desc">Tái hiện trò chơi Snake huyền thoại với tỉ lệ canvas 1:1, D-pad cảm ứng ảo di động, HUD điểm số & kỷ lục.</p>
+                        </div>
+                        <div class="project-card-bottom">
+                            <span class="project-tech">Retro 2D • Touch D-pad</span>
+                            <a href="./project/Snakegame.html" target="_blank" rel="noopener noreferrer"
+                                class="btn btn-secondary btn-sm">
+                                Chơi ngay <i class="uil uil-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- App 7: Fall Game (Trò chơi) -->
                     <div class="project-card glass-card" data-category="game">
                         <div class="project-card-top">
                             <div class="project-badge-row">
@@ -715,7 +450,7 @@
                                 <i class="uil uil-arrow-down project-icon-indicator"></i>
                             </div>
                             <h3 class="project-title">Nhảy Tầng Fall Game</h3>
-                            <p class="project-desc">Điều khiển quả bóng nhảy qua khe hở các tầng không giới hạn, hỗ trợ phím cảm ứng đa điểm trên điện thoại.</p>
+                            <p class="project-desc">Điều khiển quả bóng nhảy qua khe hở các tầng không giới hạn, hỗ trợ phím cảm ứng Trái/Phải mượt mà trên điện thoại.</p>
                         </div>
                         <div class="project-card-bottom">
                             <span class="project-tech">2D Physics • Touch Controls</span>
@@ -726,7 +461,83 @@
                         </div>
                     </div>
 
-                    <!-- Project 21: Birthday Cake -->
+                    <!-- App 8: Fishies (Trò chơi) -->
+                    <div class="project-card glass-card" data-category="game">
+                        <div class="project-card-top">
+                            <div class="project-badge-row">
+                                <span class="project-cat-badge badge-game">Game Canvas</span>
+                                <i class="uil uil-trophy project-icon-indicator"></i>
+                            </div>
+                            <h3 class="project-title">Cá Lớn Nuốt Cá Bé</h3>
+                            <p class="project-desc">Trò chơi săn mồi biển sâu kinh điển với đồ họa canvas mượt mà, hỗ trợ chạm vuốt điều khiển đàn cá theo ngón tay.</p>
+                        </div>
+                        <div class="project-card-bottom">
+                            <span class="project-tech">HTML5 Canvas • Multi-touch</span>
+                            <a href="./project/fishies.html" target="_blank" rel="noopener noreferrer"
+                                class="btn btn-secondary btn-sm">
+                                Chơi ngay <i class="uil uil-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- App 9: BabyWantsMilk (Trò chơi) -->
+                    <div class="project-card glass-card" data-category="game">
+                        <div class="project-card-top">
+                            <div class="project-badge-row">
+                                <span class="project-cat-badge badge-game">Game Phiêu Lưu</span>
+                                <i class="uil uil-smile project-icon-indicator"></i>
+                            </div>
+                            <h3 class="project-title">Pi Đi Tìm Sữa</h3>
+                            <p class="project-desc">Mini game phiêu lưu vui nhộn vượt qua mê cung chướng ngại vật giúp bé Pi tìm bình sữa, hỗ trợ D-pad ảo di động.</p>
+                        </div>
+                        <div class="project-card-bottom">
+                            <span class="project-tech">Maze Engine • Virtual D-pad</span>
+                            <a href="./project/BabyWantsMilk.html" target="_blank" rel="noopener noreferrer"
+                                class="btn btn-secondary btn-sm">
+                                Chơi ngay <i class="uil uil-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- App 10: Ping Pong (Trò chơi) -->
+                    <div class="project-card glass-card" data-category="game">
+                        <div class="project-card-top">
+                            <div class="project-badge-row">
+                                <span class="project-cat-badge badge-game">Game Đối Kháng</span>
+                                <i class="uil uil-table-tennis project-icon-indicator"></i>
+                            </div>
+                            <h3 class="project-title">Bóng Bàn 2D Ping Pong</h3>
+                            <p class="project-desc">Trò chơi bóng bàn cổ điển đối đầu máy tính AI thông minh, hỗ trợ vuốt chạm điều khiển vợt trực tiếp trên sàn đấu.</p>
+                        </div>
+                        <div class="project-card-bottom">
+                            <span class="project-tech">Collision Physics • Touch Drag</span>
+                            <a href="./project/ping-pong.html" target="_blank" rel="noopener noreferrer"
+                                class="btn btn-secondary btn-sm">
+                                Đấu ngay <i class="uil uil-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- App 11: Simon Game (Trò chơi) -->
+                    <div class="project-card glass-card" data-category="game">
+                        <div class="project-card-top">
+                            <div class="project-badge-row">
+                                <span class="project-cat-badge badge-game">Trí Nhớ</span>
+                                <i class="uil uil-bell project-icon-indicator"></i>
+                            </div>
+                            <h3 class="project-title">Thử Thách Simon Memory</h3>
+                            <p class="project-desc">Rèn luyện trí nhớ thính giác và thị giác qua chuỗi tín hiệu màu sắc, âm thanh tổng hợp Web Audio API hiện đại.</p>
+                        </div>
+                        <div class="project-card-bottom">
+                            <span class="project-tech">Audio Synthesis • Memory</span>
+                            <a href="./project/simon-game.html" target="_blank" rel="noopener noreferrer"
+                                class="btn btn-secondary btn-sm">
+                                Thử thách <i class="uil uil-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- App 12: Birthday Cake (Hiệu ứng & Nghệ thuật) -->
                     <div class="project-card glass-card" data-category="guide">
                         <div class="project-card-top">
                             <div class="project-badge-row">
@@ -734,7 +545,7 @@
                                 <i class="uil uil-cake project-icon-indicator"></i>
                             </div>
                             <h3 class="project-title">Bánh Sinh Nhật Thổi Nến</h3>
-                            <p class="project-desc">Bánh sinh nhật tương tác 3 tầng với nến lung linh, chạm để thổi nến hoặc thắp nến kèm hiệu ứng âm thanh.</p>
+                            <p class="project-desc">Bánh sinh nhật tương tác 3 tầng với nến lung linh, chạm để thổi nến hoặc thắp lại nến kèm hiệu ứng âm thanh sống động.</p>
                         </div>
                         <div class="project-card-bottom">
                             <span class="project-tech">CSS Art • Web Audio</span>
@@ -745,7 +556,7 @@
                         </div>
                     </div>
 
-                    <!-- Project 22: Auto Fireworks -->
+                    <!-- App 13: Auto Fireworks (Hiệu ứng & Nghệ thuật) -->
                     <div class="project-card glass-card" data-category="guide">
                         <div class="project-card-top">
                             <div class="project-badge-row">
@@ -753,7 +564,7 @@
                                 <i class="uil uil-fire project-icon-indicator"></i>
                             </div>
                             <h3 class="project-title">Pháo Hoa Tự Động Pro</h3>
-                            <p class="project-desc">Trình diễn pháo hoa 3D tự động với thanh điều khiển hiện đại, chế độ toàn màn hình và tùy chỉnh tốc độ bắn.</p>
+                            <p class="project-desc">Trình diễn pháo hoa 3D tự động với thanh điều khiển drawer trượt mở trên di động, chế độ toàn màn hình và multi-touch.</p>
                         </div>
                         <div class="project-card-bottom">
                             <span class="project-tech">Canvas 2D • Multi-touch</span>
@@ -764,7 +575,7 @@
                         </div>
                     </div>
 
-                    <!-- Project 23: Click Fireworks -->
+                    <!-- App 14: Click Fireworks (Hiệu ứng & Nghệ thuật) -->
                     <div class="project-card glass-card" data-category="guide">
                         <div class="project-card-top">
                             <div class="project-badge-row">
@@ -772,7 +583,7 @@
                                 <i class="uil uil-sparkles project-icon-indicator"></i>
                             </div>
                             <h3 class="project-title">Pháo Hoa Chạm Bắn</h3>
-                            <p class="project-desc">Chạm hoặc click bất kỳ điểm nào trên màn hình để kích nổ chùm pháo hoa rực rỡ với âm thanh nổ sống động.</p>
+                            <p class="project-desc">Chạm hoặc click bất kỳ điểm nào trên màn hình để kích nổ chùm pháo hoa rực rỡ với âm thanh nổ sống động Web Audio.</p>
                         </div>
                         <div class="project-card-bottom">
                             <span class="project-tech">Multi-touch • Web Audio</span>
@@ -783,6 +594,37 @@
                         </div>
                     </div>
 
+                    <!-- App 15: Fireworks 2023 (Hiệu ứng & Nghệ thuật) -->
+                    <div class="project-card glass-card" data-category="guide">
+                        <div class="project-card-top">
+                            <div class="project-badge-row">
+                                <span class="project-cat-badge badge-guide">Visual Art</span>
+                                <i class="uil uil-fire project-icon-indicator"></i>
+                            </div>
+                            <h3 class="project-title">Pháo Hoa Tương Tác 2023</h3>
+                            <p class="project-desc">Trình diễn pháo hoa nghệ thuật hiệu ứng vật lý hạt rực rỡ, thích hợp thư giãn và đón chào năm mới.</p>
+                        </div>
+                        <div class="project-card-bottom">
+                            <span class="project-tech">Particle Physics • Canvas</span>
+                            <a href="./project/firework/index.html" target="_blank" rel="noopener noreferrer"
+                                class="btn btn-secondary btn-sm">
+                                Trải nghiệm <i class="uil uil-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Project Pagination Controls -->
+                <div class="project-pagination" id="project-pagination" style="display: none;">
+                    <button class="pagination-btn pagination-prev" id="pagination-prev" aria-label="Trang trước">
+                        <i class="uil uil-angle-left"></i> Trang trước
+                    </button>
+                    <div class="pagination-pages" id="pagination-pages"></div>
+                    <button class="pagination-btn pagination-next" id="pagination-next" aria-label="Trang sau">
+                        Trang sau <i class="uil uil-angle-right"></i>
+                    </button>
+                    <div class="pagination-status" id="pagination-status"></div>
                 </div>
 
                 <!-- No Results Message -->
@@ -1094,7 +936,7 @@
 
     <!--==================== SCRIPTS ====================-->
     <script src="vanilla-tilt.js"></script>
-    <script src="assets/js/main.js?v=2.9"></script>
+    <script src="assets/js/main.js?v=3.5"></script>
 </body>
 
 </html>
