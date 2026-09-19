@@ -731,7 +731,7 @@
         <div class="input-wrapper">
           <i class="uil uil-receipt input-icon"></i>
           <input type="text" id="bill-input" class="form-control num-font" placeholder="Nhập số tiền..."
-            value="1.500.000" inputmode="numeric" />
+            value="" inputmode="numeric" />
         </div>
       </div>
 
@@ -864,31 +864,14 @@
   <!-- Script Logic -->
   <script>
     // State variables
-    let bill = 1500000;
+    let bill = 0;
     let penalty = 50000;
     let roundMode = '1000'; // 'none', '1000', '5000'
 
     // Member arrays: array of objects { name: string, paid: boolean }
-    let membersWin = [
-      { name: 'Bình', paid: false },
-      { name: 'Nam', paid: false },
-      { name: 'Tú', paid: false },
-      { name: 'Triều', paid: false },
-      { name: 'Thanh', paid: false },
-      { name: 'Dũng', paid: false },
-      { name: 'Tuấn Anh', paid: false },
-      { name: 'Ngọc', paid: false }
-    ];
-    let membersLoseEat = [
-      { name: 'Minh', paid: false },
-      { name: 'Long', paid: false },
-      { name: 'Khánh', paid: false },
-      { name: 'Huy', paid: false }
-    ];
-    let membersLoseHome = [
-      { name: 'Đức', paid: false },
-      { name: 'Hải', paid: false }
-    ];
+    let membersWin = [];
+    let membersLoseEat = [];
+    let membersLoseHome = [];
 
     // DOM elements
     const billInput = document.getElementById('bill-input');
