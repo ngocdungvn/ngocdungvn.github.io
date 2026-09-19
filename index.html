@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
 
     <!--==================== MAIN CSS ====================-->
-    <link rel="stylesheet" href="assets/css/styles.css?v=2.2" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=2.4" />
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-44V9QEHL9J"></script>
@@ -117,7 +117,11 @@
                         <span class="gradient-text">Tạ Ngọc Dũng</span>
                     </h1>
 
-                    <h2 class="hero__subtitle">Developer • AI Enthusiast • Tech Creator</h2>
+                    <h2 class="hero__subtitle">
+                        <span class="role-highlight">Developer</span> • 
+                        <span class="role-highlight">AI Enthusiast</span> • 
+                        <span class="role-highlight">Tech Creator</span>
+                    </h2>
 
                     <div class="hero__quote-card">
                         <i class="uil uil-quote-left"></i>
@@ -149,28 +153,75 @@
                             <i class="uil uil-envelope"></i> Email
                         </a>
                     </div>
+
+                    <!-- Quick Highlight Stats (Rich Information) -->
+                    <div class="hero__stats">
+                        <div class="stat-card">
+                            <div class="stat-icon icon-emerald"><i class="uil uil-apps"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-num">60+</span>
+                                <span class="stat-title">Mini Apps & Game</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon icon-purple"><i class="uil uil-brain"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-num">AI / ML</span>
+                                <span class="stat-title">Mô hình & Thuật toán</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon icon-cyan"><i class="uil uil-code-branch"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-num">100%</span>
+                                <span class="stat-title">Mã nguồn Tự xây dựng</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Right: 3D Avatar Card -->
+                <!-- Right: Cyber Organic Portal Showcase (Large, Non-square, Impressive) -->
                 <div class="hero__visual">
-                    <div class="avatar-card" data-tilt>
-                        <div class="avatar-img-wrap">
+                    <div class="hero__visual-glow"></div>
+                    <div class="hero__visual-orbit"></div>
+
+                    <div class="avatar-portal" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-perspective="1000">
+                        <div class="avatar-portal-inner">
                             <img src="assets/img/tnd.jpg" alt="Tạ Ngọc Dũng Avatar" loading="eager" />
-                        </div>
-                        <div class="avatar-info">
-                            <h3 class="avatar-name">Tạ Ngọc Dũng ツ</h3>
-                            <p class="avatar-role">Full-Stack & ML Explorer</p>
+                            <div class="avatar-portal-overlay"></div>
+                            
+                            <div class="avatar-portal-caption">
+                                <span class="caption-tag"><i class="uil uil-check-circle"></i> Tech Creator</span>
+                                <h3 class="caption-name">Tạ Ngọc Dũng ツ</h3>
+                                <p class="caption-bio">Full-Stack & ML Explorer</p>
+                            </div>
                         </div>
 
-                        <!-- Floating Badges -->
-                        <div class="floating-badge badge-1">
-                            <i class="uil uil-brain"></i> AI & Data
+                        <!-- Floating Micro-Badges -->
+                        <div class="floating-badge badge-top-left">
+                            <div class="badge-icon icon-ai"><i class="uil uil-brain"></i></div>
+                            <div class="badge-text">
+                                <span class="badge-title">AI & Machine Learning</span>
+                            </div>
                         </div>
-                        <div class="floating-badge badge-2">
-                            <i class="uil uil-window"></i> 60+ Web Apps
+
+                        <div class="floating-badge badge-top-right">
+                            <span class="live-dot"></span>
+                            <span class="badge-title">Active Creator</span>
                         </div>
-                        <div class="floating-badge badge-3">
-                            <i class="uil uil-linux"></i> Linux DevOps
+
+                        <div class="floating-badge badge-bottom-right">
+                            <div class="badge-icon icon-apps"><i class="uil uil-rocket"></i></div>
+                            <div class="badge-text">
+                                <span class="badge-title">60+ Web Projects</span>
+                            </div>
+                        </div>
+
+                        <div class="floating-badge badge-mid-left">
+                            <div class="badge-icon icon-linux"><i class="uil uil-linux"></i></div>
+                            <div class="badge-text">
+                                <span class="badge-title">Linux & DevOps</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -924,7 +975,7 @@
 
     <!--==================== SCRIPTS ====================-->
     <script src="vanilla-tilt.js"></script>
-    <script src="assets/js/main.js?v=2.2"></script>
+    <script src="assets/js/main.js?v=2.4"></script>
 </body>
 
 </html>
