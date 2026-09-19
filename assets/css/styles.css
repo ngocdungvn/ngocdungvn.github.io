@@ -1858,6 +1858,13 @@ body.light-theme .footer__link:hover {
     transition: var(--transition);
 }
 
+.footer__social-btn svg {
+    width: 17px;
+    height: 17px;
+    fill: currentColor;
+    transition: var(--transition);
+}
+
 body.light-theme .footer__social-btn {
     background: #f1f5f9;
     border-color: rgba(0, 0, 0, 0.08);
