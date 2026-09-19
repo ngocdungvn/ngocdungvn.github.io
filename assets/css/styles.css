@@ -103,6 +103,8 @@ body.light-theme {
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 body {
@@ -398,6 +400,10 @@ input {
     color: var(--text-main);
     font-size: 1.15rem;
     transition: var(--transition);
+}
+
+body.light-theme .theme-toggle-btn {
+    background: rgba(0, 0, 0, 0.04);
 }
 
 .theme-toggle-btn:hover {
@@ -781,12 +787,15 @@ input {
     justify-content: space-between;
     gap: 1.25rem;
     margin-bottom: 2.5rem;
+    width: 100%;
+    max-width: 100%;
 }
 
 .project-filters {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    min-width: 0;
 }
 
 .filter-btn {
@@ -1565,9 +1574,16 @@ input {
 /*==================== FOOTER ====================*/
 .footer {
     padding: 4.5rem 0 2.5rem;
-    background: rgba(9, 13, 22, 0.92);
+    background: rgba(9, 13, 22, 0.96);
     border-top: 1px solid var(--border-color);
     position: relative;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+body.light-theme .footer {
+    background: #ffffff;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.02);
 }
 
 .footer__container {
@@ -1583,6 +1599,8 @@ input {
     font-weight: 800;
     margin-bottom: 0.5rem;
     letter-spacing: -0.03em;
+    color: var(--text-main);
+    transition: color 0.4s ease;
 }
 
 .footer__brand span {
@@ -1593,6 +1611,7 @@ input {
     color: var(--text-muted);
     font-size: 0.95rem;
     margin-bottom: 2rem;
+    transition: color 0.4s ease;
 }
 
 .footer__links {
@@ -1611,6 +1630,10 @@ input {
 
 .footer__link:hover {
     color: var(--primary-light);
+}
+
+body.light-theme .footer__link:hover {
+    color: var(--primary);
 }
 
 .footer__socials {
@@ -1633,16 +1656,30 @@ input {
     transition: var(--transition);
 }
 
+body.light-theme .footer__social-btn {
+    background: #f1f5f9;
+    border-color: rgba(0, 0, 0, 0.08);
+    color: #1e293b;
+}
+
 .footer__social-btn:hover {
     background: var(--primary);
     color: #ffffff;
+    border-color: var(--primary);
     transform: translateY(-3px);
     box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+body.light-theme .footer__social-btn:hover {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
 }
 
 .footer__copy {
     font-size: 0.82rem;
     color: var(--text-subtle);
+    transition: color 0.4s ease;
 }
 
 /*==================== SCROLL UP BUTTON ====================*/
@@ -1896,6 +1933,9 @@ input {
         flex-direction: column;
         align-items: stretch;
         gap: 1rem;
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
     }
 
     .project-filters {
@@ -1906,6 +1946,9 @@ input {
         padding: 0.25rem 0.25rem 0.6rem;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
     }
 
     .project-filters::-webkit-scrollbar {
@@ -1914,13 +1957,14 @@ input {
 
     .filter-btn {
         flex-shrink: 0;
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 0.95rem;
         font-size: 0.82rem;
         white-space: nowrap;
     }
 
     .project-search-box {
         width: 100%;
+        max-width: 100%;
     }
 }
 
