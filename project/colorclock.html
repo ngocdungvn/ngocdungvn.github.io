@@ -1,457 +1,464 @@
 <!DOCTYPE html>
-<html lang="en" >
-
+<html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>c o l o r c l o c k</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Đồng Hồ Đổi Màu | Color Clock</title>
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-  --background: hsl(0, 0%, 100%);
-}
+      --background: hsl(0, 0%, 100%);
+    }
 
-* {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-body {
-	text-align:center;
-  background:var(--background);
-  user-select:none;
-}
+    body {
+      text-align: center;
+      background: var(--background);
+      user-select: none;
+      font-family: 'Outfit', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      transition: background 0.8s ease;
+    }
 
-#container {
-  position:relative;
-  overflow:hidden;
-}
+    #container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
-#clock {
-  height:100vh;
-	color:white;
-	display:flex;
-  align-items:center;
-  justify-content:center;
-	font-size:120px;
-	font-family:'Courier New', Courier, monospace;
-}
 
-#controls {
-  position:absolute;
-  right:0;
-  top:0;
-  width:228px;
-  height:100%;
-  padding:48px 24px 48px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-around;
-  align-items:center;
-  transform:translateX(0);
-  background-color:rgba(0, 0, 0, .3);
-  transition:all 1s ease-in-out;
-}
 
-#controls.closed {
-  transform:translateX(calc(100% - 48px));
-  background-color:transparent;
-  color:transparent;
-  transition:all 1s ease-in-out;
-}
+    /* Clock Display */
+    #clock {
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(2.6rem, 11vw, 7.5rem);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      letter-spacing: 2px;
+    }
 
-#controls.closed .control {
-  opacity:0;
-  transition:opacity 1s ease;
-}
+    .clock_separator {
+      opacity: 0.85;
+      animation: blink 1s step-start infinite;
+    }
 
-.menuButton {
-  color:white;
-  font-size:32px;
-  font-family:'Courier New', Courier, monospace;
-  position:absolute;
-  top:10px;
-  left:16px;
-  transform:rotate(180deg);
-  transition:1s ease-in-out;
-}
+    @keyframes blink {
+      50% { opacity: 0.3; }
+    }
 
-.menuButton.open {
-  transform:rotate(0deg);
-  transition:1s ease-in-out;
-}
+    /* Hex & Mode Subtitle */
+    .color-info-sub {
+      margin-top: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(0.9rem, 3vw, 1.25rem);
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.25);
+      padding: 6px 16px;
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+    }
 
-#lightnessSlider {
-  width:100%;
-  margin:10px 0;
-}
+    /* Controls Drawer */
+    #controls {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: min(280px, 85vw);
+      height: 100%;
+      padding: 60px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 20px;
+      align-items: stretch;
+      transform: translateX(0);
+      background-color: rgba(15, 23, 42, 0.85);
+      border-left: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 100;
+      color: white;
+      text-align: left;
+    }
 
-.text {
-	font-family:'Courier New', Courier, monospace;
-	font-size:12px;
-	color:white;
-}
+    #controls.closed {
+      transform: translateX(100%);
+    }
 
-.control {
-  margin:48px 0;
-  opacity:1;
-  transition:opacity 2s ease;
-}
+    /* Toggle Button on Top Right */
+    .menuToggleBtn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      z-index: 110;
+      transition: all 0.2s ease;
+    }
 
-.small {
-  font-size:10px;
-}
+    .menuToggleBtn:hover {
+      background: rgba(0, 0, 0, 0.55);
+      transform: scale(1.05);
+    }
 
-.bold {
-  font-weight:bold;
-}
+    .drawer-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-.button {
-  width:60%;
-  padding:10px;
-  border:1px solid white;
-}
+    .control-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
 
-.menuButton:hover, .button:hover, #explainerButton:hover {
-  cursor:pointer;
-}
+    .control-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #94a3b8;
+    }
 
-#explainerButton {
-  position:absolute;
-  bottom:20px;
-  left:20px;
-  font-size:22px;
-  font-weight:bold;
-}
+    #lightnessSlider {
+      width: 100%;
+      accent-color: #38bdf8;
+      cursor: pointer;
+    }
 
-#explainer {
-  visibility: visible;
-  position:absolute;
-  width:280px;
-  height:290px;
-  overflow-y:scroll;
-  border:1px solid white;
-  left:48px;
-  bottom:48px;
-  padding:5px;
-  font-family:'Courier New', Courier, monospace;
-  font-size:16px;
-  background-color:rgba(0, 0, 0, .3);
-  text-align:left;
-}
+    .slider-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #f8fafc;
+      text-align: right;
+    }
 
-#explainer.closed {
-  visibility:hidden;
-}
+    .btn-action {
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      color: white;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
 
-p {
-  margin:10px 0;
-}
+    .btn-action:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
 
-input[type=range] {
-  -webkit-appearance: none;
-  width: 40%;
-  vertical-align: middle;
-}
-input[type=range]:focus {
-  outline: none;
-}
-input[type=range]::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 0px;
-  cursor: pointer;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
-  background: #ffffff;
-  border-radius: 6.2px;
-  border: 1px solid #ececec;
-}
-input[type=range]::-webkit-slider-thumb {
-  box-shadow: 0px 0px 0px rgba(5, 0, 0, 0), 0px 0px 0px rgba(31, 0, 0, 0);
-  border: 0px solid #000000;
-  height: 12px;
-  width: 11px;
-  border-radius: 50px;
-  background: #ffffff;
-  cursor: pointer;
-  -webkit-appearance: none;
-  margin-top: -7px;
-}
-input[type=range]:focus::-webkit-slider-runnable-track {
-  background: #ffffff;
-}
-input[type=range]::-moz-range-track {
-  width: 100%;
-  height: 0px;
-  cursor: pointer;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
-  background: #ffffff;
-  border-radius: 6.2px;
-  border: 1px solid #ececec;
-}
-input[type=range]::-moz-range-thumb {
-  box-shadow: 0px 0px 0px rgba(5, 0, 0, 0), 0px 0px 0px rgba(31, 0, 0, 0);
-  border: 0px solid #000000;
-  height: 12px;
-  width: 11px;
-  border-radius: 50px;
-  background: #ffffff;
-  cursor: pointer;
-}
-input[type=range]::-ms-track {
-  width: 100%;
-  height: 0px;
-  cursor: pointer;
-  background: transparent;
-  border-color: transparent;
-  color: transparent;
-}
-input[type=range]::-ms-fill-lower {
-  background: #fcfcfc;
-  border: 1px solid #ececec;
-  border-radius: 12.4px;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
-}
-input[type=range]::-ms-fill-upper {
-  background: #ffffff;
-  border: 1px solid #ececec;
-  border-radius: 12.4px;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
-}
-input[type=range]::-ms-thumb {
-  box-shadow: 0px 0px 0px rgba(5, 0, 0, 0), 0px 0px 0px rgba(31, 0, 0, 0);
-  border: 0px solid #000000;
-  height: 12px;
-  width: 11px;
-  border-radius: 50px;
-  background: #ffffff;
-  cursor: pointer;
-}
-input[type=range]:focus::-ms-fill-lower {
-  background: #ffffff;
-}
-input[type=range]:focus::-ms-fill-upper {
-  background: #ffffff;
-}
+    /* Explainer Button & Modal */
+    #explainerButton {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      z-index: 50;
+      transition: all 0.2s ease;
+    }
+
+    #explainerButton:hover {
+      background: rgba(0, 0, 0, 0.55);
+      transform: scale(1.08);
+    }
+
+    #explainer {
+      position: absolute;
+      bottom: 70px;
+      left: 20px;
+      width: min(320px, 85vw);
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 18px;
+      padding: 18px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #e2e8f0;
+      backdrop-filter: blur(16px);
+      text-align: left;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      z-index: 50;
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.25s ease;
+    }
+
+    #explainer.closed {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+    }
+
+    #explainer h4 {
+      color: #38bdf8;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    #explainer p {
+      margin-bottom: 8px;
+    }
+
+    #explainer p:last-child {
+      margin-bottom: 0;
+    }
   </style>
 </head>
 
 <body>
   <div id="container">
-    <div id="clock">
-    	<span id="hour"></span><span class="clock_separator">:</span><span id="minutes"></span><span class="clock_separator">:</span><span id="seconds"></span>
-    </div>
-    <div id="controls" class="closed">
-      <div class="menuButton"><</div>
-      <div id="lightnessControl" class="control">
-        <div class="text">set color lightness:</div>
-        <input type="range" id="lightnessSlider" min="10" max="90">
-        <div class="text" id="lightnessValue">50%</div>
-      </div>
-      <div id="backgroundStyleToggle" class="text button control">Switch to gradient</div>
-      <div id="timeEncodingToggle" class="text button control">Current mode: hueWheel<br><p class="bold">
-        Change
-      </p></div>
-    </div>
 
-    <div id="explainerButton" class="text">?</div>
-    <div id="explainer" class="text closed">
-    	???
-      <p>Color Clock is a clock with a background color derived from the current time. So far I've implemented two ways of doing this: <span class="bold">time to hex</span> and <span class="bold">hue wheel</span></p>
-    	<p class="bold">Time to hex</p>
-    	<p>The current time is flattened into a six-character string and appended to a pound sign in order to be used as a hex color value. 13:43:06 becomes #134306.</p>
-    	<p class="bold">Hue wheel</p>
-    	<p>Each hour (0-23) is mapped to a section of the hue wheel (0-359).</p>
-      <p class="bold">Gradient mode</p>
-      <p>Makes a pretty gradient by adding a second color that is a bit further (30 degrees) in the hue wheel.</p>
-      <p class="small">Made by mechamech</p>
+    <!-- Menu Toggle Button -->
+    <button class="menuToggleBtn" id="menuToggleBtn" aria-label="Mở cài đặt">
+      <i class="uil uil-sliders-v-alt"></i>
+    </button>
+
+    <!-- Main Clock -->
+    <div id="clock">
+      <span id="hour">00</span><span class="clock_separator">:</span><span id="minutes">00</span><span class="clock_separator">:</span><span id="seconds">00</span>
+    </div>
+    <div class="color-info-sub" id="colorInfoSub">HEX: #000000</div>
+
+    <!-- Drawer Controls -->
+    <aside id="controls" class="closed">
+      <h3 class="drawer-title"><i class="uil uil-palette"></i> Cài Đặt Màu Sắc</h3>
+
+      <div class="control-item">
+        <label for="lightnessSlider" class="control-label">Độ sáng nền (Lightness):</label>
+        <input type="range" id="lightnessSlider" min="10" max="90" value="50">
+        <div class="slider-val" id="lightnessValue">50%</div>
+      </div>
+
+      <button id="backgroundStyleToggle" class="btn-action">
+        <span>Kiểu nền: Gradient</span>
+        <i class="uil uil-exchange-alt"></i>
+      </button>
+
+      <button id="timeEncodingToggle" class="btn-action">
+        <span id="encodingLabel">Thuật toán: Vòng màu (Hue)</span>
+        <i class="uil uil-sync"></i>
+      </button>
+    </aside>
+
+    <!-- Explainer Info -->
+    <button id="explainerButton" aria-label="Thông tin hoạt động">?</button>
+    <div id="explainer" class="closed">
+      <h4>Nguyên Lý Color Clock</h4>
+      <p>Màu nền được tạo ngẫu phối theo thời gian thực (Giờ : Phút : Giây).</p>
+      <p><strong>• Chế độ Hex:</strong> Chuyển thẳng 14:32:05 thành mã màu <code>#143205</code>.</p>
+      <p><strong>• Chế độ Hue Wheel:</strong> Phân bổ 24 giờ tương ứng góc xoay 360° trên vòng màu HSL.</p>
+      <p><strong>• Gradient:</strong> Tạo dải chuyển màu mượt mà lệch 30° sang trọng.</p>
     </div>
   </div>
+
   <script>
     const hourEl = document.getElementById('hour');
     const minutesEl = document.getElementById('minutes');
     const secondsEl = document.getElementById('seconds');
+    const colorInfoSub = document.getElementById('colorInfoSub');
     const lightnessSlider = document.getElementById('lightnessSlider');
+    const lightnessValue = document.getElementById('lightnessValue');
+    const backgroundStyleToggle = document.getElementById('backgroundStyleToggle');
+    const timeEncodingToggle = document.getElementById('timeEncodingToggle');
+    const encodingLabel = document.getElementById('encodingLabel');
+    const controls = document.getElementById('controls');
+    const menuToggleBtn = document.getElementById('menuToggleBtn');
+    const explainerButton = document.getElementById('explainerButton');
+    const explainer = document.getElementById('explainer');
 
     class Clock {
       constructor() {
-        this.time = {
-          hour: 0,
-          minutes: 0,
-          seconds: 0
+        this.time = { hour: 0, minutes: 0, seconds: 0 };
+        this.color = new ColorModel(this);
+      }
+
+      setTime() {
+        const date = new Date();
+        this.time.hour = date.getHours();
+        this.time.minutes = date.getMinutes();
+        this.time.seconds = date.getSeconds();
+      }
+
+      displayTime() {
+        hourEl.textContent = this.addZero(this.time.hour);
+        minutesEl.textContent = this.addZero(this.time.minutes);
+        secondsEl.textContent = this.addZero(this.time.seconds);
+      }
+
+      addZero(num) {
+        return num < 10 ? '0' + num : num.toString();
+      }
+
+      tick() {
+        this.setTime();
+        this.displayTime();
+        this.color.displayColor();
+      }
+
+      start() {
+        this.tick();
+        setInterval(this.tick.bind(this), 1000);
+      }
+    }
+
+    class ColorModel {
+      constructor(clock) {
+        this.clock = clock;
+        this.encodingModes = ["hueWheel", "timeToHex"];
+        this.timeEncoding = "hueWheel";
+        this.hue = 0;
+        this.lightness = 50;
+        this.gradient = false;
+      }
+
+      makeHue() {
+        const time = this.clock.time;
+        if (this.timeEncoding === 'hueWheel') {
+          return (time.hour * 15 + time.minutes * 0.25) % 360;
+        } else {
+          const hex = "#" + this.clock.addZero(time.hour) + this.clock.addZero(time.minutes) + this.clock.addZero(time.seconds);
+          return hexToHue(hex);
         }
       }
 
-    setTime() {
-      let date = new Date();	
-      this.time.hour = date.getHours();
-      this.time.minutes = date.getMinutes();
-      this.time.seconds = date.getSeconds();
+      generateGradient() {
+        return `linear-gradient(135deg, hsl(${this.hue}, 60%, ${this.lightness}%), hsl(${(this.hue + 35) % 360}, 60%, ${this.lightness}%))`;
+      }
+
+      displayColor() {
+        this.hue = this.makeHue();
+        const time = this.clock.time;
+
+        if (this.gradient) {
+          document.body.style.setProperty('--background', this.generateGradient());
+        } else {
+          document.body.style.setProperty('--background', `hsl(${this.hue}, 60%, ${this.lightness}%)`);
+        }
+
+        const hexStr = "#" + this.clock.addZero(time.hour) + this.clock.addZero(time.minutes) + this.clock.addZero(time.seconds);
+        colorInfoSub.textContent = `${this.timeEncoding === 'hueWheel' ? 'HUE: ' + Math.round(this.hue) + '°' : 'HEX: ' + hexStr}`;
+      }
     }
 
-    getTime() {
-      return this.time;
-    }
-
-    displayTime() {
-      let clock = this;
-      let time = clock.time;
-      hourEl.textContent = clock.addZero(time.hour);
-      minutesEl.textContent = clock.addZero(time.minutes);
-      secondsEl.textContent = clock.addZero(time.seconds);
-    }
-	
-	addZero(number) {
-		if (number < 10) {
-			return "" + 0 + number;
-		}
-		return number;
-	}
-
-	tick() {
-		let clock = this;
-		clock.setTime();
-		clock.displayTime();
-		clock.color.displayColor();
-	}
-
-	start() {
-		let clock = this;
-		clock.setTime();
-		clock.color = new color(clock);
-		clock.tick();
-		window.setInterval(clock.tick.bind(clock), 1000)
-	}
-}
-
-class color {
-	constructor(clock) {
-		this.encodingModes = ["hueWheel", "timeToHex"],
-		this.timeEncoding = "hueWheel",
-		this.hue = 0,
-		this.lightness = 50,
-		this.gradient = false,
-		this.clock = clock;
-	}
-
-	makeHue() {
-		let timeEncoding = this.timeEncoding;
-		let time = this.clock.getTime();
-		switch (timeEncoding) {
-			case 'hueWheel':
-				return time.hour * 15 + time.minutes * .25;
-				break;
-
-			case 'timeToHex':
-				let hex = "#"  + this.clock.addZero(time.hour) + this.clock.addZero(time.minutes) + this.clock.addZero(time.seconds);
-				return hexToHue(hex);
-				break;
-    }
-  };
-
-	generateGradient() {
-		return `linear-gradient(to right, hsl(${this.hue}, 50%, ${this.lightness}%) , hsl(${this.hue + 30}, 50%, ${this.lightness}%))`;
-	};
-
-	displayColor() {
-		this.hue = this.makeHue();
-
-		if (this.gradient) {
-			document.querySelector('body').style.setProperty('--background', this.generateGradient());
-		}
-
-		else {
-			document.querySelector('body').style.setProperty('--background', `hsl(${this.hue}, 50%, ${this.lightness}%)`);
-		}
-	};
-
-	setLightness(value) {
-		this.lightness = value;
-	}
-}
-
-function hexToHue(hex) {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-
-  var r = parseInt(result[1], 16);
-  var g = parseInt(result[2], 16);
-  var b = parseInt(result[3], 16);
-
-  r /= 255, g /= 255, b /= 255;
-  var max = Math.max(r, g, b), min = Math.min(r, g, b);
-  var h, s, l = (max + min) / 2;
-
-  if(max == min){
-      h = s = 0;
-  } else {
-      var d = max - min;
-      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-      switch(max) {
+    function hexToHue(hex) {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      if (!result) return 0;
+      let r = parseInt(result[1], 16) / 255;
+      let g = parseInt(result[2], 16) / 255;
+      let b = parseInt(result[3], 16) / 255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h = 0;
+      const d = max - min;
+      if (max !== min) {
+        switch (max) {
           case r: h = (g - b) / d + (g < b ? 6 : 0); break;
           case g: h = (b - r) / d + 2; break;
           case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
       }
-      h /= 6;
-  }
+      return Math.round(h * 360);
+    }
 
-  h = Math.round(360*h);
-  s = s*100;
-  s = Math.round(s);
-  l = l*100;
-  l = Math.round(l);
+    window.addEventListener('load', () => {
+      const clock = new Clock();
+      clock.start();
 
-  return h;
-}
+      // Menu Drawer Toggle
+      menuToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        controls.classList.toggle('closed');
+      });
 
-function toggleOptions(event) {
-	if (event.target.classList.contains('button') || event.target.id === 'lightnessSlider') {
-		return;
-	}
+      document.addEventListener('click', (e) => {
+        if (!controls.contains(e.target) && !menuToggleBtn.contains(e.target)) {
+          controls.classList.add('closed');
+        }
+        if (!explainer.contains(e.target) && !explainerButton.contains(e.target)) {
+          explainer.classList.add('closed');
+        }
+      });
 
-	this.classList.toggle('closed');
-	document.querySelector('.menuButton').classList.toggle('open');
-}
+      // Fixed: Vanilla JS textContent instead of jQuery .text()
+      lightnessSlider.addEventListener('input', function() {
+        const val = this.value;
+        clock.color.lightness = val;
+        lightnessValue.textContent = val + "%";
+        clock.color.displayColor();
+      });
 
-window.onload = function() {
-	let clock = new Clock();
-	clock.start()
-	document.querySelector('#controls').addEventListener('click', toggleOptions);
+      backgroundStyleToggle.addEventListener('click', function() {
+        clock.color.gradient = !clock.color.gradient;
+        clock.color.displayColor();
+        this.innerHTML = `<span>Kiểu nền: ${clock.color.gradient ? 'Gradient' : 'Đơn sắc'}</span><i class="uil uil-exchange-alt"></i>`;
+      });
 
-	lightnessSlider.addEventListener("input", function() {
-		var lightness = this.value;
-		clock.color.lightness = lightness;
-		if (clock.color.gradient) {
-		  window.body.style.setProperty('--background', `linear-gradient(to right, hsl(${clock.color.hue}, 50%, ${lightness}%) , hsl(${clock.color.hue + 30}, 50%, ${lightness}%))`);
-		}
+      timeEncodingToggle.addEventListener('click', function() {
+        const encodings = clock.color.encodingModes;
+        let idx = encodings.indexOf(clock.color.timeEncoding) + 1;
+        if (idx >= encodings.length) idx = 0;
+        clock.color.timeEncoding = encodings[idx];
+        clock.color.displayColor();
+        encodingLabel.textContent = `Thuật toán: ${clock.color.timeEncoding === 'hueWheel' ? 'Vòng màu (Hue)' : 'Mã Hex (#)'}`;
+      });
 
-		else {
-		  window.body.style.setProperty('--background', `hsl(${clock.color.hue}, 50%, ${lightness}%)`);
-		}
-
-		lightnessValue.text(lightness + "%");
-	})
-
-	backgroundStyleToggle.addEventListener("click", function() {
-		clock.color.gradient = !clock.color.gradient;
-		clock.color.displayColor();
-		this.textContent = clock.color.gradient ? 'Switch to solid color' : 'Switch to gradient';
-	})
-
-	timeEncodingToggle.addEventListener("click", function() {
-		let encodings = clock.color.encodingModes;
-		let currentEncoding = clock.color.timeEncoding;
-		let currentIndex = encodings.indexOf(currentEncoding);
-		currentIndex++;
-		if (currentIndex >= encodings.length) currentIndex = 0;
-		clock.color.timeEncoding = encodings[currentIndex];
-
-		clock.color.displayColor();
-
-		this.innerHTML = `Current mode: ${clock.color.timeEncoding} <br> <p class="bold">Change</p>`;
-	})
-
-	explainerButton.addEventListener("click", function() {
-		explainer.classList.toggle('closed');
-	})
-};
+      explainerButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        explainer.classList.toggle('closed');
+      });
+    });
   </script>
 </body>
 </html>

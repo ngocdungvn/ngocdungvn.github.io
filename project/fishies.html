@@ -5,8 +5,8 @@
   <meta name="description" content="Fishies swimming" />
   <meta name="keywords" content="fish, game, animation" />
   <meta name="author" content="William Chung" />
-  <meta charset="utf-8" />
-  <title>FISHIES</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FISHIES | by DungX</title>
   <style type="text/css" media="screen">
     /*******************
      * FISH PROPERTIES *
@@ -21,6 +21,7 @@
       -webkit-transition: 1s ease-out;
       transition: 1s ease-out;
       width: 50px;
+      pointer-events: none;
     }
     #o_fish{
       display: none;
@@ -64,28 +65,80 @@
       position: absolute;
       left: 10px;
       bottom: 10px;
+      font-family: monospace;
+      font-size: 11px;
+      pointer-events: none;
     }
     /* eat count */
     #eaten{
       position: absolute;
       text-align: center;
-      right: 50%;
-      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #0369a1;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 99;
+      pointer-events: none;
+      white-space: nowrap;
     }
     /* Button 1 */
     #FishIt{
       position: absolute;
-      right: 50%;
-      bottom: 10px;
-      color: #3465a4;
-      border-radius: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 16px;
+      background: #0284c7;
+      color: #ffffff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 9999px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+      cursor: pointer;
+      touch-action: manipulation;
+      z-index: 100;
+      transition: all 0.15s ease;
+    }
+    #FishIt:active {
+      transform: translateX(-50%) scale(0.95);
     }
     /* toggle for darkmode */
     #darkToggle{
       position: absolute;
-      left: 10px;
-      top: 10px;
+      right: 14px;
+      top: 14px;
+      left: auto;
+      text-align: right;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 6px 12px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 100;
+      line-height: 1.6;
     }
+    #darkToggle input {
+      margin-right: 4px;
+      cursor: pointer;
+    }
+
+
 
     /* toggle Dark Mode */
     .darken{
@@ -97,9 +150,13 @@
     html {
       overflow-y: hidden;
       overflow-x: hidden;
+      height: 100%;
     }
     body{
+      margin: 0;
+      height: 100%;
       background-color: #A8DBFB;
+      touch-action: none;
     }
   </style>
   <script type="text/javascript">
@@ -180,6 +237,14 @@
     // Let's Credit the source: http://jsbin.com/gejuz/1/edit?html,output
     (function() {
       document.onmousemove = handleMouseMove;
+      document.addEventListener('touchstart', function(e) {
+        if (e.target.closest && (e.target.closest('#darkToggle') || e.target.closest('#FishIt'))) return;
+        if (e.touches && e.touches[0]) handleMouseMove(e.touches[0]);
+      }, { passive: true });
+      document.addEventListener('touchmove', function(e) {
+        if (e.target.closest && (e.target.closest('#darkToggle') || e.target.closest('#FishIt'))) return;
+        if (e.touches && e.touches[0]) handleMouseMove(e.touches[0]);
+      }, { passive: true });
       var oldCoordX = 0; // used to determine the direction main fish is facing
       function handleMouseMove(event) {
         var eventDoc, doc, body, pageX, pageY;
@@ -355,7 +420,7 @@
   <img
       id="Mfish"
       class="Mleft"
-      src="\project\fishm.png"
+      src="fishm.png"
   >
 
   <!-- inline svg of background fish for easy JS manipulation -->

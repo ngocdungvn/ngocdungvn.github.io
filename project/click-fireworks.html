@@ -1,110 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Fireworks</title>
-    <style type="text/css">
-        html,
-        body {
-            background-color: black;
-            height: 100%;
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pháo Hoa Cảm Ứng | Touch Fireworks</title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            background-color: #020617;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: 'Outfit', sans-serif;
+            user-select: none;
+            touch-action: none;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+
+
+        /* Instructions Tip */
+        .tip-box {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.9rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            pointer-events: none;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.4; }
         }
     </style>
 </head>
 
 <body>
-    <canvas></canvas>
+    <div class="tip-box">
+        <i class="uil uil-sparkles"></i> Chạm ngón tay hoặc bấm chuột để bắn pháo hoa
+    </div>
+
+    <canvas id="fireworksCanvas"></canvas>
+
     <script>
-        // declare constant variables
-        const canvas = document.querySelector('canvas');
-        const c = canvas.getContext('2d'); // c within canvas is always context
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const mouse = {
-            x: innerWidth / 2,
-            y: innerHeight / 2
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
-        const gravity = 0.006
-        const friction = 1
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-        addEventListener('resize', () => {
-            canvas.width = window.innerWidth
-            canvas.height = window.innerHeight
-            init()
-        })
+        const gravity = 0.05;
+        const friction = 0.985;
+        let particles = [];
 
-        class Spinner {
+        // Web Audio Synth for Firework Pop
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playPopSound() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            const freq = 120 + Math.random() * 240;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.15);
+        }
+
+        class Particle {
             constructor(x, y, radius, color, velocity) {
-                this.x = x
-                this.y = y
-                this.radius = radius
-                this.color = color
-                this.velocity = velocity
-                this.alpha = 1 // alpha = opacity
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.color = color;
+                this.velocity = velocity;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.015 + 0.01;
             }
 
             draw() {
-                c.save()
-                c.globalAlpha = this.alpha
-                c.beginPath()
-                c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
-                c.fillStyle = this.color
-                c.fill()
-                c.closePath()
-                c.restore()
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.alpha);
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.shadowColor = this.color;
+                ctx.shadowBlur = 10;
+                ctx.fill();
+                ctx.restore();
             }
+
             update() {
-                this.draw()
-                this.velocity.x *= friction
-                this.velocity.x *= friction
-                this.velocity.y += gravity
-                this.x += this.velocity.x
-                this.y += this.velocity.y
+                this.draw();
+                this.velocity.x *= friction;
+                this.velocity.y *= friction;
+                this.velocity.y += gravity;
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= this.decay;
             }
         }
 
-        let spinners
-
-        function init() {
-            spinners = []
+        function createFirework(x, y) {
+            playPopSound();
+            const particleCount = window.innerWidth < 600 ? 55 : 85;
+            const baseHue = Math.random() * 360;
+            for (let i = 0; i < particleCount; i++) {
+                const angle = (Math.PI * 2 / particleCount) * i;
+                const speed = (Math.random() * 6) + 1.5;
+                const hue = (baseHue + Math.random() * 40 - 20) % 360;
+                particles.push(new Particle(
+                    x,
+                    y,
+                    Math.random() * 2.5 + 1.5,
+                    `hsl(${hue}, 100%, 65%)`,
+                    {
+                        x: Math.cos(angle) * speed,
+                        y: Math.sin(angle) * speed
+                    }
+                ));
+            }
         }
 
         function animate() {
-            requestAnimationFrame(animate)
-                // make sliders for this VVVV
-            c.fillStyle = 'rgba(0, 0, 0, .15)'
-            c.fillRect(0, 0, canvas.width, canvas.height)
-            spinners.forEach((spinner) => {
-                if (spinner.alpha > 0) {
-                    spinner.update()
-                } else {
-                    spinner.splice(i, 1)
-                }
-            })
-        }
+            requestAnimationFrame(animate);
+            // Trail fading effect
+            ctx.fillStyle = 'rgba(2, 6, 23, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        init()
-        animate()
-        addEventListener('click', (event) => {
-            mouse.x = event.clientX
-            mouse.y = event.clientY
-            const particleCount = 400
-            const angleIncrement = (Math.PI * 2) / particleCount
-                // particles
-            for (let i = 0; i < particleCount; i++) {
-                spinners.push(
-                    new Spinner(
-                        mouse.x, mouse.y, 5, `hsl(${Math.random() * 360}, 50%, 50%)`, {
-                            x: Math.cos(angleIncrement * i) * (Math.random() * 10),
-                            y: Math.sin(angleIncrement * i) * (Math.random() * 10)
-                        }
-                    ))
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                if (p.alpha <= 0) {
+                    particles.splice(i, 1);
+                } else {
+                    p.update();
+                }
             }
-            console.log(spinners)
-        })
+        }
+        animate();
+
+        // Mouse click
+        window.addEventListener('click', (e) => {
+            createFirework(e.clientX, e.clientY);
+        });
+
+        // Touch event
+        window.addEventListener('touchstart', (e) => {
+            for (let i = 0; i < e.touches.length; i++) {
+                const t = e.touches[i];
+                createFirework(t.clientX, t.clientY);
+            }
+        }, { passive: true });
+
+        // Auto fireworks on launch
+        setTimeout(() => createFirework(window.innerWidth * 0.5, window.innerHeight * 0.4), 300);
+        setTimeout(() => createFirework(window.innerWidth * 0.3, window.innerHeight * 0.3), 700);
+        setTimeout(() => createFirework(window.innerWidth * 0.7, window.innerHeight * 0.35), 1100);
     </script>
 </body>
-
 </html>

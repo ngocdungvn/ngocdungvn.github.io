@@ -79,6 +79,77 @@
       #title {
         margin: 0 0 0.2rem 0;
       }
+
+      .drawer-toggle {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #3b82f6;
+        color: #fff;
+        border: 2px solid rgba(255,255,255,0.4);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+        font-size: 24px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        touch-action: manipulation;
+        transition: transform 0.2s, background 0.2s;
+      }
+      .drawer-toggle:active {
+        transform: scale(0.92);
+      }
+      .drawer-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 1001;
+      }
+      .drawer-backdrop.open {
+        display: block;
+      }
+      .close-drawer-btn {
+        display: none;
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        background: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        font-weight: bold;
+        color: #334155;
+        cursor: pointer;
+        touch-action: manipulation;
+      }
+      @media (max-width: 640px) {
+        .drawer-toggle {
+          display: flex;
+        }
+        footer {
+          position: fixed;
+          top: 0;
+          right: -320px;
+          width: 290px;
+          height: 100%;
+          z-index: 1002;
+          box-shadow: -4px 0 24px rgba(0,0,0,0.6);
+          transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          border-radius: 16px 0 0 16px;
+        }
+        footer.open {
+          right: 0 !important;
+        }
+        .close-drawer-btn {
+          display: block;
+        }
+      }
       #byline p, #byline a {
         display: inline;
       }
@@ -88,8 +159,11 @@
     </style>
   </head>
   <body>
+    <button id="drawerToggle" class="drawer-toggle" title="Cài đặt pháo hoa">⚙</button>
+    <div id="drawerBackdrop" class="drawer-backdrop"></div>
     <main></main>
     <footer>
+      <button id="closeDrawer" class="close-drawer-btn">✕ Đóng Cài Đặt</button>
       <h3 id="title">Adjustable Fireworks</h3>
       <div id="byline">
         <p>By </p>
@@ -378,8 +452,38 @@
         createFirework(e.offsetX, e.offsetY);
       });
 
+      // Multi-touch fireworks support on mobile
+      main.addEventListener("touchstart", function(e) {
+        const rect = main.getBoundingClientRect();
+        for (let i = 0; i < e.touches.length; i++) {
+          const t = e.touches[i];
+          createFirework(t.clientX - rect.left, t.clientY - rect.top);
+        }
+      }, { passive: true });
+
+      // Mobile Drawer open/close logic
+      const drawerToggle = document.getElementById("drawerToggle");
+      const closeDrawer = document.getElementById("closeDrawer");
+      const drawerBackdrop = document.getElementById("drawerBackdrop");
+
+      function toggleDrawer(open) {
+        const isOpen = open !== undefined ? open : !footer.classList.contains("open");
+        if (isOpen) {
+          footer.classList.add("open");
+          drawerBackdrop.classList.add("open");
+        } else {
+          footer.classList.remove("open");
+          drawerBackdrop.classList.remove("open");
+        }
+      }
+
+      if (drawerToggle) drawerToggle.addEventListener("click", () => toggleDrawer(true));
+      if (closeDrawer) closeDrawer.addEventListener("click", () => toggleDrawer(false));
+      if (drawerBackdrop) drawerBackdrop.addEventListener("click", () => toggleDrawer(false));
+
       fullscreen.addEventListener("click", function() {
         footer.style.display = "none";
+        toggleDrawer(false);
       });
 
       document.addEventListener("keydown", function (e) {
