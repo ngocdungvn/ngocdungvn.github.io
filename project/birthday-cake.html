@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birthday Cake | by DungX</title>
-  <meta name="description" content="Bánh kem sinh nhật 3D tương tác thú vị: thắp nến lung linh và thổi nến bằng micro hoặc chạm màn hình." />
+  <meta name="description" content="Bánh kem sinh nhật 3D tương tác: Click chuột trái để thổi nến, double-click để thắp lại nến lung linh." />
   <meta name="author" content="Tạ Ngọc Dũng" />
   <link rel="canonical" href="https://ngocdungvn.github.io/project/birthday-cake.html" />
 
@@ -14,7 +14,7 @@
   <meta property="og:locale" content="vi_VN" />
   <meta property="og:url" content="https://ngocdungvn.github.io/project/birthday-cake.html" />
   <meta property="og:title" content="Thổi Nến Sinh Nhật Online | Birthday Cake by DungX" />
-  <meta property="og:description" content="Bánh kem sinh nhật 3D tương tác thú vị: thắp nến lung linh và thổi nến bằng micro hoặc chạm màn hình." />
+  <meta property="og:description" content="Bánh kem sinh nhật 3D tương tác: Click chuột trái để thổi nến, double-click để thắp lại nến lung linh." />
   <meta property="og:image" content="https://ngocdungvn.github.io/assets/img/og-cover.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -23,7 +23,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://ngocdungvn.github.io/project/birthday-cake.html" />
   <meta name="twitter:title" content="Thổi Nến Sinh Nhật Online | Birthday Cake by DungX" />
-  <meta name="twitter:description" content="Bánh kem sinh nhật 3D tương tác thú vị: thắp nến lung linh và thổi nến bằng micro hoặc chạm màn hình." />
+  <meta name="twitter:description" content="Bánh kem sinh nhật 3D tương tác: Click chuột trái để thổi nến, double-click để thắp lại nến lung linh." />
   <meta name="twitter:image" content="https://ngocdungvn.github.io/assets/img/og-cover.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,6 +64,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            touch-action: manipulation;
         }
 
         .cake-scene {
@@ -255,50 +257,12 @@
             pointer-events: none;
         }
 
-        /* Bottom Floating Action Bar */
-        .controls {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 999;
-            display: flex;
-            gap: 12px;
-        }
-
-        .controls button {
-            padding: 10px 20px;
-            border-radius: 9999px;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            color: #881337;
-            font-family: 'Outfit', sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-            cursor: pointer;
-            touch-action: manipulation;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .controls button:hover {
-            background: #ffffff;
-            transform: translateY(-1px);
-        }
-
-        .controls button:active {
-            transform: scale(0.95);
-        }
     </style>
 </head>
 <body onload="init();">
     <div class="scene-container">
         <div class="cake-scene">
-            <div class="cake" onclick="putOutCandles();" title="Chạm vào bánh để thổi nến">
+            <div class="cake" title="Click chuột trái để thổi nến | Double-click để thắp lại nến">
                 <div class="icing">
                     <div class="drip"></div>
                     <div class="drip"></div>
@@ -313,16 +277,48 @@
             <div id="candles_container"></div>
             <div id="message_container" class="message"></div>
         </div>
-
-        <div class="controls">
-            <button id="blowBtn" onclick="putOutCandles();">💨 Thổi Nến</button>
-            <button id="relightBtn" onclick="relightCandles();">🕯️ Thắp Lại Nến</button>
-        </div>
     </div>
 
     <script>
         let currentCandleCount = 9;
         let audioCtx = null;
+        let clickTimeout = null;
+        let lastTapTime = 0;
+
+        function handleSceneClick(e) {
+            if (e.button !== undefined && e.button !== 0) return;
+            if (clickTimeout) {
+                clearTimeout(clickTimeout);
+                clickTimeout = null;
+            }
+            clickTimeout = setTimeout(() => {
+                putOutCandles();
+                clickTimeout = null;
+            }, 250);
+        }
+
+        function handleSceneDblClick(e) {
+            if (e.button !== undefined && e.button !== 0) return;
+            if (clickTimeout) {
+                clearTimeout(clickTimeout);
+                clickTimeout = null;
+            }
+            relightCandles();
+        }
+
+        function handleTouchEnd(e) {
+            const currentTime = new Date().getTime();
+            const tapLength = currentTime - lastTapTime;
+            if (tapLength > 0 && tapLength < 300) {
+                if (clickTimeout) {
+                    clearTimeout(clickTimeout);
+                    clickTimeout = null;
+                }
+                relightCandles();
+                if (e.cancelable) e.preventDefault();
+            }
+            lastTapTime = currentTime;
+        }
 
         function getAudioContext() {
             if (!audioCtx) {
@@ -380,6 +376,10 @@
             updateScale();
             window.addEventListener('resize', updateScale);
 
+            window.addEventListener('click', handleSceneClick);
+            window.addEventListener('dblclick', handleSceneDblClick);
+            window.addEventListener('touchend', handleTouchEnd, { passive: false });
+
             var url = new URL(window.location.href);
 
             var count = parseInt(url.searchParams.get("candles"));
@@ -426,7 +426,6 @@
                 candleEl.className = "candle";
                 candleEl.style.marginLeft = `${candleXPosition}px`;
                 candleEl.style.marginTop = `${candleYPosition}px`;
-                candleEl.setAttribute("onclick", `putOutCandle(this); event.stopPropagation();`);
 
                 for (var j = 0; j < 5; j++) {
                     const flameEl = document.createElement("div");
