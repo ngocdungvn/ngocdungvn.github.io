@@ -150,7 +150,6 @@ Nếu bạn thấy các dự án nhỏ này thú vị hoặc có ích, hãy đ�
 
 - **Họ và tên**: Tạ Ngọc Dũng
 - **Facebook**: [facebook.com/61592643973967](https://www.facebook.com/profile.php?id=61592643973967)
-- **Zalo**: [0969 080 811](https://zalo.me/0969080811)
 - **YouTube**: [@tangocdung](https://www.youtube.com/@tangocdung)
 - **X (Twitter)**: [@ngocdungvn](https://x.com/ngocdungvn)
 - **Website cá nhân**: [https://ngocdungvn.github.io/](https://ngocdungvn.github.io/)
