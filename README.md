@@ -64,7 +64,7 @@ Hệ thống mini apps được phân chia khoa học thành 3 danh mục chính
 |:---:|---|---|---|
 | 12 | **Bánh Sinh Nhật Thổi Nến** | [`project/birthday-cake.html`](project/birthday-cake.html) | Chiếc bánh sinh nhật 3 tầng tương tác trực quan, tự động scale vừa mọi kích cỡ màn hình, tương tác 1 click để thổi nến hoặc double click để thắp lại nến kèm âm thanh puff & chime. |
 | 13 | **Pháo Hoa Chạm Bắn** | [`project/click-fireworks.html`](project/click-fireworks.html) | Chạm hoặc nhấp chuột vào bất kỳ vị trí nào trên màn hình để kích nổ chùm pháo hoa rực rỡ với âm thanh nổ sống động và fade-out tự nhiên. |
-| 14 | **Pháo Hoa Tương Tác 2023** | [`project/firework/index.html`](project/firework/index.html) | Trình diễn pháo hoa chào năm mới với hệ thống điều khiển âm thanh, pause/play và thanh chỉnh kích thước hạt. |
+| 14 | **Pháo Hoa Tương Tác** | [`project/firework/index.html`](project/firework/index.html) | Trình diễn pháo hoa chào năm mới với hệ thống điều khiển âm thanh, pause/play và thanh chỉnh kích thước hạt. |
 
 ---
 
@@ -135,7 +135,7 @@ ngocdungvn.github.io/
 │   ├── simon-game.html      # Thử thách Simon Memory
 │   ├── birthday-cake.html   # Bánh sinh nhật thổi nến tương tác
 │   ├── click-fireworks.html # Pháo hoa chạm bắn
-│   └── firework/            # Pháo hoa tương tác 2023
+│   └── firework/            # Pháo hoa tương tác
 ├── index.html               # Trang Portfolio chính
 ├── manifest.json            # Cấu hình PWA
 ├── serviceWorker.js         # Service worker offline
