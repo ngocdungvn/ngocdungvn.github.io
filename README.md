@@ -54,7 +54,7 @@ Hệ thống mini apps được phân chia khoa học thành 3 danh mục chính
 | 06 | **Rắn Săn Mồi Cổ Điển** | [`project/snake-game.html`](project/snake-game.html) | Tái hiện trò chơi Snake huyền thoại với tỉ lệ canvas 1:1, trang bị **D-pad cảm ứng ảo** trên điện thoại, bảng HUD điểm số và kỷ lục High Score. |
 | 07 | **Nhảy Tầng Fall Game** | [`project/fall-game.html`](project/fall-game.html) | Điều khiển bóng rơi qua các khe hở vô tận, vật lý 2D mượt mà, nút cảm ứng Trái/Phải phản hồi liên tục khi giữ ngón tay. |
 | 08 | **Cá Lớn Nuốt Cá Bé** | [`project/fishies.html`](project/fishies.html) | Trò chơi săn mồi biển sâu kinh điển trên Canvas 2D, hỗ trợ chạm vuốt đa điểm (`touchstart`/`touchmove`) để đàn cá bơi theo đầu ngón tay. |
-| 09 | **Pi Đi Tìm Sữa** | [`project/baby-wants-milk.html`](project/baby-wants-milk.html) | Game phiêu lưu mê cung tìm bình sữa cho bé Pi, hỗ trợ cụm phím D-pad 4 hướng và nút Action cảm ứng ảo. |
+| 09 | **Miu Đi Tìm Sữa** | [`project/baby-wants-milk.html`](project/baby-wants-milk.html) | Game phiêu lưu mê cung tìm bình sữa cho bé Miu, hỗ trợ cụm phím D-pad 4 hướng và nút Action cảm ứng ảo. |
 | 10 | **Bóng Bàn 2D Ping Pong** | [`project/ping-pong.html`](project/ping-pong.html) | Game bóng bàn cổ điển đối đầu AI Bot thông minh, hỗ trợ vuốt chạm điều khiển vợt trực tiếp trên sàn đấu hoặc nút bấm ảo. |
 | 11 | **Thử Thách Simon Memory** | [`project/simon-game.html`](project/simon-game.html) | Game rèn luyện trí nhớ thính giác và thị giác qua chuỗi tín hiệu màu sắc, âm thanh tổng hợp bằng Web Audio API không có độ trễ. |
 
@@ -130,7 +130,7 @@ ngocdungvn.github.io/
 │   ├── snake-game.html      # Rắn săn mồi cổ điển (touch D-pad)
 │   ├── fall-game.html       # Nhảy tầng Fall Game
 │   ├── fishies.html         # Cá lớn nuốt cá bé Canvas
-│   ├── baby-wants-milk.html # Pi đi tìm sữa
+│   ├── baby-wants-milk.html # Miu đi tìm sữa
 │   ├── ping-pong.html       # Bóng bàn 2D Ping Pong (đấu AI)
 │   ├── simon-game.html      # Thử thách Simon Memory
 │   ├── birthday-cake.html   # Bánh sinh nhật thổi nến tương tác
