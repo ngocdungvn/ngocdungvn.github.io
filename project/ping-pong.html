@@ -278,72 +278,57 @@
 			display: none !important;
 		}
 
-		/* Mobile Touch Controls */
-		.mobile-controls-bar {
+		/* PC Controls Bar */
+		.pc-controls-bar {
 			width: 100%;
 			max-width: 900px;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			padding: 8px 10px;
-			margin-top: 4px;
-			z-index: 20;
-		}
-
-		.control-group {
-			display: flex;
-			gap: 10px;
-		}
-
-		.touch-pad-btn {
-			width: 62px;
-			height: 50px;
-			background: rgba(255, 255, 255, 0.08);
+			padding: 10px 16px;
+			margin-top: 10px;
+			background: rgba(30, 41, 59, 0.5);
 			border: 1px solid var(--card-border);
 			border-radius: 14px;
-			color: var(--text);
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-size: 1.5rem;
-			cursor: pointer;
-			user-select: none;
-			touch-action: none;
-			transition: background 0.1s, transform 0.1s;
-		}
-
-		.touch-pad-btn:active, .touch-pad-btn.active {
-			background: var(--primary);
-			color: #020617;
-			transform: scale(0.92);
-			box-shadow: 0 0 15px var(--primary-glow);
-		}
-
-		.touch-pad-btn.right-player-btn:active, .touch-pad-btn.right-player-btn.active {
-			background: var(--accent);
-			color: white;
-			box-shadow: 0 0 15px rgba(244, 63, 94, 0.5);
+			backdrop-filter: blur(8px);
 		}
 
 		.mode-toggle-btn {
-			padding: 8px 14px;
+			padding: 8px 18px;
 			background: rgba(255, 255, 255, 0.08);
 			border: 1px solid var(--card-border);
 			border-radius: 12px;
 			color: var(--text-muted);
-			font-size: 0.8rem;
+			font-size: 0.88rem;
 			font-weight: 600;
 			cursor: pointer;
 			display: flex;
 			align-items: center;
-			gap: 6px;
-			transition: all 0.2s;
+			gap: 8px;
+			transition: all 0.2s ease;
+		}
+
+		.mode-toggle-btn:hover {
+			background: rgba(255, 255, 255, 0.14);
+			color: var(--text);
 		}
 
 		.mode-toggle-btn.active {
 			background: rgba(16, 185, 129, 0.2);
 			border-color: #10b981;
 			color: #34d399;
+		}
+
+		.pc-instructions {
+			font-size: 0.85rem;
+			color: var(--text-muted);
+			display: flex;
+			align-items: center;
+			gap: 6px;
+		}
+
+		.pc-instructions strong {
+			color: var(--text);
 		}
 
 		@media (max-width: 600px) {
@@ -413,24 +398,14 @@
 		</section>
 	</div>
 
-	<!-- Mobile Touch Controls Bar -->
-	<div class="mobile-controls-bar">
-		<!-- Left Paddle Controls -->
-		<div class="control-group">
-			<button class="touch-pad-btn" id="btnP1Up" aria-label="P1 Lên"><i class="uil uil-angle-up"></i></button>
-			<button class="touch-pad-btn" id="btnP1Down" aria-label="P1 Xuống"><i class="uil uil-angle-down"></i></button>
-		</div>
-
-		<!-- AI Bot Toggle -->
+	<!-- PC Controls Bar -->
+	<div class="pc-controls-bar">
 		<button class="mode-toggle-btn active" id="btnToggleAi">
 			<i class="uil uil-robot"></i> Đấu Máy: BẬT
 		</button>
-
-		<!-- Right Paddle Controls (Hidden in AI mode) -->
-		<div class="control-group hide" id="p2Controls">
-			<button class="touch-pad-btn right-player-btn" id="btnP2Up" aria-label="P2 Lên"><i class="uil uil-angle-up"></i></button>
-			<button class="touch-pad-btn right-player-btn" id="btnP2Down" aria-label="P2 Xuống"><i class="uil uil-angle-down"></i></button>
-		</div>
+		<p class="pc-instructions">
+			<i class="uil uil-keyboard"></i> <strong>Người 1:</strong> Phím W / S hoặc Di chuột • <strong>Người 2:</strong> Phím Mũi tên Lên / Xuống
+		</p>
 	</div>
 
 <script>
@@ -655,56 +630,17 @@
 		}
 	});
 
-	// Touch Controls binding
-	const bindTouch = (btn, onDown, onUp) => {
-		const handleDown = (e) => {
-			e.preventDefault();
-			btn.classList.add('active');
-			onDown();
-		};
-		const handleUp = (e) => {
-			e.preventDefault();
-			btn.classList.remove('active');
-			onUp();
-		};
-		btn.addEventListener('touchstart', handleDown, { passive: false });
-		btn.addEventListener('touchend', handleUp, { passive: false });
-		btn.addEventListener('mousedown', handleDown);
-		btn.addEventListener('mouseup', handleUp);
-		btn.addEventListener('mouseleave', handleUp);
-	};
-
-	bindTouch(document.getElementById('btnP1Up'), () => speedOfPaddle1 = -speedConstant, () => speedOfPaddle1 = 0);
-	bindTouch(document.getElementById('btnP1Down'), () => speedOfPaddle1 = speedConstant, () => speedOfPaddle1 = 0);
-	bindTouch(document.getElementById('btnP2Up'), () => speedOfPaddle2 = -speedConstant, () => speedOfPaddle2 = 0);
-	bindTouch(document.getElementById('btnP2Down'), () => speedOfPaddle2 = speedConstant, () => speedOfPaddle2 = 0);
-
-	// Touch Drag directly on Arena (seamless mobile touch paddle movement)
+	// Mouse Drag / Movement on Arena
 	const arenaEl = document.getElementById('arena');
-	let isDragging = false;
-
-	const handleArenaTouch = (e) => {
+	arenaEl.addEventListener('mousemove', (e) => {
 		if (!isPlaying) return;
-		const touch = e.touches ? e.touches[0] : e;
 		const rect = arenaEl.getBoundingClientRect();
-		const relativeY = (touch.clientY - rect.top) * (600 / rect.height);
+		const relativeY = (e.clientY - rect.top) * (600 / rect.height);
 		positionOfPaddle1 = Math.max(0, Math.min(arenaBottomHeight - paddleHeight, relativeY - paddleHeight / 2));
-	};
-
-	arenaEl.addEventListener('touchstart', (e) => {
-		isDragging = true;
-		handleArenaTouch(e);
-	}, { passive: true });
-
-	arenaEl.addEventListener('touchmove', (e) => {
-		if (isDragging) handleArenaTouch(e);
-	}, { passive: true });
-
-	arenaEl.addEventListener('touchend', () => isDragging = false);
+	});
 
 	// AI Toggle button
 	const btnToggleAi = document.getElementById('btnToggleAi');
-	const p2Controls = document.getElementById('p2Controls');
 	const p2Label = document.getElementById('p2Label');
 
 	btnToggleAi.addEventListener('click', () => {
@@ -712,12 +648,10 @@
 		if (isAiOpponent) {
 			btnToggleAi.classList.add('active');
 			btnToggleAi.innerHTML = '<i class="uil uil-robot"></i> Đấu Máy: BẬT';
-			p2Controls.classList.add('hide');
 			p2Label.textContent = 'Máy (AI):';
 		} else {
 			btnToggleAi.classList.remove('active');
 			btnToggleAi.innerHTML = '<i class="uil uil-users-alt"></i> Chơi 2 Người';
-			p2Controls.classList.remove('hide');
 			p2Label.textContent = 'Người 2:';
 		}
 	});

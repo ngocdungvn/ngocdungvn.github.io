@@ -238,46 +238,15 @@
       filter: brightness(1.1);
     }
 
-    /* Touch Controls */
-    .touch-controls {
-      width: 100%;
-      max-width: 380px;
-      display: flex;
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    .touch-btn {
-      flex: 1;
-      height: 56px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 16px;
-      color: var(--text);
+    .instructions {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 16px;
+      text-align: center;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
-      font-weight: 700;
-      gap: 8px;
-      cursor: pointer;
-      user-select: none;
-      touch-action: none;
-      transition: all 0.15s ease;
-    }
-
-    .touch-btn:active, .touch-btn.active {
-      background: var(--primary);
-      color: #fff;
-      transform: scale(0.95);
-      box-shadow: 0 0 20px var(--primary-glow);
-    }
-
-    .instructions {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 10px;
-      text-align: center;
+      gap: 6px;
     }
   </style>
 </head>
@@ -316,17 +285,7 @@
       </div>
     </div>
 
-    <!-- Ergonomic Touch Controls for Mobile -->
-    <div class="touch-controls">
-      <button class="touch-btn" id="btnLeft">
-        <i class="uil uil-angle-left"></i> Trái
-      </button>
-      <button class="touch-btn" id="btnRight">
-        Phải <i class="uil uil-angle-right"></i>
-      </button>
-    </div>
-
-    <p class="instructions">Dùng phím Mũi tên Trái / Phải hoặc A / D • Chạm giữ nút trên điện thoại</p>
+    <p class="instructions"><i class="uil uil-keyboard"></i> Dùng phím Mũi tên Trái / Phải hoặc A / D để di chuyển bóng</p>
   </main>
 
   <script>
@@ -337,8 +296,6 @@
     const finalScoreEl = document.getElementById('finalScore');
     const overlay = document.getElementById('gameOverOverlay');
     const restartBtn = document.getElementById('restartBtn');
-    const btnLeft = document.getElementById('btnLeft');
-    const btnRight = document.getElementById('btnRight');
 
     let moveInterval = null;
     let both = 0;
@@ -374,10 +331,8 @@
       if (both === 0 && !isGameOver) {
         both++;
         if (direction === "left") {
-          btnLeft.classList.add('active');
           moveInterval = setInterval(moveLeft, 10);
         } else if (direction === "right") {
-          btnRight.classList.add('active');
           moveInterval = setInterval(moveRight, 10);
         }
       }
@@ -385,8 +340,6 @@
 
     function stopMoving() {
       clearInterval(moveInterval);
-      btnLeft.classList.remove('active');
-      btnRight.classList.remove('active');
       both = 0;
     }
 
@@ -409,26 +362,6 @@
     document.addEventListener("keyup", event => {
       stopMoving();
     });
-
-    // Touch support for Mobile
-    const bindTouch = (btn, dir) => {
-      const handleStart = (e) => {
-        e.preventDefault();
-        startMoving(dir);
-      };
-      const handleEnd = (e) => {
-        e.preventDefault();
-        stopMoving();
-      };
-      btn.addEventListener("touchstart", handleStart, { passive: false });
-      btn.addEventListener("touchend", handleEnd, { passive: false });
-      btn.addEventListener("mousedown", handleStart);
-      btn.addEventListener("mouseup", handleEnd);
-      btn.addEventListener("mouseleave", handleEnd);
-    };
-
-    bindTouch(btnLeft, "left");
-    bindTouch(btnRight, "right");
 
     function triggerGameOver() {
       isGameOver = true;

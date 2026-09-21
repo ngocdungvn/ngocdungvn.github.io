@@ -150,92 +150,6 @@
             transition: left 0.1s ease, top 0.1s ease;
 		}
 
-        /* Touch Controls Section */
-        .controls-section {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            margin-top: 8px;
-        }
-
-        /* Virtual D-Pad */
-        .dpad-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .dpad-row {
-            display: flex;
-            gap: 8px;
-        }
-
-        .dpad-btn {
-            width: 52px;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            cursor: pointer;
-            user-select: none;
-            touch-action: none;
-            transition: background 0.1s, transform 0.1s;
-        }
-
-        .dpad-btn:active, .dpad-btn.pressed {
-            background: var(--primary);
-            color: #020617;
-            transform: scale(0.92);
-            box-shadow: 0 0 15px var(--primary-glow);
-        }
-
-        /* Action Key Button (Space / Open Door) */
-        .action-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-action-round {
-            width: 72px;
-            height: 72px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            user-select: none;
-            touch-action: none;
-            box-shadow: 0 8px 20px -5px rgba(236, 72, 153, 0.5);
-            transition: all 0.15s ease;
-        }
-
-        .btn-action-round:active, .btn-action-round.pressed {
-            transform: scale(0.92);
-            filter: brightness(1.2);
-        }
-
-        .action-label {
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
         /* Overlay */
         .overlay {
             position: absolute;
@@ -326,30 +240,7 @@
       </div>
     </div>
 
-    <!-- Controls Section -->
-    <div class="controls-section">
-      <!-- Virtual D-Pad -->
-      <div class="dpad-container">
-        <div class="dpad-row">
-          <button class="dpad-btn" id="btnUp" aria-label="Lên"><i class="uil uil-angle-up"></i></button>
-        </div>
-        <div class="dpad-row">
-          <button class="dpad-btn" id="btnLeft" aria-label="Trái"><i class="uil uil-angle-left"></i></button>
-          <button class="dpad-btn" id="btnDown" aria-label="Xuống"><i class="uil uil-angle-down"></i></button>
-          <button class="dpad-btn" id="btnRight" aria-label="Phải"><i class="uil uil-angle-right"></i></button>
-        </div>
-      </div>
-
-      <!-- Action Button -->
-      <div class="action-container">
-        <button class="btn-action-round" id="btnAction" aria-label="Hành động">
-          <i class="uil uil-unlock"></i>
-        </button>
-        <span class="action-label">Mở Cửa / Nhặt</span>
-      </div>
-    </div>
-
-    <p class="instructions">Dùng phím Mũi tên & Phím Cách trên PC • D-pad ảo trên điện thoại</p>
+    <p class="instructions"><i class="uil uil-keyboard"></i> Dùng phím Mũi tên hoặc W, A, S, D để di chuyển • Phím Cách (Space) để mở cửa hoặc nhặt bình sữa</p>
   </main>
 
 <script>
@@ -640,27 +531,6 @@ window.addEventListener("keydown", (event) => {
             break;
     }
 });
-
-// Touch buttons
-const bindBtn = (btn, action) => {
-    const handle = (e) => {
-        e.preventDefault();
-        btn.classList.add('pressed');
-        action();
-    };
-    btn.addEventListener('touchstart', handle, { passive: false });
-    btn.addEventListener('mousedown', handle);
-    const unpress = () => btn.classList.remove('pressed');
-    btn.addEventListener('touchend', unpress);
-    btn.addEventListener('mouseup', unpress);
-    btn.addEventListener('mouseleave', unpress);
-};
-
-bindBtn(document.getElementById('btnLeft'), () => moveBaby(-1, 0));
-bindBtn(document.getElementById('btnRight'), () => moveBaby(1, 0));
-bindBtn(document.getElementById('btnUp'), () => moveBaby(0, -1));
-bindBtn(document.getElementById('btnDown'), () => moveBaby(0, 1));
-bindBtn(document.getElementById('btnAction'), doSomeAction);
 
 replayBtn.addEventListener('click', () => {
     level = 0;

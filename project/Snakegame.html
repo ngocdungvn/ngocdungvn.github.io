@@ -215,53 +215,15 @@
       transform: translateY(1px);
     }
 
-    /* Touch Controls D-Pad */
-    .dpad-container {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 14px;
-      gap: 6px;
-    }
-
-    .dpad-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .dpad-btn {
-      width: 58px;
-      height: 52px;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 14px;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      cursor: pointer;
-      user-select: none;
-      touch-action: none;
-      transition: background 0.1s, transform 0.1s;
-    }
-
-    .dpad-btn:active, .dpad-btn.pressed {
-      background: var(--primary);
-      color: #020617;
-      transform: scale(0.92);
-      border-color: var(--primary);
-      box-shadow: 0 0 15px var(--primary-glow);
-    }
-
     .instructions {
-      font-size: 0.75rem;
+      margin-top: 18px;
+      font-size: 0.95rem;
       color: var(--text-muted);
-      margin-top: 8px;
       text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
     @media (min-width: 768px) {
@@ -306,19 +268,7 @@
       </div>
     </div>
 
-    <!-- Touch D-Pad for Mobile -->
-    <div class="dpad-container" id="dpadControls">
-      <div class="dpad-row">
-        <button class="dpad-btn" id="btnUp" aria-label="Lên"><i class="uil uil-angle-up"></i></button>
-      </div>
-      <div class="dpad-row">
-        <button class="dpad-btn" id="btnLeft" aria-label="Trái"><i class="uil uil-angle-left"></i></button>
-        <button class="dpad-btn" id="btnDown" aria-label="Xuống"><i class="uil uil-angle-down"></i></button>
-        <button class="dpad-btn" id="btnRight" aria-label="Phải"><i class="uil uil-angle-right"></i></button>
-      </div>
-    </div>
-
-    <p class="instructions">Dùng phím mũi tên hoặc WASD trên PC • Cụm phím ảo trên điện thoại</p>
+    <p class="instructions"><i class="uil uil-keyboard"></i> Dùng phím Mũi tên hoặc W, A, S, D để điều khiển hướng di chuyển của Rắn</p>
   </main>
 
   <script>
@@ -518,30 +468,6 @@
         goDown();
       }
     });
-
-    // Touch D-Pad buttons listeners
-    const bindBtn = (btn, action) => {
-      const handler = (e) => {
-        e.preventDefault();
-        btn.classList.add('pressed');
-        if (isGameOver) {
-          resetGame();
-        } else {
-          action();
-        }
-      };
-      btn.addEventListener('touchstart', handler, { passive: false });
-      btn.addEventListener('mousedown', handler);
-      const unpress = () => btn.classList.remove('pressed');
-      btn.addEventListener('touchend', unpress);
-      btn.addEventListener('mouseup', unpress);
-      btn.addEventListener('mouseleave', unpress);
-    };
-
-    bindBtn(document.getElementById('btnUp'), goUp);
-    bindBtn(document.getElementById('btnLeft'), goLeft);
-    bindBtn(document.getElementById('btnDown'), goDown);
-    bindBtn(document.getElementById('btnRight'), goRight);
 
     restartBtn.addEventListener('click', resetGame);
 
