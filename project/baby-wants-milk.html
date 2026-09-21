@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
 	<style>
         :root {
             --bg: #090d16;
@@ -168,7 +168,6 @@
             max-height: none;
             object-fit: contain;
             pointer-events: none;
-            filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.8));
             transition: transform 0.12s ease;
         }
 
@@ -247,7 +246,7 @@
   <header class="hud-header" id="hudHeader">
     <div class="hud-left">
       <span class="game-title">BÉ MIU & BÌNH SỮA 🍼</span>
-      <span class="level-badge" id="status">Màn 1 / 6</span>
+      <span class="level-badge" id="status">Màn 1 / 8</span>
     </div>
     <div class="hud-right">
       <span class="key-indicator" id="keyIndicator">
@@ -345,6 +344,30 @@ let homePlans = [
     =  b   =    =  =====
     =====  =    =      =
     =  k   =         e =
+    ====================`,
+    
+    `
+    ====================
+    = b   =     =      =
+    = === = === = ==== =
+    = =   = = k =    = =
+    = = === = ====== = =
+    = =     =      = = =
+    = ======d===== = = =
+    =  s         = = = =
+    =  c     e   =   m =
+    ====================`,
+    
+    `
+    ====================
+    =b =   s =   k =   =
+    =  = === = === = = =
+    =k = =       = = = =
+    =  = = === = = = =d=
+    =    =   = = = =   =
+    ====d=== = === = = =
+    =        =   =   m =
+    =    c       e     =
     ====================`
 ];
 
@@ -388,7 +411,7 @@ const replayBtn = document.getElementById("replayBtn");
 let scale = 18;
 let x = 0, y = 0;
 let level = 0;
-let homePlan, baby, useKey = false, hasKey = false;
+let homePlan, baby, useKey = false, keyCount = 0;
 let isGameOver = false;
 
 function calculateScale() {
@@ -456,7 +479,7 @@ function createNode(ch, left, top) {
 
 function updateHome() {
     statusEl.textContent = `Màn ${level + 1} / ${homePlans.length}`;
-    hasKey = false;
+    keyCount = 0;
     updateKeyUI();
 
     homePlan = homePlans[level].trim().split("\n").map(line => {
@@ -485,8 +508,8 @@ function updateHome() {
 }
 
 function updateKeyUI() {
-    if (hasKey) {
-        keyIndicator.innerHTML = '<i class="uil uil-key-skeleton"></i> Chìa khóa: CÓ';
+    if (keyCount > 0) {
+        keyIndicator.innerHTML = `<i class="uil uil-key-skeleton"></i> Chìa khóa: ${keyCount} 🔑`;
         keyIndicator.classList.add('has-key');
     } else {
         keyIndicator.innerHTML = '<i class="uil uil-key-skeleton"></i> Chìa khóa: Chưa có';
@@ -505,16 +528,16 @@ function makeAction(r, c) {
     let node, flag = false;
     switch(homePlan[r][c]) {
         case "k":
-            hasKey = true;
+            keyCount++;
             updateKeyUI();
             playChime(true);
             node = document.getElementById(`char-at-${c}-${r}`);
             break;
 
         case "d":
-            if(!useKey || hasKey) {
+            if(!useKey || keyCount > 0) {
                 node = document.getElementById(`char-at-${c}-${r}`);
-                hasKey = false;
+                if (useKey) keyCount--;
                 updateKeyUI();
                 playChime(true);
             }
