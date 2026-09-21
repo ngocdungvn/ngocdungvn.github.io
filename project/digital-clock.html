@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Đồng Hồ Số | Digital Clock by DungX</title>
+  <meta name="description" content="Đồng hồ kỹ thuật số toàn màn hình cỡ lớn, cập nhật thời gian thực và ngày tháng năm, tự động chuyển sắc màu nền HSL sống động." />
+  <meta name="author" content="Tạ Ngọc Dũng" />
+  <link rel="canonical" href="https://ngocdungvn.github.io/project/digital-clock.html" />
+
+  <!-- Open Graph / Facebook / Zalo -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Tạ Ngọc Dũng Portfolio & Mini Apps" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:url" content="https://ngocdungvn.github.io/project/digital-clock.html" />
+  <meta property="og:title" content="Đồng Hồ Số Toàn Màn Hình | Digital Clock by DungX" />
+  <meta property="og:description" content="Đồng hồ kỹ thuật số toàn màn hình cỡ lớn, cập nhật thời gian thực và ngày tháng năm với hiệu ứng chuyển sắc màu nền tự nhiên." />
+  <meta property="og:image" content="https://ngocdungvn.github.io/assets/img/og-cover.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- X / Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://ngocdungvn.github.io/project/digital-clock.html" />
+  <meta name="twitter:title" content="Đồng Hồ Số Toàn Màn Hình | Digital Clock by DungX" />
+  <meta name="twitter:description" content="Đồng hồ kỹ thuật số toàn màn hình cỡ lớn, cập nhật thời gian thực và ngày tháng năm với hiệu ứng chuyển sắc màu nền tự nhiên." />
+  <meta name="twitter:image" content="https://ngocdungvn.github.io/assets/img/og-cover.png" />
+
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: hsl(210, 60%, 50%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      text-align: center;
+      background: var(--background);
+      user-select: none;
+      font-family: 'Outfit', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* Ambient Background Glow Effect */
+    .ambient-glow {
+      position: absolute;
+      width: 70vw;
+      height: 70vh;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Clock Display Box */
+    .clock-wrapper {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #clock {
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(4.5rem, 15vw, 13.5rem);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      text-shadow: 0 10px 40px rgba(0, 0, 0, 0.45), 0 0 60px rgba(255, 255, 255, 0.18);
+      letter-spacing: clamp(1px, 0.4vw, 6px);
+      white-space: nowrap;
+    }
+
+    .clock-unit {
+      display: inline-block;
+      min-width: 1.15ch;
+      text-align: center;
+    }
+
+    .clock_separator {
+      opacity: 0.95;
+      padding: 0 0.05em;
+      transform: translateY(-4%);
+    }
+
+    .clock-ampm {
+      font-size: clamp(1.2rem, 3.5vw, 3rem);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      margin-left: clamp(8px, 1.5vw, 24px);
+      color: rgba(255, 255, 255, 0.85);
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      display: none;
+      align-self: flex-start;
+      margin-top: 0.2em;
+    }
+
+    .clock-ampm.visible {
+      display: inline-block;
+    }
+
+    /* Refined Luxury Frosted Glass Date Display Bar */
+    .date-bar {
+      margin-top: clamp(20px, 3vh, 38px);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: clamp(1.15rem, 2.2vw, 1.85rem);
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      padding: clamp(8px, 1.3vh, 13px) clamp(26px, 3.5vw, 44px);
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+      letter-spacing: clamp(1px, 0.25vw, 2.5px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .date-bar:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.36);
+      transform: translateY(-2px);
+    }
+
+    /* Top Settings Toggle Button */
+    .menuToggleBtn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: white;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 110;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .menuToggleBtn:hover {
+      background: rgba(0, 0, 0, 0.55);
+      transform: scale(1.08);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Controls Drawer */
+    #controls {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: min(300px, 85vw);
+      height: 100%;
+      padding: 70px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 18px;
+      align-items: stretch;
+      transform: translateX(0);
+      background-color: rgba(15, 23, 42, 0.88);
+      border-left: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 100;
+      color: white;
+      text-align: left;
+    }
+
+    #controls.closed {
+      transform: translateX(100%);
+    }
+
+    .drawer-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .control-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .control-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+
+    #lightnessSlider {
+      width: 100%;
+      accent-color: #38bdf8;
+      cursor: pointer;
+    }
+
+    .slider-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #f8fafc;
+      text-align: right;
+    }
+
+    .btn-action {
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 12px;
+      color: white;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div class="ambient-glow"></div>
+
+    <!-- Settings Drawer Toggle Button -->
+    <button class="menuToggleBtn" id="menuToggleBtn" aria-label="Mở cài đặt đồng hồ" title="Cài đặt đồng hồ">
+      <i class="uil uil-sliders-v-alt"></i>
+    </button>
+
+    <!-- Main Clock & Date Display -->
+    <main class="clock-wrapper">
+      <div id="clock" aria-label="Thời gian thực">
+        <span class="clock-unit" id="hour">00</span><span class="clock_separator">:</span><span class="clock-unit" id="minutes">00</span><span class="clock_separator">:</span><span class="clock-unit" id="seconds">00</span>
+        <span class="clock-ampm" id="ampm">AM</span>
+      </div>
+
+      <!-- Date Display (Thứ, Ngày Tháng Năm) -->
+      <div class="date-bar" id="dateDisplay">
+        <span id="dateText">Đang tải ngày...</span>
+      </div>
+    </main>
+
+    <!-- Drawer Controls -->
+    <aside id="controls" class="closed" aria-label="Bảng cài đặt">
+      <h3 class="drawer-title"><i class="uil uil-clock-three"></i> Cài Đặt Đồng Hồ</h3>
+
+      <div class="control-item">
+        <label for="lightnessSlider" class="control-label">Độ sáng màu nền:</label>
+        <input type="range" id="lightnessSlider" min="10" max="85" value="45">
+        <div class="slider-val" id="lightnessValue">45%</div>
+      </div>
+
+      <button id="backgroundStyleToggle" class="btn-action">
+        <span id="bgStyleLabel">Kiểu nền: Gradient</span>
+        <i class="uil uil-palette"></i>
+      </button>
+
+      <button id="timeFormatToggle" class="btn-action">
+        <span id="formatLabel">Định dạng: 24 Giờ</span>
+        <i class="uil uil-clock"></i>
+      </button>
+
+      <button id="fullscreenToggle" class="btn-action">
+        <span id="fullscreenLabel">Toàn màn hình</span>
+        <i class="uil uil-expand-arrows-alt"></i>
+      </button>
+
+      <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.15);">
+        <a href="../index.html#Project" class="btn-action" style="text-decoration: none;">
+          <span>Về Portfolio</span>
+          <i class="uil uil-external-link-alt"></i>
+        </a>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    const hourEl = document.getElementById('hour');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    const ampmEl = document.getElementById('ampm');
+    const dateTextEl = document.getElementById('dateText');
+    const lightnessSlider = document.getElementById('lightnessSlider');
+    const lightnessValue = document.getElementById('lightnessValue');
+    const backgroundStyleToggle = document.getElementById('backgroundStyleToggle');
+    const bgStyleLabel = document.getElementById('bgStyleLabel');
+    const timeFormatToggle = document.getElementById('timeFormatToggle');
+    const formatLabel = document.getElementById('formatLabel');
+    const fullscreenToggle = document.getElementById('fullscreenToggle');
+    const fullscreenLabel = document.getElementById('fullscreenLabel');
+    const controls = document.getElementById('controls');
+    const menuToggleBtn = document.getElementById('menuToggleBtn');
+
+    const DAYS_VN = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+
+    class DigitalClock {
+      constructor() {
+        this.time = { hour: 0, minutes: 0, seconds: 0 };
+        this.is12Hour = false;
+        this.ampm = 'AM';
+        this.color = new ColorEngine(this);
+      }
+
+      setTime() {
+        const date = new Date();
+        this.time.rawHour = date.getHours();
+        this.time.minutes = date.getMinutes();
+        this.time.seconds = date.getSeconds();
+
+        if (this.is12Hour) {
+          this.ampm = this.time.rawHour >= 12 ? 'PM' : 'AM';
+          this.time.hour = this.time.rawHour % 12 || 12;
+        } else {
+          this.time.hour = this.time.rawHour;
+        }
+
+        // Format and update Date (Thứ, Ngày Tháng Năm)
+        const dayOfWeek = DAYS_VN[date.getDay()];
+        const day = this.padZero(date.getDate());
+        const month = this.padZero(date.getMonth() + 1);
+        const year = date.getFullYear();
+        dateTextEl.textContent = `${dayOfWeek} • ${day} Tháng ${month}, ${year}`;
+      }
+
+      displayTime() {
+        hourEl.textContent = this.padZero(this.time.hour);
+        minutesEl.textContent = this.padZero(this.time.minutes);
+        secondsEl.textContent = this.padZero(this.time.seconds);
+
+        if (this.is12Hour) {
+          ampmEl.textContent = this.ampm;
+          ampmEl.classList.add('visible');
+        } else {
+          ampmEl.classList.remove('visible');
+        }
+      }
+
+      padZero(num) {
+        return num < 10 ? '0' + num : num.toString();
+      }
+
+      tick() {
+        this.setTime();
+        this.displayTime();
+        this.color.updateBackground();
+      }
+
+      start() {
+        this.tick();
+        setInterval(this.tick.bind(this), 1000);
+      }
+    }
+
+    class ColorEngine {
+      constructor(clock) {
+        this.clock = clock;
+        this.hue = 210;
+        this.lightness = 45;
+        this.gradient = true;
+      }
+
+      calculateHue() {
+        const rawHour = this.clock.time.rawHour || 0;
+        const minutes = this.clock.time.minutes || 0;
+        const seconds = this.clock.time.seconds || 0;
+        // 24 hours map smoothly across 360 degrees
+        return ((rawHour * 3600 + minutes * 60 + seconds) / 86400 * 360) % 360;
+      }
+
+      updateBackground() {
+        this.hue = this.calculateHue();
+
+        if (this.gradient) {
+          const nextHue = (this.hue + 35) % 360;
+          document.body.style.setProperty(
+            '--background',
+            `linear-gradient(135deg, hsl(${this.hue.toFixed(1)}, 65%, ${this.lightness}%), hsl(${nextHue.toFixed(1)}, 65%, ${this.lightness - 5}%))`
+          );
+        } else {
+          document.body.style.setProperty(
+            '--background',
+            `hsl(${this.hue.toFixed(1)}, 65%, ${this.lightness}%)`
+          );
+        }
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const clock = new DigitalClock();
+      clock.start();
+
+      // Menu Drawer Toggle
+      menuToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        controls.classList.toggle('closed');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!controls.contains(e.target) && !menuToggleBtn.contains(e.target)) {
+          controls.classList.add('closed');
+        }
+      });
+
+      // Lightness Slider
+      lightnessSlider.addEventListener('input', function() {
+        const val = parseInt(this.value, 10);
+        clock.color.lightness = val;
+        lightnessValue.textContent = val + "%";
+        clock.color.updateBackground();
+      });
+
+      // Gradient / Solid Background Style Toggle
+      backgroundStyleToggle.addEventListener('click', function() {
+        clock.color.gradient = !clock.color.gradient;
+        clock.color.updateBackground();
+        bgStyleLabel.textContent = `Kiểu nền: ${clock.color.gradient ? 'Gradient' : 'Đơn sắc'}`;
+      });
+
+      // 12h / 24h Format Toggle
+      timeFormatToggle.addEventListener('click', function() {
+        clock.is12Hour = !clock.is12Hour;
+        clock.setTime();
+        clock.displayTime();
+        formatLabel.textContent = `Định dạng: ${clock.is12Hour ? '12 Giờ (AM/PM)' : '24 Giờ'}`;
+      });
+
+      // Fullscreen Toggle
+      fullscreenToggle.addEventListener('click', function() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().then(() => {
+            fullscreenLabel.textContent = "Thoát toàn màn hình";
+          }).catch(() => {});
+        } else {
+          document.exitFullscreen().then(() => {
+            fullscreenLabel.textContent = "Toàn màn hình";
+          }).catch(() => {});
+        }
+      });
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenLabel.textContent = document.fullscreenElement ? "Thoát toàn màn hình" : "Toàn màn hình";
+      });
+    });
+  </script>
+</body>
+</html>

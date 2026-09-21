@@ -45,7 +45,7 @@ Hệ thống mini apps được phân chia khoa học thành 3 danh mục chính
 | 02 | **Chia Tiền Kèo Bóng Đá** | [`project/share_bill.html`](project/share_bill.html) | Tính toán chia tiền ăn nhậu, kèo phạt bóng đá theo tag chips liền dòng; hỗ trợ làm tròn linh hoạt, kiểm tra khớp bill thông minh và sao chép thông báo gửi Zalo chuẩn format. |
 | 03 | **Máy Tính Neumorphic** | [`project/Calculator.html`](project/Calculator.html) | Máy tính cầm tay bỏ túi phong cách kính mờ Neumorphism, bộ phân tích biểu thức toán học an toàn (Safe Math Parser), hỗ trợ đầy đủ phím số học. |
 | 04 | **Downloads Android TV** | [`project/downloads.html`](project/downloads.html) | Cổng tải nhanh các tệp tin APK xem phim, truyền hình và tiện ích tối ưu cho Android Box / Smart TV với bộ lọc danh mục và nút sao chép link 1 chạm. |
-| 05 | **Color Clock Sắc Màu** | [`project/colorclock.html`](project/colorclock.html) | Đồng hồ thời gian thực chuyển đổi màu nền theo mã Hex của giờ:phút:giây, co giãn linh hoạt bằng CSS `clamp()`, tích hợp drawer tùy chỉnh hiển thị. |
+| 05 | **Đồng Hồ Số Digital Clock** | [`project/digital-clock.html`](project/digital-clock.html) | Đồng hồ kỹ thuật số toàn màn hình cỡ lớn, cập nhật thời gian thực và ngày tháng năm với nền đổi màu HSL sống động, tích hợp drawer tùy chỉnh hiển thị. |
 
 ### 🎮 2. Nhóm Trò Chơi (Interactive Games)
 
@@ -126,7 +126,7 @@ ngocdungvn.github.io/
 │   ├── share_bill.html      # Chia tiền kèo bóng đá
 │   ├── Calculator.html      # Máy tính Neumorphic
 │   ├── downloads.html       # Cổng tải app Android TV
-│   ├── colorclock.html      # Đồng hồ đổi màu Hex
+│   ├── digital-clock.html   # Đồng hồ kỹ thuật số Digital Clock
 │   ├── Snakegame.html       # Rắn săn mồi cổ điển (touch D-pad)
 │   ├── fall_game.html       # Nhảy tầng Fall Game
 │   ├── fishies.html         # Cá lớn nuốt cá bé Canvas
