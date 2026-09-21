@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🌟 Tạ Ngọc Dũng (DungX) | Personal Portfolio & Mini Apps Hub
+# 🌟 Tạ Ngọc Dũng (DungX) | Chuyên Gia IT AI & Marketing Portfolio
 
 [![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-success?style=for-the-badge&logo=github)](https://ngocdungvn.github.io/)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
@@ -10,7 +10,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
 <p align="center">
-  <b>Trang cá nhân & Bộ sưu tập hơn 14 Mini Apps, Games và Tiện ích tương tác trực tuyến</b><br>
+  <b>Trang cá nhân & Bộ sưu tập mini apps, dự án Trí tuệ nhân tạo (AI), giải pháp IT và Chiến lược Marketing</b><br>
   Thiết kế theo phong cách hiện đại (Glassmorphism & Neumorphism), tương thích hoàn hảo 100% với thiết bị di động.
 </p>
 
@@ -22,7 +22,7 @@
 
 ## 📖 Giới Thiệu (About)
 
-Chào mừng bạn đến với kho mã nguồn trang cá nhân của **Tạ Ngọc Dũng (DungX)**. Website được xây dựng với mục tiêu vừa là Portfolio giới thiệu kỹ năng, lộ trình phát triển và các chứng chỉ công nghệ, vừa đóng vai trò như một **Hub ứng dụng web nhỏ (Mini Apps Hub)** phục vụ nhu cầu giải trí, tính toán và tiện ích thường nhật.
+Chào mừng bạn đến với kho mã nguồn trang cá nhân của **Tạ Ngọc Dũng (DungX)** — Chuyên gia IT, Trí tuệ nhân tạo (AI) và Chiến lược Marketing thực chiến. Website được xây dựng với mục tiêu vừa là Portfolio giới thiệu năng lực công nghệ và chiến lược tăng trưởng, vừa đóng vai trò như một **Hub ứng dụng web nhỏ (Mini Apps Hub)** phục vụ nhu cầu giải trí, tính toán và tiện ích thường nhật.
 
 ### ✨ Điểm Nổi Bật
 - **Thiết kế chuẩn UI/UX**: Tích hợp chế độ **Sáng / Tối (Light/Dark Mode)** linh hoạt với độ tương phản cao, bảng màu tuyển chọn và hệ thống vi viền (micro-borders) tinh tế.
