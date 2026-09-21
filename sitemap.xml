@@ -10,14 +10,14 @@
 
   <!-- Mini Apps & Dự án -->
   <url>
-    <loc>https://ngocdungvn.github.io/project/share_bill.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <loc>https://ngocdungvn.github.io/project/share-bill.html</loc>
+    <lastmod>2026-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ngocdungvn.github.io/project/random_number.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <loc>https://ngocdungvn.github.io/project/random-number.html</loc>
+    <lastmod>2026-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -28,20 +28,20 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ngocdungvn.github.io/project/Snakegame.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <loc>https://ngocdungvn.github.io/project/snake-game.html</loc>
+    <lastmod>2026-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ngocdungvn.github.io/project/Calculator.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <loc>https://ngocdungvn.github.io/project/calculator.html</loc>
+    <lastmod>2026-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ngocdungvn.github.io/project/BabyWantsMilk.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <loc>https://ngocdungvn.github.io/project/baby-wants-milk.html</loc>
+    <lastmod>2026-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -65,8 +65,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ngocdungvn.github.io/project/fall_game.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <loc>https://ngocdungvn.github.io/project/fall-game.html</loc>
+    <lastmod>2026-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

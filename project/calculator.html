@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Máy Tính Điện Tử | Neumorphic Glass Calculator</title>
+  <meta name="description" content="Máy tính điện tử giao diện kính mờ Neumorphic hiện đại, tính toán chuẩn xác các phép tính cơ bản và nâng cao." />
+  <meta name="author" content="Tạ Ngọc Dũng" />
+  <link rel="canonical" href="https://ngocdungvn.github.io/project/calculator.html" />
+
+  <!-- Open Graph / Facebook / Zalo -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Tạ Ngọc Dũng Portfolio & Mini Apps" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:url" content="https://ngocdungvn.github.io/project/calculator.html" />
+  <meta property="og:title" content="Máy Tính Điện Tử Đa Năng | Neumorphic Glass Calculator" />
+  <meta property="og:description" content="Máy tính điện tử giao diện kính mờ Neumorphic hiện đại, tính toán chuẩn xác các phép tính cơ bản và nâng cao." />
+  <meta property="og:image" content="https://ngocdungvn.github.io/assets/img/og-cover.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- X / Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://ngocdungvn.github.io/project/calculator.html" />
+  <meta name="twitter:title" content="Máy Tính Điện Tử Đa Năng | Neumorphic Glass Calculator" />
+  <meta name="twitter:description" content="Máy tính điện tử giao diện kính mờ Neumorphic hiện đại, tính toán chuẩn xác các phép tính cơ bản và nâng cao." />
+  <meta name="twitter:image" content="https://ngocdungvn.github.io/assets/img/og-cover.png" />
+
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --calc-bg: #1e293b;
+            --calc-border: rgba(255, 255, 255, 0.1);
+            --btn-bg: #334155;
+            --btn-hover: #475569;
+            --btn-text: #f8fafc;
+            --btn-operator: #6366f1;
+            --btn-operator-hover: #4f46e5;
+            --btn-action: #f43f5e;
+            --btn-equal: #10b981;
+            --btn-equal-hover: #059669;
+            --shadow-outer: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at 50% 20%, #1e1b4b 0%, var(--bg) 100%);
+            font-family: 'Outfit', sans-serif;
+            color: #f8fafc;
+            padding: 16px 12px;
+            touch-action: manipulation;
+        }
+
+        /* Top Header */
+        .top-header {
+            width: 100%;
+            max-width: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .badge-app {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #94a3b8;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Calculator Shell */
+        .calculator {
+            width: 100%;
+            max-width: 380px;
+            border-radius: 32px;
+            background: var(--calc-bg);
+            border: 1px solid var(--calc-border);
+            box-shadow: var(--shadow-outer);
+            backdrop-filter: blur(16px);
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        /* Display Screen */
+        .display-screen {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-end;
+            min-height: 100px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .history-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: #94a3b8;
+            min-height: 20px;
+            margin-bottom: 6px;
+            word-break: break-all;
+            text-align: right;
+            transition: all 0.15s ease;
+        }
+
+        .current-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1.8rem, 8vw, 2.5rem);
+            font-weight: 600;
+            color: #ffffff;
+            line-height: 1.1;
+            word-break: break-all;
+            text-align: right;
+            max-width: 100%;
+        }
+
+        /* Keypad Grid */
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            width: 100%;
+        }
+
+        .btn-calc {
+            aspect-ratio: 1;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            font-size: 1.35rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            touch-action: manipulation;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.12s ease;
+        }
+
+        .btn-calc:hover {
+            background: var(--btn-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-calc:active {
+            transform: translateY(2px) scale(0.96);
+        }
+
+        /* Button Variations */
+        .btn-clear {
+            background: rgba(244, 63, 94, 0.15);
+            color: #fb7185;
+            border-color: rgba(244, 63, 94, 0.3);
+        }
+        .btn-clear:hover {
+            background: rgba(244, 63, 94, 0.25);
+        }
+
+        .btn-op {
+            background: rgba(99, 102, 241, 0.18);
+            color: #818cf8;
+            border-color: rgba(99, 102, 241, 0.3);
+            font-size: 1.45rem;
+        }
+        .btn-op:hover {
+            background: rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-equal {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 8px 20px -4px rgba(16, 185, 129, 0.4);
+            font-size: 1.5rem;
+        }
+        .btn-equal:hover {
+            background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+        }
+
+        .span-two {
+            grid-column: span 2;
+            aspect-ratio: auto;
+            height: 100%;
+        }
+
+        .footer-note {
+            margin-top: 14px;
+            font-size: 0.75rem;
+            color: #64748b;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="top-header">
+        <span class="badge-app">MÁY TÍNH THÔNG MINH</span>
+    </header>
+
+    <!-- Calculator Card -->
+    <main class="calculator">
+        <!-- Display -->
+        <div class="display-screen">
+            <div class="history-text" id="history"></div>
+            <div class="current-text" id="current">0</div>
+        </div>
+
+        <!-- Keypad -->
+        <div class="keypad">
+            <!-- Row 1 -->
+            <button class="btn-calc btn-clear" data-action="clear">AC</button>
+            <button class="btn-calc btn-clear" data-action="delete"><i class="uil uil-backspace"></i></button>
+            <button class="btn-calc btn-op" data-action="percent">%</button>
+            <button class="btn-calc btn-op" data-op="/">÷</button>
+
+            <!-- Row 2 -->
+            <button class="btn-calc" data-num="7">7</button>
+            <button class="btn-calc" data-num="8">8</button>
+            <button class="btn-calc" data-num="9">9</button>
+            <button class="btn-calc btn-op" data-op="*">×</button>
+
+            <!-- Row 3 -->
+            <button class="btn-calc" data-num="4">4</button>
+            <button class="btn-calc" data-num="5">5</button>
+            <button class="btn-calc" data-num="6">6</button>
+            <button class="btn-calc btn-op" data-op="-">−</button>
+
+            <!-- Row 4 -->
+            <button class="btn-calc" data-num="1">1</button>
+            <button class="btn-calc" data-num="2">2</button>
+            <button class="btn-calc" data-num="3">3</button>
+            <button class="btn-calc btn-op" data-op="+">+</button>
+
+            <!-- Row 5 -->
+            <button class="btn-calc" data-num="0">0</button>
+            <button class="btn-calc" data-num="00">00</button>
+            <button class="btn-calc" data-action="decimal">.</button>
+            <button class="btn-calc btn-equal" data-action="calculate">=</button>
+        </div>
+    </main>
+
+    <p class="footer-note">Hỗ trợ nhập trực tiếp từ bàn phím máy tính hoặc cảm ứng điện thoại</p>
+
+    <script>
+        const historyEl = document.getElementById('history');
+        const currentEl = document.getElementById('current');
+
+        let currentVal = '0';
+        let previousVal = '';
+        let operation = null;
+        let shouldResetCurrent = false;
+
+        function updateDisplay() {
+            // Format number nicely
+            currentEl.textContent = formatDisplay(currentVal);
+            if (operation != null) {
+                const opSymbol = operation === '*' ? '×' : operation === '/' ? '÷' : operation === '-' ? '−' : '+';
+                historyEl.textContent = `${formatDisplay(previousVal)} ${opSymbol}`;
+            } else {
+                historyEl.textContent = '';
+            }
+        }
+
+        function formatDisplay(numStr) {
+            if (!numStr) return '0';
+            if (numStr === 'Error' || numStr === 'Infinity') return 'Error';
+            const parts = numStr.split('.');
+            // Format integer part with commas
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return parts.join('.');
+        }
+
+        function appendNumber(number) {
+            if (currentVal === '0' || shouldResetCurrent) {
+                currentVal = number.toString();
+                shouldResetCurrent = false;
+            } else {
+                if (currentVal.length < 14) {
+                    currentVal += number.toString();
+                }
+            }
+            updateDisplay();
+        }
+
+        function appendDecimal() {
+            if (shouldResetCurrent) {
+                currentVal = '0.';
+                shouldResetCurrent = false;
+                updateDisplay();
+                return;
+            }
+            if (!currentVal.includes('.')) {
+                currentVal += '.';
+                updateDisplay();
+            }
+        }
+
+        function chooseOperation(op) {
+            if (currentVal === 'Error') clearAll();
+            if (previousVal !== '') {
+                compute();
+            }
+            operation = op;
+            previousVal = currentVal;
+            shouldResetCurrent = true;
+            updateDisplay();
+        }
+
+        function compute() {
+            let computation;
+            const prev = parseFloat(previousVal);
+            const current = parseFloat(currentVal);
+            if (isNaN(prev) || isNaN(current)) return;
+
+            switch (operation) {
+                case '+':
+                    computation = prev + current;
+                    break;
+                case '-':
+                    computation = prev - current;
+                    break;
+                case '*':
+                    computation = prev * current;
+                    break;
+                case '/':
+                    if (current === 0) {
+                        currentVal = 'Error';
+                        previousVal = '';
+                        operation = null;
+                        updateDisplay();
+                        return;
+                    }
+                    computation = prev / current;
+                    break;
+                default:
+                    return;
+            }
+
+            // Fix floating point inaccuracy
+            computation = Math.round(computation * 1e10) / 1e10;
+            currentVal = computation.toString();
+            operation = null;
+            previousVal = '';
+            shouldResetCurrent = true;
+            updateDisplay();
+        }
+
+        function computePercent() {
+            const current = parseFloat(currentVal);
+            if (isNaN(current)) return;
+            currentVal = (current / 100).toString();
+            updateDisplay();
+        }
+
+        function deleteLast() {
+            if (shouldResetCurrent || currentVal === 'Error') {
+                clearAll();
+                return;
+            }
+            if (currentVal.length === 1 || (currentVal.length === 2 && currentVal.startsWith('-'))) {
+                currentVal = '0';
+            } else {
+                currentVal = currentVal.slice(0, -1);
+            }
+            updateDisplay();
+        }
+
+        function clearAll() {
+            currentVal = '0';
+            previousVal = '';
+            operation = null;
+            shouldResetCurrent = false;
+            updateDisplay();
+        }
+
+        // Button clicks
+        document.querySelectorAll('[data-num]').forEach(btn => {
+            btn.addEventListener('click', () => appendNumber(btn.dataset.num));
+        });
+
+        document.querySelectorAll('[data-op]').forEach(btn => {
+            btn.addEventListener('click', () => chooseOperation(btn.dataset.op));
+        });
+
+        document.querySelector('[data-action="clear"]').addEventListener('click', clearAll);
+        document.querySelector('[data-action="delete"]').addEventListener('click', deleteLast);
+        document.querySelector('[data-action="decimal"]').addEventListener('click', appendDecimal);
+        document.querySelector('[data-action="percent"]').addEventListener('click', computePercent);
+        document.querySelector('[data-action="calculate"]').addEventListener('click', compute);
+
+        // Keyboard support
+        window.addEventListener('keydown', (e) => {
+            if ((e.key >= '0' && e.key <= '9')) {
+                appendNumber(e.key);
+            } else if (e.key === '.') {
+                appendDecimal();
+            } else if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
+                chooseOperation(e.key);
+            } else if (e.key === 'Enter' || e.key === '=') {
+                compute();
+            } else if (e.key === 'Backspace') {
+                deleteLast();
+            } else if (e.key === 'Escape' || e.key === 'c' || e.key === 'C') {
+                clearAll();
+            } else if (e.key === '%') {
+                computePercent();
+            }
+        });
+
+        updateDisplay();
+    </script>
+</body>
+</html>

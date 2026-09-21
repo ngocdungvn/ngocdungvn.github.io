@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kho Ứng Dụng Android TV & Media | ngocdungvn</title>
-  <meta name="description" content="Tổng hợp link tải các ứng dụng tiện ích, xem truyền hình, phim ảnh dành cho Android TV và TV Box chọn lọc." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Danh Sách Tải Xuống | ngocdungvn</title>
+  <meta name="description" content="Danh sách liên kết tải nhanh các ứng dụng Android TV, tiện ích và phần mềm chọn lọc." />
   <meta name="author" content="Tạ Ngọc Dũng" />
   <link rel="canonical" href="https://ngocdungvn.github.io/project/downloads.html" />
 
@@ -13,8 +13,8 @@
   <meta property="og:site_name" content="Tạ Ngọc Dũng Portfolio & Mini Apps" />
   <meta property="og:locale" content="vi_VN" />
   <meta property="og:url" content="https://ngocdungvn.github.io/project/downloads.html" />
-  <meta property="og:title" content="Kho Ứng Dụng Android TV & Media | ngocdungvn" />
-  <meta property="og:description" content="Tổng hợp link tải các ứng dụng tiện ích, xem truyền hình, phim ảnh dành cho Android TV và TV Box chọn lọc." />
+  <meta property="og:title" content="Danh Sách Tải Xuống | ngocdungvn" />
+  <meta property="og:description" content="Danh sách liên kết tải nhanh các ứng dụng Android TV, tiện ích và phần mềm chọn lọc." />
   <meta property="og:image" content="https://ngocdungvn.github.io/assets/img/og-cover.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -22,691 +22,283 @@
   <!-- X / Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://ngocdungvn.github.io/project/downloads.html" />
-  <meta name="twitter:title" content="Kho Ứng Dụng Android TV & Media | ngocdungvn" />
-  <meta name="twitter:description" content="Tổng hợp link tải các ứng dụng tiện ích, xem truyền hình, phim ảnh dành cho Android TV và TV Box chọn lọc." />
+  <meta name="twitter:title" content="Danh Sách Tải Xuống | ngocdungvn" />
+  <meta name="twitter:description" content="Danh sách liên kết tải nhanh các ứng dụng Android TV, tiện ích và phần mềm chọn lọc." />
   <meta name="twitter:image" content="https://ngocdungvn.github.io/assets/img/og-cover.png" />
 
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-base: #0f172a;
-            --bg-surface: #1e293b;
-            --bg-surface-hover: #27354d;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --primary: #6366f1;
-            --primary-glow: rgba(99, 102, 241, 0.35);
-            --accent: #ec4899;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --badge-bg: rgba(99, 102, 241, 0.15);
-            --badge-text: #818cf8;
-        }
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: rgba(30, 41, 59, 0.65);
+      --card-hover: rgba(30, 41, 59, 0.95);
+      --border: rgba(255, 255, 255, 0.08);
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
 
-        body {
-            background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--bg-base) 100%);
-            font-family: 'Outfit', -apple-system, sans-serif;
-            color: var(--text-primary);
-            min-height: 100vh;
-            padding: 16px 12px 60px;
-            overflow-x: hidden;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        .container {
-            width: 100%;
-            max-width: 960px;
-            margin: 0 auto;
-        }
+    body {
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--bg) 100%);
+      font-family: 'Outfit', -apple-system, sans-serif;
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px 16px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        /* Header Bar */
-        .top-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-        }
+    .container {
+      width: 100%;
+      max-width: 680px;
+    }
 
-        .badge-hub {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+    /* Minimal Header */
+    .header {
+      margin-bottom: 24px;
+      text-align: center;
+    }
 
-        /* Hero Intro */
-        .hero-box {
-            text-align: center;
-            margin-bottom: 28px;
-        }
+    .page-title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
 
-        .hero-title {
-            font-size: clamp(1.6rem, 5vw, 2.3rem);
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
-        }
+    /* Download List */
+    .download-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-        .hero-desc {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.5;
-        }
+    .download-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-        /* Search & Filter Bar */
-        .search-filter-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-bottom: 24px;
-        }
+    .download-item:hover {
+      background: var(--card-hover);
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
 
-        .search-box {
-            position: relative;
-            width: 100%;
-        }
+    .file-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
 
-        .search-icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            pointer-events: none;
-        }
+    .file-icon {
+      font-size: 1.3rem;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
 
-        .search-input {
-            width: 100%;
-            padding: 14px 16px 14px 46px;
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            color: #fff;
-            font-family: inherit;
-            font-size: 0.95rem;
-            outline: none;
-            backdrop-filter: blur(10px);
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
+    .file-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-        .search-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px var(--primary-glow);
-        }
+    .btn-download {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+      transition: all 0.2s ease;
+    }
 
-        /* Category Filter Pills */
-        .category-pills {
-            display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            gap: 8px;
-            padding-bottom: 6px;
-            scrollbar-width: none;
-        }
+    .btn-download:hover {
+      filter: brightness(1.12);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.45);
+    }
 
-        .category-pills::-webkit-scrollbar {
-            display: none;
-        }
-
-        .pill-btn {
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            font-weight: 600;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .pill-btn:hover {
-            background: rgba(255, 255, 255, 0.12);
-            color: #fff;
-        }
-
-        .pill-btn.active {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: #fff;
-            box-shadow: 0 4px 12px var(--primary-glow);
-        }
-
-        /* App Cards Grid */
-        .apps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-            gap: 16px;
-        }
-
-        .app-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 18px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-        }
-
-        .app-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(99, 102, 241, 0.4);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 0 15px var(--primary-glow);
-        }
-
-        .app-card-top {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .app-icon {
-            width: 46px;
-            height: 46px;
-            border-radius: 14px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.2));
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: #fff;
-            flex-shrink: 0;
-        }
-
-        .app-meta {
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .app-title {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 4px;
-            line-height: 1.3;
-        }
-
-        .app-category {
-            display: inline-block;
-            font-size: 0.72rem;
-            font-weight: 600;
-            color: var(--badge-text);
-            background: var(--badge-bg);
-            padding: 2px 8px;
-            border-radius: 6px;
-            width: fit-content;
-        }
-
-        .app-desc {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 16px;
-            flex-grow: 1;
-        }
-
-        .app-actions {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .btn-download {
-            flex: 1;
-            padding: 10px 14px;
-            background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%);
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 700;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            box-shadow: 0 4px 12px var(--primary-glow);
-            transition: all 0.2s ease;
-        }
-
-        .btn-download:hover {
-            filter: brightness(1.1);
-        }
-
-        .btn-copy {
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            border-radius: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            transition: all 0.2s ease;
-        }
-
-        .btn-copy:hover {
-            background: rgba(255, 255, 255, 0.16);
-            color: #fff;
-        }
-
-        /* Toast Notification */
-        .toast {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: rgba(16, 185, 129, 0.95);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 14px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.5);
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-            z-index: 1000;
-            pointer-events: none;
-        }
-
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-        }
-    </style>
+    @media (max-width: 480px) {
+      body {
+        padding: 16px 12px 40px;
+      }
+      .download-item {
+        padding: 12px 14px;
+      }
+      .file-name {
+        font-size: 0.95rem;
+      }
+      .btn-download {
+        padding: 8px 14px;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Top Header -->
-        <header class="top-header">
-            <span class="badge-hub">
-                <i class="uil uil-apps"></i> APP DIRECTORY
-            </span>
-        </header>
+  <div class="container">
+    <header class="header">
+      <h1 class="page-title">Danh Sách Tải Xuống</h1>
+    </header>
 
-        <!-- Hero Title -->
-        <div class="hero-box">
-            <h1 class="hero-title">Thư Viện Apps & Mod</h1>
-            <p class="hero-desc">Tổng hợp các ứng dụng Android TV, YouTube không quảng cáo, KODI tối ưu và bộ công cụ đa phương tiện chọn lọc.</p>
+    <main class="download-list">
+      <div class="download-item">
+        <div class="file-info">
+          <i class="uil uil-file-download-alt file-icon"></i>
+          <span class="file-name">SmartTube Voice</span>
         </div>
+        <a href="http://gg.gg/STB-Voice-2022" target="_blank" rel="noopener noreferrer" class="btn-download">
+          <i class="uil uil-download-alt"></i> Tải xuống
+        </a>
+      </div>
 
-        <!-- Search & Filter Section -->
-        <div class="search-filter-wrapper">
-            <div class="search-box">
-                <i class="uil uil-search search-icon"></i>
-                <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm ứng dụng, kodi, youtube...">
-            </div>
-
-            <div class="category-pills">
-                <button class="pill-btn active" data-filter="all">Tất Cả</button>
-                <button class="pill-btn" data-filter="android-tv">Android TV</button>
-                <button class="pill-btn" data-filter="smarttube">SmartTube</button>
-                <button class="pill-btn" data-filter="youtube">YouTube Mod</button>
-                <button class="pill-btn" data-filter="kodi">KODI Builds</button>
-                <button class="pill-btn" data-filter="tools">Tiện Ích</button>
-            </div>
+      <div class="download-item">
+        <div class="file-info">
+          <i class="uil uil-file-download-alt file-icon"></i>
+          <span class="file-name">SmartTube Final</span>
         </div>
+        <a href="https://tinyurl.com/smytv" target="_blank" rel="noopener noreferrer" class="btn-download">
+          <i class="uil uil-download-alt"></i> Tải xuống
+        </a>
+      </div>
 
-        <!-- Apps Grid List -->
-        <div class="apps-grid" id="appsGrid">
-            <!-- App 1: SmartTube Voice -->
-            <div class="app-card" data-category="smarttube" data-keywords="smarttube youtube android tv khong quang cao voice giong noi">
-                <div>
-                    <div class="app-card-top">
-                        <div class="app-icon"><i class="uil uil-youtube"></i></div>
-                        <div class="app-meta">
-                            <h3 class="app-title">SmartTube Voice</h3>
-                            <span class="app-category">SmartTube • Android TV</span>
-                        </div>
-                    </div>
-                    <p class="app-desc">YouTube không quảng cáo, hỗ trợ tìm kiếm giọng nói cho mọi thiết bị AndroidTV/GoogleTV chưa root và đã root.</p>
-                </div>
-                <div class="app-actions">
-                    <a href="http://gg.gg/STB-Voice-2022" target="_blank" rel="noopener noreferrer" class="btn-download">
-                        <i class="uil uil-download-alt"></i> Tải Về
-                    </a>
-                    <button class="btn-copy" onclick="copyUrl('http://gg.gg/STB-Voice-2022')" aria-label="Sao chép link">
-                        <i class="uil uil-copy"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- App 2: SmartTube Final -->
-            <div class="app-card" data-category="smarttube" data-keywords="smarttube final on dinh stable">
-                <div>
-                    <div class="app-card-top">
-                        <div class="app-icon"><i class="uil uil-play-circle"></i></div>
-                        <div class="app-meta">
-                            <h3 class="app-title">SmartTube Final</h3>
-                            <span class="app-category">Bản Ổn Định • TV</span>
-                        </div>
-                    </div>
-                    <p class="app-desc">Bản chính thức ổn định cao nhất của SmartTube, tương thích remote TV và mượt mà trên các dòng máy cấu hình thấp.</p>
-                </div>
-                <div class="app-actions">
-                    <a href="https://tinyurl.com/smytv" target="_blank" rel="noopener noreferrer" class="btn-download">
-                        <i class="uil uil-download-alt"></i> Tải Về
-                    </a>
-                    <button class="btn-copy" onclick="copyUrl('https://tinyurl.com/smytv')" aria-label="Sao chép link">
-                        <i class="uil uil-copy"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- App 3: SmartTube Beta -->
-            <div class="app-card" data-category="smarttube" data-keywords="smarttube beta tinh nang moi">
-                <div>
-                    <div class="app-card-top">
-                        <div class="app-icon"><i class="uil uil-flask"></i></div>
-                        <div class="app-meta">
-                            <h3 class="app-title">SmartTube Beta</h3>
-                            <span class="app-category">Thử Nghiệm • Mới Nhất</span>
-                        </div>
-                    </div>
-                    <p class="app-desc">Cập nhật sớm nhất các tính năng mới, codec video nâng cao và sửa lỗi tương thích YouTube mới nhất.</p>
-                </div>
-                <div class="app-actions">
-                    <a href="https://tinyurl.com/smytvb" target="_blank" rel="noopener noreferrer" class="btn-download">
-                        <i class="uil uil-download-alt"></i> Tải Về
-                    </a>
-                    <button class="btn-copy" onclick="copyUrl('https://tinyurl.com/smytvb')" aria-label="Sao chép link">
-                        <i class="uil uil-copy"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- App 4: YouTube ReVanced 2023 -->
-            <div class="app-card" data-category="youtube" data-keywords="youtube revanced vanced dien thoai phone tablet android 8">
-                <div>
-                    <div class="app-card-top">
-                        <div class="app-icon"><i class="uil uil-mobile-android"></i></div>
-                        <div class="app-meta">
-                            <h3 class="app-title">YouTube ReVanced</h3>
-                            <span class="app-category">Điện Thoại • Android 8.0+</span>
-                        </div>
-                    </div>
-                    <p class="app-desc">Bản ReVanced hoàn hảo cho smartphone & tablet: chặn quảng cáo, phát trong nền, tính năng SponsorBlock và Return YouTube Dislike.</p>
-                </div>
-                <div class="app-actions">
-                    <a href="http://gg.gg/ytb-revanced-2023" target="_blank" rel="noopener noreferrer" class="btn-download">
-                        <i class="uil uil-download-alt"></i> Tải Về
-                    </a>
-                    <button class="btn-copy" onclick="copyUrl('http://gg.gg/ytb-revanced-2023')" aria-label="Sao chép link">
-                        <i class="uil uil-copy"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- App 5: YouTube Vanced 5.x -->
-            <div class="app-card" data-category="youtube" data-keywords="youtube vanced lambass android 5 cu may yeu">
-                <div>
-                    <div class="app-card-top">
-                        <div class="app-icon"><i class="uil uil-history"></i></div>
-                        <div class="app-meta">
-                            <h3 class="app-title">YouTube Vanced 5.x</h3>
-                            <span class="app-category">Máy Cũ • Android 5.0+</span>
-                        </div>
-                    </div>
-                    <p class="app-desc">Bản mod tối ưu đặc biệt bởi LamBass dành riêng cho các thiết bị máy tính bảng và điện thoại Android đời cũ.</p>
-                </div>
-                <div class="app-actions">
-                    <a href="http://gg.gg/ytvlambass5x" target="_blank" rel="noopener noreferrer" class="btn-download">
-                        <i class="uil uil-download-alt"></i> Tải Về
-                    </a>
-                    <button class="btn-copy" onclick="copyUrl('http://gg.gg/ytvlambass5x')" aria-label="Sao chép link">
-                        <i class="uil uil-copy"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- App 6: BeeTV QuangKV -->
-            <div class="app-card" data-category="android-tv" data-keywords="beetv quangkv truyen hinh xem phim android tv">
-                <div>
-                    <div class="app-card-top">
-                        <div class="app-icon"><i class="uil uil-tv"></i></div>
-                        <div class="app-meta">
-                            <h3 class="app-title">BeeTV by QuangKV</h3>
-                            <span class="app-category">Truyền Hình • Miễn Phí</span>
-                        </div>
-                    </div>
-                    <p class="app-desc">Ứng dụng xem truyền hình trực tuyến và giải trí phong phú, tối ưu cho giao diện điều khiển bằng remote Android TV.</p>
-                </div>
-                <div class="app-actions">
-                    <a href="http://gg.gg/bee-free-tv" target="_blank" rel="noopener noreferrer" class="btn-download">
-                        <i class="uil uil-download-alt"></i> Tải Về
-                    </a>
-                    <button class="btn-copy" onclick="copyUrl('http://gg.gg/bee-free-tv')" aria-label="Sao chép link">
-                        <i class="uil uil-copy"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- App 7: KPLUS & K+ Live -->
-            <div class="app-card" data-category="android-tv" data-keywords="kplus k+ live quangkv bong da the thao">
-                <div>
-                    <div class="app-card-top">
-                        <div class="app-icon"><i class="uil uil-football"></i></div>
-                        <div class="app-meta">
-                            <h3 class="app-title">KPLUS & K+ Live</h3>
-                            <span class="app-category">Thể Thao • Android TV</span>
-                        </div>
-                    </div>
-                    <p class="app-desc">Giải pháp xem trực tiếp bóng đá & kênh truyền hình mượt mà, hỗ trợ remote tiêu chuẩn không cần chuột bay.</p>
-                </div>
-                <div class="app-actions">
-                    <a href="https://www.quangkv.com/" target="_blank" rel="noopener noreferrer" class="btn-download">
-                        <i class="uil uil-download-alt"></i> Tải Về
-                    </a>
-                    <button class="btn-copy" onclick="copyUrl('https://www.quangkv.com/')" aria-label="Sao chép link">
-                        <i class="uil uil-copy"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- App 8: KODI v20 Android TV -->
-            <div class="app-card" data-category="kodi" data-keywords="kodi v20 lambass android tv box build addon">
-                <div>
-                    <div class="app-card-top">
-                        <div class="app-icon"><i class="uil uil-film"></i></div>
-                        <div class="app-meta">
-                            <h3 class="app-title">KODI v20 Nexus TV</h3>
-                            <span class="app-category">KODI Build • Android TV</span>
-                        </div>
-                    </div>
-                    <p class="app-desc">Build KODI v20 tích hợp sẵn kho addon xem phim 4K, Vietsub, Fshare & truyền hình chất lượng cao bởi LamBass.</p>
-                </div>
-                <div class="app-actions">
-                    <a href="http://gg.gg/kd20b1atvlambass" target="_blank" rel="noopener noreferrer" class="btn-download">
-                        <i class="uil uil-download-alt"></i> Tải Về
-                    </a>
-                    <button class="btn-copy" onclick="copyUrl('http://gg.gg/kd20b1atvlambass')" aria-label="Sao chép link">
-                        <i class="uil uil-copy"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- App 9: KODI v20 Windows -->
-            <div class="app-card" data-category="kodi" data-keywords="kodi v20 lambass windows pc laptop">
-                <div>
-                    <div class="app-card-top">
-                        <div class="app-icon"><i class="uil uil-desktop"></i></div>
-                        <div class="app-meta">
-                            <h3 class="app-title">KODI v20 Windows</h3>
-                            <span class="app-category">KODI Build • PC / Laptop</span>
-                        </div>
-                    </div>
-                    <p class="app-desc">Phiên bản tối ưu riêng cho hệ điều hành Windows, cài đặt một chạm có sẵn đầy đủ addon và bộ giải mã âm thanh vòm.</p>
-                </div>
-                <div class="app-actions">
-                    <a href="http://gg.gg/kd20b1winlambass" target="_blank" rel="noopener noreferrer" class="btn-download">
-                        <i class="uil uil-download-alt"></i> Tải Về
-                    </a>
-                    <button class="btn-copy" onclick="copyUrl('http://gg.gg/kd20b1winlambass')" aria-label="Sao chép link">
-                        <i class="uil uil-copy"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- App 10: KODI v20 iOS / Apple TV -->
-            <div class="app-card" data-category="kodi" data-keywords="kodi v20 lambass ios iphone ipad apple tv">
-                <div>
-                    <div class="app-card-top">
-                        <div class="app-icon"><i class="uil uil-apple"></i></div>
-                        <div class="app-meta">
-                            <h3 class="app-title">KODI v20 Apple</h3>
-                            <span class="app-category">KODI Build • iOS / AppleTV</span>
-                        </div>
-                    </div>
-                    <p class="app-desc">Bản cài đặt định dạng tương thích cho iPhone, iPad và Apple TV với cấu hình tối ưu độ mượt mà.</p>
-                </div>
-                <div class="app-actions">
-                    <a href="http://gg.gg/kdios20b1lambass" target="_blank" rel="noopener noreferrer" class="btn-download">
-                        <i class="uil uil-download-alt"></i> Tải Về
-                    </a>
-                    <button class="btn-copy" onclick="copyUrl('http://gg.gg/kdios20b1lambass')" aria-label="Sao chép link">
-                        <i class="uil uil-copy"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- App 11: Editor App Premium -->
-            <div class="app-card" data-category="tools" data-keywords="editor picsart vsco kinemaster chinh sua anh video">
-                <div>
-                    <div class="app-card-top">
-                        <div class="app-icon"><i class="uil uil-camera"></i></div>
-                        <div class="app-meta">
-                            <h3 class="app-title">Bộ App Đồ Họa & Video</h3>
-                            <span class="app-category">Ảnh & Video • Premium</span>
-                        </div>
-                    </div>
-                    <p class="app-desc">Bộ sưu tập ứng dụng chỉnh sửa ảnh & dựng video chuyên nghiệp: PicsArt Gold, VSCO Full Filters, KineMaster Pro Mod.</p>
-                </div>
-                <div class="app-actions">
-                    <a href="http://gg.gg/editor-app-pre" target="_blank" rel="noopener noreferrer" class="btn-download">
-                        <i class="uil uil-download-alt"></i> Tải Về
-                    </a>
-                    <button class="btn-copy" onclick="copyUrl('http://gg.gg/editor-app-pre')" aria-label="Sao chép link">
-                        <i class="uil uil-copy"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- App 12: Kho Tổng Hợp GFile -->
-            <div class="app-card" data-category="tools" data-keywords="gfile google drive tong hop kho apk">
-                <div>
-                    <div class="app-card-top">
-                        <div class="app-icon"><i class="uil uil-folder-open"></i></div>
-                        <div class="app-meta">
-                            <h3 class="app-title">Kho Drive Tổng Hợp</h3>
-                            <span class="app-category">Cloud Storage • APK</span>
-                        </div>
-                    </div>
-                    <p class="app-desc">Thư mục Google Drive lưu trữ liên tục cập nhật các bản APK phần mềm cho Android TV, Box và Mobile.</p>
-                </div>
-                <div class="app-actions">
-                    <a href="http://gg.gg/gfile" target="_blank" rel="noopener noreferrer" class="btn-download">
-                        <i class="uil uil-download-alt"></i> Truy Cập
-                    </a>
-                    <button class="btn-copy" onclick="copyUrl('http://gg.gg/gfile')" aria-label="Sao chép link">
-                        <i class="uil uil-copy"></i>
-                    </button>
-                </div>
-            </div>
+      <div class="download-item">
+        <div class="file-info">
+          <i class="uil uil-file-download-alt file-icon"></i>
+          <span class="file-name">SmartTube Beta</span>
         </div>
-    </div>
+        <a href="https://tinyurl.com/smytvb" target="_blank" rel="noopener noreferrer" class="btn-download">
+          <i class="uil uil-download-alt"></i> Tải xuống
+        </a>
+      </div>
 
-    <!-- Toast Copy Notification -->
-    <div id="toast" class="toast">
-        <i class="uil uil-check-circle"></i> Đã sao chép liên kết vào bộ nhớ tạm!
-    </div>
+      <div class="download-item">
+        <div class="file-info">
+          <i class="uil uil-file-download-alt file-icon"></i>
+          <span class="file-name">YouTube ReVanced</span>
+        </div>
+        <a href="http://gg.gg/ytb-revanced-2023" target="_blank" rel="noopener noreferrer" class="btn-download">
+          <i class="uil uil-download-alt"></i> Tải xuống
+        </a>
+      </div>
 
-    <script>
-        const searchInput = document.getElementById('searchInput');
-        const filterBtns = document.querySelectorAll('.pill-btn');
-        const appCards = document.querySelectorAll('.app-card');
-        const toast = document.getElementById('toast');
+      <div class="download-item">
+        <div class="file-info">
+          <i class="uil uil-file-download-alt file-icon"></i>
+          <span class="file-name">YouTube Vanced 5.x</span>
+        </div>
+        <a href="http://gg.gg/ytvlambass5x" target="_blank" rel="noopener noreferrer" class="btn-download">
+          <i class="uil uil-download-alt"></i> Tải xuống
+        </a>
+      </div>
 
-        let currentCategory = 'all';
-        let searchQuery = '';
+      <div class="download-item">
+        <div class="file-info">
+          <i class="uil uil-file-download-alt file-icon"></i>
+          <span class="file-name">BeeTV by QuangKV</span>
+        </div>
+        <a href="http://gg.gg/bee-free-tv" target="_blank" rel="noopener noreferrer" class="btn-download">
+          <i class="uil uil-download-alt"></i> Tải xuống
+        </a>
+      </div>
 
-        function filterApps() {
-            appCards.forEach(card => {
-                const category = card.dataset.category;
-                const keywords = (card.dataset.keywords + ' ' + card.innerText).toLowerCase();
-                const matchesCategory = currentCategory === 'all' || category === currentCategory;
-                const matchesSearch = searchQuery === '' || keywords.includes(searchQuery.toLowerCase());
+      <div class="download-item">
+        <div class="file-info">
+          <i class="uil uil-file-download-alt file-icon"></i>
+          <span class="file-name">KPLUS & K+ Live</span>
+        </div>
+        <a href="https://www.quangkv.com/" target="_blank" rel="noopener noreferrer" class="btn-download">
+          <i class="uil uil-download-alt"></i> Tải xuống
+        </a>
+      </div>
 
-                if (matchesCategory && matchesSearch) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
+      <div class="download-item">
+        <div class="file-info">
+          <i class="uil uil-file-download-alt file-icon"></i>
+          <span class="file-name">KODI v20 Nexus TV</span>
+        </div>
+        <a href="http://gg.gg/kd20b1atvlambass" target="_blank" rel="noopener noreferrer" class="btn-download">
+          <i class="uil uil-download-alt"></i> Tải xuống
+        </a>
+      </div>
 
-        searchInput.addEventListener('input', (e) => {
-            searchQuery = e.target.value.trim();
-            filterApps();
-        });
+      <div class="download-item">
+        <div class="file-info">
+          <i class="uil uil-file-download-alt file-icon"></i>
+          <span class="file-name">KODI v20 Windows</span>
+        </div>
+        <a href="http://gg.gg/kd20b1winlambass" target="_blank" rel="noopener noreferrer" class="btn-download">
+          <i class="uil uil-download-alt"></i> Tải xuống
+        </a>
+      </div>
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentCategory = btn.dataset.filter;
-                filterApps();
-            });
-        });
+      <div class="download-item">
+        <div class="file-info">
+          <i class="uil uil-file-download-alt file-icon"></i>
+          <span class="file-name">KODI v20 Apple</span>
+        </div>
+        <a href="http://gg.gg/kdios20b1lambass" target="_blank" rel="noopener noreferrer" class="btn-download">
+          <i class="uil uil-download-alt"></i> Tải xuống
+        </a>
+      </div>
 
-        function copyUrl(url) {
-            navigator.clipboard.writeText(url).then(() => {
-                showToast('Đã sao chép liên kết tải về!');
-            }).catch(() => {
-                // Fallback
-                const temp = document.createElement('input');
-                temp.value = url;
-                document.body.appendChild(temp);
-                temp.select();
-                document.execCommand('copy');
-                temp.remove();
-                showToast('Đã sao chép liên kết tải về!');
-            });
-        }
+      <div class="download-item">
+        <div class="file-info">
+          <i class="uil uil-file-download-alt file-icon"></i>
+          <span class="file-name">Bộ App Đồ Họa & Video</span>
+        </div>
+        <a href="http://gg.gg/editor-app-pre" target="_blank" rel="noopener noreferrer" class="btn-download">
+          <i class="uil uil-download-alt"></i> Tải xuống
+        </a>
+      </div>
 
-        function showToast(msg) {
-            toast.textContent = msg;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2500);
-        }
-    </script>
+      <div class="download-item">
+        <div class="file-info">
+          <i class="uil uil-file-download-alt file-icon"></i>
+          <span class="file-name">Kho Drive Tổng Hợp</span>
+        </div>
+        <a href="http://gg.gg/gfile" target="_blank" rel="noopener noreferrer" class="btn-download">
+          <i class="uil uil-download-alt"></i> Tải xuống
+        </a>
+      </div>
+    </main>
+  </div>
+
 </body>
 </html>

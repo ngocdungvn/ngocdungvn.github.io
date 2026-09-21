@@ -41,9 +41,9 @@ Hệ thống mini apps được phân chia khoa học thành 3 danh mục chính
 
 | STT | Ứng Dụng | Tệp Tin | Mô Tả & Tính Năng Nổi Bật |
 |:---:|---|---|---|
-| 01 | **Quay Số Ngẫu Nhiên** | [`project/random_number.html`](project/random_number.html) | Bốc thăm trúng thưởng và quay số ngẫu nhiên dải tùy chỉnh (A-Z), thời gian quay 1.5s mượt mà, hiệu ứng pháo giấy Confetti Canvas, giao diện Light sang trọng. |
-| 02 | **Chia Tiền Kèo Bóng Đá** | [`project/share_bill.html`](project/share_bill.html) | Tính toán chia tiền ăn nhậu, kèo phạt bóng đá theo tag chips liền dòng; hỗ trợ làm tròn linh hoạt, kiểm tra khớp bill thông minh và sao chép thông báo gửi Zalo chuẩn format. |
-| 03 | **Máy Tính Neumorphic** | [`project/Calculator.html`](project/Calculator.html) | Máy tính cầm tay bỏ túi phong cách kính mờ Neumorphism, bộ phân tích biểu thức toán học an toàn (Safe Math Parser), hỗ trợ đầy đủ phím số học. |
+| 01 | **Quay Số Ngẫu Nhiên** | [`project/random-number.html`](project/random-number.html) | Bốc thăm trúng thưởng và quay số ngẫu nhiên dải tùy chỉnh (A-Z), thời gian quay 1.5s mượt mà, hiệu ứng pháo giấy Confetti Canvas, giao diện Light sang trọng. |
+| 02 | **Chia Tiền Kèo Bóng Đá** | [`project/share-bill.html`](project/share-bill.html) | Tính toán chia tiền ăn nhậu, kèo phạt bóng đá theo tag chips liền dòng; hỗ trợ làm tròn linh hoạt, kiểm tra khớp bill thông minh và sao chép thông báo gửi Zalo chuẩn format. |
+| 03 | **Máy Tính Neumorphic** | [`project/calculator.html`](project/calculator.html) | Máy tính cầm tay bỏ túi phong cách kính mờ Neumorphism, bộ phân tích biểu thức toán học an toàn (Safe Math Parser), hỗ trợ đầy đủ phím số học. |
 | 04 | **Downloads Android TV** | [`project/downloads.html`](project/downloads.html) | Cổng tải nhanh các tệp tin APK xem phim, truyền hình và tiện ích tối ưu cho Android Box / Smart TV với bộ lọc danh mục và nút sao chép link 1 chạm. |
 | 05 | **Đồng Hồ Số Digital Clock** | [`project/digital-clock.html`](project/digital-clock.html) | Đồng hồ kỹ thuật số toàn màn hình cỡ lớn, cập nhật thời gian thực và ngày tháng năm với nền đổi màu HSL sống động, tích hợp drawer tùy chỉnh hiển thị. |
 
@@ -51,10 +51,10 @@ Hệ thống mini apps được phân chia khoa học thành 3 danh mục chính
 
 | STT | Trò Chơi | Tệp Tin | Mô Tả & Cơ Chế Điều Khiển |
 |:---:|---|---|---|
-| 06 | **Rắn Săn Mồi Cổ Điển** | [`project/Snakegame.html`](project/Snakegame.html) | Tái hiện trò chơi Snake huyền thoại với tỉ lệ canvas 1:1, trang bị **D-pad cảm ứng ảo** trên điện thoại, bảng HUD điểm số và kỷ lục High Score. |
-| 07 | **Nhảy Tầng Fall Game** | [`project/fall_game.html`](project/fall_game.html) | Điều khiển bóng rơi qua các khe hở vô tận, vật lý 2D mượt mà, nút cảm ứng Trái/Phải phản hồi liên tục khi giữ ngón tay. |
+| 06 | **Rắn Săn Mồi Cổ Điển** | [`project/snake-game.html`](project/snake-game.html) | Tái hiện trò chơi Snake huyền thoại với tỉ lệ canvas 1:1, trang bị **D-pad cảm ứng ảo** trên điện thoại, bảng HUD điểm số và kỷ lục High Score. |
+| 07 | **Nhảy Tầng Fall Game** | [`project/fall-game.html`](project/fall-game.html) | Điều khiển bóng rơi qua các khe hở vô tận, vật lý 2D mượt mà, nút cảm ứng Trái/Phải phản hồi liên tục khi giữ ngón tay. |
 | 08 | **Cá Lớn Nuốt Cá Bé** | [`project/fishies.html`](project/fishies.html) | Trò chơi săn mồi biển sâu kinh điển trên Canvas 2D, hỗ trợ chạm vuốt đa điểm (`touchstart`/`touchmove`) để đàn cá bơi theo đầu ngón tay. |
-| 09 | **Pi Đi Tìm Sữa** | [`project/BabyWantsMilk.html`](project/BabyWantsMilk.html) | Game phiêu lưu mê cung tìm bình sữa cho bé Pi, hỗ trợ cụm phím D-pad 4 hướng và nút Action cảm ứng ảo. |
+| 09 | **Pi Đi Tìm Sữa** | [`project/baby-wants-milk.html`](project/baby-wants-milk.html) | Game phiêu lưu mê cung tìm bình sữa cho bé Pi, hỗ trợ cụm phím D-pad 4 hướng và nút Action cảm ứng ảo. |
 | 10 | **Bóng Bàn 2D Ping Pong** | [`project/ping-pong.html`](project/ping-pong.html) | Game bóng bàn cổ điển đối đầu AI Bot thông minh, hỗ trợ vuốt chạm điều khiển vợt trực tiếp trên sàn đấu hoặc nút bấm ảo. |
 | 11 | **Thử Thách Simon Memory** | [`project/simon-game.html`](project/simon-game.html) | Game rèn luyện trí nhớ thính giác và thị giác qua chuỗi tín hiệu màu sắc, âm thanh tổng hợp bằng Web Audio API không có độ trễ. |
 
@@ -122,15 +122,15 @@ ngocdungvn.github.io/
 │   │   └── main.js          # Logic giao diện chính, lọc dự án, theme toggle
 │   └── img/                 # Hình ảnh, chứng chỉ, favicons, PWA icons
 ├── project/                 # Thư mục chứa 15 Mini Apps độc lập
-│   ├── random_number.html   # Quay số ngẫu nhiên A-Z
-│   ├── share_bill.html      # Chia tiền kèo bóng đá
-│   ├── Calculator.html      # Máy tính Neumorphic
+│   ├── random-number.html   # Quay số ngẫu nhiên A-Z
+│   ├── share-bill.html      # Chia tiền kèo bóng đá
+│   ├── calculator.html      # Máy tính Neumorphic
 │   ├── downloads.html       # Cổng tải app Android TV
 │   ├── digital-clock.html   # Đồng hồ kỹ thuật số Digital Clock
-│   ├── Snakegame.html       # Rắn săn mồi cổ điển (touch D-pad)
-│   ├── fall_game.html       # Nhảy tầng Fall Game
+│   ├── snake-game.html      # Rắn săn mồi cổ điển (touch D-pad)
+│   ├── fall-game.html       # Nhảy tầng Fall Game
 │   ├── fishies.html         # Cá lớn nuốt cá bé Canvas
-│   ├── BabyWantsMilk.html   # Pi đi tìm sữa
+│   ├── baby-wants-milk.html # Pi đi tìm sữa
 │   ├── ping-pong.html       # Bóng bàn 2D Ping Pong (đấu AI)
 │   ├── simon-game.html      # Thử thách Simon Memory
 │   ├── birthday-cake.html   # Bánh sinh nhật thổi nến tương tác

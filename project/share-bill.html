@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chia Tiền Kèo Đá Bóng | by DungX</title>
+  <meta name="description" content="Công cụ tính toán chia tiền sân bóng, tính tiền phạt theo bàn thắng / thua, tự động chia đều tiền nước và tiền sân nhanh chóng, chính xác." />
+  <meta name="author" content="Tạ Ngọc Dũng" />
+  <link rel="canonical" href="https://ngocdungvn.github.io/project/share-bill.html" />
+
+  <!-- Open Graph / Facebook / Zalo -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Tạ Ngọc Dũng Portfolio & Mini Apps" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:url" content="https://ngocdungvn.github.io/project/share-bill.html" />
+  <meta property="og:title" content="Chia Tiền Kèo Đá Bóng | by DungX" />
+  <meta property="og:description" content="Công cụ tính toán chia tiền sân bóng, tính tiền phạt theo bàn thắng / thua, tự động chia đều tiền nước và tiền sân nhanh chóng, chính xác." />
+  <meta property="og:image" content="https://ngocdungvn.github.io/assets/img/og-cover.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- X / Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://ngocdungvn.github.io/project/share-bill.html" />
+  <meta name="twitter:title" content="Chia Tiền Kèo Đá Bóng | by DungX" />
+  <meta name="twitter:description" content="Công cụ tính toán chia tiền sân bóng, tính tiền phạt theo bàn thắng / thua, tự động chia đều tiền nước và tiền sân nhanh chóng, chính xác." />
+  <meta name="twitter:image" content="https://ngocdungvn.github.io/assets/img/og-cover.png" />
+
+
+  <!-- Google Font: Inter (Chuẩn typography quốc tế, cực kỳ sắc nét và dễ đọc) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Unicons -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+  <style>
+    :root {
+      /* LIGHT THEME VARIABLES */
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-input: #ffffff;
+      --border: #e2e8f0;
+      --border-focus: #3b82f6;
+
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+
+      /* Đội Thắng: Xanh Lá Tươi Sáng */
+      --win-color: #059669;
+      --win-bg-card: linear-gradient(145deg, #f0fdf4 0%, #ffffff 100%);
+      --win-border: #86efac;
+      --win-tag-bg: #dcfce7;
+      --win-tag-text: #15803d;
+      --win-chip-bg: #dcfce7;
+      --win-chip-text: #166534;
+      --win-chip-border: #86efac;
+
+      /* Đội Thua (Có mặt): Cam Ấm Áp Đậm */
+      --lose-eat-color: #d97706;
+      --lose-eat-bg-card: linear-gradient(145deg, #fffbeb 0%, #ffffff 100%);
+      --lose-eat-border: #fcd34d;
+      --lose-eat-tag-bg: #fef3c7;
+      --lose-eat-tag-text: #b45309;
+      --lose-eat-chip-bg: #fef3c7;
+      --lose-eat-chip-text: #92400e;
+      --lose-eat-chip-border: #fcd34d;
+
+      /* Đội Thua (Vắng): Cùng tông Cam nhưng nhạt hơn chút */
+      --lose-home-color: #b45309;
+      --lose-home-bg-card: linear-gradient(145deg, #fffdf5 0%, #ffffff 100%);
+      --lose-home-border: #fef08a;
+      --lose-home-tag-bg: #fffbeb;
+      --lose-home-tag-text: #92400e;
+      --lose-home-chip-bg: #fffbeb;
+      --lose-home-chip-text: #92400e;
+      --lose-home-chip-border: #fef08a;
+
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --text-dim: #94a3b8;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+
+      --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.04);
+      --shadow-hover: 0 14px 30px -5px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg-body);
+      background-image:
+        linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+      background-size: 32px 32px;
+      color: var(--text-main);
+      padding: 1.25rem 1rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Font số chuẩn quốc tế, không bị nét cắt */
+    .num-font {
+      font-family: 'Inter', sans-serif;
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+    }
+
+    /* Header Nav */
+    .header-top {
+      width: 100%;
+      max-width: 1050px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .brand-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: rgba(37, 99, 235, 0.08);
+      padding: 0.35rem 0.8rem;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .main-title {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .main-title h1 {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+    }
+
+    /* Main Container */
+    .calculator-wrapper {
+      width: 100%;
+      max-width: 1050px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 880px) {
+      .calculator-wrapper {
+        grid-template-columns: 1fr 1.35fr;
+        gap: 1.75rem;
+        align-items: start;
+      }
+    }
+
+    /* Left Panel Card */
+    .panel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-card);
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.45rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      color: var(--text-dim);
+      font-size: 1.15rem;
+      pointer-events: none;
+    }
+
+    .input-unit {
+      position: absolute;
+      right: 14px;
+      color: var(--text-sub);
+      font-size: 0.88rem;
+      font-weight: 700;
+      pointer-events: none;
+    }
+
+    .form-control {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1.5px solid #cbd5e1;
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem 0.75rem 2.6rem;
+      color: var(--text-main);
+      font-size: 1.15rem;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+      background: #ffffff;
+    }
+
+    /* Kèo trận Buttons */
+    .penalty-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+    }
+
+    .penalty-btn {
+      background: #f8fafc;
+      border: 1.5px solid var(--border);
+      color: var(--text-sub);
+      padding: 0.65rem 0.4rem;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .penalty-btn:hover {
+      border-color: #cbd5e1;
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .penalty-btn.active {
+      background: #eff6ff;
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+
+    /* Rounding options */
+    .rounding-row {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+      margin-top: 1.25rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+
+    .rounding-label {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+
+    .round-pill {
+      font-size: 0.78rem;
+      padding: 0.25rem 0.65rem;
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .round-pill:hover {
+      border-color: #cbd5e1;
+      color: var(--text-main);
+    }
+
+    .round-pill.active {
+      background: #dbeafe;
+      border-color: #3b82f6;
+      color: #1e40af;
+      font-weight: 700;
+    }
+
+    /* Audit box */
+    .audit-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .audit-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+    }
+
+    .audit-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.88rem;
+      color: var(--text-sub);
+    }
+
+    .audit-row strong {
+      color: var(--text-main);
+      font-size: 1.05rem;
+    }
+
+    .audit-balance-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #065f46;
+      background: #d1fae5;
+      border: 1px solid #a7f3d0;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-full);
+    }
+
+    /* Action Buttons */
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr;
+      gap: 0.65rem;
+    }
+
+    .btn-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-copy {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-copy:hover {
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-reset {
+      background: #f1f5f9;
+      color: var(--text-sub);
+      border: 1px solid var(--border);
+    }
+
+    .btn-reset:hover {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    /* ================= RIGHT PANEL: 3 TEAM CARDS ================= */
+    .results-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .team-card {
+      border-radius: var(--radius-lg);
+      padding: 1.35rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: all 0.2s ease;
+    }
+
+    .team-card:hover {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .team-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+    }
+
+    /* Card Đội Thắng: Xanh tươi sáng */
+    .card-win {
+      background: var(--win-bg-card);
+      border: 1.5px solid var(--win-border);
+    }
+
+    .card-win::before {
+      background: var(--win-color);
+    }
+
+    /* Card Đội Thua Có mặt: Cam ấm áp đậm */
+    .card-lose-eat {
+      background: var(--lose-eat-bg-card);
+      border: 1.5px solid var(--lose-eat-border);
+    }
+
+    .card-lose-eat::before {
+      background: var(--lose-eat-color);
+    }
+
+    /* Card Đội Thua Vắng: Cùng tông Cam nhưng nhạt hơn chút */
+    .card-lose-home {
+      background: var(--lose-home-bg-card);
+      border: 1.5px solid var(--lose-home-border);
+    }
+
+    .card-lose-home::before {
+      background: rgba(217, 119, 6, 0.45);
+    }
+
+    .team-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+    }
+
+    .team-tag {
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 0.25rem 0.7rem;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .card-win .team-tag {
+      background: var(--win-tag-bg);
+      color: var(--win-tag-text);
+      border: 1px solid var(--win-border);
+    }
+
+    .card-lose-eat .team-tag {
+      background: var(--lose-eat-tag-bg);
+      color: var(--lose-eat-tag-text);
+      border: 1px solid var(--lose-eat-border);
+    }
+
+    .card-lose-home .team-tag {
+      background: var(--lose-home-tag-bg);
+      color: var(--lose-home-tag-text);
+      border: 1px solid var(--lose-home-border);
+    }
+
+    .member-count-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-sub);
+    }
+
+    .team-price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .team-price {
+      font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .card-win .team-price {
+      color: var(--win-color);
+    }
+
+    .card-lose-eat .team-price {
+      color: var(--lose-eat-color);
+    }
+
+    .card-lose-home .team-price {
+      color: var(--lose-home-color);
+    }
+
+    .team-subtotal {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      text-align: right;
+    }
+
+    .team-subtotal strong {
+      font-size: 0.95rem;
+    }
+
+    .card-win .team-subtotal strong {
+      color: var(--win-color);
+    }
+
+    .card-lose-eat .team-subtotal strong {
+      color: var(--lose-eat-color);
+    }
+
+    .card-lose-home .team-subtotal strong {
+      color: var(--lose-home-color);
+    }
+
+    /* Tag Input Container: Sáng, nền trắng cao cấp */
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem;
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.45rem 0.6rem;
+      min-height: 44px;
+      cursor: text;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+      transition: all 0.2s ease;
+    }
+
+    .tags-container:focus-within {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    /* display: contents để chip và input luôn nằm tiếp nối nhau trên cùng 1 hàng */
+    .chips-list {
+      display: contents;
+    }
+
+    .name-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.22rem 0.55rem;
+      border-radius: var(--radius-full);
+      user-select: none;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      line-height: 1.2;
+    }
+
+    .name-chip:hover {
+      transform: translateY(-1px);
+    }
+
+    .chip-win {
+      background: var(--win-chip-bg);
+      color: var(--win-chip-text);
+      border: 1px solid var(--win-chip-border);
+    }
+
+    .chip-lose-eat {
+      background: var(--lose-eat-chip-bg);
+      color: var(--lose-eat-chip-text);
+      border: 1px solid var(--lose-eat-chip-border);
+    }
+
+    .chip-lose-home {
+      background: var(--lose-home-chip-bg);
+      color: var(--lose-home-chip-text);
+      border: 1px solid var(--lose-home-chip-border);
+    }
+
+    .chip-remove {
+      background: transparent;
+      border: none;
+      color: inherit;
+      font-size: 1.05rem;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0.6;
+      padding: 0 0 0 2px;
+      display: inline-flex;
+      align-items: center;
+      transition: opacity 0.15s ease;
+    }
+
+    .chip-remove:hover {
+      opacity: 1;
+    }
+
+    .name-chip.paid {
+      background: #f1f5f9;
+      color: #94a3b8;
+      border-color: #cbd5e1;
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+
+    .name-chip .check-mark {
+      display: none;
+      color: #10b981;
+      font-size: 0.85rem;
+    }
+
+    .name-chip.paid .check-mark {
+      display: inline;
+    }
+
+    /* Ô gõ tiếp nối ngay sau chip cuối cùng trên dòng */
+    .tag-input {
+      flex: 1 1 60px;
+      min-width: 60px;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      padding: 0.2rem 0.25rem;
+      font-family: inherit;
+    }
+
+    .tag-input::placeholder {
+      color: var(--text-dim);
+      font-size: 0.78rem;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #0f172a;
+      color: #fff;
+      padding: 0.75rem 1.3rem;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 999;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .toast i {
+      color: #34d399;
+      font-size: 1.1rem;
+    }
+
+    /* Error state */
+    .error-banner {
+      display: none;
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      color: #b91c1c;
+      padding: 0.65rem 0.9rem;
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .error-banner.show {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header Navigation -->
+  <header class="header-top">
+    <div class="brand-badge">
+      <i class="uil uil-bill"></i> Xóm Ngoại FC
+    </div>
+  </header>
+
+  <!-- Page Title -->
+  <div class="main-title">
+    <h1>Chia Tiền Kèo Bóng đá</h1>
+  </div>
+
+  <!-- Error Banner -->
+  <div class="error-banner" id="error-banner">
+    <i class="uil uil-exclamation-triangle"></i>
+    <span id="error-msg">Cần ít nhất 1 người đi ăn để chia hóa đơn!</span>
+  </div>
+
+  <!-- Calculator Grid -->
+  <main class="calculator-wrapper">
+
+    <!-- LEFT PANEL: BILL & SETTINGS -->
+    <section class="panel-card">
+
+      <!-- Total Bill Input (Tự nhập số tiền) -->
+      <div class="form-group">
+        <label class="form-label" for="bill-input">Tổng Tiền Hóa Đơn</label>
+        <div class="input-wrapper">
+          <i class="uil uil-receipt input-icon"></i>
+          <input type="text" id="bill-input" class="form-control num-font" placeholder="Nhập số tiền..."
+            value="" inputmode="numeric" />
+        </div>
+      </div>
+
+      <!-- Kèo trận (Các mức cố định) -->
+      <div class="form-group">
+        <label class="form-label">Kèo trận</label>
+        <div class="penalty-grid">
+          <button type="button" class="penalty-btn active num-font" data-penalty="50000">50k</button>
+          <button type="button" class="penalty-btn num-font" data-penalty="100000">100k</button>
+          <button type="button" class="penalty-btn num-font" data-penalty="150000">150k</button>
+          <button type="button" class="penalty-btn num-font" data-penalty="200000">200k</button>
+        </div>
+      </div>
+
+      <!-- Rounding option (Chỉ 3 mức: Chính xác, 1.000, 5.000) -->
+      <div class="rounding-row">
+        <span class="rounding-label">Làm tròn:</span>
+        <button type="button" class="round-pill" data-round="none">Chính xác</button>
+        <button type="button" class="round-pill active" data-round="1000">1.000</button>
+        <button type="button" class="round-pill" data-round="5000">5.000</button>
+      </div>
+
+      <!-- Audit box (Gọn gàng, chuẩn sáng) -->
+      <div class="audit-box">
+        <div class="audit-title">
+          <span>Đối Soát Hóa Đơn</span>
+          <span class="audit-balance-badge" id="audit-badge">
+            <i class="uil uil-check-circle"></i> Khớp Bill 100%
+          </span>
+        </div>
+        <div class="audit-row">
+          <span>Tổng thực thu:</span>
+          <strong class="num-font" id="audit-total-collected" style="color: #2563eb;">0</strong>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-grid">
+        <button type="button" class="btn-action btn-copy" id="btn-copy">
+          <i class="uil uil-copy-alt"></i> Sao Chép Zalo
+        </button>
+        <button type="button" class="btn-action btn-reset" id="btn-reset">
+          <i class="uil uil-redo"></i> Đặt Lại
+        </button>
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL: 3 TEAM CARDS -->
+    <section class="results-panel">
+
+      <!-- Card 1: Đội Thắng (Có mặt) -->
+      <div class="team-card card-win">
+        <div class="team-top">
+          <span class="team-tag">🏆 Đội Thắng (Có mặt)</span>
+          <span class="member-count-badge" id="badge-count-win">0 người</span>
+        </div>
+        <div class="team-price-row">
+          <div>
+            <div class="team-price num-font" id="price-win">0</div>
+            <span style="font-size: 0.75rem; color: var(--text-dim);">mỗi người cần đóng</span>
+          </div>
+          <div class="team-subtotal">
+            <div>Tổng nhóm</div>
+            <strong class="num-font" id="subtotal-win">0</strong>
+          </div>
+        </div>
+        <!-- Inline Tag Input Container -->
+        <div class="tags-container" id="box-win" data-team="win">
+          <div class="chips-list" id="chips-win"></div>
+          <input type="text" class="tag-input" id="input-win" placeholder="Nhập tên rồi gõ dấu phẩy (,)..." />
+        </div>
+      </div>
+
+      <!-- Card 2: Đội Thua (Có mặt) - Cam ấm áp đậm -->
+      <div class="team-card card-lose-eat">
+        <div class="team-top">
+          <span class="team-tag">🥊 Đội Thua (Có mặt)</span>
+          <span class="member-count-badge" id="badge-count-lose-eat">0 người</span>
+        </div>
+        <div class="team-price-row">
+          <div>
+            <div class="team-price num-font" id="price-lose-eat">0</div>
+            <span style="font-size: 0.75rem; color: var(--text-dim);">mỗi người cần đóng</span>
+          </div>
+          <div class="team-subtotal">
+            <div>Tổng nhóm</div>
+            <strong class="num-font" id="subtotal-lose-eat">0</strong>
+          </div>
+        </div>
+        <!-- Inline Tag Input Container -->
+        <div class="tags-container" id="box-lose-eat" data-team="lose-eat">
+          <div class="chips-list" id="chips-lose-eat"></div>
+          <input type="text" class="tag-input" id="input-lose-eat" placeholder="Nhập tên rồi gõ dấu phẩy (,)..." />
+        </div>
+      </div>
+
+      <!-- Card 3: Đội Thua (Vắng) - Cùng màu Cam nhưng nhạt hơn chút -->
+      <div class="team-card card-lose-home">
+        <div class="team-top">
+          <span class="team-tag">🏠 Đội Thua (Vắng)</span>
+          <span class="member-count-badge" id="badge-count-lose-home">0 người</span>
+        </div>
+        <div class="team-price-row">
+          <div>
+            <div class="team-price num-font" id="price-lose-home">0</div>
+            <span style="font-size: 0.75rem; color: var(--text-dim);">mỗi người cần đóng</span>
+          </div>
+          <div class="team-subtotal">
+            <div>Tổng nhóm</div>
+            <strong class="num-font" id="subtotal-lose-home">0</strong>
+          </div>
+        </div>
+        <!-- Inline Tag Input Container -->
+        <div class="tags-container" id="box-lose-home" data-team="lose-home">
+          <div class="chips-list" id="chips-lose-home"></div>
+          <input type="text" class="tag-input" id="input-lose-home" placeholder="Nhập tên rồi gõ dấu phẩy (,)..." />
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <i class="uil uil-check-circle"></i>
+    <span>Đã sao chép nội dung chia tiền vào bộ nhớ tạm!</span>
+  </div>
+
+  <!-- Script Logic -->
+  <script>
+    // State variables
+    let bill = 0;
+    let penalty = 50000;
+    let roundMode = '1000'; // 'none', '1000', '5000'
+
+    // Member arrays: array of objects { name: string, paid: boolean }
+    let membersWin = [];
+    let membersLoseEat = [];
+    let membersLoseHome = [];
+
+    // DOM elements
+    const billInput = document.getElementById('bill-input');
+    const badgeCountWin = document.getElementById('badge-count-win');
+    const badgeCountLoseEat = document.getElementById('badge-count-lose-eat');
+    const badgeCountLoseHome = document.getElementById('badge-count-lose-home');
+
+    const penaltyBtns = document.querySelectorAll('.penalty-btn');
+    const roundPills = document.querySelectorAll('.round-pill');
+    const btnReset = document.getElementById('btn-reset');
+    const btnCopy = document.getElementById('btn-copy');
+    const toast = document.getElementById('toast');
+    const errorBanner = document.getElementById('error-banner');
+    const errorMsg = document.getElementById('error-msg');
+
+    // Results DOM
+    const priceWin = document.getElementById('price-win');
+    const priceLoseEat = document.getElementById('price-lose-eat');
+    const priceLoseHome = document.getElementById('price-lose-home');
+    const subtotalWin = document.getElementById('subtotal-win');
+    const subtotalLoseEat = document.getElementById('subtotal-lose-eat');
+    const subtotalLoseHome = document.getElementById('subtotal-lose-home');
+
+    // Audit DOM
+    const auditTotalCollected = document.getElementById('audit-total-collected');
+    const auditBadge = document.getElementById('audit-badge');
+
+    // Helper: format money (không kèm chữ đ)
+    function formatVND(num) {
+      if (isNaN(num) || num === null || num === undefined) return '0';
+      return Math.round(num).toLocaleString('vi-VN');
+    }
+
+    // Helper: parse money string
+    function parseVND(str) {
+      if (!str) return 0;
+      const cleaned = str.toString().replace(/[^\d]/g, '');
+      return parseInt(cleaned, 10) || 0;
+    }
+
+    // Helper: get array by key
+    function getMemberList(team) {
+      if (team === 'win') return membersWin;
+      if (team === 'lose-eat') return membersLoseEat;
+      if (team === 'lose-home') return membersLoseHome;
+      return [];
+    }
+
+    // Render chips inside tag container
+    function renderTeamChips(team) {
+      const listEl = document.getElementById(`chips-${team}`);
+      const members = getMemberList(team);
+      listEl.innerHTML = '';
+
+      members.forEach((m, idx) => {
+        const chip = document.createElement('span');
+        chip.className = `name-chip chip-${team} ${m.paid ? 'paid' : ''}`;
+        chip.innerHTML = `
+          <span class="chip-name">${m.name}</span>
+          <i class="uil uil-check check-mark"></i>
+          <button type="button" class="chip-remove" title="Xóa">&times;</button>
+        `;
+
+        // Toggle paid state when clicking name text
+        chip.querySelector('.chip-name').addEventListener('click', (e) => {
+          e.stopPropagation();
+          m.paid = !m.paid;
+          chip.classList.toggle('paid', m.paid);
+        });
+
+        // Remove chip when clicking ×
+        chip.querySelector('.chip-remove').addEventListener('click', (e) => {
+          e.stopPropagation();
+          members.splice(idx, 1);
+          renderTeamChips(team);
+          calculate();
+        });
+
+        listEl.appendChild(chip);
+      });
+    }
+
+    // Add member name to a team
+    function addMember(team, name) {
+      const clean = name.trim();
+      if (!clean) return;
+      const members = getMemberList(team);
+      members.push({ name: clean, paid: false });
+    }
+
+    // Setup unified Tag Input events
+    function setupTagInput(team) {
+      const box = document.getElementById(`box-${team}`);
+      const input = document.getElementById(`input-${team}`);
+
+      // Focus input on container click
+      box.addEventListener('click', (e) => {
+        if (!e.target.closest('.name-chip')) {
+          input.focus();
+        }
+      });
+
+      // Handle typing comma or enter
+      input.addEventListener('keydown', (e) => {
+        if (e.key === ',' || e.key === 'Enter') {
+          e.preventDefault();
+          submitTag(team, input);
+        } else if (e.key === 'Backspace' && input.value === '') {
+          const members = getMemberList(team);
+          if (members.length > 0) {
+            members.pop();
+            renderTeamChips(team);
+            calculate();
+          }
+        }
+      });
+
+      input.addEventListener('input', () => {
+        if (input.value.includes(',')) {
+          submitTag(team, input);
+        }
+      });
+
+      // Handle paste comma-separated list
+      input.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const pasteData = (e.clipboardData || window.clipboardData).getData('text');
+        if (pasteData) {
+          const parts = pasteData.split(/[,;\n]+/).map(s => s.trim()).filter(Boolean);
+          parts.forEach(p => addMember(team, p));
+          input.value = '';
+          renderTeamChips(team);
+          calculate();
+        }
+      });
+    }
+
+    function submitTag(team, inputEl) {
+      const raw = inputEl.value.replace(/[,;\n]/g, '').trim();
+      if (raw) {
+        addMember(team, raw);
+        inputEl.value = '';
+        renderTeamChips(team);
+        calculate();
+      } else {
+        inputEl.value = '';
+      }
+    }
+
+    // Rounding function
+    function applyRounding(val, mode) {
+      if (val <= 0) return 0;
+      if (mode === '1000') return Math.ceil(val / 1000) * 1000;
+      if (mode === '5000') return Math.ceil(val / 5000) * 5000;
+      return Math.round(val);
+    }
+
+    // Main Calculation
+    function calculate() {
+      const nWin = membersWin.length;
+      const nLoseEat = membersLoseEat.length;
+      const nLoseHome = membersLoseHome.length;
+
+      badgeCountWin.innerText = `${nWin} người`;
+      badgeCountLoseEat.innerText = `${nLoseEat} người`;
+      badgeCountLoseHome.innerText = `${nLoseHome} người`;
+
+      const nEating = nWin + nLoseEat;
+
+      if (nEating === 0) {
+        if (bill > 0) {
+          errorBanner.classList.add('show');
+          errorMsg.innerText = 'Cần ít nhất 1 người có mặt đi ăn để chia hóa đơn!';
+        } else {
+          errorBanner.classList.remove('show');
+        }
+        priceWin.innerText = '0';
+        priceLoseEat.innerText = '0';
+        priceLoseHome.innerText = nLoseHome > 0 ? formatVND(penalty) : '0';
+        subtotalWin.innerText = '0';
+        subtotalLoseEat.innerText = '0';
+        subtotalLoseHome.innerText = formatVND(nLoseHome * penalty);
+        auditTotalCollected.innerText = formatVND(nLoseHome * penalty);
+        auditBadge.innerHTML = '<i class="uil uil-info-circle"></i> Sẵn sàng nhập liệu';
+        auditBadge.style.color = '#475569';
+        auditBadge.style.background = '#f1f5f9';
+        auditBadge.style.border = '1px solid #cbd5e1';
+        return;
+      } else {
+        errorBanner.classList.remove('show');
+      }
+
+      const totalPenalty = (nLoseHome + nLoseEat) * penalty;
+      const remainingBill = Math.max(0, bill - totalPenalty);
+      const rawX = remainingBill / nEating;
+      const finalX = applyRounding(rawX, roundMode);
+
+      let payWin = finalX;
+      let payLoseEat = finalX + penalty;
+      let payLoseHome = penalty;
+
+      if (totalPenalty >= bill && bill > 0) {
+        payWin = 0;
+        payLoseEat = penalty;
+      } else if (bill === 0) {
+        payWin = 0;
+        payLoseEat = 0;
+        payLoseHome = 0;
+      }
+
+      const totalWinSub = payWin * nWin;
+      const totalLoseEatSub = payLoseEat * nLoseEat;
+      const totalLoseHomeSub = payLoseHome * nLoseHome;
+      const grandTotal = totalWinSub + totalLoseEatSub + totalLoseHomeSub;
+
+      priceWin.innerText = nWin > 0 ? formatVND(payWin) : '0';
+      priceLoseEat.innerText = nLoseEat > 0 ? formatVND(payLoseEat) : '0';
+      priceLoseHome.innerText = nLoseHome > 0 ? formatVND(payLoseHome) : '0';
+
+      subtotalWin.innerText = formatVND(totalWinSub);
+      subtotalLoseEat.innerText = formatVND(totalLoseEatSub);
+      subtotalLoseHome.innerText = formatVND(totalLoseHomeSub);
+
+      auditTotalCollected.innerText = formatVND(grandTotal);
+
+      if (bill === 0 && grandTotal === 0) {
+        auditBadge.innerHTML = '<i class="uil uil-info-circle"></i> Sẵn sàng nhập liệu';
+        auditBadge.style.color = '#475569';
+        auditBadge.style.background = '#f1f5f9';
+        auditBadge.style.border = '1px solid #cbd5e1';
+        return;
+      }
+
+      const diff = grandTotal - bill;
+      if (diff === 0) {
+        auditBadge.innerHTML = '<i class="uil uil-check-circle"></i> Khớp Bill 100%';
+        auditBadge.style.color = '#065f46';
+        auditBadge.style.background = '#d1fae5';
+        auditBadge.style.border = '1px solid #a7f3d0';
+      } else if (diff > 0) {
+        auditBadge.innerHTML = `<i class="uil uil-plus-circle"></i> Dư ${formatVND(diff)}`;
+        auditBadge.style.color = '#1e40af';
+        auditBadge.style.background = '#dbeafe';
+        auditBadge.style.border = '1px solid #bfdbfe';
+      } else {
+        auditBadge.innerHTML = `<i class="uil uil-exclamation-triangle"></i> Hụt ${formatVND(Math.abs(diff))}`;
+        auditBadge.style.color = '#b91c1c';
+        auditBadge.style.background = '#fee2e2';
+        auditBadge.style.border = '1px solid #fca5a5';
+      }
+    }
+
+    // Bill input formatting
+    billInput.addEventListener('input', () => {
+      const raw = billInput.value.replace(/[^\d]/g, '');
+      if (raw) {
+        bill = parseInt(raw, 10) || 0;
+        billInput.value = bill.toLocaleString('vi-VN');
+      } else {
+        bill = 0;
+        billInput.value = '';
+      }
+      calculate();
+    });
+
+    // Kèo trận Selection
+    penaltyBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        penaltyBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        penalty = parseInt(btn.dataset.penalty, 10);
+        calculate();
+      });
+    });
+
+    roundPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        roundPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        roundMode = pill.dataset.round;
+        calculate();
+      });
+    });
+
+    // Copy summary to clipboard
+    btnCopy.addEventListener('click', async () => {
+      const payWinText = membersWin.length > 0 ? priceWin.innerText : '0';
+      const payLoseEatText = membersLoseEat.length > 0 ? priceLoseEat.innerText : '0';
+      const payLoseHomeText = membersLoseHome.length > 0 ? priceLoseHome.innerText : '0';
+
+      const listWinStr = membersWin.length > 0 ? membersWin.map(m => m.name).join(', ') : '(Không có)';
+      const listLoseEatStr = membersLoseEat.length > 0 ? membersLoseEat.map(m => m.name).join(', ') : '(Không có)';
+      const listLoseHomeStr = membersLoseHome.length > 0 ? membersLoseHome.map(m => m.name).join(', ') : '(Không có)';
+
+      const summary = `⚽ KÈO BÓNG ĐÁ & CHIA TIỀN\n` +
+        `🧾 Hóa đơn: ${bill.toLocaleString('vi-VN')}\n` +
+        `⚡ Kèo trận: ${penalty.toLocaleString('vi-VN')}/người\n` +
+        `----------------------------------------\n` +
+        `🏆 ĐỘI THẮNG (${membersWin.length} người):\n` +
+        `👉 Mỗi người: ${payWinText}\n` +
+        `👥 Danh sách: ${listWinStr}\n\n` +
+        `🥊 ĐỘI THUA (CÓ MẶT) (${membersLoseEat.length} người):\n` +
+        `👉 Mỗi người: ${payLoseEatText}\n` +
+        `👥 Danh sách: ${listLoseEatStr}\n\n` +
+        `🏠 ĐỘI THUA (VẮNG) (${membersLoseHome.length} người):\n` +
+        `👉 Mỗi người: ${payLoseHomeText}\n` +
+        `👥 Danh sách: ${listLoseHomeStr}\n` +
+        `----------------------------------------\n` +
+        `💰 Tổng thu: ${auditTotalCollected.innerText} (${auditBadge.innerText})\n\n` +
+        `Mọi người chuyển khoản theo số tài khoản bên dưới`;
+
+      try {
+        await navigator.clipboard.writeText(summary);
+        showToast('Đã sao chép báo cáo chia tiền vào Clipboard!');
+      } catch (err) {
+        const ta = document.createElement('textarea');
+        ta.value = summary;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('Đã sao chép báo cáo chia tiền vào Clipboard!');
+      }
+    });
+
+    function showToast(msg) {
+      toast.querySelector('span').innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Reset - Xóa trắng toàn bộ thông tin nhập
+    btnReset.addEventListener('click', () => {
+      bill = 0;
+      billInput.value = '';
+
+      membersWin = [];
+      membersLoseEat = [];
+      membersLoseHome = [];
+
+      const inputWin = document.getElementById('input-win');
+      const inputLoseEat = document.getElementById('input-lose-eat');
+      const inputLoseHome = document.getElementById('input-lose-home');
+      if (inputWin) inputWin.value = '';
+      if (inputLoseEat) inputLoseEat.value = '';
+      if (inputLoseHome) inputLoseHome.value = '';
+
+      penaltyBtns.forEach(b => b.classList.remove('active'));
+      penaltyBtns[0].classList.add('active');
+      penalty = parseInt(penaltyBtns[0].dataset.penalty, 10);
+
+      roundPills.forEach(p => p.classList.remove('active'));
+      roundPills[1].classList.add('active');
+      roundMode = roundPills[1].dataset.round;
+
+      renderTeamChips('win');
+      renderTeamChips('lose-eat');
+      renderTeamChips('lose-home');
+
+      calculate();
+      showToast('Đã đặt lại toàn bộ tên người và số tiền hóa đơn!');
+    });
+
+    // Initialize Tag Inputs
+    setupTagInput('win');
+    setupTagInput('lose-eat');
+    setupTagInput('lose-home');
+
+    renderTeamChips('win');
+    renderTeamChips('lose-eat');
+    renderTeamChips('lose-home');
+
+    calculate();
+  </script>
+</body>
+
+</html>
