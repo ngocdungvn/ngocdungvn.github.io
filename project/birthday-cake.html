@@ -34,6 +34,21 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-touch-callout: none !important;
+        }
+
+        *:focus, *:active {
+            outline: none;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        ::selection {
+            background: transparent;
+        }
+
+        ::-moz-selection {
+            background: transparent;
         }
 
         html, body {
@@ -43,6 +58,11 @@
             outline: none;
             user-select: none;
             -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-touch-callout: none !important;
+            touch-action: manipulation;
         }
 
         body {
@@ -52,8 +72,6 @@
             justify-content: center;
             font-family: 'Outfit', sans-serif;
         }
-
-
 
         /* Responsive Scene Container */
         .scene-container {
@@ -66,6 +84,10 @@
             justify-content: center;
             cursor: pointer;
             touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-touch-callout: none !important;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .cake-scene {
@@ -77,6 +99,10 @@
             transform: translate(-50%, -50%);
             transform-origin: center center;
             pointer-events: auto;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-touch-callout: none !important;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .cake {
@@ -89,6 +115,10 @@
             margin-left: -300px;
             cursor: pointer;
             touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-touch-callout: none !important;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .cake > * {
@@ -263,7 +293,7 @@
 <body onload="init();">
     <div class="scene-container">
         <div class="cake-scene">
-            <div class="cake" title="Click chuột trái để thổi nến | Double-click để thắp lại nến">
+            <div class="cake">
                 <div class="icing">
                     <div class="drip"></div>
                     <div class="drip"></div>
