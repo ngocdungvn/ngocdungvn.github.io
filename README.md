@@ -10,7 +10,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
 <p align="center">
-  <b>Trang cá nhân & Bộ sưu tập hơn 15 Mini Apps, Games và Tiện ích tương tác trực tuyến</b><br>
+  <b>Trang cá nhân & Bộ sưu tập hơn 14 Mini Apps, Games và Tiện ích tương tác trực tuyến</b><br>
   Thiết kế theo phong cách hiện đại (Glassmorphism & Neumorphism), tương thích hoàn hảo 100% với thiết bị di động.
 </p>
 
@@ -62,10 +62,9 @@ Hệ thống mini apps được phân chia khoa học thành 3 danh mục chính
 
 | STT | Trải Nghiệm | Tệp Tin | Mô Tả & Hiệu Ứng |
 |:---:|---|---|---|
-| 12 | **Bánh Sinh Nhật Thổi Nến** | [`project/birthday-cake.html`](project/birthday-cake.html) | Chiếc bánh sinh nhật 3 tầng tương tác trực quan, tự động scale vừa mọi kích cỡ màn hình điện thoại, tương tác chạm để thổi nến hoặc thắp lại nến kèm âm thanh puff & chime. |
-| 13 | **Pháo Hoa Tự Động Pro** | [`project/auto-fireworks.html`](project/auto-fireworks.html) | Trình diễn pháo hoa 3D tự động với hạt ánh sáng phân rã vật lý, drawer cài đặt bánh răng (⚙) trượt mở tiện lợi trên di động. |
-| 14 | **Pháo Hoa Chạm Bắn** | [`project/click-fireworks.html`](project/click-fireworks.html) | Chạm hoặc nhấp chuột vào bất kỳ vị trí nào trên màn hình để kích nổ chùm pháo hoa rực rỡ với âm thanh nổ sống động và fade-out tự nhiên. |
-| 15 | **Pháo Hoa Tương Tác 2023** | [`project/firework/index.html`](project/firework/index.html) | Trình diễn pháo hoa chào năm mới với hệ thống điều khiển âm thanh, pause/play và thanh chỉnh kích thước hạt. |
+| 12 | **Bánh Sinh Nhật Thổi Nến** | [`project/birthday-cake.html`](project/birthday-cake.html) | Chiếc bánh sinh nhật 3 tầng tương tác trực quan, tự động scale vừa mọi kích cỡ màn hình, tương tác 1 click để thổi nến hoặc double click để thắp lại nến kèm âm thanh puff & chime. |
+| 13 | **Pháo Hoa Chạm Bắn** | [`project/click-fireworks.html`](project/click-fireworks.html) | Chạm hoặc nhấp chuột vào bất kỳ vị trí nào trên màn hình để kích nổ chùm pháo hoa rực rỡ với âm thanh nổ sống động và fade-out tự nhiên. |
+| 14 | **Pháo Hoa Tương Tác 2023** | [`project/firework/index.html`](project/firework/index.html) | Trình diễn pháo hoa chào năm mới với hệ thống điều khiển âm thanh, pause/play và thanh chỉnh kích thước hạt. |
 
 ---
 
@@ -135,7 +134,6 @@ ngocdungvn.github.io/
 │   ├── ping-pong.html       # Bóng bàn 2D Ping Pong (đấu AI)
 │   ├── simon-game.html      # Thử thách Simon Memory
 │   ├── birthday-cake.html   # Bánh sinh nhật thổi nến tương tác
-│   ├── auto-fireworks.html  # Pháo hoa tự động Pro
 │   ├── click-fireworks.html # Pháo hoa chạm bắn
 │   └── firework/            # Pháo hoa tương tác 2023
 ├── index.html               # Trang Portfolio chính

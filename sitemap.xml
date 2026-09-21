@@ -45,12 +45,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://ngocdungvn.github.io/project/auto-fireworks.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+
   <url>
     <loc>https://ngocdungvn.github.io/project/click-fireworks.html</loc>
     <lastmod>2026-09-20</lastmod>
