@@ -818,23 +818,6 @@ body.light-theme .theme-toggle-btn {
     100% { transform: scale(1.08); opacity: 0.95; }
 }
 
-/* Cosmic Orbit Ring */
-.hero__visual-orbit {
-    position: absolute;
-    width: 530px;
-    height: 530px;
-    border-radius: 50%;
-    border: 1.5px dashed rgba(99, 102, 241, 0.28);
-    pointer-events: none;
-    z-index: 0;
-    animation: spinSlow 45s linear infinite;
-}
-
-@keyframes spinSlow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
 /* Non-square Organic Asymmetric Portal (Large & Impressive) */
 .avatar-portal {
     position: relative;
@@ -2355,10 +2338,6 @@ body.light-theme .footer__social-btn:hover {
         height: 450px;
     }
 
-    .hero__visual-orbit {
-        width: 440px;
-        height: 440px;
-    }
 
     .hero__visual-glow {
         width: 400px;
@@ -2499,10 +2478,6 @@ body.light-theme .footer__social-btn:hover {
         border-radius: 84px 30px 84px 30px;
     }
 
-    .hero__visual-orbit {
-        width: 360px;
-        height: 360px;
-    }
 
     .hero__visual-glow {
         width: 340px;
@@ -2622,9 +2597,6 @@ body.light-theme .footer__social-btn:hover {
         border-radius: 69px 24px 69px 24px;
     }
 
-    .hero__visual-orbit {
-        display: none;
-    }
 
     .hero__visual-glow {
         width: 280px;
