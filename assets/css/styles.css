@@ -1076,6 +1076,11 @@ body.light-theme .avatar-portal-overlay {
     gap: 0.45rem;
 }
 
+.skill-tags--single-column {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .skill-tag {
     display: inline-flex;
     align-items: center;
