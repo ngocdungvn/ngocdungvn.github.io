@@ -63,9 +63,12 @@
 
     <!--==================== UNICONS ====================-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" />
 
     <!--==================== MAIN CSS ====================-->
-    <link rel="stylesheet" href="assets/css/styles.css?v=3.7" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=3.8" />
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-44V9QEHL9J"></script>
@@ -123,9 +126,9 @@
                     aria-label="Toggle theme">
                     <i class="uil uil-sun"></i>
                 </button>
-                <div class="nav__toggle" id="nav-toggle" aria-label="Toggle menu">
+                <button type="button" class="nav__toggle" id="nav-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="nav-menu">
                     <i class="uil uil-apps"></i>
-                </div>
+                </button>
             </div>
         </nav>
     </header>
@@ -195,8 +198,7 @@
                 <div class="hero__visual">
                     <div class="hero__visual-glow"></div>
 
-                    <div class="avatar-portal" data-tilt data-tilt-max="8" data-tilt-speed="400"
-                        data-tilt-perspective="1000">
+                    <div class="avatar-portal">
                         <div class="avatar-portal-inner">
                             <img src="assets/img/tnd.jpg" alt="Tạ Ngọc Dũng Avatar" loading="eager" />
                             <div class="avatar-portal-overlay"></div>
@@ -677,7 +679,7 @@
 
                 <div class="donate-grid">
                     <!-- Left: Combined Vietcombank & VietQR Card -->
-                    <div class="bank-combined-card" data-tilt>
+                    <div class="bank-combined-card">
                         <div class="bank-side">
                             <div class="bank-card__top">
                                 <div class="bank-brand-wrap">
@@ -721,7 +723,7 @@
                     </div>
 
                     <!-- Right: Big MoMo Card -->
-                    <div class="momo-card-large" data-tilt>
+                    <div class="momo-card-large">
                         <div class="momo-card-header">
                             <div class="momo-logo-big">
                                 <svg viewBox="0 0 96 87" fill="#a50064" xmlns="http://www.w3.org/2000/svg">
@@ -864,47 +866,47 @@
 
                 <div class="gallery-grid">
                     <!-- Cert 1 -->
-                    <div class="cert-card">
-                        <div class="cert-img-wrap">
-                            <img src="assets/photos/c1.png" alt="Fundamentals of Reinforcement Learning"
-                                loading="lazy" />
-                            <div class="cert-overlay">
-                                <div class="zoom-btn"><i class="uil uil-focus-add"></i></div>
-                            </div>
-                        </div>
-                        <div class="cert-content">
-                            <h3 class="cert-title">Fundamentals of Reinforcement Learning</h3>
+                    <button type="button" class="cert-card">
+                        <span class="cert-img-wrap">
+                            <img src="assets/photos/c1-thumb.webp" data-full-src="assets/photos/c1.png" alt="Fundamentals of Reinforcement Learning"
+                                width="800" height="327" loading="lazy" decoding="async" />
+                            <span class="cert-overlay">
+                                <span class="zoom-btn"><i class="uil uil-focus-add"></i></span>
+                            </span>
+                        </span>
+                        <span class="cert-content">
+                            <span class="cert-title">Fundamentals of Reinforcement Learning</span>
                             <span class="cert-issuer">Coursera • University of Alberta</span>
-                        </div>
-                    </div>
+                        </span>
+                    </button>
 
                     <!-- Cert 2 -->
-                    <div class="cert-card">
-                        <div class="cert-img-wrap">
-                            <img src="assets/photos/c2.png" alt="Sample-based Learning Methods" loading="lazy" />
-                            <div class="cert-overlay">
-                                <div class="zoom-btn"><i class="uil uil-focus-add"></i></div>
-                            </div>
-                        </div>
-                        <div class="cert-content">
-                            <h3 class="cert-title">Sample-based Learning Methods</h3>
+                    <button type="button" class="cert-card">
+                        <span class="cert-img-wrap">
+                            <img src="assets/photos/c2-thumb.webp" data-full-src="assets/photos/c2.png" alt="Sample-based Learning Methods" width="800" height="327" loading="lazy" decoding="async" />
+                            <span class="cert-overlay">
+                                <span class="zoom-btn"><i class="uil uil-focus-add"></i></span>
+                            </span>
+                        </span>
+                        <span class="cert-content">
+                            <span class="cert-title">Sample-based Learning Methods</span>
                             <span class="cert-issuer">Coursera • University of Alberta</span>
-                        </div>
-                    </div>
+                        </span>
+                    </button>
 
                     <!-- Cert 3 -->
-                    <div class="cert-card">
-                        <div class="cert-img-wrap">
-                            <img src="assets/photos/c3.png" alt="Improving Deep Neural Networks" loading="lazy" />
-                            <div class="cert-overlay">
-                                <div class="zoom-btn"><i class="uil uil-focus-add"></i></div>
-                            </div>
-                        </div>
-                        <div class="cert-content">
-                            <h3 class="cert-title">Improving Deep Neural Networks</h3>
+                    <button type="button" class="cert-card">
+                        <span class="cert-img-wrap">
+                            <img src="assets/photos/c3-thumb.webp" data-full-src="assets/photos/c3.png" alt="Improving Deep Neural Networks" width="800" height="327" loading="lazy" decoding="async" />
+                            <span class="cert-overlay">
+                                <span class="zoom-btn"><i class="uil uil-focus-add"></i></span>
+                            </span>
+                        </span>
+                        <span class="cert-content">
+                            <span class="cert-title">Improving Deep Neural Networks</span>
                             <span class="cert-issuer">DeepLearning.AI • Hyperparameter Tuning</span>
-                        </div>
-                    </div>
+                        </span>
+                    </button>
                 </div>
             </div>
         </section>
@@ -912,8 +914,8 @@
     </main>
 
     <!--==================== LIGHTBOX MODAL ====================-->
-    <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true">
-        <div class="lightbox-close" id="lightbox-close" aria-label="Đóng"><i class="uil uil-times"></i></div>
+    <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true" aria-label="Xem chứng chỉ" aria-hidden="true" inert>
+        <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Đóng"><i class="uil uil-times"></i></button>
         <div class="lightbox-content">
             <img src="" alt="Chứng chỉ lớn" id="lightbox-img" />
             <div class="lightbox-caption" id="lightbox-caption"></div>
@@ -964,8 +966,7 @@
     </a>
 
     <!--==================== SCRIPTS ====================-->
-    <script src="vanilla-tilt.js"></script>
-    <script src="assets/js/main.js?v=3.5"></script>
+    <script src="assets/js/main.js?v=3.6"></script>
 </body>
 
 </html>

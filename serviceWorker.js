@@ -1,44 +1,54 @@
-const CACHE_NAME = 'ngocdung-portfolio-v2';
+const CACHE_PREFIX = 'ngocdung-portfolio-';
+const CACHE_NAME = `${CACHE_PREFIX}v3`;
 const STATIC_ASSETS = [
   '/',
   '/index.html',
-  '/assets/css/styles.css',
-  '/assets/js/main.js',
-  '/vanilla-tilt.js',
+  '/assets/css/styles.css?v=3.8',
+  '/assets/js/main.js?v=3.6',
+  '/assets/img/tnd.jpg',
+  '/assets/photos/c1-thumb.webp',
+  '/assets/photos/c2-thumb.webp',
+  '/assets/photos/c3-thumb.webp',
   '/manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
-  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(STATIC_ASSETS))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.map((key) => caches.delete(key))
-      );
-    }).then(() => self.clients.claim())
+    caches.keys()
+      .then((keys) => Promise.all(
+        keys
+          .filter((key) => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME)
+          .map((key) => caches.delete(key))
+      ))
+      .then(() => self.clients.claim())
   );
 });
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
+  const request = event.request;
+  if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) return;
 
-  // Network first for all requests
   event.respondWith(
-    fetch(event.request)
-      .then((networkResponse) => {
-        if (networkResponse && networkResponse.status === 200) {
-          const responseClone = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone);
-          });
+    fetch(request)
+      .then((response) => {
+        if (response.ok) {
+          const copy = response.clone();
+          event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.put(request, copy)));
         }
-        return networkResponse;
+        return response;
       })
-      .catch(() => {
-        return caches.match(event.request);
+      .catch(async () => {
+        const cached = await caches.match(request);
+        if (cached) return cached;
+        return Response.error();
       })
   );
 });

@@ -427,14 +427,17 @@
             if (!Array.isArray(messages) || messages.length == 0) return;
             let messageBox = document.getElementById("message_container");
             if (messageBox) {
-                messageBox.innerHTML = `${messages.join("<br />")}`;
+                messages.forEach((message) => {
+                    messageBox.appendChild(document.createElement("br"));
+                    messageBox.appendChild(document.createTextNode(message));
+                });
             }
         }
 
         function appendName(message) {
             let messageBox = document.getElementById("message_container");
             if (messageBox) {
-                messageBox.innerHTML = `Happy Birthday ${message != null ? message : "to you!"}`;
+                messageBox.textContent = `Happy Birthday ${message != null ? message : "to you!"}`;
             }
         }
 

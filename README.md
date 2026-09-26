@@ -7,7 +7,6 @@
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![PWA Ready](https://img.shields.io/badge/PWA-Ready-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white)](manifest.json)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
 <p align="center">
   <b>Trang cá nhân & Bộ sưu tập mini apps, dự án Trí tuệ nhân tạo (AI), giải pháp IT và Chiến lược Marketing</b><br>
@@ -73,7 +72,7 @@ Hệ thống mini apps được phân chia khoa học thành 3 danh mục chính
 Dự án ưu tiên tôn chỉ **tối ưu hiệu năng, giảm thiểu thư viện ngoài nặng nề** và khai thác tối đa sức mạnh của nền tảng web hiện đại:
 
 - **Frontend Core**: HTML5 Semantic, CSS3 (Modern Flexbox & Grid, CSS Custom Properties / Design Tokens), Vanilla JavaScript (ES6+).
-- **Hiệu Ứng & Đồ Họa**: HTML5 Canvas API, WebGL, CSS 3D Transforms, `VanillaTilt.js`.
+- **Hiệu Ứng & Đồ Họa**: HTML5 Canvas API, WebGL, CSS 3D Transforms.
 - **Âm Thanh**: Web Audio API (tạo sóng âm Oscillation, Noise buffer tạo tiếng pháo và nến thổi chân thực).
 - **Lưu Trữ & Trạng Thái**: `localStorage` (lưu tùy chọn Theme Sáng/Tối, kỷ lục trò chơi).
 - **PWA Ready**: Web App Manifest, Service Worker caching cho trải nghiệm cài đặt mượt mà trên iOS và Android.
@@ -121,7 +120,7 @@ ngocdungvn.github.io/
 │   ├── js/
 │   │   └── main.js          # Logic giao diện chính, lọc dự án, theme toggle
 │   └── img/                 # Hình ảnh, chứng chỉ, favicons, PWA icons
-├── project/                 # Thư mục chứa 15 Mini Apps độc lập
+├── project/                 # Thư mục chứa 14 Mini Apps độc lập
 │   ├── random-number.html   # Quay số ngẫu nhiên A-Z
 │   ├── share-bill.html      # Chia tiền kèo bóng đá
 │   ├── calculator.html      # Máy tính Neumorphic

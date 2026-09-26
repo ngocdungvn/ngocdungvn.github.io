@@ -952,10 +952,11 @@
         const chip = document.createElement('span');
         chip.className = `name-chip chip-${team} ${m.paid ? 'paid' : ''}`;
         chip.innerHTML = `
-          <span class="chip-name">${m.name}</span>
+          <span class="chip-name"></span>
           <i class="uil uil-check check-mark"></i>
           <button type="button" class="chip-remove" title="Xóa">&times;</button>
         `;
+        chip.querySelector('.chip-name').textContent = m.name;
 
         // Toggle paid state when clicking name text
         chip.querySelector('.chip-name').addEventListener('click', (e) => {

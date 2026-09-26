@@ -1,6 +1,3 @@
-/*==================== GOOGLE FONTS (INTER) ====================*/
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
 /*==================== CSS VARIABLES & DESIGN TOKENS ====================*/
 :root {
     --header-height: 4.25rem;
@@ -1948,6 +1945,11 @@ body.light-theme .pagination-status {
 }
 
 .cert-card {
+    width: 100%;
+    padding: 0;
+    text-align: left;
+    font: inherit;
+    color: inherit;
     border-radius: var(--radius-lg);
     overflow: hidden;
     background: var(--bg-surface);
@@ -1964,6 +1966,7 @@ body.light-theme .pagination-status {
 }
 
 .cert-img-wrap {
+    display: block;
     position: relative;
     width: 100%;
     height: 220px;
@@ -1993,7 +1996,8 @@ body.light-theme .pagination-status {
     transition: var(--transition);
 }
 
-.cert-card:hover .cert-overlay {
+.cert-card:hover .cert-overlay,
+.cert-card:focus-visible .cert-overlay {
     opacity: 1;
 }
 
@@ -2012,15 +2016,19 @@ body.light-theme .pagination-status {
     transition: var(--transition);
 }
 
-.cert-card:hover .zoom-btn {
+.cert-card:hover .zoom-btn,
+.cert-card:focus-visible .zoom-btn {
     transform: scale(1);
 }
 
 .cert-content {
+    display: block;
     padding: 1.25rem 1.5rem;
 }
 
 .cert-title {
+    display: block;
+    font-weight: 700;
     font-size: 1.05rem;
     margin-bottom: 0.3rem;
 }
@@ -2096,6 +2104,13 @@ body.light-theme .pagination-status {
 
 .lightbox-close:hover {
     background: var(--primary);
+}
+
+.nav__toggle:focus-visible,
+.cert-card:focus-visible,
+.lightbox-close:focus-visible {
+    outline: 3px solid var(--accent-cyan);
+    outline-offset: 3px;
 }
 
 /*==================== FOOTER ====================*/

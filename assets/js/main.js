@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initProjectToolbar();
     initCertLightbox();
     initServiceWorker();
-    initVanillaTilt();
 });
 
 /*==================== THEME TOGGLE (DARK / LIGHT) ====================*/
@@ -57,33 +56,35 @@ function initMobileNav() {
     const navLinks = document.querySelectorAll('.nav__link');
 
     if (navToggle && navMenu) {
-        navToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('show-menu');
+        function setMenuOpen(open) {
+            navMenu.classList.toggle('show-menu', open);
+            navToggle.setAttribute('aria-expanded', String(open));
+            navToggle.setAttribute('aria-label', open ? 'Đóng menu' : 'Mở menu');
             const icon = navToggle.querySelector('i');
-            if (icon) {
-                if (navMenu.classList.contains('show-menu')) {
-                    icon.className = 'uil uil-times';
-                } else {
-                    icon.className = 'uil uil-apps';
-                }
-            }
+            if (icon) icon.className = open ? 'uil uil-times' : 'uil uil-apps';
+        }
+
+        navToggle.addEventListener('click', () => {
+            setMenuOpen(!navMenu.classList.contains('show-menu'));
         });
 
         // Close menu on link click
         navLinks.forEach((link) => {
             link.addEventListener('click', () => {
-                navMenu.classList.remove('show-menu');
-                const icon = navToggle.querySelector('i');
-                if (icon) icon.className = 'uil uil-apps';
+                setMenuOpen(false);
             });
         });
 
         // Close menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!navMenu.contains(e.target) && !navToggle.contains(e.target) && navMenu.classList.contains('show-menu')) {
-                navMenu.classList.remove('show-menu');
-                const icon = navToggle.querySelector('i');
-                if (icon) icon.className = 'uil uil-apps';
+                setMenuOpen(false);
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navMenu.classList.contains('show-menu')) {
+                setMenuOpen(false);
+                navToggle.focus();
             }
         });
     }
@@ -364,6 +365,7 @@ function initCertLightbox() {
     const lightboxClose = document.getElementById('lightbox-close');
 
     if (!lightbox || !lightboxImg) return;
+    let triggerCard = null;
 
     certCards.forEach((card) => {
         card.addEventListener('click', () => {
@@ -372,20 +374,28 @@ function initCertLightbox() {
             const issuer = card.querySelector('.cert-issuer')?.textContent || '';
 
             if (img) {
-                lightboxImg.src = img.src;
+                triggerCard = card;
+                lightboxImg.src = img.dataset.fullSrc || img.src;
                 lightboxImg.alt = title;
                 if (lightboxCaption) {
                     lightboxCaption.textContent = `${title} (${issuer})`;
                 }
+                lightbox.inert = false;
+                lightbox.setAttribute('aria-hidden', 'false');
                 lightbox.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                lightboxClose?.focus();
             }
         });
     });
 
     function closeLightbox() {
         lightbox.classList.remove('active');
+        lightbox.inert = true;
+        lightbox.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
+        lightboxImg.removeAttribute('src');
+        triggerCard?.focus();
     }
 
     if (lightboxClose) {
@@ -402,22 +412,11 @@ function initCertLightbox() {
         if (e.key === 'Escape' && lightbox.classList.contains('active')) {
             closeLightbox();
         }
+        if (e.key === 'Tab' && lightbox.classList.contains('active')) {
+            e.preventDefault();
+            lightboxClose?.focus();
+        }
     });
-}
-
-/*==================== VANILLA TILT INITIALIZATION ====================*/
-function initVanillaTilt() {
-    if (typeof VanillaTilt !== 'undefined') {
-        const tiltElements = document.querySelectorAll('[data-tilt]');
-        tiltElements.forEach((el) => {
-            VanillaTilt.init(el, {
-                max: 15,
-                speed: 300,
-                glare: true,
-                'max-glare': 0.2
-            });
-        });
-    }
 }
 
 /*==================== SERVICE WORKER ====================*/
@@ -427,7 +426,6 @@ function initServiceWorker() {
             navigator.serviceWorker
                 .register('/serviceWorker.js')
                 .then((reg) => {
-                    reg.update();
                     console.log('Service Worker Registered successfully:', reg.scope);
                 })
                 .catch((err) => {
