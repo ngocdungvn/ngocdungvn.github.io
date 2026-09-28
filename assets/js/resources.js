@@ -12,6 +12,8 @@
     let activeAccess = 'all';
     let searchQuery = '';
     let currentVipItem = null;
+    let vipTrigger = null;
+    let previousBodyOverflow = '';
 
     // DOM Elements
     const gridEl = document.getElementById('resources-grid');
@@ -37,7 +39,7 @@
     // Detect Base Path for JSON
     function getDataUrl() {
         const isSubdir = window.location.pathname.includes('/tai-nguyen');
-        return isSubdir ? '../assets/data/resources.json' : './assets/data/resources.json';
+        return isSubdir ? '../assets/data/resources.json?v=1.1' : './assets/data/resources.json?v=1.1';
     }
 
     // 1. Fetch Resources
@@ -132,8 +134,8 @@
                 ? `<button type="button" class="btn-dl-vip" onclick="window.ResourcesApp.openVipModal('${item.id}')">
                      Nhận VIP ↗
                    </button>`
-                : `<a href="${item.downloadUrl || '#'}" target="_blank" rel="noopener noreferrer" class="btn-dl-direct">
-                     Tải ngay <i class="uil uil-arrow-down"></i>
+                : `<a href="#${item.slug}" class="btn-dl-direct">
+                     Xem chi tiết <i class="uil uil-arrow-right"></i>
                    </a>`;
 
             return `
@@ -190,12 +192,12 @@
             <div class="res-download-gate">
                 <div class="res-gate-info">
                     <span class="res-gate-ver">TẢI TRỰC TIẾP MIỄN PHÍ · ${item.version}</span>
-                    <p>Tài nguyên chia sẻ cộng đồng miễn phí. Bạn có thể tải ngay bản cập nhật mới nhất.</p>
+                    <p>${item.downloadUrl ? 'Tài nguyên chia sẻ cộng đồng miễn phí. Bạn có thể tải ngay bản cập nhật mới nhất.' : 'Tài nguyên miễn phí; đường dẫn tải đang được cập nhật.'}</p>
                 </div>
                 <div class="res-gate-actions">
-                    <a href="${item.downloadUrl || '#'}" target="_blank" rel="noopener noreferrer" class="btn-dl-direct" style="padding: 0.75rem 1.4rem; font-size: 0.95rem;">
+                    ${item.downloadUrl ? `<a href="${item.downloadUrl}" target="_blank" rel="noopener noreferrer" class="btn-dl-direct" style="padding: 0.75rem 1.4rem; font-size: 0.95rem;">
                         <i class="uil uil-arrow-circle-down"></i> Tải bản mới nhất (${item.version}) ↗
-                    </a>
+                    </a>` : '<span class="res-download-unavailable">Đang cập nhật liên kết tải</span>'}
                 </div>
             </div>
         `;
@@ -219,7 +221,7 @@
                             : `<span class="res-badge badge-public"><i class="uil uil-check-circle"></i> MIỄN PHÍ</span>`;
                         const relActionBtn = relVip
                             ? `<button type="button" class="btn-dl-vip" onclick="window.ResourcesApp.openVipModal('${r.id}')">Nhận VIP ↗</button>`
-                            : `<a href="${r.downloadUrl || '#'}" target="_blank" rel="noopener noreferrer" class="btn-dl-direct">Tải ngay <i class="uil uil-arrow-down"></i></a>`;
+                            : `<a href="#${r.slug}" class="btn-dl-direct">Xem chi tiết <i class="uil uil-arrow-right"></i></a>`;
                         return `
                         <div class="res-card" data-cat="${r.category}" style="padding: 1.15rem 1.25rem;">
                             <div class="res-card-meta" style="margin-bottom: 0.65rem;">
@@ -321,7 +323,7 @@
                     <section class="res-section-block">
                         <h2 class="res-section-title"><i class="uil uil-terminal"></i> 6. CÚ PHÁP & MẪU LỆNH SỬ DỤNG</h2>
                         <div class="res-code-box">
-                            <button type="button" class="res-code-copy-btn" onclick="window.ResourcesApp.copyCode('${encodeURIComponent(item.usage)}')">
+                            <button type="button" class="res-code-copy-btn">
                                 <i class="uil uil-copy"></i> Sao chép
                             </button>
                             <code>${escapeHtml(item.usage)}</code>
@@ -348,7 +350,7 @@
     function handleRouter() {
         const hash = window.location.hash.replace('#', '').trim();
         const urlParams = new URLSearchParams(window.location.search);
-        const slug = urlParams.get('slug') || hash;
+        const slug = hash || urlParams.get('slug');
 
         if (slug) {
             const target = allResources.find(r => r.slug === slug || r.id === slug);
@@ -397,6 +399,7 @@
         if (!item) return;
 
         currentVipItem = item;
+        vipTrigger = document.activeElement;
         if (vipTargetName) vipTargetName.textContent = item.title;
         if (vipCodeTag) vipCodeTag.textContent = `Mã: ${item.leadCode || 'VIP-MEMBER'}`;
 
@@ -410,6 +413,9 @@
         if (vipModalOverlay) {
             vipModalOverlay.classList.add('active');
             vipModalOverlay.setAttribute('aria-hidden', 'false');
+            previousBodyOverflow = document.body.style.overflow;
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => vipModalClose?.focus(), 50);
         }
     }
 
@@ -417,8 +423,11 @@
         if (vipModalOverlay) {
             vipModalOverlay.classList.remove('active');
             vipModalOverlay.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = previousBodyOverflow;
+            vipTrigger?.focus();
         }
         currentVipItem = null;
+        vipTrigger = null;
     }
 
     function copyTemplate() {
@@ -431,10 +440,11 @@
         });
     }
 
-    function copyCode(encodedCode) {
-        const code = decodeURIComponent(encodedCode);
+    function copyCode(code) {
         navigator.clipboard.writeText(code).then(() => {
             showToast('Đã sao chép mã lệnh vào clipboard!');
+        }).catch(() => {
+            showToast('Không thể sao chép tự động. Hãy chọn và sao chép đoạn mã.');
         });
     }
 
@@ -452,6 +462,11 @@
 
     // 8. Event Listeners
     function setupEvents() {
+        detailContentEl?.addEventListener('click', (event) => {
+            if (event.target.closest('.res-code-copy-btn')) {
+                copyCode(detailContentEl.querySelector('.res-code-box code')?.textContent || '');
+            }
+        });
         // Category Pills
         filterPills.forEach(pill => {
             pill.addEventListener('click', () => {
@@ -496,8 +511,24 @@
         }
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && vipModalOverlay && vipModalOverlay.classList.contains('active')) {
+            if (!vipModalOverlay?.classList.contains('active')) return;
+            if (e.key === 'Escape') {
                 closeVipModal();
+            } else if (e.key === 'Tab') {
+                const focusables = [...vipModalOverlay.querySelectorAll('button, a[href]')]
+                    .filter(el => el.getClientRects().length);
+                const first = focusables[0];
+                const last = focusables[focusables.length - 1];
+                if (!vipModalOverlay.contains(document.activeElement)) {
+                    e.preventDefault();
+                    first?.focus();
+                } else if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
             }
         });
 

@@ -14,7 +14,7 @@
     "updatedAt": "28/09/2026",
     "tags": ["AI Agent", "Antigravity", "Prompt Engineering", "Style DNA", "Tiếng Việt"],
     "leadCode": "PUB-AI-01",
-    "downloadUrl": "https://github.com/ngocdungvn/ngocdungvn.github.io/blob/main/README.md",
+    "downloadUrl": "",
     "alert": "Kỹ năng được tối ưu cho các mô hình Claude 3.5 Sonnet, GPT-4o và Gemini 1.5 Pro/Flash khi thực thi tác vụ viết dài trên Antigravity IDE hoặc n8n Code Node.",
     "overview": "Skill này trang bị cho AI một bộ não biên tập tiếng Việt thực thụ, loại bỏ hoàn toàn các lỗi sáo rỗng thường gặp như 'trong kỷ nguyên số ngày nay', 'không thể phủ nhận rằng', 'là một bức tranh toàn cảnh'. Kỹ năng áp dụng nguyên tắc câu ngắn kết hợp nhịp điệu tự nhiên, trích dẫn số liệu có tọa độ và tuân thủ giọng văn thương hiệu.",
     "whyCreated": [
@@ -80,7 +80,7 @@
     "updatedAt": "26/09/2026",
     "tags": ["Docker", "Docker Compose", "n8n", "Supabase", "Linux", "DevOps"],
     "leadCode": "PUB-OPS-01",
-    "downloadUrl": "https://gist.github.com/",
+    "downloadUrl": "",
     "alert": "Yêu cầu máy chủ Linux (Ubuntu 22.04/24.04) có tối thiểu 4GB RAM (khuyến nghị 8GB RAM nếu chạy kèm Ollama LLM nội bộ).",
     "overview": "Được đúc kết từ hàng chục lần triển khai thực tế trên VPS, stack Docker này tối ưu hóa việc phân bổ tài nguyên, cấu hình mạng network biệt lập và thiết lập sao lưu dữ liệu tự động hàng ngày, giúp bạn tự làm chủ hạ tầng đám mây mà không tốn chi phí thuê ngoài.",
     "whyCreated": [
@@ -146,7 +146,7 @@
     "updatedAt": "20/09/2026",
     "tags": ["Linux", "Ubuntu", "Bash Script", "Security", "VPS Hardening"],
     "leadCode": "PUB-OPS-02",
-    "downloadUrl": "https://github.com/ngocdungvn",
+    "downloadUrl": "",
     "alert": "Trước khi chạy script, hãy đảm bảo bạn đã lưu lại khóa SSH Key để không bị mất quyền truy cập máy chủ.",
     "overview": "Script được tạo ra để chuẩn hóa quy trình triển khai máy chủ mới chỉ trong vòng 90 giây. Loại bỏ các lỗ hổng bảo mật sơ đẳng khi vừa mua VPS và tinh chỉnh kernel Linux để xử lý tốt lưu lượng kết nối lớn.",
     "whyCreated": [
@@ -245,7 +245,7 @@
     "updatedAt": "28/09/2026",
     "tags": ["Antigravity", "Agentic AI", "KWSR Framework", "Windows", "Productivity"],
     "leadCode": "PUB-AI-02",
-    "downloadUrl": "https://github.com/ngocdungvn",
+    "downloadUrl": "",
     "alert": "Tài liệu cấu hình chuẩn gốc cho cộng đồng nhà phát triển và người dùng AI Workforce trên nền tảng Antigravity IDE.",
     "overview": "Khung vận hành KWSR (Knowledge, Workflows, Skills, Rules) giúp giải quyết triệt để tình trạng AI tự ý làm bậy, xóa nhầm file hoặc trả lời phỏng đoán. Khi được nạp bộ quy tắc này, Agent sẽ luôn tìm phản chứng, lập biên bản kế hoạch trước khi can thiệp vào máy tính.",
     "whyCreated": [
