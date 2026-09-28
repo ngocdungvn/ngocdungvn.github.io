@@ -1,9 +1,9 @@
 const CACHE_PREFIX = 'ngocdung-portfolio-';
-const CACHE_NAME = `${CACHE_PREFIX}v10`;
+const CACHE_NAME = `${CACHE_PREFIX}v11`;
 const STATIC_ASSETS = [
   '/',
   '/index.html',
-  '/assets/css/styles.css?v=4.4',
+  '/assets/css/styles.css?v=4.5',
   '/assets/css/resources.css?v=1.3',
   '/assets/js/main.js?v=3.8',
   '/tai-nguyen/',

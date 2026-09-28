@@ -808,7 +808,7 @@ body.light-theme .theme-toggle-btn {
     width: 100%;
 }
 
-/* Ambient Pulsing Glow */
+/* Ambient Glow */
 .hero__visual-glow {
     position: absolute;
     width: 500px;
@@ -818,12 +818,6 @@ body.light-theme .theme-toggle-btn {
     filter: blur(65px);
     z-index: 0;
     pointer-events: none;
-    animation: pulseGlow 6s ease-in-out infinite alternate;
-}
-
-@keyframes pulseGlow {
-    0% { transform: scale(0.92); opacity: 0.65; }
-    100% { transform: scale(1.08); opacity: 0.95; }
 }
 
 /* Non-square Organic Asymmetric Portal (Large & Impressive) */
