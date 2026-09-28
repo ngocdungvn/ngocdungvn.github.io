@@ -274,7 +274,34 @@ body.light-theme .res-pill.active .pill-count {
     font-family: var(--font-mono);
 }
 
-/* Resources Grid & Card → See SYNCHRONIZATION block at end of file */
+/* Resources Grid */
+.res-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.75rem;
+}
+
+/* Resource Card */
+.res-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+}
+
+.res-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(99, 102, 241, 0.15);
+    background: var(--bg-surface-hover);
+}
 
 /* Letter Block (Industrial Tag) */
 .res-letter-block {
@@ -373,9 +400,49 @@ body.light-theme .res-pill.active .pill-count {
     box-shadow: 0 0 10px rgba(236, 72, 153, 0.2);
 }
 
+.badge-version {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-subtle);
+    border: 1px solid var(--border-color);
+}
 
+.badge-new {
+    background: rgba(239, 68, 68, 0.18);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+}
 
-/* .res-card-title, .res-card-desc, .res-card-tags → See SYNCHRONIZATION block at end of file */
+.res-card-title {
+    font-size: 1.08rem;
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+    transition: var(--transition);
+}
+
+.res-card:hover .res-card-title {
+    color: var(--primary-light);
+}
+
+.res-card-desc {
+    font-size: var(--font-size-small);
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 0.85rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.res-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: auto;
+    margin-bottom: 0;
+}
 
 .res-tag-chip {
     font-size: 0.75rem;
@@ -387,7 +454,47 @@ body.light-theme .res-pill.active .pill-count {
     font-family: var(--font-mono);
 }
 
-/* CTA Buttons */
+/* Card Bottom & CTA */
+.res-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    gap: 0.75rem;
+}
+
+.res-card-date {
+    font-size: 0.75rem;
+    color: var(--text-subtle);
+    font-family: var(--font-mono);
+}
+
+.res-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-detail {
+    font-size: var(--font-size-smaller);
+    font-weight: 600;
+    padding: 0.45rem 0.85rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-detail:hover {
+    border-color: var(--primary);
+    color: var(--primary-light);
+}
 
 .btn-dl-direct {
     font-size: var(--font-size-smaller);
@@ -1049,14 +1156,13 @@ body.light-theme .vip-target-card {
 
 /* ==========================================================================
    SYNCHRONIZATION: KHO UNG DUNG & KNOWLEDGE/WORKFLOWS CARDS
-   Unified styles for .projects-grid/.res-grid and .project-card/.res-card
    ========================================================================== */
 
 .projects-grid,
 .res-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 1.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)) !important;
+    gap: 1.75rem !important;
 }
 
 .project-card,
@@ -1066,10 +1172,10 @@ body.light-theme .vip-target-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-sm);
-    padding: 1.25rem 1.4rem;
+    padding: 1.25rem 1.4rem !important;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: flex-start !important;
     min-height: 220px;
     transition: var(--transition);
     backdrop-filter: blur(12px);
@@ -1078,7 +1184,7 @@ body.light-theme .vip-target-card {
 
 .project-card:hover,
 .res-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-4px) !important;
     border-color: var(--border-hover);
     box-shadow: var(--shadow-lg), 0 0 20px rgba(99, 102, 241, 0.15);
     background: var(--bg-surface-hover);
@@ -1116,17 +1222,17 @@ body.light-theme .vip-target-card {
 
 .project-title,
 .res-card-title {
-    font-size: 1.08rem;
-    font-weight: 700;
+    font-size: 1.08rem !important;
+    font-weight: 700 !important;
     color: var(--text-main);
-    line-height: 1.4;
-    margin-bottom: 0.5rem;
+    line-height: 1.4 !important;
+    margin-bottom: 0.5rem !important;
     transition: var(--transition);
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    min-height: 3rem;
+    min-height: 3rem !important;
 }
 
 .project-card:hover .project-title,
@@ -1136,15 +1242,15 @@ body.light-theme .vip-target-card {
 
 .project-desc,
 .res-card-desc {
-    font-size: var(--font-size-small);
+    font-size: var(--font-size-small) !important;
     color: var(--text-muted);
-    line-height: 1.5;
-    margin-bottom: 0.85rem;
+    line-height: 1.5 !important;
+    margin-bottom: 0.85rem !important;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    min-height: 2.55rem;
+    min-height: 2.55rem !important;
 }
 
 .project-tags,
@@ -1152,25 +1258,6 @@ body.light-theme .vip-target-card {
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;
-    margin-top: auto;
-    margin-bottom: 0;
-}
-
-/* Homepage-specific overrides */
-.res-grid--home {
-    margin-bottom: 2rem;
-}
-
-.res-cta-center {
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.btn-cta-hub {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.85rem 2rem;
-    font-size: 1rem;
-    border-radius: var(--radius-md);
+    margin-top: auto !important;
+    margin-bottom: 0 !important;
 }
