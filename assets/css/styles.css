@@ -819,6 +819,8 @@ body.light-theme .theme-toggle-btn {
     z-index: 0;
     pointer-events: none;
     animation: pulseGlow 6s ease-in-out infinite alternate;
+    will-change: transform, opacity;
+    transform: translateZ(0);
 }
 
 @keyframes pulseGlow {
@@ -938,6 +940,8 @@ body.light-theme .avatar-portal-overlay {
     z-index: 3;
     white-space: nowrap;
     transition: transform 0.35s ease, box-shadow 0.35s ease;
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 .floating-badge:hover {
@@ -983,31 +987,44 @@ body.light-theme .avatar-portal-overlay {
 .badge-top-left {
     top: -15px;
     left: -35px;
-    animation: float 4s ease-in-out infinite;
+    animation: floatBadge1 4s ease-in-out infinite;
 }
 
 .badge-top-right {
     top: 40px;
     right: -30px;
-    animation: float 4.5s ease-in-out 1s infinite;
+    animation: floatBadge2 4.5s ease-in-out 1s infinite;
 }
 
 .badge-bottom-right {
     bottom: 45px;
     right: -40px;
-    animation: float 5s ease-in-out 2s infinite;
+    animation: floatBadge3 5s ease-in-out 2s infinite;
 }
 
 .badge-mid-left,
 .badge-bottom-left {
     top: 48%;
     left: -38px;
-    animation: float 4.2s ease-in-out 1.5s infinite;
+    animation: floatBadge4 4.2s ease-in-out 1.5s infinite;
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+/* GPU-optimized float: use translate3d to stay on compositor thread */
+@keyframes floatBadge1 {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -8px, 0); }
+}
+@keyframes floatBadge2 {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -7px, 0); }
+}
+@keyframes floatBadge3 {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -9px, 0); }
+}
+@keyframes floatBadge4 {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -6px, 0); }
 }
 
 /*==================== SKILLS BENTO GRID (4 CARDS ON 1 ROW) ====================*/
