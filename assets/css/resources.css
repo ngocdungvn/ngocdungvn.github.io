@@ -292,7 +292,6 @@ body.light-theme .res-pill.active .pill-count {
     display: flex;
     flex-direction: column;
     transition: var(--transition);
-    backdrop-filter: blur(12px);
     overflow: hidden;
 }
 
@@ -1171,7 +1170,6 @@ body.light-theme .vip-target-card {
     justify-content: flex-start !important;
     min-height: 220px;
     transition: var(--transition);
-    backdrop-filter: blur(12px);
     overflow: hidden;
 }
 

@@ -92,28 +92,47 @@ function initMobileNav() {
 
 /*==================== SCROLL EVENTS & ACTIVE NAVIGATION ====================*/
 function initScrollEvents() {
-    const sections = document.querySelectorAll('section[id]');
+    const sections = Array.from(document.querySelectorAll('section[id]'));
     const scrollUpBtn = document.getElementById('scroll-up');
     const header = document.getElementById('header');
 
-    window.addEventListener('scroll', () => {
-        const scrollY = window.pageYOffset;
+    // Pre-cache section navlink pairs
+    const sectionNavMap = sections.map((sec) => {
+        const id = sec.getAttribute('id');
+        return {
+            element: sec,
+            navLink: document.querySelector(`.nav__menu a[href*="#${id}"]`),
+            top: 0,
+            height: 0
+        };
+    }).filter(item => item.navLink !== null);
+
+    function updateSectionMetrics() {
+        sectionNavMap.forEach((item) => {
+            item.top = item.element.offsetTop - 130;
+            item.height = item.element.offsetHeight;
+        });
+    }
+
+    updateSectionMetrics();
+    window.addEventListener('resize', () => {
+        requestAnimationFrame(updateSectionMetrics);
+    }, { passive: true });
+
+    let isTicking = false;
+
+    function onScroll() {
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop;
 
         // Active link in navbar
-        sections.forEach((current) => {
-            const sectionHeight = current.offsetHeight;
-            const sectionTop = current.offsetTop - 120;
-            const sectionId = current.getAttribute('id');
-            const navLink = document.querySelector(`.nav__menu a[href*="#${sectionId}"]`);
-
-            if (navLink) {
-                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                    navLink.classList.add('active-link');
-                } else {
-                    navLink.classList.remove('active-link');
-                }
+        for (let i = 0; i < sectionNavMap.length; i++) {
+            const item = sectionNavMap[i];
+            if (scrollY > item.top && scrollY <= item.top + item.height) {
+                item.navLink.classList.add('active-link');
+            } else {
+                item.navLink.classList.remove('active-link');
             }
-        });
+        }
 
         // Show/Hide Scroll to top button
         if (scrollUpBtn) {
@@ -123,7 +142,16 @@ function initScrollEvents() {
                 scrollUpBtn.classList.remove('show-scroll');
             }
         }
-    });
+
+        isTicking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!isTicking) {
+            requestAnimationFrame(onScroll);
+            isTicking = true;
+        }
+    }, { passive: true });
 
     if (scrollUpBtn) {
         scrollUpBtn.addEventListener('click', (e) => {
