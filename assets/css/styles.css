@@ -908,7 +908,7 @@ body.light-theme .avatar-portal-overlay {
     font-weight: 500;
 }
 
-/* Floating Badges for Avatar Portal */
+/* Floating Badges for Avatar Portal (Static, Zero Jitter) */
 .floating-badge {
     position: absolute;
     display: flex;
@@ -918,25 +918,25 @@ body.light-theme .avatar-portal-overlay {
     background: #0f1423;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-full);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--text-main);
     z-index: 3;
     white-space: nowrap;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-    will-change: transform;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, color 0.25s ease;
     pointer-events: auto;
 }
 
 body.light-theme .floating-badge {
     background: #ffffff;
-    box-shadow: 0 6px 22px rgba(100, 116, 139, 0.16);
+    box-shadow: 0 4px 14px rgba(100, 116, 139, 0.12);
     border-color: rgba(226, 232, 240, 0.9);
 }
 
 .floating-badge:hover {
-    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.25);
     border-color: var(--primary);
     color: var(--primary);
 }
@@ -978,35 +978,21 @@ body.light-theme .floating-badge {
 .badge-top-left {
     top: -15px;
     left: -35px;
-    animation: floatGentle 5s ease-in-out infinite;
 }
 
 .badge-top-right {
     top: 40px;
     right: -30px;
-    animation: floatGentle 5.5s ease-in-out -1.8s infinite;
 }
 
 .badge-bottom-right {
     bottom: 45px;
     right: -40px;
-    animation: floatGentle 6s ease-in-out -3.2s infinite;
 }
 
 .badge-mid-left {
     top: 48%;
     left: -38px;
-    animation: floatGentle 5.2s ease-in-out -4.1s infinite;
-}
-
-/* GPU-optimized gentle sinusoidal float */
-@keyframes floatGentle {
-    0%, 100% {
-        transform: translate3d(0, 0, 0);
-    }
-    50% {
-        transform: translate3d(0, -6px, 0);
-    }
 }
 
 /*==================== SKILLS BENTO GRID (4 CARDS ON 1 ROW) ====================*/
