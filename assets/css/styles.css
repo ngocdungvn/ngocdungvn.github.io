@@ -135,6 +135,8 @@ body::before, body::after {
     opacity: 0.15;
     pointer-events: none;
     z-index: -1;
+    will-change: opacity;
+    contain: strict;
 }
 
 body::before {
@@ -819,13 +821,12 @@ body.light-theme .theme-toggle-btn {
     z-index: 0;
     pointer-events: none;
     animation: pulseGlow 6s ease-in-out infinite alternate;
-    will-change: transform, opacity;
-    transform: translateZ(0);
+    will-change: opacity;
 }
 
 @keyframes pulseGlow {
-    0% { transform: scale(0.92); opacity: 0.65; }
-    100% { transform: scale(1.08); opacity: 0.95; }
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
 }
 
 /* Non-square Organic Asymmetric Portal (Large & Impressive) */
