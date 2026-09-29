@@ -2315,3 +2315,9 @@ if (IS_HEADER) {
     });
   }, 0);
 }
+
+setTimeout(function () {
+  let element = document.getElementById("firework-container");
+  let hidden = element.getAttribute("hidden");
+  element.removeAttribute("hidden");
+}, 9000);

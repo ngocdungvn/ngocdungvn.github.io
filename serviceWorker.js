@@ -1,4 +1,5 @@
 const CACHE_PREFIX = 'ngocdung-portfolio-';
+<<<<<<< HEAD
 const CACHE_NAME = `${CACHE_PREFIX}v13`;
 const STATIC_ASSETS = [
   '/',
@@ -9,6 +10,14 @@ const STATIC_ASSETS = [
   '/tai-nguyen/',
   '/assets/js/resources.js?v=1.4',
   '/assets/data/resources.json?v=1.1',
+=======
+const CACHE_NAME = `${CACHE_PREFIX}v4`;
+const STATIC_ASSETS = [
+  '/',
+  '/index.html',
+  '/assets/css/styles.css?v=3.9',
+  '/assets/js/main.js?v=3.6',
+>>>>>>> parent of d533c26 (ngocdungvn)
   '/assets/img/tnd.jpg',
   '/assets/photos/c1-thumb.webp',
   '/assets/photos/c2-thumb.webp',

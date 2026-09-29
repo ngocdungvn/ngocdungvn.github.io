@@ -18,7 +18,7 @@ function initThemeToggle() {
     const themeBtn = document.getElementById('theme-toggle');
     if (!themeBtn) return;
 
-    const themeIcon = themeBtn.querySelector('.theme-toggle-icon');
+    const themeIcon = themeBtn.querySelector('i');
     const savedTheme = localStorage.getItem('ngocdung_theme');
     const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
 
@@ -40,13 +40,11 @@ function initThemeToggle() {
     function updateThemeIcon(isLight) {
         if (!themeIcon) return;
         if (isLight) {
-            themeIcon.textContent = '☾';
+            themeIcon.className = 'uil uil-moon';
             themeBtn.setAttribute('title', 'Chuyển sang Giao diện Tối');
-            themeBtn.setAttribute('aria-label', 'Chuyển sang giao diện tối');
         } else {
-            themeIcon.textContent = '☀';
+            themeIcon.className = 'uil uil-sun';
             themeBtn.setAttribute('title', 'Chuyển sang Giao diện Sáng');
-            themeBtn.setAttribute('aria-label', 'Chuyển sang giao diện sáng');
         }
     }
 }
@@ -62,8 +60,8 @@ function initMobileNav() {
             navMenu.classList.toggle('show-menu', open);
             navToggle.setAttribute('aria-expanded', String(open));
             navToggle.setAttribute('aria-label', open ? 'Đóng menu' : 'Mở menu');
-            const icon = navToggle.querySelector('.nav-toggle-icon');
-            if (icon) icon.textContent = open ? '×' : '☰';
+            const icon = navToggle.querySelector('i');
+            if (icon) icon.className = open ? 'uil uil-times' : 'uil uil-apps';
         }
 
         navToggle.addEventListener('click', () => {
@@ -140,21 +138,15 @@ function initQualificationTabs() {
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabPanes = document.querySelectorAll('.tab-pane');
 
-    tabBtns.forEach((btn) => btn.setAttribute('aria-pressed', String(btn.classList.contains('active'))));
-
     tabBtns.forEach((btn) => {
         btn.addEventListener('click', () => {
             const targetSelector = btn.getAttribute('data-tab');
             const targetPane = document.querySelector(targetSelector);
 
-            tabBtns.forEach((b) => {
-                b.classList.remove('active');
-                b.setAttribute('aria-pressed', 'false');
-            });
+            tabBtns.forEach((b) => b.classList.remove('active'));
             tabPanes.forEach((p) => p.classList.remove('active'));
 
             btn.classList.add('active');
-            btn.setAttribute('aria-pressed', 'true');
             if (targetPane) {
                 targetPane.classList.add('active');
             }
@@ -175,7 +167,6 @@ function initProjectToolbar() {
     const statusEl = document.getElementById('pagination-status');
 
     const ITEMS_PER_PAGE = 6;
-    filterBtns.forEach((btn) => btn.setAttribute('aria-pressed', String(btn.classList.contains('active'))));
     const initialActive = document.querySelector('.filter-btn.active');
     let currentFilter = initialActive ? initialActive.getAttribute('data-filter') : 'tool';
     let currentQuery = '';
@@ -295,12 +286,8 @@ function initProjectToolbar() {
 
     filterBtns.forEach((btn) => {
         btn.addEventListener('click', () => {
-            filterBtns.forEach((b) => {
-                b.classList.remove('active');
-                b.setAttribute('aria-pressed', 'false');
-            });
+            filterBtns.forEach((b) => b.classList.remove('active'));
             btn.classList.add('active');
-            btn.setAttribute('aria-pressed', 'true');
             currentFilter = btn.getAttribute('data-filter');
             if (searchInput && searchInput.value) {
                 searchInput.value = '';

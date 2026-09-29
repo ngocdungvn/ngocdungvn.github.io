@@ -644,12 +644,6 @@ body.light-theme .res-download-gate {
     background: rgba(241, 245, 249, 0.7);
 }
 
-.res-download-unavailable {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
 .res-gate-info .res-gate-ver {
     font-family: var(--font-mono);
     font-size: 0.75rem;
@@ -813,13 +807,12 @@ body.light-theme .res-code-box {
     padding: 1.5rem;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+    transition: all 0.3s ease;
 }
 
 .vip-modal-overlay.active {
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.3s ease, visibility 0s;
 }
 
 .vip-modal {
