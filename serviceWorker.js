@@ -1,11 +1,15 @@
 const CACHE_PREFIX = 'ngocdung-portfolio-';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const CACHE_NAME = `${CACHE_PREFIX}v16`;
+=======
+const CACHE_NAME = `${CACHE_PREFIX}v15`;
+>>>>>>> parent of 8539224 (ngocdungvn)
 const STATIC_ASSETS = [
   '/',
   '/index.html',
-  '/assets/css/styles.css?v=4.8',
+  '/assets/css/styles.css?v=4.7',
   '/assets/css/resources.css?v=1.4',
   '/assets/js/main.js?v=3.9',
 =======
