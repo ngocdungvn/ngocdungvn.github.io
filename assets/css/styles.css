@@ -528,11 +528,14 @@ input {
     gap: 0.6rem;
 }
 
+<<<<<<< HEAD
 :is(a, button, input, textarea, select):focus-visible {
     outline: 3px solid var(--primary);
     outline-offset: 3px;
 }
 
+=======
+>>>>>>> parent of d533c26 (ngocdungvn)
 .theme-toggle-btn {
     width: 38px;
     height: 38px;
@@ -2804,13 +2807,5 @@ body.light-theme .footer__social-btn:hover {
 
     .momo-number {
         font-size: 1.15rem;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        scroll-behavior: auto !important;
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
     }
 }
