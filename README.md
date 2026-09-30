@@ -116,10 +116,16 @@ Dự án là một **Static Web Application thuần túy**, không yêu cầu c�
 ngocdungvn.github.io/
 ├── assets/                  # Tài nguyên dùng chung
 │   ├── css/
-│   │   └── styles.css       # Toàn bộ hệ thống CSS & Design Tokens
+│   │   ├── styles.css       # Toàn bộ hệ thống CSS & Design Tokens
+│   │   └── resources.css    # Giao diện trung tâm chia sẻ tài nguyên & tài liệu
 │   ├── js/
-│   │   └── main.js          # Logic giao diện chính, lọc dự án, theme toggle
+│   │   ├── main.js          # Logic giao diện chính, lọc dự án, theme toggle
+│   │   └── resources.js     # Logic tìm kiếm, lọc và phân loại tài nguyên
+│   ├── data/
+│   │   └── resources.json   # Cơ sở dữ liệu tài nguyên, tài liệu IT & AI
 │   └── img/                 # Hình ảnh, chứng chỉ, favicons, PWA icons
+├── tai-nguyen/              # Kho tài nguyên chia sẻ, tài liệu IT & AI
+│   └── index.html           # Trang trung tâm tài nguyên công nghệ
 ├── project/                 # Thư mục chứa 14 Mini Apps độc lập
 │   ├── random-number.html   # Quay số ngẫu nhiên A-Z
 │   ├── share-bill.html      # Chia tiền kèo bóng đá
@@ -138,6 +144,7 @@ ngocdungvn.github.io/
 ├── index.html               # Trang Portfolio chính
 ├── manifest.json            # Cấu hình PWA
 ├── serviceWorker.js         # Service worker offline
+├── sitemap.xml              # Bản đồ website chuẩn SEO
 └── README.md                # Tài liệu dự án
 ```
 
