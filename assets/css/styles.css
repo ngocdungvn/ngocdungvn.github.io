@@ -319,37 +319,19 @@ input {
     overflow: hidden;
 }
 
-.btn-coffee::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -80%;
-    width: 50%;
-    height: 200%;
-    background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.35) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    transform: rotate(28deg);
-    pointer-events: none;
-    animation: coffeeShimmer 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
 .btn-coffee:hover {
-    transform: translateY(-3px) scale(1.02);
+    transform: translateY(-2px);
     background: linear-gradient(135deg, #fbbf24 0%, #f97316 50%, #c2410c 100%);
     color: #ffffff;
-    box-shadow: none;
+    box-shadow: 0 6px 18px rgba(249, 115, 22, 0.35);
 }
 
 .btn-coffee:hover .coffee-icon-wrap {
-    transform: rotate(-12deg) scale(1.15);
+    transform: scale(1.06);
 }
 
 .btn-coffee:active {
-    transform: translateY(-1px) scale(0.99);
+    transform: translateY(0);
 }
 
 .coffee-icon-wrap {
@@ -358,7 +340,7 @@ input {
     align-items: center;
     justify-content: center;
     font-size: 1.25rem;
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: var(--transition);
 }
 
 .coffee-icon-wrap .uil {
@@ -367,79 +349,7 @@ input {
 }
 
 .steam {
-    position: absolute;
-    top: 2px;
-    width: 2px;
-    height: 6px;
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
-    border-radius: 2px;
-    opacity: 0;
-    filter: blur(0.3px);
-    pointer-events: none;
-}
-
-.steam.steam-1 {
-    left: 4px;
-    animation: coffeeSteam1 2.4s infinite ease-out;
-}
-
-.steam.steam-2 {
-    left: 9px;
-    animation: coffeeSteam2 2.4s infinite ease-out 1.2s;
-}
-
-@keyframes coffeeSteam1 {
-    0% {
-        transform: translateY(0) scaleX(1);
-        opacity: 0;
-    }
-    20% {
-        opacity: 0.9;
-    }
-    55% {
-        transform: translateY(-4px) scaleX(1.3) skewX(-7deg);
-        opacity: 0.45;
-    }
-    85%, 100% {
-        transform: translateY(-7px) scaleX(1.6) skewX(5deg);
-        opacity: 0;
-    }
-}
-
-@keyframes coffeeSteam2 {
-    0% {
-        transform: translateY(0) scaleX(1);
-        opacity: 0;
-    }
-    20% {
-        opacity: 0.9;
-    }
-    55% {
-        transform: translateY(-4px) scaleX(1.3) skewX(7deg);
-        opacity: 0.45;
-    }
-    85%, 100% {
-        transform: translateY(-7px) scaleX(1.6) skewX(-5deg);
-        opacity: 0;
-    }
-}
-
-@keyframes coffeeShimmer {
-    0% {
-        left: -80%;
-        opacity: 0;
-    }
-    15% {
-        opacity: 0.85;
-    }
-    40% {
-        left: 140%;
-        opacity: 0;
-    }
-    100% {
-        left: 140%;
-        opacity: 0;
-    }
+    display: none;
 }
 
 .btn-sm {
@@ -528,14 +438,10 @@ input {
     gap: 0.6rem;
 }
 
-<<<<<<< HEAD
 :is(a, button, input, textarea, select):focus-visible {
     outline: 3px solid var(--primary);
     outline-offset: 3px;
 }
-
-=======
->>>>>>> parent of d533c26 (ngocdungvn)
 .theme-toggle-btn {
     width: 38px;
     height: 38px;
@@ -609,20 +515,7 @@ body.light-theme .theme-toggle-btn {
     height: 8px;
     border-radius: 50%;
     background-color: var(--accent-emerald);
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-    animation: pulse 1.8s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-    }
+    box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
 }
 
 .hero__title {
@@ -911,7 +804,7 @@ body.light-theme .avatar-portal-overlay {
     font-weight: 500;
 }
 
-/* Floating Badges for Avatar Portal */
+/* Floating Badges for Avatar Portal (Static, Zero Jitter) */
 .floating-badge {
     position: absolute;
     display: flex;
@@ -921,34 +814,27 @@ body.light-theme .avatar-portal-overlay {
     background: #0f1423;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-full);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--text-main);
     z-index: 3;
-    transition: var(--transition);
     white-space: nowrap;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-    will-change: transform;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, color 0.25s ease;
     pointer-events: auto;
 }
 
 body.light-theme .floating-badge {
     background: #ffffff;
-    box-shadow: 0 6px 22px rgba(100, 116, 139, 0.16);
+    box-shadow: 0 4px 14px rgba(100, 116, 139, 0.12);
     border-color: rgba(226, 232, 240, 0.9);
 }
 
 .floating-badge:hover {
-    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.25);
     border-color: var(--primary);
     color: var(--primary);
-}
-
-.floating-badge:hover {
-    transform: translateY(-4px) scale(1.04);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary-light);
 }
 
 .floating-badge .badge-icon {
@@ -988,56 +874,21 @@ body.light-theme .floating-badge {
 .badge-top-left {
     top: -15px;
     left: -35px;
-<<<<<<< HEAD
-    animation: float 4s ease-in-out infinite;
-=======
-    animation: floatGentle 5s ease-in-out infinite;
->>>>>>> parent of 8539224 (ngocdungvn)
 }
 
 .badge-top-right {
     top: 40px;
     right: -30px;
-<<<<<<< HEAD
-    animation: float 4.5s ease-in-out 1s infinite;
-=======
-    animation: floatGentle 5.5s ease-in-out -1.8s infinite;
->>>>>>> parent of 8539224 (ngocdungvn)
 }
 
 .badge-bottom-right {
     bottom: 45px;
     right: -40px;
-<<<<<<< HEAD
-    animation: float 5s ease-in-out 2s infinite;
-=======
-    animation: floatGentle 6s ease-in-out -3.2s infinite;
->>>>>>> parent of 8539224 (ngocdungvn)
 }
 
 .badge-mid-left {
     top: 48%;
     left: -38px;
-<<<<<<< HEAD
-    animation: float 4.2s ease-in-out 1.5s infinite;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-=======
-    animation: floatGentle 5.2s ease-in-out -4.1s infinite;
-}
-
-/* GPU-optimized gentle sinusoidal float */
-@keyframes floatGentle {
-    0%, 100% {
-        transform: translate3d(0, 0, 0);
-    }
-    50% {
-        transform: translate3d(0, -6px, 0);
-    }
->>>>>>> parent of 8539224 (ngocdungvn)
 }
 
 /*==================== SKILLS BENTO GRID (4 CARDS ON 1 ROW) ====================*/
@@ -1413,21 +1264,6 @@ body.light-theme .floating-badge {
     user-select: none;
 }
 
-/* Card subtle entrance animation */
-.project-card {
-    animation: fadeInCard 0.3s ease forwards;
-}
-
-@keyframes fadeInCard {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
 /* Light theme overrides for pagination */
 body.light-theme .pagination-btn {
@@ -1904,12 +1740,6 @@ body.light-theme .pagination-status {
 
 .tab-pane.active {
     display: block;
-    animation: fadeIn 0.4s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 .timeline {

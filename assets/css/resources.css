@@ -274,7 +274,6 @@ body.light-theme .res-pill.active .pill-count {
     font-family: var(--font-mono);
 }
 
-<<<<<<< HEAD
 /* Resources Grid */
 .res-grid {
     display: grid;
@@ -302,9 +301,6 @@ body.light-theme .res-pill.active .pill-count {
     box-shadow: var(--shadow-lg), 0 0 20px rgba(99, 102, 241, 0.15);
     background: var(--bg-surface-hover);
 }
-=======
-/* Resources Grid & Card → See SYNCHRONIZATION block at end of file */
->>>>>>> parent of 5a3ef99 (ngocdungvn)
 
 /* Letter Block (Industrial Tag) */
 .res-letter-block {
@@ -483,12 +479,6 @@ body.light-theme .res-pill.active .pill-count {
 
 .res-detail-view.active {
     display: block;
-    animation: fadeIn 0.3s ease-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 .btn-back-to-list {

@@ -1,37 +1,14 @@
 const CACHE_PREFIX = 'ngocdung-portfolio-';
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-const CACHE_NAME = `${CACHE_PREFIX}v16`;
-=======
-const CACHE_NAME = `${CACHE_PREFIX}v15`;
->>>>>>> parent of 8539224 (ngocdungvn)
+const CACHE_NAME = `${CACHE_PREFIX}v17`;
 const STATIC_ASSETS = [
   '/',
   '/index.html',
-  '/assets/css/styles.css?v=4.7',
-  '/assets/css/resources.css?v=1.4',
-  '/assets/js/main.js?v=3.9',
-=======
-const CACHE_NAME = `${CACHE_PREFIX}v9`;
-const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/assets/css/styles.css?v=4.3',
-  '/assets/css/resources.css?v=1.3',
-  '/assets/js/main.js?v=3.8',
->>>>>>> parent of a5175ef (ngocdungvn)
+  '/assets/css/styles.css?v=5.0',
+  '/assets/css/resources.css?v=1.5',
+  '/assets/js/main.js?v=4.0',
   '/tai-nguyen/',
-  '/assets/js/resources.js?v=1.4',
+  '/assets/js/resources.js?v=1.5',
   '/assets/data/resources.json',
-=======
-const CACHE_NAME = `${CACHE_PREFIX}v4`;
-const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/assets/css/styles.css?v=3.9',
-  '/assets/js/main.js?v=3.6',
->>>>>>> parent of d533c26 (ngocdungvn)
   '/assets/img/tnd.jpg',
   '/assets/photos/c1-thumb.webp',
   '/assets/photos/c2-thumb.webp',
