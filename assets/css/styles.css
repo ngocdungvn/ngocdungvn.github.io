@@ -923,6 +923,7 @@ body.light-theme .avatar-portal-overlay {
     font-weight: 600;
     color: var(--text-main);
     z-index: 3;
+    transition: var(--transition);
     white-space: nowrap;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, color 0.25s ease;
     pointer-events: auto;
@@ -939,6 +940,12 @@ body.light-theme .floating-badge {
     box-shadow: 0 8px 24px rgba(99, 102, 241, 0.25);
     border-color: var(--primary);
     color: var(--primary);
+}
+
+.floating-badge:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
 }
 
 .floating-badge .badge-icon {
@@ -978,21 +985,30 @@ body.light-theme .floating-badge {
 .badge-top-left {
     top: -15px;
     left: -35px;
+    animation: float 4s ease-in-out infinite;
 }
 
 .badge-top-right {
     top: 40px;
     right: -30px;
+    animation: float 4.5s ease-in-out 1s infinite;
 }
 
 .badge-bottom-right {
     bottom: 45px;
     right: -40px;
+    animation: float 5s ease-in-out 2s infinite;
 }
 
 .badge-mid-left {
     top: 48%;
     left: -38px;
+    animation: float 4.2s ease-in-out 1.5s infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
 }
 
 /*==================== SKILLS BENTO GRID (4 CARDS ON 1 ROW) ====================*/
