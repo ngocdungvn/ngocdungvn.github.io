@@ -4,12 +4,11 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/x-icon" href="../assets/img/favicons/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicons/apple-touch-icon.png" />
-  <meta name="keywords" content="fish, game, animation" />
-  <meta name="author" content="William Chung" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FISHIES | by DungX</title>
-  <meta name="description" content="Bể cá ảo bơi lượn tương tác sống động, thư giãn mắt với hiệu ứng chuyển động chân thực dưới đáy biển." />
+  <meta name="keywords" content="baby, fruit, food, game, animation, baby eats fruit" />
   <meta name="author" content="Tạ Ngọc Dũng" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>BÉ MĂM HOA QUẢ & THỨC ĂN | by DungX</title>
+  <meta name="description" content="Mini game tương tác đáng yêu: Bé bò đi măm măm các loại hoa quả, thức ăn, bánh kẹo và bình sữa thơm ngon trên màn hình!" />
   <link rel="canonical" href="https://ngocdungvn.github.io/project/fishies.html" />
 
   <!-- Open Graph / Facebook / Zalo -->
@@ -17,8 +16,8 @@
   <meta property="og:site_name" content="Tạ Ngọc Dũng Portfolio & Mini Apps" />
   <meta property="og:locale" content="vi_VN" />
   <meta property="og:url" content="https://ngocdungvn.github.io/project/fishies.html" />
-  <meta property="og:title" content="Bể Cá Ảo Tương Tác | Interactive Fish Aquarium" />
-  <meta property="og:description" content="Bể cá ảo bơi lượn tương tác sống động, thư giãn mắt với hiệu ứng chuyển động chân thực dưới đáy biển." />
+  <meta property="og:title" content="Bé Măm Măm Hoa Quả & Thức Ăn | Baby Eats Food" />
+  <meta property="og:description" content="Mini game tương tác đáng yêu: Bé bò đi măm măm các loại hoa quả, thức ăn, bánh kẹo và bình sữa thơm ngon trên màn hình!" />
   <meta property="og:image" content="https://ngocdungvn.github.io/assets/img/og-cover.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -26,488 +25,860 @@
   <!-- X / Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://ngocdungvn.github.io/project/fishies.html" />
-  <meta name="twitter:title" content="Bể Cá Ảo Tương Tác | Interactive Fish Aquarium" />
-  <meta name="twitter:description" content="Bể cá ảo bơi lượn tương tác sống động, thư giãn mắt với hiệu ứng chuyển động chân thực dưới đáy biển." />
+  <meta name="twitter:title" content="Bé Măm Măm Hoa Quả & Thức Ăn | Baby Eats Food" />
+  <meta name="twitter:description" content="Mini game tương tác đáng yêu: Bé bò đi măm măm các loại hoa quả, thức ăn, bánh kẹo và bình sữa thơm ngon trên màn hình!" />
   <meta name="twitter:image" content="https://ngocdungvn.github.io/assets/img/og-cover.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 
   <style type="text/css" media="screen">
-    /*******************
-     * FISH PROPERTIES *
-     *******************/
-    .Mleft{
-      position: absolute;
-      border-radius:50%;
-      top:45%;
-      left:45%;
-      -webkit-transform: scaleX(-1);
-      transform: scaleX(-1);
-      -webkit-transition: 1s ease-out;
-      transition: 1s ease-out;
-      width: 50px;
-      pointer-events: none;
-    }
-    #o_fish{
-      display: none;
-    }
-    #o_fish-path{
-      fill: white;
-    }
-    .Oleft{
-      display: inline;
-      position:absolute;
-      width:25px;
-      height:25px;
-      border-radius:50%;
-      top:45%;
-      left:45%;
-      -webkit-transform: scaleX(-1);
-      transform: scaleX(-1);
-      -webkit-transition: 3s ease-out;
-      transition: 3s ease-out;
-    }
-    .Oright{
-      position:absolute;
-      width:25px;
-      height:25px;
-      border-radius:50%;
-      top:45%;
-      left:45%;
-      -webkit-transition: 3s ease-out;
-      transition: 3s ease-out;
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
-    /***********************************************
-     * Everything unrelated to the fish animations *
-     ***********************************************/
-    /* hidden */
-    .hide{
-      display: none;
+    html {
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
     }
-    /* coordinate box */
-    #coord{
+
+    body {
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      background: radial-gradient(circle at 50% 30%, #e0f2fe 0%, #bae6fd 60%, #7dd3fc 100%);
+      touch-action: none;
+      font-family: 'Outfit', sans-serif;
+      transition: background 0.5s ease;
+      position: relative;
+    }
+
+    /* Chế độ ban đêm cho phòng bé ngủ */
+    body.dark-mode {
+      background: radial-gradient(circle at 50% 30%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    }
+
+    /*******************
+     * NHÂN VẬT BÉ YÊU *
+     *******************/
+    #Mfish, .Mbaby {
       position: absolute;
-      left: 10px;
-      bottom: 10px;
+      top: 45%;
+      left: 45%;
+      width: 90px;
+      height: auto;
+      pointer-events: none;
+      z-index: 50;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.18));
+      transition: transform 0.12s ease-out;
+      transform-origin: center center;
+      will-change: transform, left, top;
+    }
+
+    /* Hiệu ứng hào quang quanh bé khi ăn */
+    .baby-chew {
+      animation: babyBounce 0.25s ease-out;
+    }
+
+    @keyframes babyBounce {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    /*****************************
+     * CÁC MÓN HOA QUẢ & THỨC ĂN *
+     *****************************/
+    .food-item {
+      position: absolute;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: auto;
+      cursor: pointer;
+      z-index: 20;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+      transition: left 2.6s ease-out, top 2.6s ease-out, transform 0.3s ease;
+      will-change: left, top, transform;
+    }
+
+    .food-item svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      animation: foodWobble 3s infinite ease-in-out alternate;
+    }
+
+    @keyframes foodWobble {
+      0% { transform: translateY(0px) rotate(-4deg); }
+      50% { transform: translateY(-6px) rotate(4deg); }
+      100% { transform: translateY(0px) rotate(-3deg); }
+    }
+
+    /* Hiệu ứng khi bị bé ăn biến mất */
+    .food-eaten {
+      transform: scale(0) rotate(45deg) !important;
+      opacity: 0;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease !important;
+    }
+
+    /* Bong bóng popup khi ăn được */
+    .yum-popup {
+      position: absolute;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      color: #ea580c;
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid #fdba74;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      pointer-events: none;
+      z-index: 60;
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
+      animation: floatUpFade 0.75s ease-out forwards;
+    }
+
+    @keyframes floatUpFade {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.6);
+      }
+      50% {
+        transform: translate(-50%, -90px) scale(1.15);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -120px) scale(1);
+      }
+    }
+
+    /*****************************
+     * GIAO DIỆN ĐIỀU KHIỂN (UI) *
+     *****************************/
+    /* Coordinate box ẩn/hiện khi có hash #xy */
+    #coord {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
+      color: #475569;
+      background: rgba(255, 255, 255, 0.65);
+      padding: 4px 8px;
+      border-radius: 6px;
       pointer-events: none;
+      z-index: 90;
     }
-    /* eat count */
-    #eaten{
+
+    body.dark-mode #coord {
+      color: #cbd5e1;
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    /* Bảng đếm số món ăn đã ăn */
+    #eaten {
       position: absolute;
       text-align: center;
       left: 50%;
       transform: translateX(-50%);
-      top: 14px;
+      top: 16px;
       font-family: 'Outfit', sans-serif;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
       color: #0369a1;
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding: 6px 16px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 8px 22px;
       border-radius: 9999px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 16px rgba(3, 105, 161, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.8);
       z-index: 99;
       pointer-events: none;
       white-space: nowrap;
+      transition: all 0.3s ease;
     }
-    /* Button 1 */
-    #FishIt{
+
+    body.dark-mode #eaten {
+      color: #38bdf8;
+      background: rgba(30, 41, 59, 0.85);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    /* Nút Thêm Thức Ăn */
+    #FishIt {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      bottom: 16px;
-      background: #0284c7;
+      bottom: 20px;
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
       color: #ffffff;
       border: none;
-      padding: 10px 22px;
+      padding: 12px 28px;
       border-radius: 9999px;
       font-family: 'Outfit', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      box-shadow: 0 6px 20px rgba(234, 88, 12, 0.38), 0 0 0 2px rgba(255, 255, 255, 0.4);
       cursor: pointer;
       touch-action: manipulation;
       z-index: 100;
-      transition: all 0.15s ease;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
+
+    #FishIt:hover {
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 8px 24px rgba(234, 88, 12, 0.48);
+    }
+
     #FishIt:active {
       transform: translateX(-50%) scale(0.95);
     }
-    /* toggle for darkmode */
-    #darkToggle{
+
+    /* Bảng Toggle chế độ */
+    #darkToggle {
       position: absolute;
-      right: 14px;
-      top: 14px;
+      right: 16px;
+      top: 16px;
       left: auto;
-      text-align: right;
+      text-align: left;
       font-family: 'Outfit', sans-serif;
-      font-size: 12px;
+      font-size: 12.5px;
       font-weight: 600;
       color: #334155;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding: 6px 12px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 8px 14px;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.6);
       z-index: 100;
-      line-height: 1.6;
+      line-height: 1.8;
+      transition: all 0.3s ease;
     }
-    #darkToggle input {
-      margin-right: 4px;
+
+    body.dark-mode #darkToggle {
+      color: #e2e8f0;
+      background: rgba(30, 41, 59, 0.85);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    #darkToggle label {
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
-
-
-    /* toggle Dark Mode */
-    .darken{
-      -webkit-filter: invert(100%);
-      filter: invert(100%);
-    }
-
-    /* Prevent scrolling away */
-    html {
-      overflow-y: hidden;
-      overflow-x: hidden;
-      height: 100%;
-    }
-    body{
+    #darkToggle input {
+      accent-color: #f97316;
+      cursor: pointer;
+      width: 15px;
+      height: 15px;
       margin: 0;
-      height: 100%;
-      background-color: #A8DBFB;
-      touch-action: none;
+    }
+
+    /* Nút quay về trang chủ */
+    #homeBtn {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #0369a1;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.6);
+      z-index: 100;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    body.dark-mode #homeBtn {
+      color: #38bdf8;
+      background: rgba(30, 41, 59, 0.85);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    #homeBtn:hover {
+      transform: translateY(-2px);
+      background: #ffffff;
+    }
+
+    /* Template kho thức ăn ẩn */
+    #food_templates {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      #Mfish, .Mbaby {
+        width: 72px;
+      }
+      .food-item {
+        width: 38px !important;
+        height: 38px !important;
+      }
+      #eaten {
+        font-size: 13px;
+        padding: 6px 16px;
+        top: 66px;
+      }
+      #FishIt {
+        font-size: 13.5px;
+        padding: 10px 22px;
+        bottom: 16px;
+      }
+      #darkToggle {
+        font-size: 11.5px;
+        padding: 6px 10px;
+        top: 12px;
+        right: 12px;
+      }
+      #homeBtn {
+        font-size: 12px;
+        padding: 6px 10px;
+        top: 12px;
+        left: 12px;
+      }
     }
   </style>
+</head>
+<body>
+  <!-- Nút Về Trang Chủ -->
+  <a id="homeBtn" href="../index.html" title="Trở về Trang chủ">
+    🏠 Trang chủ
+  </a>
+
+  <!-- Nhân vật chính: Em bé bò -->
+  <img
+      id="Mfish"
+      class="Mbaby"
+      src="images/baby.png"
+      alt="Em bé măm măm"
+  >
+
+  <!-- Kho Icon Hoa Quả & Món Ăn SVG Vector Chuẩn Nét -->
+  <div id="food_templates">
+    <!-- 1. Bình sữa 🍼 -->
+    <div data-name="Bình sữa" data-type="milk">
+      <svg viewBox="0 0 64 64" fill="none">
+        <rect x="20" y="8" width="24" height="8" rx="3" fill="#38BDF8"/>
+        <path d="M26 4C26 2.5 28 1 32 1C36 1 38 2.5 38 4V8H26V4Z" fill="#F472B6"/>
+        <rect x="18" y="16" width="28" height="42" rx="7" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+        <rect x="20" y="28" width="24" height="28" rx="5" fill="#FEF08A"/>
+        <line x1="22" y1="24" x2="28" y2="24" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/>
+        <line x1="22" y1="32" x2="30" y2="32" stroke="#EAB308" stroke-width="2" stroke-linecap="round"/>
+        <line x1="22" y1="40" x2="28" y2="40" stroke="#EAB308" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- 2. Quả Dâu Tây 🍓 -->
+    <div data-name="Dâu tây" data-type="strawberry">
+      <svg viewBox="0 0 64 64" fill="none">
+        <path d="M32 14C20 14 12 24 16 42C19 54 28 61 32 61C36 61 45 54 48 42C52 24 44 14 32 14Z" fill="#EF4444"/>
+        <path d="M32 16C28 10 20 8 16 11C20 15 25 16 32 16Z" fill="#22C55E"/>
+        <path d="M32 16C36 10 44 8 48 11C44 15 39 16 32 16Z" fill="#22C55E"/>
+        <path d="M32 16C32 8 30 4 32 2C34 4 33 9 32 16Z" fill="#15803D" stroke="#15803D" stroke-width="2"/>
+        <circle cx="24" cy="28" r="1.5" fill="#FEF08A"/>
+        <circle cx="34" cy="26" r="1.5" fill="#FEF08A"/>
+        <circle cx="42" cy="32" r="1.5" fill="#FEF08A"/>
+        <circle cx="28" cy="38" r="1.5" fill="#FEF08A"/>
+        <circle cx="38" cy="40" r="1.5" fill="#FEF08A"/>
+        <circle cx="32" cy="50" r="1.5" fill="#FEF08A"/>
+      </svg>
+    </div>
+
+    <!-- 3. Quả Táo Đỏ 🍎 -->
+    <div data-name="Táo đỏ" data-type="apple">
+      <svg viewBox="0 0 64 64" fill="none">
+        <path d="M32 18C28 13 18 13 14 22C9 33 13 54 26 58C30 59 32 57 32 57C32 57 34 59 38 58C51 54 55 33 50 22C46 13 36 13 32 18Z" fill="#DC2626"/>
+        <path d="M32 18C33 13 36 8 40 5" stroke="#78350F" stroke-width="3" stroke-linecap="round"/>
+        <path d="M34 11C39 9 44 11 44 11C44 11 43 16 38 17C34 18 34 11 34 11Z" fill="#16A34A"/>
+        <ellipse cx="22" cy="28" rx="4" ry="7" transform="rotate(-25 22 28)" fill="#F87171" opacity="0.6"/>
+      </svg>
+    </div>
+
+    <!-- 4. Quả Chuối Vàng 🍌 -->
+    <div data-name="Chuối vàng" data-type="banana">
+      <svg viewBox="0 0 64 64" fill="none">
+        <path d="M12 48C18 56 34 59 48 46C56 38 60 22 57 10C56 12 52 18 45 23C36 30 22 36 12 48Z" fill="#FACC15"/>
+        <path d="M12 48C20 54 35 56 47 44C43 45 31 46 20 42C15 40 12 48 12 48Z" fill="#EAB308"/>
+        <path d="M57 10L61 6C60 5 57 6 56 8L57 10Z" fill="#65A30D" stroke="#65A30D" stroke-width="2"/>
+        <circle cx="12" cy="48" r="2" fill="#78350F"/>
+      </svg>
+    </div>
+
+    <!-- 5. Miếng Dưa Hấu 🍉 -->
+    <div data-name="Dưa hấu" data-type="watermelon">
+      <svg viewBox="0 0 64 64" fill="none">
+        <path d="M10 20C10 44 26 56 46 56C52 56 56 54 56 54L10 20Z" fill="#EF4444"/>
+        <path d="M10 20C9 46 28 60 50 60C54 60 58 58 58 58L56 54C56 54 52 56 46 56C26 56 10 44 10 20Z" fill="#15803D"/>
+        <path d="M10 20C9.5 45 27 58 48 58L46 56C26 56 10 44 10 20Z" fill="#86EFAC"/>
+        <circle cx="24" cy="34" r="2" fill="#1E293B"/>
+        <circle cx="34" cy="42" r="2" fill="#1E293B"/>
+        <circle cx="42" cy="48" r="2" fill="#1E293B"/>
+        <circle cx="28" cy="46" r="2" fill="#1E293B"/>
+      </svg>
+    </div>
+
+    <!-- 6. Quả Cam Tươi 🍊 -->
+    <div data-name="Cam tươi" data-type="orange">
+      <svg viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="36" r="22" fill="#F97316"/>
+        <circle cx="24" cy="28" r="5" fill="#FB923C" opacity="0.7"/>
+        <path d="M32 14V8" stroke="#78350F" stroke-width="3" stroke-linecap="round"/>
+        <path d="M32 10C38 6 46 8 48 12C44 15 37 14 32 10Z" fill="#22C55E"/>
+      </svg>
+    </div>
+
+    <!-- 7. Chùm Nho Tím 🍇 -->
+    <div data-name="Chùm nho" data-type="grapes">
+      <svg viewBox="0 0 64 64" fill="none">
+        <path d="M32 16V6" stroke="#78350F" stroke-width="3" stroke-linecap="round"/>
+        <path d="M32 10C24 6 18 10 18 14C24 16 30 14 32 10Z" fill="#16A34A"/>
+        <circle cx="26" cy="22" r="7" fill="#8B5CF6"/>
+        <circle cx="38" cy="22" r="7" fill="#7C3AED"/>
+        <circle cx="20" cy="32" r="7" fill="#7C3AED"/>
+        <circle cx="32" cy="32" r="7" fill="#9333EA"/>
+        <circle cx="44" cy="32" r="7" fill="#6B21A8"/>
+        <circle cx="26" cy="42" r="7" fill="#9333EA"/>
+        <circle cx="38" cy="42" r="7" fill="#7C3AED"/>
+        <circle cx="32" cy="51" r="6" fill="#6B21A8"/>
+      </svg>
+    </div>
+
+    <!-- 8. Quả Bơ Béo Ngậy 🥑 -->
+    <div data-name="Quả bơ" data-type="avocado">
+      <svg viewBox="0 0 64 64" fill="none">
+        <path d="M32 8C22 8 16 20 16 36C16 50 22 58 32 58C42 58 48 50 48 36C48 20 42 8 32 8Z" fill="#166534"/>
+        <path d="M32 11C24 11 19 22 19 36C19 48 24 55 32 55C40 55 45 48 45 36C45 22 40 11 32 11Z" fill="#BBF7D0"/>
+        <circle cx="32" cy="40" r="10" fill="#854D0E"/>
+        <circle cx="35" cy="37" r="3" fill="#A16207" opacity="0.7"/>
+      </svg>
+    </div>
+
+    <!-- 9. Bánh Donut Cốm 🍩 -->
+    <div data-name="Bánh donut" data-type="donut">
+      <svg viewBox="0 0 64 64" fill="none">
+        <ellipse cx="32" cy="32" rx="24" ry="22" fill="#D97706"/>
+        <ellipse cx="32" cy="30" rx="22" ry="19" fill="#EC4899"/>
+        <ellipse cx="32" cy="30" rx="8" ry="7" fill="#BAE6FD" id="donut_hole"/>
+        <line x1="22" y1="20" x2="26" y2="22" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="38" y1="18" x2="42" y2="20" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="44" y1="30" x2="48" y2="33" stroke="#4ADE80" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="18" y1="32" x2="22" y2="34" stroke="#FDE047" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="28" y1="42" x2="33" y2="43" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- 10. Bánh Cupcake Dâu 🧁 -->
+    <div data-name="Bánh cupcake" data-type="cupcake">
+      <svg viewBox="0 0 64 64" fill="none">
+        <path d="M18 36L22 58H42L46 36H18Z" fill="#F59E0B"/>
+        <line x1="26" y1="38" x2="28" y2="56" stroke="#D97706" stroke-width="1.5"/>
+        <line x1="32" y1="38" x2="32" y2="56" stroke="#D97706" stroke-width="1.5"/>
+        <line x1="38" y1="38" x2="36" y2="56" stroke="#D97706" stroke-width="1.5"/>
+        <path d="M16 36C14 30 20 22 28 22C30 18 38 16 42 20C48 20 50 28 48 36H16Z" fill="#F472B6"/>
+        <path d="M24 22C26 14 36 12 40 18C44 24 38 28 24 22Z" fill="#FBCFE8"/>
+        <circle cx="34" cy="11" r="5" fill="#DC2626"/>
+        <path d="M34 11C36 6 42 4 44 2" stroke="#78350F" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- 11. Bánh Quy Chocolate 🍪 -->
+    <div data-name="Bánh quy" data-type="cookie">
+      <svg viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="22" fill="#D97706"/>
+        <circle cx="24" cy="24" r="3.5" fill="#451A03"/>
+        <circle cx="38" cy="22" r="3" fill="#451A03"/>
+        <circle cx="24" cy="38" r="3" fill="#451A03"/>
+        <circle cx="36" cy="36" r="4" fill="#451A03"/>
+        <circle cx="44" cy="32" r="2.5" fill="#451A03"/>
+        <circle cx="30" cy="46" r="2.5" fill="#451A03"/>
+      </svg>
+    </div>
+
+    <!-- 12. Kem Ốc Quế Mát Lạnh 🍦 -->
+    <div data-name="Kem ốc quế" data-type="icecream">
+      <svg viewBox="0 0 64 64" fill="none">
+        <path d="M22 32L32 60L42 32H22Z" fill="#F59E0B"/>
+        <line x1="24" y1="36" x2="38" y2="48" stroke="#D97706" stroke-width="1.5"/>
+        <line x1="40" y1="36" x2="26" y2="48" stroke="#D97706" stroke-width="1.5"/>
+        <circle cx="26" cy="26" r="9" fill="#38BDF8"/>
+        <circle cx="38" cy="26" r="9" fill="#38BDF8"/>
+        <circle cx="32" cy="18" r="9" fill="#BAE6FD"/>
+        <circle cx="32" cy="10" r="5" fill="#FFFFFF"/>
+        <circle cx="32" cy="7" r="3" fill="#EF4444"/>
+      </svg>
+    </div>
+
+    <!-- 13. Củ Cà Rốt Giòn Ngọt 🥕 -->
+    <div data-name="Cà rốt" data-type="carrot">
+      <svg viewBox="0 0 64 64" fill="none">
+        <path d="M20 22C24 16 38 18 42 24C46 30 36 50 32 60C28 50 16 30 20 22Z" fill="#EA580C"/>
+        <line x1="24" y1="28" x2="34" y2="27" stroke="#C2410C" stroke-width="2" stroke-linecap="round"/>
+        <line x1="26" y1="38" x2="38" y2="36" stroke="#C2410C" stroke-width="2" stroke-linecap="round"/>
+        <line x1="28" y1="48" x2="34" y2="47" stroke="#C2410C" stroke-width="2" stroke-linecap="round"/>
+        <path d="M31 20C28 10 22 6 18 6C22 12 28 16 31 20Z" fill="#22C55E"/>
+        <path d="M33 20C36 10 42 6 46 6C42 12 36 16 33 20Z" fill="#16A34A"/>
+        <path d="M32 20V4" stroke="#15803D" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- 14. Lát Bánh Kem Gato 🍰 -->
+    <div data-name="Bánh kem" data-type="cake">
+      <svg viewBox="0 0 64 64" fill="none">
+        <path d="M12 42L32 16L54 36L44 52L12 42Z" fill="#FED7AA"/>
+        <path d="M12 42L32 16L54 36H12V42Z" fill="#FFFFFF"/>
+        <path d="M12 42V52L44 56V52L12 42Z" fill="#FB923C"/>
+        <circle cx="32" cy="14" r="5" fill="#EF4444"/>
+        <path d="M32 14C33 10 36 9 37 8" stroke="#16A34A" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </div>
+
+  <div id="coord"></div>
+  <div id="eaten">🍼 Bé đã măm măm: 0 món ngon</div>
+
+  <div id="darkToggle">
+    <label for="toggleBox0">
+      <input id="toggleBox0" type="checkbox" onchange="toggleDarkMode(this)">
+      🌙 Chế độ ban đêm
+    </label><br>
+    <label for="toggleBox1">
+      <input id="toggleBox1" type="checkbox" onchange="toggleAutoSpawn(this)">
+      🍩 Mưa đồ ăn liên tục
+    </label>
+  </div>
+
+  <button id="FishIt" onclick="spawnMoreFood();">
+    <span>🍓 Thêm Thức Ăn</span>
+  </button>
+
   <script type="text/javascript">
-    // Variables
-    var fX = -25;               // X variable for how centered the main fish will be
-    var fY = -25;               // Y variable for how centered the main fish will be
-    var xFLIP = -1;             // Flipping direction of the main fish
-    var growthFactor = 3;       // How fast do you want to grow?
-    var growthLOG = 9;          // Base of the logarithmic function log_growthFactor
-    var o_fish_count = 0;       // Number of background fishies (Also doubles as an
-                                // id assignment variable
-    var o_fish_brightness = 1;  // Brightness of fish ranging from 1 to 5
-    var o_fish_list = [];       // Empty list for bg-fishies
-    var eaten = 0;              // Number of fishies eaten
-    var mSpeed = 0.5;           // Speed of the main fish (lower is faster)
-    var oSpeed = 3;             // Speed of the other fishies (lower is faster)
+    // Các biến trạng thái chính
+    var fX = -38;               // Độ lệch tâm X của bé (căn giữa ngón tay/chuột)
+    var fY = -38;               // Độ lệch tâm Y của bé
+    var xFLIP = 1;              // Hướng quay mặt của bé (1: nhìn sang phải, -1: nhìn sang trái)
+    var growthFactor = 0.22;    // Tốc độ lớn lên của bé mỗi khi ăn
+    var o_food_count = 0;       // Đếm số lượng món ăn đã sinh ra
+    var o_food_list = [];       // Danh sách element thức ăn đang có trên màn hình
+    var eaten = 0;              // Số lượng món ăn bé đã măm măm
+    var mSpeed = 0.08;          // Tốc độ phản hồi của bé khi di chuyển chuột (giây)
 
-    // Width + height 
-    var width = window.innerWidth
-      || document.documentElement.clientWidth
-      || document.body.clientWidth;
-
-    var height = window.innerHeight
-      || document.documentElement.clientHeight
-      || document.body.clientHeight;
-
-
-    function clog(anything){console.log(anything)} // I'm lazy = type less
-
-    // Removing from o_fish_list
-    function removeFish(fish){
-      var index = o_fish_list.indexOf(fish);
-      if (index > -1) { o_fish_list.splice(index, 1) }
-      else { clog("Failed to remove " + fish) }
-    }
-
-    // Removing from html
-    function removeElement(id) {
-      var element = document.getElementById(id);
-      //clog(element);
-      element.parentNode.removeChild(element);
-    }
-
-    // Big fish eat small fish helper function
-    function bigFishEating(){
-      var d = document.getElementById('Mfish');
-      var fishMain = d.getBoundingClientRect();
-      var fList = [];
-      // Convert list element to rectangle
-      for (var i = 0; i < o_fish_list.length; i++){
-        fList.push(o_fish_list[i].getBoundingClientRect());
+    // Âm thanh Web Audio API (nhẹ nhàng, không cần tải file ngoài)
+    var audioCtx = null;
+    function playYumSound() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        var osc = audioCtx.createOscillator();
+        var gain = audioCtx.createGain();
+        osc.type = 'sine';
+        var now = audioCtx.currentTime;
+        osc.frequency.setValueAtTime(450, now);
+        osc.frequency.exponentialRampToValueAtTime(880, now + 0.12);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.14);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.15);
+      } catch (err) {
+        // Fallback an toàn nếu trình duyệt chặn autoplay audio
       }
-      // Remove upon overlap
-      for (var i = 0; i < fList.length; i++){
-        var overlap = !(fishMain.right < fList[i].left ||
-                        fishMain.left > fList[i].right ||
-                        fishMain.bottom < fList[i].top ||
-                        fishMain.top > fList[i].bottom);
-        if (overlap){
-          removeElement(o_fish_list[i].id); // delete the fish when eaten
-          removeFish(o_fish_list[i]); // remove fish from records
+    }
+
+    // Kích thước cửa sổ
+    var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+    window.addEventListener('resize', function() {
+      width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+      height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    });
+
+    // Xóa món ăn khỏi mảng theo dõi
+    function removeFoodItem(item) {
+      var index = o_food_list.indexOf(item);
+      if (index > -1) {
+        o_food_list.splice(index, 1);
+      }
+    }
+
+    // Xóa khỏi DOM
+    function removeElement(element) {
+      if (element && element.parentNode) {
+        element.parentNode.removeChild(element);
+      }
+    }
+
+    // Tạo popup chữ "Yum! 🍓" nổi lên khi ăn
+    function showYumPopup(x, y, foodName) {
+      var popup = document.createElement("div");
+      popup.className = "yum-popup";
+      var icons = ["🍓", "🍼", "🍎", "🍌", "🍉", "🍪", "🍩", "🧁", "🍦", "✨"];
+      var randomIcon = icons[Math.floor(Math.random() * icons.length)];
+      popup.innerHTML = "+1 " + (foodName || "Ngon quá") + " " + randomIcon;
+      popup.style.left = x + "px";
+      popup.style.top = y + "px";
+      document.body.appendChild(popup);
+      setTimeout(function() {
+        removeElement(popup);
+      }, 750);
+    }
+
+    // Hàm kiểm tra va chạm giữa bé và các món ăn
+    function babyEatingCheck() {
+      var babyEl = document.getElementById('Mfish');
+      if (!babyEl) return;
+      var babyRect = babyEl.getBoundingClientRect();
+
+      var padding = 10;
+      var bLeft = babyRect.left + padding;
+      var bRight = babyRect.right - padding;
+      var bTop = babyRect.top + padding;
+      var bBottom = babyRect.bottom - padding;
+
+      for (var i = o_food_list.length - 1; i >= 0; i--) {
+        var food = o_food_list[i];
+        if (!food || food.dataset.eaten === "true") continue;
+
+        var fRect = food.getBoundingClientRect();
+        var overlap = !(bRight < fRect.left ||
+                        bLeft > fRect.right ||
+                        bBottom < fRect.top ||
+                        bTop > fRect.bottom);
+
+        if (overlap) {
+          food.dataset.eaten = "true";
+          food.classList.add("food-eaten");
+          var foodName = food.dataset.name || "Món ngon";
+          var targetX = fRect.left + fRect.width / 2;
+          var targetY = fRect.top + fRect.height / 2;
+
+          // Hiệu ứng ăn
+          showYumPopup(targetX, targetY, foodName);
+          playYumSound();
+
+          // Kích hoạt animation rung nảy bé
+          babyEl.classList.remove("baby-chew");
+          void babyEl.offsetWidth; // trigger reflow
+          babyEl.classList.add("baby-chew");
+
+          // Xóa sau khi animation hoàn tất
+          (function(fElement) {
+            setTimeout(function() {
+              removeFoodItem(fElement);
+              removeElement(fElement);
+            }, 250);
+          })(food);
+
           eaten++;
-          if (eaten <= 1){
-            document.getElementById("eaten").innerHTML = "You've eaten " + 
-                                                          eaten + " fishie";
+
+          // Cập nhật bảng đếm số món
+          var eatenEl = document.getElementById("eaten");
+          if (eaten <= 1) {
+            eatenEl.innerHTML = "🍼 Bé đã măm măm: <b>" + eaten + "</b> món ngon!";
+          } else {
+            eatenEl.innerHTML = "🎉 Bé đã măm măm: <b>" + eaten + "</b> món ngon!";
           }
-          else{
-            document.getElementById("eaten").innerHTML = "You've eaten " + 
-                                                          eaten + " fishies";
-          }
+
+          // Cập nhật kích thước bé lớn dần (scale)
+          var growth = 1 + (growthFactor * Math.log10(eaten + 1));
+          babyEl.style.transform = "scaleX(" + xFLIP + ") scale(" + growth + ")";
         }
       }
     }
 
-    // Constantly check if any fishies are overlapped by the big fish every 250 ms.
-    setInterval(function(){bigFishEating();}, 250);
+    // Kiểm tra va chạm thường xuyên mỗi 50ms cho cảm giác mượt mà
+    setInterval(babyEatingCheck, 50);
 
-    // Let's Credit the source: http://jsbin.com/gejuz/1/edit?html,output
+    // Xử lý di chuyển chuột và cảm ứng cho bé bò theo
     (function() {
-      document.onmousemove = handleMouseMove;
+      var oldCoordX = window.innerWidth / 2;
+
+      document.onmousemove = handlePointerMove;
+
       document.addEventListener('touchstart', function(e) {
-        if (e.target.closest && (e.target.closest('#darkToggle') || e.target.closest('#FishIt'))) return;
-        if (e.touches && e.touches[0]) handleMouseMove(e.touches[0]);
+        if (e.target.closest && (e.target.closest('#darkToggle') || e.target.closest('#FishIt') || e.target.closest('#homeBtn'))) return;
+        if (e.touches && e.touches[0]) handlePointerMove(e.touches[0]);
       }, { passive: true });
+
       document.addEventListener('touchmove', function(e) {
-        if (e.target.closest && (e.target.closest('#darkToggle') || e.target.closest('#FishIt'))) return;
-        if (e.touches && e.touches[0]) handleMouseMove(e.touches[0]);
+        if (e.target.closest && (e.target.closest('#darkToggle') || e.target.closest('#FishIt') || e.target.closest('#homeBtn'))) return;
+        if (e.touches && e.touches[0]) handlePointerMove(e.touches[0]);
       }, { passive: true });
-      var oldCoordX = 0; // used to determine the direction main fish is facing
-      function handleMouseMove(event) {
-        var eventDoc, doc, body, pageX, pageY;
 
-        event = event || window.event; // IE-ism
+      function handlePointerMove(event) {
+        var pageX = event.pageX;
+        var pageY = event.pageY;
 
-        // If pageX/Y aren't available and clientX/Y are,
-        // calculate pageX/Y - logic taken from jQuery.
-        // (This is to support old IE)
-        if (event.pageX == null && event.clientX != null) {
-          eventDoc = (event.target && event.target.ownerDocument) || document;
-          doc = eventDoc.documentElement;
-          body = eventDoc.body;
-
-          event.pageX = event.clientX +
-            (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
-            (doc && doc.clientLeft || body && body.clientLeft || 0);
-          event.pageY = event.clientY +
-            (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
-            (doc && doc.clientTop  || body && body.clientTop  || 0 );
+        if (pageX == null && event.clientX != null) {
+          var doc = document.documentElement;
+          var body = document.body;
+          pageX = event.clientX + (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0);
+          pageY = event.clientY + (doc && doc.scrollTop || body && body.scrollTop || 0) - (doc && doc.clientTop || body && body.clientTop || 0);
         }
 
-        // Use event.pageX / event.pageY here
+        var baby = document.getElementById('Mfish');
+        if (!baby) return;
 
-        // Everything related to the main fishy is below here:
-        var d = document.getElementById('Mfish');
-        //d.style.position = "absolute";
-        d.style.left = event.pageX + fX + 'px';
-        d.style.top = event.pageY + fY +'px';
+        baby.style.left = (pageX + fX) + 'px';
+        baby.style.top = (pageY + fY) + 'px';
 
-        // Show coordinates if the url has "xy"
-        if (location.hash.substr(1) == "xy"){
-          var text = "X: " + event.pageX + ", Y: " + event.pageY +
-          " | BGfishies: " + o_fish_count;
+        // Hiển thị tọa độ nếu trên url có #xy
+        if (location.hash.substr(1) === "xy") {
+          var text = "X: " + Math.round(pageX) + ", Y: " + Math.round(pageY) + " | Món ăn: " + o_food_list.length;
           document.getElementById("coord").innerHTML = text;
-        }
-        else{
+        } else {
           document.getElementById("coord").innerHTML = "";
         }
 
-        if ( oldCoordX > event.pageX ){
+        // Hướng quay mặt của bé:
+        // baby.png gốc nhìn sang PHẢI (right).
+        // Nếu chuột đi sang PHẢI (pageX > oldCoordX): xFLIP = 1 (mặt hướng phải).
+        // Nếu chuột đi sang TRÁI (pageX < oldCoordX): xFLIP = -1 (mặt lật sang trái).
+        if (pageX > oldCoordX + 2) {
           xFLIP = 1;
-          //d.classList.add("Mright");
-          //d.classList.remove("Mleft");
-        }
-        else{
+        } else if (pageX < oldCoordX - 2) {
           xFLIP = -1;
-          //d.classList.add("Mleft");
-          //d.classList.remove("Mright");
         }
-        oldCoordX = event.pageX;
+        oldCoordX = pageX;
 
         var growth = 1;
-        function loggo(val) {
-          return Math.log(val) / Math.log(growthLOG);
+        if (eaten > 0) {
+          growth = 1 + (growthFactor * Math.log10(eaten + 1));
         }
-        // don't scale until afterwards
-        if ( growthFactor * Math.log(eaten) >=1 ) {
-          growth = growthFactor * loggo(eaten);
-        }
-        d.style.transform = "scaleX(" + xFLIP + ") scale(" + growth + ")";
-        d.style.transition = mSpeed + "s ease-out";
-        //clog(fList);
-
+        baby.style.transform = "scaleX(" + xFLIP + ") scale(" + growth + ")";
       }
     })();
-    //////////////////////////
-    // End of main function //
-    //////////////////////////
 
-    // Background fishies
-    function otherFish(){
-      // random numbers
-      function randW(){
-        min = Math.ceil(50);
-        max = Math.floor(width - 50);
-        // The maximum is inclusive and the minimum is inclusive
+    // Lấy ngẫu nhiên template thức ăn từ kho SVG
+    var foodTemplates = document.querySelectorAll("#food_templates > div");
+
+    function createFoodElement() {
+      if (!foodTemplates || foodTemplates.length === 0) return null;
+      var randIndex = Math.floor(Math.random() * foodTemplates.length);
+      var template = foodTemplates[randIndex];
+
+      var foodDiv = document.createElement("div");
+      foodDiv.className = "food-item";
+      foodDiv.id = "food-" + o_food_count;
+      foodDiv.dataset.name = template.getAttribute("data-name") || "Món ngon";
+      foodDiv.dataset.type = template.getAttribute("data-type") || "fruit";
+      foodDiv.innerHTML = template.innerHTML;
+
+      // Kích thước đồ ăn tươi tắn, to rõ (42px - 54px)
+      var randomSize = Math.floor(Math.random() * 13) + 42;
+      foodDiv.style.width = randomSize + "px";
+      foodDiv.style.height = randomSize + "px";
+
+      o_food_count++;
+      return foodDiv;
+    }
+
+    // Sinh 1 món ăn mới bay bổng trên màn hình
+    function spawnFoodItem() {
+      var food = createFoodElement();
+      if (!food) return;
+
+      function randW() {
+        var min = 40;
+        var max = Math.max(min, width - 80);
         return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-      function randH(){
-        min = Math.ceil(50);
-        max = Math.floor(height - 50);
-        // The maximum is inclusive and the minimum is inclusive
+      }
+
+      function randH() {
+        var min = 50;
+        var max = Math.max(min, height - 90);
         return Math.floor(Math.random() * (max - min + 1)) + min;
       }
 
-      // Has darker colors
-      //function getRandomColor() {
-      //  var letters = 'FEDCBA9876543210';
-      //  var color = '#';
-      //  for (var i = 0; i < 6; i++) {
-      //    //Base 16 :D
-      //    color += letters[Math.floor(Math.random() * 16)];
-      //  }
-      //  return color;
-      //}
-      
-      function getRandColor(brightness){
-        // Six levels of brightness from 0 to 5, 0 being the darkest
-        var rgb = [Math.random() * 256, Math.random() * 256, Math.random() * 256];
-        var mix = [brightness*51, brightness*51, brightness*51]; //51 => 255/5
-        var mixedrgb = [rgb[0] + mix[0], rgb[1] + mix[1], rgb[2] +
-        mix[2]].map(function(x){ return Math.round(x/2.0)});
-        return "rgb(" + mixedrgb.join(",") + ")";
+      var startX = randW();
+      var startY = randH();
+      food.style.left = startX + "px";
+      food.style.top = startY + "px";
+
+      document.body.appendChild(food);
+      o_food_list.push(food);
+
+      function moveFood() {
+        if (food.dataset.eaten === "true") return;
+        var nextX = randW();
+        var nextY = randH();
+        food.style.left = nextX + "px";
+        food.style.top = nextY + "px";
+
+        var randomDuration = (Math.random() * 1.6 + 2.2).toFixed(1);
+        food.style.transition = "left " + randomDuration + "s ease-in-out, top " + randomDuration + "s ease-in-out";
+
+        setTimeout(moveFood, Math.floor(randomDuration * 1000) - 200);
       }
 
-      var itm = document.getElementById("o_fish");
-      var e = itm.cloneNode(true);
-      e.style.position = "absolute";
-      e.style.display = "inline";
-      e.id = "o_fish-" + o_fish_count; // Give the fish a unique id
-      o_fish_list.push(e); // Add fish to list
-      o_fish_count++; // increment the id by 1
-      
-      var child1 = e.children;
-      //clog(child1);
-      for (var i = 0; i < child1.length; i++) {
-          if (child1[i].tagName == "g") {
-            var child2 = child1[i].children;
-            //clog(child2);
-            for (var j = 0; j < child2.length; j++) {
-              if (child2[j].tagName == "path") {
-                var color = getRandColor(o_fish_brightness);
-                //clog(color);
-                child2[j].style.fill = color;
-              }
-            }
-          }
-      }
+      setTimeout(moveFood, 300);
+    }
 
-      var holdRandW; // Was using this to debug
-      var oldCoordX;
-      e.style.transition = oSpeed + "s ease-out";
-      function moveFishy(){
-        holdRandW = randW();
-        e.style.left = holdRandW + "px";
-        e.style.top = randH() +'px';
-        //clog(holdRandW);
-        if ( holdRandW < oldCoordX ){
-          e.classList.add("Oright");
-          e.classList.remove("Oleft");
-          //e.setAttribute('class','Oright');
-          //clog(randH() + " | Oright");
-        }
-        else{
-          e.classList.add("Oleft");
-          e.classList.remove("Oright");
-          //e.setAttribute('class','Oleft');
-          //clog(randH() + " | Oleft");
-        }
-        setTimeout(moveFishy, 2000);
-        oldCoordX = holdRandW;
-      }
-
-      document.body.appendChild(e); // Add fish to the html
-      moveFishy();
-
-      if (o_fish_count == 2500){
-        //alert("Aren't you getting a bit crazy here...?");
+    // Hàm gọi khi bấm nút "Thêm Thức Ăn"
+    function spawnMoreFood() {
+      var batch = Math.floor(Math.random() * 3) + 3;
+      for (var i = 0; i < batch; i++) {
+        setTimeout(spawnFoodItem, i * 120);
       }
     }
-    ////////////////////////////
-    // End of background fish //
-    ////////////////////////////
 
-    function moreFish(){
-      //document.getElementById("FishIt").style.display = "none"; //Hide button
-      otherFish();
+    // Tự động spawn ban đầu khi mở trang
+    window.addEventListener("DOMContentLoaded", function() {
+      for (var i = 0; i < 12; i++) {
+        setTimeout(spawnFoodItem, i * 150);
+      }
+    });
+
+    // Dark mode
+    function toggleDarkMode(_this) {
+      if (_this.checked) {
+        document.body.classList.add("dark-mode");
+      } else {
+        document.body.classList.remove("dark-mode");
+      }
+    }
+
+    // Auto spawn liên tục
+    var autoSpawnTimer = null;
+    function toggleAutoSpawn(_this) {
+      if (_this.checked) {
+        autoSpawnTimer = setInterval(function() {
+          if (o_food_list.length < 50) {
+            spawnFoodItem();
+          }
+        }, 900);
+      } else {
+        if (autoSpawnTimer) {
+          clearInterval(autoSpawnTimer);
+          autoSpawnTimer = null;
+        }
+      }
     }
   </script>
-</head>
-<body>
-  <img
-      id="Mfish"
-      class="Mleft"
-      src="fishm.png"
-  >
-
-  <!-- inline svg of background fish for easy JS manipulation -->
-  <svg
-    id="o_fish"
-    viewBox="0 0 15.870892 11.059746">
-    <g
-      transform="translate(-0.32264107,-285.34704)"
-      id="o_fish-layer1">
-    <path
-      id="o_fish-path"
-      d="m 12.590442,294.97791 c -0.87312,-0.58043 -1.73126,-1.056 -1.90698,-1.05683 -0.17571,-8.4e-4 -0.8107108,0.36829 -1.4111088,0.82025 -0.755888,0.56902 -1.639909,0.84466 -2.874293,0.89622 -1.553455,0.0649 -1.990642,-0.0844 -3.400232,-1.16065 -2.71028989,-2.06946 -3.25563889,-5.23582 -1.238506,-7.1909 1.068351,-1.03549 1.352333,-1.12754 3.478548,-1.12754 1.887825,0 2.555142,0.16281 3.614844,0.88195 0.71479,0.48507 1.5147378,0.88194 1.7776678,0.88194 0.26293,0 1.31315,-0.56198 2.33382,-1.24884 1.25286,-0.84311 1.97186,-1.13276 2.21308,-0.89154 0.58592,0.58592 0.59236,8.52129 0.008,9.46052 -0.62745,1.00793 -0.68986,1.00156 -2.59452,-0.26458 z m -3.5277768,-2.47894 0.881945,-1.06668 1.9177418,1.23679 c 1.05475,0.68023 1.94896,1.20018 1.98714,1.15544 0.0382,-0.0447 -0.0113,-1.29718 -0.10999,-2.78322 l -0.17939,-2.70188 -1.10219,0.67209 c -1.50463,0.91748 -2.9117138,0.84748 -4.1651478,-0.20721 -0.850821,-0.71592 -1.428215,-0.88195 -3.067175,-0.88195 -2.255711,0 -2.865711,0.38905 -2.865711,1.82772 0,0.7536 0.205541,1.03265 0.886526,1.20356 0.487589,0.12238 1.101526,0.0441 1.364305,-0.17401 0.361246,-0.29981 0.587115,-0.26478 0.92605,0.14361 0.368589,0.44412 0.335835,0.66437 -0.184258,1.23907 -0.347892,0.38442 -0.885739,0.70399 -1.195216,0.71016 -0.456217,0.009 -0.429183,0.11445 0.142871,0.55678 1.142249,0.88323 3.671572,0.38917 4.762499,-0.93027 z m -4.543654,-2.93796 c -0.307422,-0.37042 -0.287644,-0.58323 0.08278,-0.89065 0.370421,-0.30742 0.583224,-0.28764 0.890645,0.0828 0.307422,0.37042 0.287644,0.58322 -0.08278,0.89064 -0.37042,0.30743 -0.583223,0.28765 -0.890644,-0.0828 z"
-    />
-    </g>
-  </svg>
-
-<div id="coord"></div>
-<div id="eaten"></div>
-<div id="darkToggle">
-  <input id="toggleBox0" type="checkbox" onChange="darkThis(this)"><label for="toggleBox0">Dark Mode</label><br>
-  <input id="toggleBox1" type="checkbox" onChange="constaSpawn(this)"><label for="toggleBox1">ConstaSpawn</label>
-</div>
-<button id="FishIt" onclick="moreFish();">Spawn More Fish</button>
-<!-- Script for checkboxes -->
-<script type="text/javascript">
-  // Dark mode stuff
-  var colorToggle = document.getElementById("toggleBox");
-  var child1 = document.body.childNodes;
-
-  // Helper function for searching and setting colors
-  function recurseDark(child){
-    for (var i = 0; i < child.length; i++) {
-      if ( child[i].tagName != null ){
-        child[i].classList.toggle('darken');
-        recurseDark(child[i]);
-      }
-    }
-  }
-
-  function darkThis(_this) {
-    // Set bg before everything else
-    if (_this.checked){ document.body.style.background = "#313F48" }
-    else { document.body.style.background = "#A8DBFB" }
-    // Recursively search and change colors
-    recurseDark(child1);
-  }
-
-  // Constantly Spawn
-  var constaSawnFish;
-  function constaSpawn(_this) {
-    if (_this.checked) {
-      constaSawnFish = setInterval(moreFish, 1500);
-    }
-    else {
-      clearInterval(constaSawnFish);
-    }
-  }
-</script>
 </body>
 </html>
-
-
-
