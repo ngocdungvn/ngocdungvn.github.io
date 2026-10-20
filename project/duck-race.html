@@ -634,8 +634,35 @@
     }
 
     .podium-avatar {
-      font-size: 32px;
-      margin-bottom: 4px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 900;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .podium-rank-1 .podium-avatar {
+      background: linear-gradient(135deg, #facc15 0%, #d97706 100%);
+      color: #78350f;
+      border: 2px solid #fef08a;
+    }
+
+    .podium-rank-2 .podium-avatar {
+      background: linear-gradient(135deg, #cbd5e1 0%, #64748b 100%);
+      color: #0f172a;
+      border: 2px solid #f1f5f9;
+    }
+
+    .podium-rank-3 .podium-avatar {
+      background: linear-gradient(135deg, #fdba74 0%, #ea580c 100%);
+      color: #7c2d12;
+      border: 2px solid #ffedd5;
     }
 
     .podium-name {
@@ -909,7 +936,7 @@
       </div>
 
       <div class="top-racers-card" id="topRacersHUD">
-        <span>🏆 Dẫn đầu:</span>
+        <span style="font-weight: 800; letter-spacing: 0.5px;">BẢNG XẾP HẠNG:</span>
         <div class="leader-item badge-rank-1" id="lead1">-</div>
         <div class="leader-item badge-rank-2" id="lead2">-</div>
         <div class="leader-item badge-rank-3" id="lead3">-</div>
@@ -933,11 +960,11 @@
           <!-- Danh sách người tham gia -->
           <div class="form-group">
             <div class="form-label">
-              <span>Danh sách người tham gia</span>
+              <span>Danh sách người tham gia (ngăn cách bởi dấu phẩy <b>,</b> hoặc xuống dòng)</span>
               <span class="count-info" id="participantCount">0 chú vịt</span>
             </div>
             <textarea class="names-input" id="namesInput"
-              placeholder="Nhập hoặc dán danh sách tên (mỗi người 1 dòng hoặc cách nhau dấu phẩy)&#10;Ví dụ:&#10;Ngọc Dũng&#10;Minh Sáng&#10;Hoàng Nam&#10;Thanh Trúc&#10;Văn Hùng"></textarea>
+              placeholder="Nhập tên người tham gia, ngăn cách bởi dấu phẩy (,) hoặc xuống dòng&#10;Ví dụ: Ngọc Dũng, Minh Sáng, Hoàng Nam, Thanh Trúc, Văn Hùng..."></textarea>
 
             <div class="quick-preset-btns">
               <span style="font-size: 11px; color: #64748b; align-self: center;">Sinh nhanh:</span>
@@ -996,31 +1023,31 @@
 
         <!-- Bục vinh quang 3 vị trí đầu -->
         <div class="podium-wrap" id="podiumWrap">
-          <!-- Á quân 2 (Hạng 2) -->
+          <!-- Hạng 2 -->
           <div class="podium-slot podium-rank-2">
-            <div class="podium-avatar">🥈</div>
+            <div class="podium-avatar">#2</div>
             <div class="podium-name" id="podiumName2">--</div>
             <div class="podium-pillar">
-              2
-              <span class="rank-label">Á Quân 1</span>
+              #2
+              <span class="rank-label">Hạng 2</span>
             </div>
           </div>
-          <!-- Quán quân (Hạng 1) -->
+          <!-- Hạng 1 -->
           <div class="podium-slot podium-rank-1">
-            <div class="podium-avatar">🥇</div>
+            <div class="podium-avatar">#1</div>
             <div class="podium-name" id="podiumName1">--</div>
             <div class="podium-pillar">
-              1
-              <span class="rank-label">Vô Địch</span>
+              #1
+              <span class="rank-label">Hạng 1</span>
             </div>
           </div>
-          <!-- Á quân 3 (Hạng 3) -->
+          <!-- Hạng 3 -->
           <div class="podium-slot podium-rank-3">
-            <div class="podium-avatar">🥉</div>
+            <div class="podium-avatar">#3</div>
             <div class="podium-name" id="podiumName3">--</div>
             <div class="podium-pillar">
-              3
-              <span class="rank-label">Á Quân 2</span>
+              #3
+              <span class="rank-label">Hạng 3</span>
             </div>
           </div>
         </div>
@@ -1227,10 +1254,10 @@
       { body: '#e2e8f0', beak: '#f97316', hat: '#f43f5e' }  // Trắng thiên nga
     ];
 
-    // Mẫu tên vui vẻ
+    // Mẫu tên thí sinh
     const SAMPLE_NAMES = [
-      'Ngọc Dũng 👑', 'Minh Sáng 🚀', 'Hoàng Nam ⚡', 'Thanh Trúc 🌸', 'Văn Hùng 🦁',
-      'Thu Trang 🍧', 'Tuấn Kiệt 🎯', 'Bích Phương 🌟', 'Quốc Bảo 🛡️', 'Khánh Linh 🦋'
+      'Ngọc Dũng', 'Minh Sáng', 'Hoàng Nam', 'Thanh Trúc', 'Văn Hùng',
+      'Thu Trang', 'Tuấn Kiệt', 'Bích Phương', 'Quốc Bảo', 'Khánh Linh'
     ];
 
     // --- 3. DUCK CLASS ---
@@ -1650,9 +1677,9 @@
 
         // Cập nhật Top 3 Leaderboard
         const sortedLive = [...STATE.ducks].sort((a, b) => b.x - a.x);
-        document.getElementById('lead1').innerText = sortedLive[0] ? `🥇 ${sortedLive[0].name}` : '-';
-        document.getElementById('lead2').innerText = sortedLive[1] ? `🥈 ${sortedLive[1].name}` : '-';
-        document.getElementById('lead3').innerText = sortedLive[2] ? `🥉 ${sortedLive[2].name}` : '-';
+        document.getElementById('lead1').innerText = sortedLive[0] ? `#1 ${sortedLive[0].name}` : '-';
+        document.getElementById('lead2').innerText = sortedLive[1] ? `#2 ${sortedLive[1].name}` : '-';
+        document.getElementById('lead3').innerText = sortedLive[2] ? `#3 ${sortedLive[2].name}` : '-';
 
         // Kiểm tra tất cả đã về đích hoặc Top 3 đã về đích xong một lúc
         if (STATE.rankedResults.length === STATE.ducks.length || (STATE.rankedResults.length >= Math.min(STATE.ducks.length, 3) && leadingX >= STATE.finishLineX + 350)) {
@@ -1842,7 +1869,7 @@
         const text = namesInput.value.trim();
         if (!text) return [];
         return text
-          .split(/[\n,]+/)
+          .split(/[\n,;，]+/)
           .map(s => s.trim())
           .filter(s => s.length > 0);
       }
@@ -1860,9 +1887,9 @@
             for (let i = 1; i <= count; i++) {
               arr.push(`Số ${i < 10 ? '0' + i : i}`);
             }
-            namesInput.value = arr.join('\n');
+            namesInput.value = arr.join(', ');
           } else if (preset === 'sample') {
-            namesInput.value = SAMPLE_NAMES.join('\n');
+            namesInput.value = SAMPLE_NAMES.join(', ');
           } else if (preset === 'clear') {
             namesInput.value = '';
           }
@@ -1945,7 +1972,7 @@
       });
 
       // Giá trị ban đầu
-      namesInput.value = SAMPLE_NAMES.join('\n');
+      namesInput.value = SAMPLE_NAMES.join(', ');
       updateDuckCount();
     }
 
@@ -1963,13 +1990,13 @@
       document.getElementById('podiumName2').innerText = r2 ? r2.name : '--';
       document.getElementById('podiumName3').innerText = r3 ? r3.name : '--';
 
-      // Tạo bảng xếp hạng đầy đủ
+      // Tạo bảng xếp hạng đầy đủ (#1, #2, #3, ...)
       tableBody.innerHTML = '';
       STATE.rankedResults.forEach((duck, idx) => {
         const tr = document.createElement('tr');
-        const rankMedal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `#${idx + 1}`;
+        const rankLabel = `#${idx + 1}`;
         tr.innerHTML = `
-          <td class="col-rank">${rankMedal}</td>
+          <td class="col-rank">${rankLabel}</td>
           <td class="col-name">${duck.name}</td>
           <td class="col-time">${duck.finishTime.toFixed(2)}s</td>
         `;
@@ -1983,24 +2010,13 @@
     function copyResultsToClipboard() {
       if (STATE.rankedResults.length === 0) return;
 
-      const r1 = STATE.rankedResults[0] ? STATE.rankedResults[0].name : '';
-      const r2 = STATE.rankedResults[1] ? STATE.rankedResults[1].name : '';
-      const r3 = STATE.rankedResults[2] ? STATE.rankedResults[2].name : '';
-
-      let text = `🦆 KẾT QUẢ ĐUA VỊT MAY MẮN (DUCK RACE) 🏁\n`;
+      let text = `🦆 KẾT QUẢ ĐUA VỊT (DUCK RACE) 🏁\n`;
       text += `━━━━━━━━━━━━━━━━━━━━━\n`;
-      text += `🥇 QUÁN QUÂN: ${r1}\n`;
-      if (r2) text += `🥈 Á QUÂN 1: ${r2}\n`;
-      if (r3) text += `🥉 Á QUÂN 2: ${r3}\n`;
-      text += `━━━━━━━━━━━━━━━━━━━━━\n`;
-      text += `📋 BẢNG THỨ HẠNG CHI TIẾT:\n`;
-
       STATE.rankedResults.forEach((duck, i) => {
-        const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
-        text += `${medal} ${duck.name} (${duck.finishTime.toFixed(2)}s)\n`;
+        text += `#${i + 1} ${duck.name} (${duck.finishTime.toFixed(2)}s)\n`;
       });
-
-      text += `\n🌟 Chơi ngay tại: https://ngocdungvn.github.io/project/duck-race.html`;
+      text += `━━━━━━━━━━━━━━━━━━━━━\n`;
+      text += `🌟 Chơi ngay tại: https://ngocdungvn.github.io/project/duck-race.html`;
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(() => {
