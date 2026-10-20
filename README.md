@@ -50,20 +50,21 @@ Hệ thống mini apps được phân chia khoa học thành 3 danh mục chính
 
 | STT | Trò Chơi | Tệp Tin | Mô Tả & Cơ Chế Điều Khiển |
 |:---:|---|---|---|
-| 06 | **Rắn Săn Mồi Cổ Điển** | [`project/snake-game.html`](project/snake-game.html) | Tái hiện trò chơi Snake huyền thoại với tỉ lệ canvas 1:1, trang bị **D-pad cảm ứng ảo** trên điện thoại, bảng HUD điểm số và kỷ lục High Score. |
-| 07 | **Nhảy Tầng Fall Game** | [`project/fall-game.html`](project/fall-game.html) | Điều khiển bóng rơi qua các khe hở vô tận, vật lý 2D mượt mà, nút cảm ứng Trái/Phải phản hồi liên tục khi giữ ngón tay. |
-| 08 | **Bé Măm Măm Hoa Quả** | [`project/fishies.html`](project/fishies.html) | Trò chơi tương tác đáng yêu điều khiển em bé bò đi măm măm các loại hoa quả, bánh kẹo và bình sữa, hỗ trợ chạm vuốt đa điểm (`touchstart`/`touchmove`). |
-| 09 | **Miu Đi Tìm Sữa** | [`project/baby-wants-milk.html`](project/baby-wants-milk.html) | Game phiêu lưu mê cung tìm bình sữa cho bé Miu, hỗ trợ cụm phím D-pad 4 hướng và nút Action cảm ứng ảo. |
-| 10 | **Bóng Bàn 2D Ping Pong** | [`project/ping-pong.html`](project/ping-pong.html) | Game bóng bàn cổ điển đối đầu AI Bot thông minh, hỗ trợ vuốt chạm điều khiển vợt trực tiếp trên sàn đấu hoặc nút bấm ảo. |
-| 11 | **Thử Thách Simon Memory** | [`project/simon-game.html`](project/simon-game.html) | Game rèn luyện trí nhớ thính giác và thị giác qua chuỗi tín hiệu màu sắc, âm thanh tổng hợp bằng Web Audio API không có độ trễ. |
+| 06 | **Đua Vịt Chọn Người Thắng** | [`project/duck-race.html`](project/duck-race.html) | Mini game Đua Vịt bốc thăm may mắn, quay số trúng thưởng online với hiệu ứng đồ họa Canvas 60 FPS, âm thanh Web Audio và cơ chế quay ngẫu nhiên hoàn toàn công bằng. |
+| 07 | **Rắn Săn Mồi Cổ Điển** | [`project/snake-game.html`](project/snake-game.html) | Tái hiện trò chơi Snake huyền thoại với tỉ lệ canvas 1:1, trang bị **D-pad cảm ứng ảo** trên điện thoại, bảng HUD điểm số và kỷ lục High Score. |
+| 08 | **Nhảy Tầng Fall Game** | [`project/fall-game.html`](project/fall-game.html) | Điều khiển bóng rơi qua các khe hở vô tận, vật lý 2D mượt mà, nút cảm ứng Trái/Phải phản hồi liên tục khi giữ ngón tay. |
+| 09 | **Bé Măm Măm Hoa Quả** | [`project/fishies.html`](project/fishies.html) | Trò chơi tương tác đáng yêu điều khiển em bé bò đi măm măm các loại hoa quả, bánh kẹo và bình sữa, hỗ trợ chạm vuốt đa điểm (`touchstart`/`touchmove`). |
+| 10 | **Miu Đi Tìm Sữa** | [`project/baby-wants-milk.html`](project/baby-wants-milk.html) | Game phiêu lưu mê cung tìm bình sữa cho bé Miu, hỗ trợ cụm phím D-pad 4 hướng và nút Action cảm ứng ảo. |
+| 11 | **Bóng Bàn 2D Ping Pong** | [`project/ping-pong.html`](project/ping-pong.html) | Game bóng bàn cổ điển đối đầu AI Bot thông minh, hỗ trợ vuốt chạm điều khiển vợt trực tiếp trên sàn đấu hoặc nút bấm ảo. |
+| 12 | **Thử Thách Simon Memory** | [`project/simon-game.html`](project/simon-game.html) | Game rèn luyện trí nhớ thính giác và thị giác qua chuỗi tín hiệu màu sắc, âm thanh tổng hợp bằng Web Audio API không có độ trễ. |
 
 ### 🎨 3. Nhóm Hiệu Ứng & Nghệ Thuật (Visual & Creative Arts)
 
 | STT | Trải Nghiệm | Tệp Tin | Mô Tả & Hiệu Ứng |
 |:---:|---|---|---|
-| 12 | **Bánh Sinh Nhật Thổi Nến** | [`project/birthday-cake.html`](project/birthday-cake.html) | Chiếc bánh sinh nhật 3 tầng tương tác trực quan, tự động scale vừa mọi kích cỡ màn hình, tương tác 1 click để thổi nến hoặc double click để thắp lại nến kèm âm thanh puff & chime. |
-| 13 | **Pháo Hoa Chạm Bắn** | [`project/click-fireworks.html`](project/click-fireworks.html) | Chạm hoặc nhấp chuột vào bất kỳ vị trí nào trên màn hình để kích nổ chùm pháo hoa rực rỡ với âm thanh nổ sống động và fade-out tự nhiên. |
-| 14 | **Pháo Hoa Tương Tác** | [`project/firework/index.html`](project/firework/index.html) | Trình diễn pháo hoa chào năm mới với hệ thống điều khiển âm thanh, pause/play và thanh chỉnh kích thước hạt. |
+| 13 | **Bánh Sinh Nhật Thổi Nến** | [`project/birthday-cake.html`](project/birthday-cake.html) | Chiếc bánh sinh nhật 3 tầng tương tác trực quan, tự động scale vừa mọi kích cỡ màn hình, tương tác 1 click để thổi nến hoặc double click để thắp lại nến kèm âm thanh puff & chime. |
+| 14 | **Pháo Hoa Chạm Bắn** | [`project/click-fireworks.html`](project/click-fireworks.html) | Chạm hoặc nhấp chuột vào bất kỳ vị trí nào trên màn hình để kích nổ chùm pháo hoa rực rỡ với âm thanh nổ sống động và fade-out tự nhiên. |
+| 15 | **Pháo Hoa Tương Tác** | [`project/firework/index.html`](project/firework/index.html) | Trình diễn pháo hoa chào năm mới với hệ thống điều khiển âm thanh, pause/play và thanh chỉnh kích thước hạt. |
 
 ---
 
@@ -126,12 +127,13 @@ ngocdungvn.github.io/
 │   └── img/                 # Hình ảnh, chứng chỉ, favicons, PWA icons
 ├── tai-nguyen/              # Kho tài nguyên chia sẻ, tài liệu IT & AI
 │   └── index.html           # Trang trung tâm tài nguyên công nghệ
-├── project/                 # Thư mục chứa 14 Mini Apps độc lập
+├── project/                 # Thư mục chứa 15 Mini Apps độc lập
 │   ├── random-number.html   # Quay số ngẫu nhiên A-Z
 │   ├── share-bill.html      # Chia tiền kèo bóng đá
 │   ├── calculator.html      # Máy tính Neumorphic
 │   ├── downloads.html       # Cổng tải app Android TV
 │   ├── digital-clock.html   # Đồng hồ kỹ thuật số Digital Clock
+│   ├── duck-race.html       # Đua vịt chọn người thắng (Lucky Draw)
 │   ├── snake-game.html      # Rắn săn mồi cổ điển (touch D-pad)
 │   ├── fall-game.html       # Nhảy tầng Fall Game
 │   ├── fishies.html         # Bé măm măm hoa quả & thức ăn

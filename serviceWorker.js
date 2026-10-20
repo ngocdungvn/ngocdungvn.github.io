@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'ngocdung-portfolio-';
-const CACHE_NAME = `${CACHE_PREFIX}v19`;
+const CACHE_NAME = `${CACHE_PREFIX}v20`;
 const STATIC_ASSETS = [
   '/',
   '/index.html',
