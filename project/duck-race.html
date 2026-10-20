@@ -233,8 +233,10 @@
       right: 16px;
       z-index: 30;
       display: none;
-      flex-direction: column;
-      gap: 8px;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
       pointer-events: none;
     }
 
@@ -243,7 +245,9 @@
     }
 
     .progress-card {
-      background: rgba(15, 23, 42, 0.7);
+      flex: 1;
+      max-width: 460px;
+      background: rgba(15, 23, 42, 0.75);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: var(--radius-full);
@@ -573,6 +577,7 @@
 
     /* Victory Podium & Results Modal */
     .results-card {
+      position: relative;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: var(--radius-lg);
@@ -585,6 +590,31 @@
       animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       overflow: hidden;
       text-align: center;
+    }
+
+    .modal-close-corner {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      z-index: 10;
+    }
+
+    .modal-close-corner:hover {
+      background: rgba(0, 0, 0, 0.12);
+      color: #0f172a;
+      transform: scale(1.08);
     }
 
     .results-header {
@@ -820,6 +850,57 @@
       color: #0f172a;
     }
 
+    .btn-close-res {
+      background: #ffffff;
+      color: #475569;
+      border: 1.5px solid #cbd5e1;
+    }
+
+    .btn-close-res:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+
+    /* Floating View Results Button when modal is closed */
+    .floating-results-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 40;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #ffffff;
+      border: 2px solid #fef08a;
+      border-radius: var(--radius-full);
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 10px 25px rgba(217, 119, 6, 0.45), 0 0 20px rgba(250, 204, 21, 0.35);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: pulseGlow 2s infinite alternate ease-in-out;
+    }
+
+    .floating-results-btn:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 14px 30px rgba(217, 119, 6, 0.55), 0 0 25px rgba(250, 204, 21, 0.5);
+    }
+
+    .floating-results-btn.active {
+      display: inline-flex;
+    }
+
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 8px 20px rgba(217, 119, 6, 0.35);
+      }
+      100% {
+        box-shadow: 0 12px 28px rgba(217, 119, 6, 0.6), 0 0 22px rgba(250, 204, 21, 0.45);
+      }
+    }
+
     /* Toast Notification */
     .toast-msg {
       position: fixed;
@@ -886,6 +967,13 @@
       .brand-title span.hide-mobile {
         display: none;
       }
+
+      .floating-results-btn {
+        bottom: 16px;
+        right: 16px;
+        padding: 10px 16px;
+        font-size: 13px;
+      }
     }
   </style>
 </head>
@@ -905,6 +993,9 @@
       </div>
 
       <div class="header-actions">
+        <button class="icon-btn" id="btnViewResultsHeader" title="Xem lại kết quả" style="display: none;">
+          <i class="uil uil-trophy"></i>
+        </button>
         <button class="icon-btn" id="btnSoundToggle" title="Bật/Tắt âm thanh">
           <i class="uil uil-volume"></i>
         </button>
@@ -1016,6 +1107,9 @@
     <div class="modal-backdrop hidden" id="resultsModal">
       <div class="results-card">
         <div class="results-header">
+          <button class="modal-close-corner" id="btnCloseResultsCorner" title="Đóng bảng kết quả">
+            <i class="uil uil-times"></i>
+          </button>
           <div class="winner-crown">👑</div>
           <h2>KẾT QUẢ ĐUA VỊT</h2>
           <p style="font-size: 13px; color: #78350f;">Chúc mừng chú vịt Quán quân đã xuất sắc cán đích đầu tiên!</p>
@@ -1071,9 +1165,17 @@
           <button class="btn-action-res btn-edit-list" id="btnChangeSettings">
             <i class="uil uil-sliders-v-alt"></i> <span>Đổi danh sách</span>
           </button>
+          <button class="btn-action-res btn-close-res" id="btnCloseResultsAction" title="Đóng bảng kết quả">
+            <i class="uil uil-times-circle"></i> <span>Đóng</span>
+          </button>
         </div>
       </div>
     </div>
+
+    <!-- Floating View Results Button (khi đóng modal) -->
+    <button class="floating-results-btn" id="btnFloatingResults">
+      <i class="uil uil-trophy"></i> <span>Xem Lại Kết Quả</span>
+    </button>
 
     <!-- Toast Popup -->
     <div class="toast-msg" id="toastMsg">
@@ -1268,6 +1370,13 @@
         this.index = index;
         this.total = total;
 
+        // Tỉ lệ scale chuẩn, giữ vịt to tròn, rõ nét, không bị teo nhỏ thưa thớt
+        let s = 1.0;
+        if (total > 50) s = 0.76;
+        else if (total > 25) s = 0.85;
+        else if (total > 12) s = 0.94;
+        this.scale = s;
+
         // Tọa độ
         this.x = STATE.startLineX - (Math.random() * 30 + 10);
         this.baseY = 0; // Được tính toán trong layoutLanes
@@ -1283,6 +1392,9 @@
         // Hiệu ứng bơi & quẫy nước
         this.bobCycle = Math.random() * Math.PI * 2;
         this.bobSpeed = 0.12 + Math.random() * 0.06;
+        this.driftCycle = Math.random() * Math.PI * 2;
+        this.driftSpeed = 0.02 + Math.random() * 0.02;
+        this.driftAmp = (3.5 + (index % 4) * 1.5) * s;
         this.paddleAngle = 0;
         this.wobbleX = 0;
 
@@ -1298,19 +1410,26 @@
         this.colorHat = palette.hat;
 
         // Kích thước chuẩn
-        this.width = 44;
-        this.height = 38;
+        this.width = 44 * s;
+        this.height = 38 * s;
 
         // Gợn sóng đuôi (wake trail)
         this.ripples = [];
       }
 
       update(progressRatio) {
-        if (this.isFinished) return;
+        if (this.isFinished) {
+          // Nhấp nhô nhẹ nhàng thư thái khi đã về đích
+          this.bobCycle += this.bobSpeed * 0.5;
+          this.y = this.baseY + Math.sin(this.bobCycle) * (3 * this.scale);
+          return;
+        }
 
-        // Cập nhật dao động nhấp nhô
+        // Cập nhật dao động nhấp nhô & lượn sóng tự nhiên tạo cảm giác đàn vịt bơi sống động
         this.bobCycle += this.bobSpeed;
-        this.y = this.baseY + Math.sin(this.bobCycle) * 4;
+        this.driftCycle += this.driftSpeed;
+        const driftY = Math.sin(this.driftCycle) * this.driftAmp;
+        this.y = this.baseY + Math.sin(this.bobCycle) * (3.5 * this.scale) + driftY;
 
         // Thay đổi tốc độ ngẫu nhiên định kỳ tạo cảm giác kịch tính
         this.speedBurstTimer--;
@@ -1331,10 +1450,10 @@
         // Sinh bọt nước gợn sóng phía sau
         if (Math.random() < 0.4) {
           this.ripples.push({
-            x: this.x - 12,
-            y: this.y + 12 + (Math.random() * 6 - 3),
-            radius: 3,
-            maxRadius: 16 + Math.random() * 10,
+            x: this.x - 12 * this.scale,
+            y: this.y + (12 * this.scale) + (Math.random() * 6 - 3) * this.scale,
+            radius: 2 * this.scale,
+            maxRadius: (14 + Math.random() * 8) * this.scale,
             alpha: 0.6
           });
         }
@@ -1367,17 +1486,20 @@
       }
 
       draw(ctx) {
+        const s = this.scale || 1.0;
+
         // 1. Vẽ các gợn sóng nước phía sau đuôi
         this.ripples.forEach(r => {
           ctx.beginPath();
           ctx.ellipse(r.x, r.y, r.radius * 1.6, r.radius * 0.7, 0, 0, Math.PI * 2);
           ctx.strokeStyle = `rgba(255, 255, 255, ${r.alpha})`;
-          ctx.lineWidth = 1.5;
+          ctx.lineWidth = Math.max(1.2 * s, 0.8);
           ctx.stroke();
         });
 
         ctx.save();
         ctx.translate(this.x, this.y);
+        ctx.scale(s, s);
 
         // 2. Bóng dưới nước
         ctx.beginPath();
@@ -1446,26 +1568,28 @@
         ctx.arc(8, -21, 4, 0, Math.PI * 2);
         ctx.fill();
 
-        // 9. Bảng tên & số thứ tự nổi phía trên
         ctx.restore();
 
-        // Vẽ Name Tag trong không gian Canvas tuyệt đối
+        // 9. Bảng tên & số thứ tự nổi phía trên (tối ưu tỉ lệ hiển thị)
         ctx.save();
-        ctx.translate(this.x, this.y - 32);
+        const tagOffsetY = Math.round(24 * s + 5);
+        ctx.translate(this.x, this.y - tagOffsetY);
 
         // Nền thẻ tên
         const tagText = `${this.index + 1}. ${this.name}`;
-        ctx.font = 'bold 11px Inter, sans-serif';
+        const fontSize = Math.max(Math.round(11 * s), 8.5);
+        ctx.font = `bold ${fontSize}px Inter, sans-serif`;
         const textWidth = ctx.measureText(tagText).width;
-        const tagW = Math.max(textWidth + 12, 34);
-        const tagH = 18;
+        const tagW = Math.max(textWidth + (8 * s + 4), 26);
+        const tagH = Math.max(Math.round(18 * s), 13);
+        const radius = Math.min(tagH / 2, 8);
 
         ctx.beginPath();
-        ctx.roundRect(-tagW / 2, -tagH / 2, tagW, tagH, 9);
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+        ctx.roundRect(-tagW / 2, -tagH / 2, tagW, tagH, radius);
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
         ctx.fill();
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+        ctx.lineWidth = Math.max(1 * s, 0.75);
         ctx.stroke();
 
         // Chữ thẻ tên
@@ -1580,22 +1704,47 @@
         }
       },
 
-      // Phân chia làn bơi hài hòa cho các chú vịt
+      // Phân chia vị trí bơi hài hòa, đông đúc và sinh động cho các chú vịt
       layoutLanes() {
         const total = STATE.ducks.length;
         if (total === 0) return;
 
-        // Giới hạn chiều cao sông nước (tránh sát bờ cỏ)
-        const topBankH = 75;
-        const bottomBankH = 75;
-        const riverH = Math.max(STATE.canvasHeight - topBankH - bottomBankH, 200);
+        // Vùng an toàn phía trên: tránh Header (60px) + Bờ cỏ (68px) + HUD Overlay
+        const isMobile = window.innerWidth <= 640;
+        const topSafeMargin = isMobile ? 140 : 120;
+        const bottomSafeMargin = 80;
+        const riverH = Math.max(STATE.canvasHeight - topSafeMargin - bottomSafeMargin, 180);
 
-        const laneHeight = riverH / Math.max(total, 1);
+        const duckScale = STATE.ducks[0]?.scale || 1.0;
+
+        // Tính số làn và phân cột để bầy vịt bơi tập trung, đông vui, không bị kéo thành 1 sợi dây thưa thớt
+        let numLanes = total;
+        if (total > 35) {
+          numLanes = Math.min(Math.floor(riverH / 30), Math.max(Math.ceil(total / 2.6), 16));
+        } else if (total > 15) {
+          numLanes = Math.min(Math.floor(riverH / 34), Math.max(Math.ceil(total / 1.7), 10));
+        } else {
+          numLanes = total;
+        }
+
+        // Khoảng cách giữa các làn vừa vặn
+        const laneHeight = Math.min(riverH / numLanes, 44);
+        const totalFlockHeight = numLanes * laneHeight;
+        // Căn giữa bầy vịt theo chiều dọc dòng sông
+        const startY = topSafeMargin + (riverH - totalFlockHeight) / 2;
+
+        const colSpacing = Math.round(50 * duckScale);
 
         STATE.ducks.forEach((duck, idx) => {
-          // Tính toạ độ Y theo làn + độ lệch ngẫu nhiên nhẹ
-          duck.baseY = topBankH + (idx + 0.5) * laneHeight;
+          const laneIndex = idx % numLanes;
+          const colIndex = Math.floor(idx / numLanes);
+
+          duck.baseY = startY + (laneIndex + 0.5) * laneHeight;
           duck.y = duck.baseY;
+
+          // Xếp so le theo cột và hàng đan xen (staggered flock)
+          const staggerX = (laneIndex % 2) * (colSpacing * 0.45);
+          duck.x = STATE.startLineX - (colIndex * colSpacing + staggerX + Math.random() * 12 + 12);
         });
       },
 
@@ -1606,9 +1755,31 @@
         STATE.rankedResults = [];
         STATE.cameraX = 0;
 
-        // Reset vị trí vịt
-        STATE.ducks.forEach(d => {
-          d.x = STATE.startLineX - (Math.random() * 40 + 10);
+        // Reset vị trí vịt (sử dụng vị trí xuất phát so le tự nhiên)
+        const total = STATE.ducks.length;
+        const isMobile = window.innerWidth <= 640;
+        const topSafeMargin = isMobile ? 140 : 120;
+        const bottomSafeMargin = 80;
+        const riverH = Math.max(STATE.canvasHeight - topSafeMargin - bottomSafeMargin, 180);
+        const duckScale = STATE.ducks[0]?.scale || 1.0;
+
+        let numLanes = total;
+        if (total > 35) {
+          numLanes = Math.min(Math.floor(riverH / 30), Math.max(Math.ceil(total / 2.6), 16));
+        } else if (total > 15) {
+          numLanes = Math.min(Math.floor(riverH / 34), Math.max(Math.ceil(total / 1.7), 10));
+        } else {
+          numLanes = total;
+        }
+
+        const colSpacing = Math.round(50 * duckScale);
+
+        STATE.ducks.forEach((d, idx) => {
+          const laneIndex = idx % numLanes;
+          const colIndex = Math.floor(idx / numLanes);
+          const staggerX = (laneIndex % 2) * (colSpacing * 0.45);
+
+          d.x = STATE.startLineX - (colIndex * colSpacing + staggerX + Math.random() * 14 + 12);
           d.isFinished = false;
           d.finishTime = 0;
           d.rank = 0;
@@ -1616,10 +1787,15 @@
           d.currentSpeed = d.baseSpeed * (0.8 + Math.random() * 0.4);
         });
 
-        // Bật HUD
+        // Bật HUD & ẩn các modal và nút nổi kết quả cũ
         document.getElementById('hudOverlay').classList.add('active');
         document.getElementById('setupModal').classList.add('hidden');
         document.getElementById('resultsModal').classList.add('hidden');
+        const floatingBtn = document.getElementById('btnFloatingResults');
+        if (floatingBtn) floatingBtn.classList.remove('active');
+        const headerResultsBtn = document.getElementById('btnViewResultsHeader');
+        if (headerResultsBtn) headerResultsBtn.style.display = 'none';
+
         ConfettiEngine.stop();
 
         // Âm thanh xuất phát
@@ -1635,13 +1811,22 @@
         this.render();
         ConfettiEngine.updateAndDraw();
 
-        if (STATE.isRunning || ConfettiEngine.active) {
+        if (STATE.isRunning || STATE.isFinished || ConfettiEngine.active) {
           this.animId = requestAnimationFrame(this.loop);
         }
       },
 
       update() {
-        if (!STATE.isRunning) return;
+        if (!STATE.isRunning) {
+          if (STATE.isFinished) {
+            STATE.waterWaveOffset += 0.02;
+            STATE.ducks.forEach(duck => {
+              duck.bobCycle += duck.bobSpeed * 0.5;
+              duck.y = duck.baseY + Math.sin(duck.bobCycle) * (3 * duck.scale);
+            });
+          }
+          return;
+        }
 
         STATE.waterWaveOffset += 0.04;
 
@@ -1966,6 +2151,28 @@
         setupModal.classList.remove('hidden');
       });
 
+      // Đóng bảng kết quả về màn hình đua
+      function closeResultsModal() {
+        resultsModal.classList.add('hidden');
+        const floatingBtn = document.getElementById('btnFloatingResults');
+        if (floatingBtn) floatingBtn.classList.add('active');
+        const headerBtn = document.getElementById('btnViewResultsHeader');
+        if (headerBtn) headerBtn.style.display = 'inline-flex';
+        showToast('Nhấn cúp 🏆 hoặc nút nổi để mở lại kết quả!');
+      }
+
+      document.getElementById('btnCloseResultsCorner').addEventListener('click', closeResultsModal);
+      document.getElementById('btnCloseResultsAction').addEventListener('click', closeResultsModal);
+
+      // Mở lại bảng kết quả từ nút nổi hoặc nút trên header
+      document.getElementById('btnFloatingResults').addEventListener('click', () => {
+        showResultsModal();
+      });
+
+      document.getElementById('btnViewResultsHeader').addEventListener('click', () => {
+        showResultsModal();
+      });
+
       // Sao chép kết quả gửi Zalo / Messenger
       document.getElementById('btnCopyResults').addEventListener('click', () => {
         copyResultsToClipboard();
@@ -2002,6 +2209,12 @@
         `;
         tableBody.appendChild(tr);
       });
+
+      // Ẩn nút nổi khi modal đang mở, giữ nút header
+      const floatingBtn = document.getElementById('btnFloatingResults');
+      if (floatingBtn) floatingBtn.classList.remove('active');
+      const headerBtn = document.getElementById('btnViewResultsHeader');
+      if (headerBtn) headerBtn.style.display = 'inline-flex';
 
       resultsModal.classList.remove('hidden');
     }
