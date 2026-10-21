@@ -6,7 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quay Số Ngẫu Nhiên | by DungX</title>
-  <meta name="description" content="Ứng dụng quay số may mắn, bốc thăm ngẫu nhiên với hiệu ứng âm thanh sống động, tùy chỉnh dải số và loại trừ số đã quay." />
+  <meta name="description"
+    content="Ứng dụng quay số may mắn, bốc thăm ngẫu nhiên với hiệu ứng âm thanh sống động, tùy chỉnh dải số và loại trừ số đã quay." />
   <meta name="author" content="Tạ Ngọc Dũng" />
   <link rel="canonical" href="https://ngocdungvn.github.io/project/random-number.html" />
 
@@ -16,7 +17,8 @@
   <meta property="og:locale" content="vi_VN" />
   <meta property="og:url" content="https://ngocdungvn.github.io/project/random-number.html" />
   <meta property="og:title" content="Quay Số Ngẫu Nhiên | by DungX" />
-  <meta property="og:description" content="Ứng dụng quay số may mắn, bốc thăm ngẫu nhiên với hiệu ứng âm thanh sống động, tùy chỉnh dải số và loại trừ số đã quay." />
+  <meta property="og:description"
+    content="Ứng dụng quay số may mắn, bốc thăm ngẫu nhiên với hiệu ứng âm thanh sống động, tùy chỉnh dải số và loại trừ số đã quay." />
   <meta property="og:image" content="https://ngocdungvn.github.io/assets/img/og-cover.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -25,14 +27,16 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://ngocdungvn.github.io/project/random-number.html" />
   <meta name="twitter:title" content="Quay Số Ngẫu Nhiên | by DungX" />
-  <meta name="twitter:description" content="Ứng dụng quay số may mắn, bốc thăm ngẫu nhiên với hiệu ứng âm thanh sống động, tùy chỉnh dải số và loại trừ số đã quay." />
+  <meta name="twitter:description"
+    content="Ứng dụng quay số may mắn, bốc thăm ngẫu nhiên với hiệu ứng âm thanh sống động, tùy chỉnh dải số và loại trừ số đã quay." />
   <meta name="twitter:image" content="https://ngocdungvn.github.io/assets/img/og-cover.png" />
 
 
   <!-- Google Font: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
 
   <!-- Unicons -->
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
@@ -183,30 +187,31 @@
     }
 
     .stage-main-layout {
-      display: flex;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
       align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
+      gap: 1.5rem;
       width: 100%;
     }
 
     .stage-left-col {
-      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       min-width: 0;
+      width: 100%;
     }
 
     .stage-right-col {
-      flex-shrink: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
+      min-width: 0;
+      width: 100%;
     }
 
     .stage-status {
@@ -301,12 +306,13 @@
 
     /* MAIN ACTION BUTTON (RECTANGULAR TOUCH-OPTIMIZED) */
     .btn-spin {
+      width: 100%;
       background: var(--primary-gradient);
       color: #ffffff;
       border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: 14px;
-      padding: 1.15rem 2.4rem;
-      font-size: 1.15rem;
+      padding: 1.15rem 1.2rem;
+      font-size: 1.05rem;
       font-weight: 800;
       letter-spacing: 0.01em;
       cursor: pointer;
@@ -319,7 +325,7 @@
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
-      white-space: nowrap;
+      text-align: center;
     }
 
     .btn-spin:hover {
@@ -610,11 +616,11 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     }
 
-    input:checked + .slider {
+    input:checked+.slider {
       background-color: var(--primary);
     }
 
-    input:checked + .slider:before {
+    input:checked+.slider:before {
       transform: translateX(20px);
     }
 
@@ -780,29 +786,63 @@
 
     /* Keyframe Animations */
     @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.6;
+      }
     }
 
     @keyframes bounce {
-      0% { transform: scale(0.7); }
-      60% { transform: scale(1.15); }
-      100% { transform: scale(1); }
+      0% {
+        transform: scale(0.7);
+      }
+
+      60% {
+        transform: scale(1.15);
+      }
+
+      100% {
+        transform: scale(1);
+      }
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-8px); }
-      to { opacity: 1; transform: translateX(0); }
+      from {
+        opacity: 0;
+        transform: translateX(-8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     /* Mobile responsive optimizations */
@@ -842,28 +882,31 @@
       }
 
       .stage-main-layout {
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
         align-items: center;
-        justify-content: space-between;
-        gap: 0.75rem;
+        gap: 0.65rem;
+        width: 100%;
       }
 
       .stage-left-col {
-        flex: 1.1;
         min-width: 0;
+        width: 100%;
       }
 
       .stage-status {
         font-size: 0.68rem;
-        padding: 0.18rem 0.5rem;
+        padding: 0.2rem 0.5rem;
         margin-bottom: 0.2rem;
         white-space: nowrap;
         letter-spacing: 0.02em;
+        max-width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
 
       .number-display {
-        font-size: clamp(3rem, 14vw, 4.4rem);
+        font-size: clamp(3.2rem, 15vw, 4.8rem);
         padding: 0.15rem 0;
         line-height: 1.05;
       }
@@ -875,18 +918,19 @@
       }
 
       .stage-right-col {
-        flex: 0.95;
-        width: auto;
+        min-width: 0;
+        width: 100%;
       }
 
       .btn-spin {
         width: 100%;
         min-height: 84px;
-        padding: 0.85rem 0.5rem;
+        padding: 0.75rem 0.35rem;
         border-radius: 14px;
         flex-direction: column;
         gap: 0.35rem;
-        font-size: 0.84rem;
+        font-size: 0.78rem;
+        font-weight: 800;
         white-space: normal;
         text-align: center;
         line-height: 1.2;
@@ -1044,7 +1088,8 @@
           <div class="input-box">
             <label for="input-max">Đến số (Z / Max):</label>
             <div class="input-field-wrap">
-              <input type="number" id="input-max" class="range-input num-font" value="100" step="1" inputmode="numeric" />
+              <input type="number" id="input-max" class="range-input num-font" value="100" step="1"
+                inputmode="numeric" />
             </div>
           </div>
         </div>
@@ -1055,8 +1100,6 @@
           <button type="button" class="preset-pill" data-min="1" data-max="10">1 – 10</button>
           <button type="button" class="preset-pill" data-min="1" data-max="50">1 – 50</button>
           <button type="button" class="preset-pill active" data-min="1" data-max="100">1 – 100</button>
-          <button type="button" class="preset-pill" data-min="1" data-max="500">1 – 500</button>
-          <button type="button" class="preset-pill" data-min="1" data-max="1000">1 – 1000</button>
           <button type="button" class="preset-pill" data-min="0" data-max="9">0 – 9</button>
         </div>
 
