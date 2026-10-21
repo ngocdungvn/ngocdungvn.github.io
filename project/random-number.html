@@ -249,6 +249,8 @@
       color: #000000;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
+      text-align: center;
       gap: 0.4rem;
       margin-bottom: 0.4rem;
       background: #FFFFFF;
@@ -256,12 +258,32 @@
       border-radius: var(--radius-full);
       border: 2px solid #000000;
       box-shadow: var(--shadow-neo-sm);
+      max-width: 100%;
     }
 
     .stage-status.rolling {
       color: #000000;
       background: var(--accent-mint);
       animation: pulse 0.8s infinite;
+    }
+
+    .stage-status.suspense {
+      color: #000000;
+      background: #FFE600;
+      border-color: #000000;
+      animation: suspensePulse 0.35s ease-in-out infinite alternate;
+    }
+
+    @keyframes suspensePulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 2px 2px 0px #000000;
+      }
+      100% {
+        transform: scale(1.05);
+        box-shadow: 3.5px 3.5px 0px #000000;
+        background: #FFD000;
+      }
     }
 
     .stage-status.winner {
@@ -291,10 +313,69 @@
       color: #000000;
     }
 
+    .number-display.suspense {
+      color: #000000;
+      animation: suspenseShake 0.12s ease-in-out infinite alternate;
+    }
+
+    @keyframes suspenseShake {
+      0% {
+        transform: translate(-1.5px, 0.5px) scale(1.02);
+      }
+      100% {
+        transform: translate(1.5px, -0.5px) scale(0.98);
+      }
+    }
+
     .number-display.highlight {
       color: #000000;
       text-shadow: 4px 4px 0px var(--primary), 7px 7px 0px rgba(0, 0, 0, 0.15);
       animation: bounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Sub list if rolling multiple numbers (Neobrutalism Badges) */
+    .multiple-results {
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: 1.25rem;
+      padding-top: 1.15rem;
+      border-top: 2px dashed #000000;
+      width: 100%;
+    }
+
+    .multiple-results.show {
+      display: flex;
+    }
+
+    .num-badge {
+      font-size: 1.35rem;
+      font-weight: 900;
+      background: var(--primary);
+      color: #000000;
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-sm);
+      border: var(--border-sm);
+      box-shadow: var(--shadow-neo-sm);
+      min-width: 52px;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.6) translateY(8px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
     }
 
     .stage-range-info {
@@ -536,6 +617,106 @@
       color: #000000;
       transform: translate(2px, 2px);
       box-shadow: var(--shadow-neo-active);
+    }
+
+    /* SỐ LƯỢNG KẾT QUẢ MỖI LẦN QUAY (1 - 5 - 10) */
+    .count-selector-group {
+      margin-top: 0.25rem;
+      margin-bottom: 1.25rem;
+      padding-top: 1rem;
+      border-top: 2px solid #000000;
+    }
+
+    .count-title {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #000000;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.5rem;
+    }
+
+    .count-controls-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .count-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .count-pill {
+      background: #FFFFFF;
+      border: 2px solid #000000;
+      box-shadow: var(--shadow-neo-sm);
+      color: #000000;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 0.4rem 0.85rem;
+      min-height: 38px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all 0.12s ease;
+      touch-action: manipulation;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .count-pill:hover {
+      background: var(--bg-cream);
+      transform: translate(-1px, -1px);
+      box-shadow: var(--shadow-neo);
+    }
+
+    .count-pill.active {
+      background: var(--primary);
+      color: #000000;
+      transform: translate(2px, 2px);
+      box-shadow: var(--shadow-neo-active);
+    }
+
+    .count-pill:focus-visible {
+      outline: 3px solid #000000;
+      outline-offset: 2px;
+    }
+
+    .count-select-wrap {
+      flex: 1;
+      min-width: 105px;
+    }
+
+    .option-select {
+      width: 100%;
+      background: #FFFFFF;
+      border: 2px solid #000000;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-neo-sm);
+      padding: 0.4rem 0.75rem;
+      min-height: 38px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #000000;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .option-select:focus,
+    .option-select:focus-visible {
+      outline: 3px solid #000000;
+      outline-offset: 2px;
+      background: var(--bg-cream);
+      box-shadow: var(--shadow-neo);
+      transform: translate(-1px, -1px);
     }
 
     /* TOGGLE: KHÔNG TRÙNG LẶP */
@@ -1004,6 +1185,30 @@
         justify-content: center;
       }
 
+      .count-pills {
+        gap: 0.4rem;
+      }
+
+      .count-pill {
+        padding: 0.4rem 0.75rem;
+        min-height: 38px;
+        font-size: 0.82rem;
+        border-width: 2px;
+        box-shadow: var(--shadow-neo-sm);
+      }
+
+      .option-select {
+        min-height: 38px;
+        border-width: 2px;
+        box-shadow: var(--shadow-neo-sm);
+      }
+
+      .num-badge {
+        font-size: 1.15rem;
+        padding: 0.35rem 0.75rem;
+        min-width: 44px;
+      }
+
       .history-stats {
         gap: 0.35rem;
         padding: 0.6rem 0.4rem;
@@ -1061,7 +1266,12 @@
         text-shadow: none !important;
       }
 
-      .stage-status.rolling {
+      .stage-status.rolling,
+      .stage-status.suspense {
+        animation: none !important;
+      }
+
+      .number-display.suspense {
         animation: none !important;
       }
     }
@@ -1082,7 +1292,6 @@
   <!-- Page Title -->
   <div class="page-title">
     <h1><i class="uil uil-dice-six"></i> Quay Số Ngẫu Nhiên</h1>
-    <p>Thuật toán ngẫu nhiên CSPRNG</p>
   </div>
 
   <!-- App Main Content -->
@@ -1114,6 +1323,9 @@
           </button>
         </div>
       </div>
+
+      <!-- Multiple results if count > 1 -->
+      <div class="multiple-results" id="multiple-results" role="region" aria-label="Danh sách kết quả quay số"></div>
     </section>
 
     <!-- CONTROLS & HISTORY GRID -->
@@ -1154,6 +1366,29 @@
           <button type="button" class="preset-pill" data-min="1" data-max="10">1 – 10</button>
           <button type="button" class="preset-pill" data-min="1" data-max="50">1 – 50</button>
           <button type="button" class="preset-pill active" data-min="1" data-max="100">1 – 100</button>
+        </div>
+
+        <!-- Số lượng kết quả mỗi lần quay (1 - 5 - 10) -->
+        <div class="count-selector-group">
+          <label for="select-count" class="count-title">
+            <i class="uil uil-layers"></i> Số lượng kết quả mỗi lần quay:
+          </label>
+          <div class="count-controls-wrap">
+            <div class="count-pills" id="count-pills">
+              <button type="button" class="count-pill active" data-count="1">1 số</button>
+              <button type="button" class="count-pill" data-count="5">5 số</button>
+              <button type="button" class="count-pill" data-count="10">10 số</button>
+            </div>
+            <div class="count-select-wrap">
+              <select id="select-count" class="option-select num-font" aria-label="Tùy chọn số lượng kết quả">
+                <option value="1" selected>1 số</option>
+                <option value="2">2 số</option>
+                <option value="3">3 số</option>
+                <option value="5">5 số</option>
+                <option value="10">10 số</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <!-- Toggles -->
@@ -1226,6 +1461,7 @@
 
     // DOM Elements
     const numberDisplay = document.getElementById('number-display');
+    const multipleResults = document.getElementById('multiple-results');
     const stageStatus = document.getElementById('stage-status');
     const stageRangeInfo = document.getElementById('stage-range-info');
     const btnSpin = document.getElementById('btn-spin');
@@ -1233,6 +1469,8 @@
     const inputMax = document.getElementById('input-max');
     const btnSwap = document.getElementById('btn-swap');
     const presetPills = document.querySelectorAll('.preset-pill');
+    const countPills = document.querySelectorAll('.count-pill');
+    const selectCount = document.getElementById('select-count');
     const toggleUnique = document.getElementById('toggle-unique');
     const historyList = document.getElementById('history-list');
     const historyEmpty = document.getElementById('history-empty');
@@ -1245,7 +1483,7 @@
 
     // State
     let isSpinning = false;
-    let history = []; // Array of { val: number, time: string, numbers: number[] }
+    let history = []; // Array of { val: string, time: string, numbers: number[] }
     let lastResult = null;
     let usedNumbers = new Set(); // For unique mode
     const duration = 1500; // Tốc độ quay số mặc định cố định 1.5s
@@ -1323,6 +1561,28 @@
       });
     }
 
+    // Count pills & select sync handler (1 - 5 - 10)
+    countPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        countPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        selectCount.value = pill.dataset.count;
+        resetUniquePool();
+      });
+    });
+
+    selectCount.addEventListener('change', () => {
+      const val = selectCount.value;
+      countPills.forEach(pill => {
+        if (pill.dataset.count === val) {
+          pill.classList.add('active');
+        } else {
+          pill.classList.remove('active');
+        }
+      });
+      resetUniquePool();
+    });
+
     // Toast Notification
     function showToast(msg) {
       toast.querySelector('span').innerText = msg;
@@ -1364,21 +1624,23 @@
         updateRangeInfo();
       }
 
+      const count = parseInt(selectCount.value, 10) || 1;
       const totalPossible = max - min + 1;
 
       // Unique check
       if (toggleUnique.checked) {
         const remaining = totalPossible - usedNumbers.size;
-        if (remaining < 1) {
+        if (remaining < count) {
           showToast(`Đã hết số khả dụng không trùng trong khoảng [${min} - ${max}]! Tự động đặt lại.`);
           usedNumbers.clear();
         }
       }
 
-      // Chuẩn bị số trúng thưởng duy nhất (Thuật toán CSPRNG)
-      let chosenNumber;
+      // Chuẩn bị danh sách số trúng thưởng (Thuật toán CSPRNG + Fisher-Yates Selection)
+      const finalNumbers = [];
 
       if (toggleUnique.checked) {
+        // Chế độ không trùng lặp: Thuật toán Fisher-Yates Selection Pool
         if (totalPossible <= 50000) {
           const availablePool = [];
           for (let val = min; val <= max; val++) {
@@ -1386,71 +1648,127 @@
               availablePool.push(val);
             }
           }
-          const randIdx = getRandomInt(0, availablePool.length - 1);
-          chosenNumber = availablePool[randIdx];
+
+          // Rút thăm k số ngẫu nhiên từ pool bằng Fisher-Yates swap O(1)
+          for (let i = 0; i < count && availablePool.length > 0; i++) {
+            const randIdx = getRandomInt(0, availablePool.length - 1);
+            const chosen = availablePool[randIdx];
+            availablePool[randIdx] = availablePool[availablePool.length - 1];
+            availablePool.pop();
+
+            finalNumbers.push(chosen);
+            usedNumbers.add(chosen);
+          }
         } else {
-          do {
-            chosenNumber = getRandomInt(min, max);
-          } while (usedNumbers.has(chosenNumber));
+          // Dải số cực lớn (> 50.000 số): Rejection Sampling an toàn
+          const batchSet = new Set();
+          while (finalNumbers.length < count && (totalPossible - usedNumbers.size) > 0) {
+            const n = getRandomInt(min, max);
+            if (!usedNumbers.has(n) && !batchSet.has(n)) {
+              finalNumbers.push(n);
+              batchSet.add(n);
+              usedNumbers.add(n);
+            }
+          }
         }
-        usedNumbers.add(chosenNumber);
       } else {
-        chosenNumber = getRandomInt(min, max);
+        // Chế độ cho phép lặp lại giữa các lần quay
+        // Trong cùng 1 lượt quay: các số không trùng nhau nếu count <= totalPossible
+        const batchSet = new Set();
+        for (let i = 0; i < count; i++) {
+          let n;
+          let attempts = 0;
+          do {
+            n = getRandomInt(min, max);
+            attempts++;
+          } while (batchSet.has(n) && count <= totalPossible && attempts < 100);
+          batchSet.add(n);
+          finalNumbers.push(n);
+        }
       }
 
       // Kiểm tra thiết lập giảm chuyển động của người dùng (WCAG 2.3.3)
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (prefersReducedMotion) {
-        renderFinalResult(chosenNumber, min, max, true);
+        renderFinalResult(finalNumbers, min, max, true);
         return;
       }
 
-      // Rolling Animation Mode (cố định 1.5s)
+      // Rolling Animation Mode: Gồm 2 giai đoạn (Quay nhanh + 1s Hiệu ứng hồi hộp trước khi chốt kết quả)
+      const rollDuration = 1000; // 1s quay lướt nhanh ban đầu
+      const suspenseDuration = 1000; // Đúng 1s hiệu ứng hồi hộp trước khi ra kết quả
+      const totalDuration = rollDuration + suspenseDuration; // 2.0s tổng thời gian
+
       isSpinning = true;
       btnSpin.disabled = true;
       btnSpin.classList.add('spinning');
       stageStatus.className = 'stage-status rolling';
       stageStatus.innerHTML = '<i class="uil uil-spinner-alt"></i> Đang quay số...';
-      numberDisplay.classList.remove('highlight');
+      numberDisplay.classList.remove('highlight', 'suspense');
+      multipleResults.classList.remove('show');
+      multipleResults.innerHTML = '';
 
       const startTime = performance.now();
       let lastTickTime = 0;
-      let interval = 25; // ms between updates initially
+      let inSuspense = false;
 
       function step(now) {
         const elapsed = now - startTime;
-        const progress = Math.min(1, elapsed / duration);
 
-        // Ease-out interval: rolling slows down progressively
-        interval = 25 + Math.pow(progress, 3) * 220;
+        if (elapsed < rollDuration) {
+          // GIAI ĐOẠN 1: QUAY LƯỚT NHANH (0 -> 1000ms)
+          const rollProgress = elapsed / rollDuration;
+          const interval = 25 + Math.pow(rollProgress, 2) * 55; // 25ms -> 80ms
 
-        if (now - lastTickTime >= interval) {
-          lastTickTime = now;
-          // Random dummy number during roll
-          const tempVal = getRandomInt(min, max);
-          numberDisplay.innerText = tempVal;
-          numberDisplay.classList.add('pop');
-          setTimeout(() => numberDisplay.classList.remove('pop'), 60);
-        }
+          if (now - lastTickTime >= interval) {
+            lastTickTime = now;
+            const tempVal = getRandomInt(min, max);
+            numberDisplay.innerText = tempVal;
+            numberDisplay.classList.add('pop');
+            setTimeout(() => numberDisplay.classList.remove('pop'), 50);
+          }
+        } else if (elapsed < totalDuration) {
+          // GIAI ĐOẠN 2: ĐÚNG 1 GIÂY HIỆU ỨNG HỒI HỘP TRƯỚC KHI RA KẾT QUẢ (1000ms -> 2000ms)
+          if (!inSuspense) {
+            inSuspense = true;
+            stageStatus.className = 'stage-status suspense';
+            stageStatus.innerHTML = '<i class="uil uil-hourglass"></i> Sắp có kết quả...';
+            numberDisplay.classList.add('suspense');
+          }
 
-        if (progress < 1) {
-          requestAnimationFrame(step);
+          // Nhịp số nhảy chậm dần tạo cảm giác hồi hộp, kịch tính
+          const suspenseElapsed = elapsed - rollDuration; // 0 -> 1000ms
+          const suspenseProgress = suspenseElapsed / suspenseDuration; // 0 -> 1
+          const interval = 120 + Math.pow(suspenseProgress, 2) * 350; // 120ms -> 470ms
+
+          if (now - lastTickTime >= interval) {
+            lastTickTime = now;
+            const tempVal = getRandomInt(min, max);
+            numberDisplay.innerText = tempVal;
+            numberDisplay.classList.add('pop');
+            setTimeout(() => numberDisplay.classList.remove('pop'), 80);
+          }
         } else {
-          // Finished rolling!
+          // GIAI ĐOẠN 3: KẾT THÚC VÀ CHỐT KẾT QUẢ CHÍNH THỨC!
           isSpinning = false;
           btnSpin.disabled = false;
           btnSpin.classList.remove('spinning');
-          renderFinalResult(chosenNumber, min, max, false);
+          numberDisplay.classList.remove('suspense');
+          renderFinalResult(finalNumbers, min, max, false);
+          return;
         }
+
+        requestAnimationFrame(step);
       }
 
       requestAnimationFrame(step);
     }
 
-    function renderFinalResult(number, min, max, isReducedMotion = false) {
-      lastResult = number;
+    function renderFinalResult(numbers, min, max, isReducedMotion = false) {
+      lastResult = numbers;
+      const primaryNumber = numbers[0];
 
-      numberDisplay.innerText = number;
+      numberDisplay.innerText = primaryNumber;
       if (!isReducedMotion) {
         numberDisplay.classList.add('highlight');
       } else {
@@ -1458,7 +1776,25 @@
       }
 
       stageStatus.className = 'stage-status winner';
-      stageStatus.innerHTML = '<i class="uil uil-trophy"></i> Số may mắn của bạn!';
+
+      // If count > 1, show badges
+      if (numbers.length > 1) {
+        stageStatus.innerHTML = `<i class="uil uil-trophy"></i> ${numbers.length} số may mắn của bạn!`;
+        stageStatus.setAttribute('aria-label', `${numbers.length} số may mắn: ${numbers.join(', ')}`);
+        multipleResults.innerHTML = '';
+        numbers.forEach(num => {
+          const badge = document.createElement('span');
+          badge.className = 'num-badge num-font';
+          badge.innerText = num;
+          multipleResults.appendChild(badge);
+        });
+        multipleResults.classList.add('show');
+      } else {
+        stageStatus.innerHTML = '<i class="uil uil-trophy"></i> Số may mắn của bạn!';
+        stageStatus.removeAttribute('aria-label');
+        multipleResults.classList.remove('show');
+        multipleResults.innerHTML = '';
+      }
 
       // Confetti celebration (tắt khi người dùng bật reduced motion)
       if (!isReducedMotion) {
@@ -1466,18 +1802,19 @@
       }
 
       // Add to history
-      addToHistory(number);
+      addToHistory(numbers);
     }
 
     /* ============================================================
        HISTORY & STATISTICS
        ============================================================ */
-    function addToHistory(number) {
+    function addToHistory(numbers) {
       const now = new Date();
       const timeStr = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
       history.unshift({
-        val: number,
+        numbers: numbers,
+        val: numbers.join(', '),
         time: timeStr
       });
 
@@ -1521,9 +1858,22 @@
         return;
       }
 
-      const allNums = history.map(h => h.val);
-      statMin.innerText = Math.min(...allNums);
-      statMax.innerText = Math.max(...allNums);
+      let allNums = [];
+      history.forEach(h => {
+        if (Array.isArray(h.numbers)) {
+          allNums = allNums.concat(h.numbers);
+        } else if (typeof h.val === 'number') {
+          allNums.push(h.val);
+        }
+      });
+
+      if (allNums.length > 0) {
+        statMin.innerText = Math.min(...allNums);
+        statMax.innerText = Math.max(...allNums);
+      } else {
+        statMin.innerText = '-';
+        statMax.innerText = '-';
+      }
     }
 
     // Clear history
@@ -1538,11 +1888,11 @@
 
     // Copy result
     btnCopy.addEventListener('click', async () => {
-      if (lastResult === null || lastResult === undefined) {
+      if (!lastResult || (Array.isArray(lastResult) && lastResult.length === 0)) {
         showToast('Chưa có kết quả để sao chép!');
         return;
       }
-      const text = `${lastResult}`;
+      const text = Array.isArray(lastResult) ? lastResult.join(', ') : `${lastResult}`;
       try {
         await navigator.clipboard.writeText(text);
         showToast(`Đã sao chép kết quả: ${text}`);
@@ -1565,8 +1915,8 @@
       const activeEl = document.activeElement;
       const tagName = activeEl ? activeEl.tagName.toLowerCase() : '';
 
-      // 1. Don't trigger if user is actively typing in an input
-      if (['input', 'textarea'].includes(tagName)) {
+      // 1. Don't trigger if user is actively typing in an input or select
+      if (['input', 'textarea', 'select'].includes(tagName)) {
         if (e.key === 'Enter') {
           e.preventDefault();
           activeEl.blur();
@@ -1575,7 +1925,7 @@
         return;
       }
 
-      // 2. If user is focused on any secondary button (presets, swap, copy, clear),
+      // 2. If user is focused on any secondary button (presets, swap, copy, clear, count-pills),
       // allow native Space/Enter button click activation instead of spinning!
       if (tagName === 'button' && activeEl.id !== 'btn-spin') {
         return;
