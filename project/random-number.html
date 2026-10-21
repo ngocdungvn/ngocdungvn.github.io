@@ -76,8 +76,6 @@
     body {
       min-height: 100vh;
       background-color: var(--bg-body);
-      background-image: radial-gradient(#000000 1.2px, transparent 1.2px);
-      background-size: 24px 24px;
       color: var(--text-main);
       padding: 1.25rem 1rem 3.5rem;
       display: flex;
@@ -234,7 +232,6 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
       min-width: 0;
       width: 100%;
     }
@@ -293,32 +290,6 @@
       color: #000000;
       text-shadow: 4px 4px 0px var(--primary), 7px 7px 0px rgba(0, 0, 0, 0.15);
       animation: bounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    /* Sub list if rolling multiple numbers */
-    .multiple-results {
-      display: none;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.6rem;
-      margin-top: 1.25rem;
-      width: 100%;
-    }
-
-    .multiple-results.show {
-      display: flex;
-    }
-
-    .num-badge {
-      font-size: 1.25rem;
-      font-weight: 900;
-      background: var(--primary);
-      color: #000000;
-      padding: 0.4rem 0.95rem;
-      border-radius: var(--radius-sm);
-      border: 2px solid #000000;
-      box-shadow: var(--shadow-neo-sm);
-      animation: fadeIn 0.3s ease;
     }
 
     .stage-range-info {
@@ -391,15 +362,21 @@
     }
 
     .btn-hint {
-      font-size: 0.75rem;
+      margin-top: 1.25rem;
+      font-size: 0.76rem;
       font-weight: 700;
       color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      letter-spacing: 0.02em;
     }
 
     .btn-hint kbd {
       background: #FFFFFF;
       color: #000000;
-      padding: 0.15rem 0.45rem;
+      padding: 0.18rem 0.48rem;
       border-radius: 4px;
       font-size: 0.72rem;
       font-weight: 800;
@@ -576,57 +553,14 @@
       box-shadow: 0.5px 0.5px 0px #000000;
     }
 
-    /* OPTIONS ROW */
-    .options-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.75rem;
-      padding-top: 1rem;
-      border-top: 2px solid #000000;
-    }
-
-    .option-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .option-item label {
-      font-size: 0.8rem;
-      font-weight: 800;
-      color: #000000;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
-
-    .option-select {
-      width: 100%;
-      background: #FFFFFF;
-      border: 2.5px solid #000000;
-      border-radius: var(--radius-md);
-      box-shadow: 3px 3px 0px #000000;
-      padding: 0.65rem 0.85rem;
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: #000000;
-      outline: none;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .option-select:focus {
-      background: #FFFDF0;
-      box-shadow: 4px 4px 0px #000000;
-      transform: translate(-1px, -1px);
-    }
-
+    /* TOGGLE: KHÔNG TRÙNG LẶP */
     .toggle-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 0.5rem;
-      margin-top: 0.5rem;
-      padding: 0.4rem 0;
+      padding-top: 1rem;
+      border-top: 2px solid #000000;
     }
 
     .toggle-label {
@@ -918,7 +852,6 @@
     @media (max-width: 640px) {
       body {
         padding: 0.85rem 0.75rem 2.5rem;
-        background-size: 18px 18px;
       }
 
       .header-top {
@@ -1027,14 +960,20 @@
       }
 
       .btn-hint {
-        display: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+        margin-top: 0.75rem;
+        font-size: 0.65rem;
+        white-space: nowrap;
       }
 
-      .num-badge {
-        font-size: 1.05rem;
-        padding: 0.3rem 0.7rem;
+      .btn-hint kbd {
+        padding: 0.12rem 0.35rem;
+        font-size: 0.62rem;
         border-width: 1.5px;
-        box-shadow: 2px 2px 0px #000000;
+        box-shadow: 1px 1px 0px #000000;
       }
 
       .card-panel {
@@ -1164,9 +1103,6 @@
           <div class="btn-hint"><kbd>Space</kbd> / <kbd>Enter</kbd></div>
         </div>
       </div>
-
-      <!-- Multiple results if count > 1 -->
-      <div class="multiple-results" id="multiple-results"></div>
     </section>
 
     <!-- CONTROLS & HISTORY GRID -->
@@ -1207,20 +1143,6 @@
           <button type="button" class="preset-pill" data-min="1" data-max="10">1 – 10</button>
           <button type="button" class="preset-pill" data-min="1" data-max="50">1 – 50</button>
           <button type="button" class="preset-pill active" data-min="1" data-max="100">1 – 100</button>
-        </div>
-
-        <!-- Advanced Options -->
-        <div class="options-grid">
-          <div class="option-item">
-            <label for="select-count">Số lượng số mỗi lần quay:</label>
-            <select id="select-count" class="option-select num-font">
-              <option value="1" selected>1 số</option>
-              <option value="2">2 số</option>
-              <option value="3">3 số</option>
-              <option value="5">5 số</option>
-              <option value="10">10 số</option>
-            </select>
-          </div>
         </div>
 
         <!-- Toggles -->
@@ -1293,7 +1215,6 @@
 
     // DOM Elements
     const numberDisplay = document.getElementById('number-display');
-    const multipleResults = document.getElementById('multiple-results');
     const stageStatus = document.getElementById('stage-status');
     const stageRangeInfo = document.getElementById('stage-range-info');
     const btnSpin = document.getElementById('btn-spin');
@@ -1301,7 +1222,6 @@
     const inputMax = document.getElementById('input-max');
     const btnSwap = document.getElementById('btn-swap');
     const presetPills = document.querySelectorAll('.preset-pill');
-    const selectCount = document.getElementById('select-count');
     const toggleUnique = document.getElementById('toggle-unique');
     const historyList = document.getElementById('history-list');
     const historyEmpty = document.getElementById('history-empty');
@@ -1433,68 +1353,38 @@
         updateRangeInfo();
       }
 
-      const count = parseInt(selectCount.value, 10) || 1;
       const totalPossible = max - min + 1;
 
       // Unique check
       if (toggleUnique.checked) {
         const remaining = totalPossible - usedNumbers.size;
-        if (remaining < count) {
+        if (remaining < 1) {
           showToast(`Đã hết số khả dụng không trùng trong khoảng [${min} - ${max}]! Tự động đặt lại.`);
           usedNumbers.clear();
         }
       }
 
-      // Chuẩn bị danh sách số trúng thưởng (Thuật toán CSPRNG + Fisher-Yates Selection)
-      const finalNumbers = [];
+      // Chuẩn bị số trúng thưởng duy nhất (Thuật toán CSPRNG)
+      let chosenNumber;
 
       if (toggleUnique.checked) {
-        // Chế độ không trùng lặp: Thuật toán Fisher-Yates Selection Pool
         if (totalPossible <= 50000) {
-          // Xây dựng pool các số còn khả dụng
           const availablePool = [];
           for (let val = min; val <= max; val++) {
             if (!usedNumbers.has(val)) {
               availablePool.push(val);
             }
           }
-
-          // Rút thăm k số ngẫu nhiên từ pool bằng Fisher-Yates swap O(1)
-          for (let i = 0; i < count && availablePool.length > 0; i++) {
-            const randIdx = getRandomInt(0, availablePool.length - 1);
-            const chosen = availablePool[randIdx];
-            availablePool[randIdx] = availablePool[availablePool.length - 1];
-            availablePool.pop();
-
-            finalNumbers.push(chosen);
-            usedNumbers.add(chosen);
-          }
+          const randIdx = getRandomInt(0, availablePool.length - 1);
+          chosenNumber = availablePool[randIdx];
         } else {
-          // Dải số cực lớn (> 50.000 số): Rejection Sampling an toàn
-          const batchSet = new Set();
-          while (finalNumbers.length < count) {
-            const n = getRandomInt(min, max);
-            if (!usedNumbers.has(n) && !batchSet.has(n)) {
-              finalNumbers.push(n);
-              batchSet.add(n);
-              usedNumbers.add(n);
-            }
-          }
-        }
-      } else {
-        // Chế độ cho phép lặp lại giữa các lần quay
-        // Trong cùng 1 lượt quay: các số không trùng nhau nếu count <= totalPossible
-        const batchSet = new Set();
-        for (let i = 0; i < count; i++) {
-          let n;
-          let attempts = 0;
           do {
-            n = getRandomInt(min, max);
-            attempts++;
-          } while (batchSet.has(n) && count <= totalPossible && attempts < 100);
-          batchSet.add(n);
-          finalNumbers.push(n);
+            chosenNumber = getRandomInt(min, max);
+          } while (usedNumbers.has(chosenNumber));
         }
+        usedNumbers.add(chosenNumber);
+      } else {
+        chosenNumber = getRandomInt(min, max);
       }
 
       // Rolling Animation Mode (cố định 1.5s)
@@ -1504,8 +1394,6 @@
       stageStatus.className = 'stage-status rolling';
       stageStatus.innerHTML = '<i class="uil uil-spinner-alt"></i> Đang quay số...';
       numberDisplay.classList.remove('highlight');
-      multipleResults.classList.remove('show');
-      multipleResults.innerHTML = '';
 
       const startTime = performance.now();
       let lastTickTime = 0;
@@ -1534,54 +1422,37 @@
           isSpinning = false;
           btnSpin.disabled = false;
           btnSpin.classList.remove('spinning');
-          renderFinalResult(finalNumbers, min, max);
+          renderFinalResult(chosenNumber, min, max);
         }
       }
 
       requestAnimationFrame(step);
     }
 
-    function renderFinalResult(numbers, min, max) {
-      lastResult = numbers;
-      const primaryNumber = numbers[0];
+    function renderFinalResult(number, min, max) {
+      lastResult = number;
 
-      numberDisplay.innerText = primaryNumber;
+      numberDisplay.innerText = number;
       numberDisplay.classList.add('highlight');
       stageStatus.className = 'stage-status winner';
       stageStatus.innerHTML = '<i class="uil uil-trophy"></i> Số may mắn của bạn!';
-
-      // If count > 1, show badges
-      if (numbers.length > 1) {
-        multipleResults.innerHTML = '';
-        numbers.forEach(num => {
-          const badge = document.createElement('span');
-          badge.className = 'num-badge num-font';
-          badge.innerText = num;
-          multipleResults.appendChild(badge);
-        });
-        multipleResults.classList.add('show');
-      } else {
-        multipleResults.classList.remove('show');
-        multipleResults.innerHTML = '';
-      }
 
       // Confetti celebration
       triggerConfetti();
 
       // Add to history
-      addToHistory(numbers);
+      addToHistory(number);
     }
 
     /* ============================================================
        HISTORY & STATISTICS
        ============================================================ */
-    function addToHistory(numbers) {
+    function addToHistory(number) {
       const now = new Date();
       const timeStr = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
       history.unshift({
-        numbers: numbers,
-        val: numbers.join(', '),
+        val: number,
         time: timeStr
       });
 
@@ -1625,11 +1496,7 @@
         return;
       }
 
-      let allNums = [];
-      history.forEach(h => {
-        allNums = allNums.concat(h.numbers);
-      });
-
+      const allNums = history.map(h => h.val);
       statMin.innerText = Math.min(...allNums);
       statMax.innerText = Math.max(...allNums);
     }
@@ -1646,11 +1513,11 @@
 
     // Copy result
     btnCopy.addEventListener('click', async () => {
-      if (!lastResult || lastResult.length === 0) {
+      if (lastResult === null || lastResult === undefined) {
         showToast('Chưa có kết quả để sao chép!');
         return;
       }
-      const text = lastResult.length === 1 ? `${lastResult[0]}` : lastResult.join(', ');
+      const text = `${lastResult}`;
       try {
         await navigator.clipboard.writeText(text);
         showToast(`Đã sao chép kết quả: ${text}`);
