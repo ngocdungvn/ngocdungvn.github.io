@@ -1198,32 +1198,8 @@
 
     /* Accessibility: Respect Reduced Motion Preferences */
     @media (prefers-reduced-motion: reduce) {
-
-      *,
-      ::before,
-      ::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+      html {
         scroll-behavior: auto !important;
-      }
-
-      .btn-spin.spinning i {
-        animation: none !important;
-      }
-
-      .number-display.highlight {
-        animation: none !important;
-        text-shadow: none !important;
-      }
-
-      .stage-status.rolling,
-      .stage-status.suspense {
-        animation: none !important;
-      }
-
-      .number-display.suspense {
-        animation: none !important;
       }
     }
   </style>
@@ -1612,13 +1588,6 @@
         }
       }
 
-      // Kiểm tra thiết lập giảm chuyển động của người dùng (WCAG 2.3.3)
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (prefersReducedMotion) {
-        renderFinalResult(finalNumbers, min, max, true);
-        return;
-      }
-
       // Rolling Animation Mode: Gồm 2 giai đoạn (Quay nhanh + 0.5s Hiệu ứng hồi hộp trước khi chốt kết quả)
       const rollDuration = 1000; // 1s quay lướt nhanh ban đầu
       const suspenseDuration = 500; // Đúng 0.5s hiệu ứng hồi hộp trước khi ra kết quả
@@ -1679,7 +1648,7 @@
           btnSpin.disabled = false;
           btnSpin.classList.remove('spinning');
           numberDisplay.classList.remove('suspense');
-          renderFinalResult(finalNumbers, min, max, false);
+          renderFinalResult(finalNumbers, min, max);
           return;
         }
 
@@ -1689,16 +1658,12 @@
       requestAnimationFrame(step);
     }
 
-    function renderFinalResult(numbers, min, max, isReducedMotion = false) {
+    function renderFinalResult(numbers, min, max) {
       lastResult = numbers;
       const primaryNumber = numbers[0];
 
       numberDisplay.innerText = primaryNumber;
-      if (!isReducedMotion) {
-        numberDisplay.classList.add('highlight');
-      } else {
-        numberDisplay.classList.remove('highlight', 'pop');
-      }
+      numberDisplay.classList.add('highlight');
 
       stageStatus.className = 'stage-status winner';
 
@@ -1721,10 +1686,8 @@
         multipleResults.innerHTML = '';
       }
 
-      // Confetti celebration (tắt khi người dùng bật reduced motion)
-      if (!isReducedMotion) {
-        triggerConfetti();
-      }
+      // Confetti celebration
+      triggerConfetti();
 
       // Add to history
       addToHistory(numbers);

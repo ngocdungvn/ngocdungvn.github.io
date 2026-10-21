@@ -641,7 +641,7 @@
     /* Race Duration Pill Selector */
     .duration-chips {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 8px;
     }
 
@@ -952,6 +952,18 @@
       opacity: 0.85;
     }
 
+    .podium-pillar span.podium-time {
+      font-family: 'Outfit', -apple-system, monospace, sans-serif;
+      font-size: 11px;
+      font-weight: 900;
+      color: #000000;
+      margin-top: 4px;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 1px 6px;
+      border-radius: 4px;
+      border: 1.5px solid #000000;
+    }
+
     /* All Results Scroll List - Neobrutalism Table */
     .results-list-wrap {
       padding: 0;
@@ -968,6 +980,20 @@
       width: 100%;
       border-collapse: collapse;
       font-size: 13.5px;
+    }
+
+    .results-table thead th {
+      background: #fed033;
+      color: #000000;
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      padding: 8px 12px;
+      border-bottom: 2.5px solid #000000;
+      position: sticky;
+      top: 0;
+      z-index: 2;
     }
 
     .results-table tr {
@@ -1346,7 +1372,7 @@
       }
 
       .duration-chips {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 6px;
       }
 
@@ -1720,19 +1746,23 @@
 
           <!-- Thời lượng cuộc đua -->
           <div class="form-group">
-            <label class="form-label">Tốc độ & Cự ly đua</label>
+            <label class="form-label">Tốc độ & Thời lượng đua</label>
             <div class="duration-chips">
               <div class="duration-chip" data-dist="2600" data-time="15">
-                <span class="dur-title">⚡ Siêu Tốc</span>
-                <span class="dur-sub">~15 giây</span>
+                <span class="dur-title">🚀 15 Giây</span>
+                <span class="dur-sub">Siêu tốc chớp nhoáng</span>
               </div>
-              <div class="duration-chip active" data-dist="4200" data-time="25">
-                <span class="dur-title">🏊 Tiêu Chuẩn</span>
-                <span class="dur-sub">~25 giây</span>
+              <div class="duration-chip active" data-dist="4600" data-time="30">
+                <span class="dur-title">⚡ 30 Giây</span>
+                <span class="dur-sub">Nhanh & kịch tính</span>
               </div>
-              <div class="duration-chip" data-dist="6500" data-time="40">
-                <span class="dur-title">🔥 Kịch Tính</span>
-                <span class="dur-sub">~40 giây</span>
+              <div class="duration-chip" data-dist="6400" data-time="45">
+                <span class="dur-title">🏊 45 Giây</span>
+                <span class="dur-sub">Lội ngược dòng</span>
+              </div>
+              <div class="duration-chip" data-dist="8400" data-time="60">
+                <span class="dur-title">🔥 1 Phút</span>
+                <span class="dur-sub">Đường dài marathon</span>
               </div>
             </div>
           </div>
@@ -1764,36 +1794,39 @@
           </button>
           <div class="winner-crown">👑</div>
           <h2>KẾT QUẢ ĐUA VỊT</h2>
-          <p style="font-size: 13px; color: #78350f;">Chúc mừng chú vịt Quán quân đã xuất sắc cán đích đầu tiên!</p>
+          <p id="resultsWinnerSubtitle" style="font-size: 13.5px; font-weight: 700; color: #000000;">Chúc mừng chú vịt Quán quân đã xuất sắc cán đích đầu tiên!</p>
         </div>
 
         <!-- Bục vinh quang 3 vị trí đầu -->
         <div class="podium-wrap" id="podiumWrap">
           <!-- Hạng 2 -->
-          <div class="podium-slot podium-rank-2">
+          <div class="podium-slot podium-rank-2" id="podiumSlot2">
             <div class="podium-avatar">#2</div>
             <div class="podium-name" id="podiumName2">--</div>
             <div class="podium-pillar">
               #2
               <span class="rank-label">Hạng 2</span>
+              <span class="podium-time" id="podiumTime2">--</span>
             </div>
           </div>
           <!-- Hạng 1 -->
-          <div class="podium-slot podium-rank-1">
+          <div class="podium-slot podium-rank-1" id="podiumSlot1">
             <div class="podium-avatar">#1</div>
             <div class="podium-name" id="podiumName1">--</div>
             <div class="podium-pillar">
               #1
               <span class="rank-label">Hạng 1</span>
+              <span class="podium-time" id="podiumTime1">--</span>
             </div>
           </div>
           <!-- Hạng 3 -->
-          <div class="podium-slot podium-rank-3">
+          <div class="podium-slot podium-rank-3" id="podiumSlot3">
             <div class="podium-avatar">#3</div>
             <div class="podium-name" id="podiumName3">--</div>
             <div class="podium-pillar">
               #3
               <span class="rank-label">Hạng 3</span>
+              <span class="podium-time" id="podiumTime3">--</span>
             </div>
           </div>
         </div>
@@ -1801,6 +1834,13 @@
         <!-- Danh sách chi tiết toàn bộ người tham gia -->
         <div class="results-list-wrap">
           <table class="results-table">
+            <thead>
+              <tr>
+                <th style="width: 60px; text-align: center;">HẠNG</th>
+                <th style="text-align: left;">THÍ SINH</th>
+                <th style="text-align: right; width: 140px;">THỜI GIAN</th>
+              </tr>
+            </thead>
             <tbody id="resultsTableBody">
               <!-- Render by JS -->
             </tbody>
@@ -1898,6 +1938,26 @@
 
           osc.start(now);
           osc.stop(now + 0.22);
+        } catch (e) { }
+      },
+
+      playAirhorn() {
+        if (this.isMuted || !this.ctx) return;
+        this.resume();
+        try {
+          const now = this.ctx.currentTime;
+          [349.23, 440.00, 523.25, 698.46].forEach((freq) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(freq, now);
+            gain.gain.setValueAtTime(0.12, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.48);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.48);
+          });
         } catch (e) { }
       },
 
@@ -2025,13 +2085,15 @@
     const STATE = {
       ducks: [],
       names: [],
-      raceDuration: 25,       // Thời lượng cuộc đua (giây)
+      raceDuration: 30,       // Thời lượng cuộc đua: 30, 45, 60 (giây)
       isRunning: false,
       isFinished: false,
       isPaused: false,
       startTime: 0,
       pauseStartTime: 0,
       pausedDuration: 0,
+      gameTimeMs: 0,
+      cameraX: 0,
       finishLineX: 0,
       startLineX: 0,
       trackLength: 0,
@@ -2042,7 +2104,8 @@
       waterWaveOffset: 0,
       showNameTags: true,
       isRacingByNames: true,
-      hoveredDuck: null
+      hoveredDuck: null,
+      currentLeader: null
     };
 
     function formatStopwatchTime(ms) {
@@ -2062,7 +2125,7 @@
       { id: 'classic', name: 'Vịt Vàng Classic', body: '#fed033', hat: 'none' },
       { id: 'stripes', name: 'Vịt Sọc Tím', body: '#581c87', pattern: 'stripes', hat: 'none' },
       { id: 'classic_2', name: 'Vịt Vàng Vui Vẻ', body: '#fed033', hat: 'none' },
-      { id: 'crown', name: 'Vua Vịt Hoàng Gia', body: '#fed033', hat: 'crown' },
+      { id: 'sailor', name: 'Thủy Thủ Vàng', body: '#fed033', hat: 'none' },
       { id: 'superman', name: 'Siêu Nhân Duck', body: '#1d4ed8', suit: 'superman', hat: 'superhair' },
       { id: 'spiderman', name: 'Người Nhện', body: '#dc2626', suit: 'spiderman', hat: 'none' },
       { id: 'police', name: 'Cảnh Sát', body: '#fed033', hat: 'police' },
@@ -2087,20 +2150,23 @@
         this.costume = DUCK_COSTUMES[index % DUCK_COSTUMES.length];
         this.bodyColor = this.costume.body || '#fed033';
 
-        // Tọa độ
+        // Tọa độ thế giới (World coordinates)
         this.x = 100;
         this.baseY = 0;
         this.y = 0;
         this.scale = 1.0;
 
-        // Tốc độ & Vật lý
-        this.baseSpeed = 1.0;
-        this.currentSpeed = 1.0;
-        this.speedBurstTimer = Math.floor(Math.random() * 60);
+        // Tốc độ & Động lực học bơi đua tự nhiên, kịch tính
+        this.baseSpeed = 2.5;
+        this.currentSpeed = 2.5;
+        this.speedMultiplier = 1.0;
+        this.targetMultiplier = 1.0;
+        this.phaseTimer = Math.floor(15 + Math.random() * 45);
+        this.phase = 'normal';
 
-        // Hiệu ứng nhấp nhô
+        // Hiệu ứng nhấp nhô nhẹ nhàng
         this.bobCycle = Math.random() * Math.PI * 2;
-        this.bobSpeed = 0.12 + Math.random() * 0.05;
+        this.bobSpeed = 0.08 + Math.random() * 0.04;
 
         // Trạng thái về đích
         this.isFinished = false;
@@ -2111,52 +2177,77 @@
         this.ripples = [];
       }
 
-      update(progressRatio) {
+      update(progressRatio, leadingX, allDucks, dt = 1.0) {
         if (this.isFinished) {
-          this.bobCycle += this.bobSpeed * 0.5;
-          this.y = this.baseY + Math.sin(this.bobCycle) * (3 * this.scale);
+          this.bobCycle += 0.06 * dt;
+          this.y = this.baseY + Math.sin(this.bobCycle) * (2.2 * this.scale);
           return;
         }
 
-        // Nhấp nhô bơi
-        this.bobCycle += this.bobSpeed;
-        this.y = this.baseY + Math.sin(this.bobCycle) * (3.5 * this.scale);
+        // Quản lý nhịp bứt phá & giữ sức (Dynamic Racing Engine)
+        this.phaseTimer -= dt;
+        if (this.phaseTimer <= 0) {
+          if (progressRatio >= 0.80) {
+            // Nước rút cuối chặng về đích
+            this.phase = 'sprint';
+            this.targetMultiplier = 1.15 + Math.random() * 0.35; // 1.15 - 1.50x
+            this.phaseTimer = 9999;
+          } else {
+            const distBehindLeader = leadingX - this.x;
+            const roll = Math.random();
 
-        // Đổi tốc độ ngẫu nhiên & bứt phá
-        this.speedBurstTimer--;
-        if (this.speedBurstTimer <= 0) {
-          let speedVariance = 0.75 + Math.random() * 0.55;
-          // Tăng tốc hồi hộp khi gần về đích
-          if (progressRatio > 0.75 && Math.random() < 0.35) {
-            speedVariance *= 1.25;
-          }
-          this.currentSpeed = this.baseSpeed * speedVariance;
-          this.speedBurstTimer = Math.floor(40 + Math.random() * 60);
-
-          if (Math.random() < 0.12) {
-            AudioController.playQuack();
+            // Cơ chế núp gió / lội ngược dòng: vịt tụt lại phía sau có tỷ lệ bứt tốc cao hơn
+            if (distBehindLeader > 80 * this.scale && roll < 0.65) {
+              this.phase = 'surge';
+              this.targetMultiplier = 1.22 + Math.random() * 0.28; // 1.22 - 1.50x
+              this.phaseTimer = Math.floor(35 + Math.random() * 45); // 0.6s - 1.4s
+            } else if (roll < 0.38) {
+              // Bứt tốc vươn lên
+              this.phase = 'surge';
+              this.targetMultiplier = 1.18 + Math.random() * 0.24; // 1.18 - 1.42x
+              this.phaseTimer = Math.floor(40 + Math.random() * 45);
+            } else if (roll < 0.76) {
+              // Bơi đều nhịp
+              this.phase = 'normal';
+              this.targetMultiplier = 0.98 + Math.random() * 0.12; // 0.98 - 1.10x
+              this.phaseTimer = Math.floor(45 + Math.random() * 50);
+            } else {
+              // Dưỡng sức ngắn
+              this.phase = 'cruise';
+              this.targetMultiplier = 0.86 + Math.random() * 0.10; // 0.86 - 0.96x
+              this.phaseTimer = Math.floor(30 + Math.random() * 40);
+            }
           }
         }
 
-        // Cập nhật vị trí X
-        this.x += this.currentSpeed;
+        const blendRate = this.phase === 'sprint' ? 0.10 : 0.07;
+        this.speedMultiplier += (this.targetMultiplier - this.speedMultiplier) * Math.min(1.0, blendRate * dt);
+        this.currentSpeed = this.baseSpeed * this.speedMultiplier;
 
-        // Sinh bọt sóng sau đuôi
-        if (Math.random() < 0.35) {
+        // Cập nhật vị trí X nhanh nhẹn, tiến về phía trước
+        this.x += this.currentSpeed * dt;
+
+        // Nhấp nhô êm dịu trên mặt nước
+        this.bobCycle += this.bobSpeed * dt;
+        this.y = this.baseY + Math.sin(this.bobCycle) * (2.4 * this.scale);
+
+        // Gợn bọt sóng sinh động sau đuôi (tăng cường bọt khi bứt tốc & nước rút)
+        const rippleProb = (this.phase === 'sprint' || this.phase === 'surge') ? 0.60 : 0.30;
+        if (Math.random() < rippleProb * Math.min(dt, 1.5)) {
           this.ripples.push({
             x: this.x - 22 * this.scale,
-            y: this.y + 16 * this.scale + (Math.random() * 6 - 3) * this.scale,
-            radius: 3 * this.scale,
-            maxRadius: (16 + Math.random() * 12) * this.scale,
-            alpha: 0.6
+            y: this.y + 14 * this.scale,
+            radius: (this.phase === 'sprint' ? 3.4 : 2.7) * this.scale,
+            maxRadius: (this.phase === 'sprint' ? 26 : 20) * this.scale,
+            alpha: 0.65
           });
         }
 
         // Cập nhật bọt sóng
         for (let i = this.ripples.length - 1; i >= 0; i--) {
           const r = this.ripples[i];
-          r.radius += 0.55;
-          r.alpha -= 0.022;
+          r.radius += (this.phase === 'sprint' ? 0.85 : 0.65) * dt;
+          r.alpha -= 0.022 * dt;
           if (r.alpha <= 0) {
             this.ripples.splice(i, 1);
           }
@@ -2172,13 +2263,17 @@
 
         if (duckNoseX >= lineXAtDuckY && !this.isFinished) {
           this.isFinished = true;
-          this.finishTime = Date.now() - STATE.startTime - STATE.pausedDuration;
+          const rawTime = Math.round(STATE.gameTimeMs || 0);
+          const prevTime = STATE.rankedResults.length > 0
+            ? STATE.rankedResults[STATE.rankedResults.length - 1].finishTime
+            : 0;
+          this.finishTime = Math.max(rawTime, prevTime + 180);
           STATE.rankedResults.push(this);
           this.rank = STATE.rankedResults.length;
 
           if (this.rank === 1) {
             AudioController.playCheer();
-            ConfettiEngine.fire(this.x, this.y, 90);
+            ConfettiEngine.fire(this.x - STATE.cameraX, this.y, 110);
           }
         }
       }
@@ -2198,10 +2293,6 @@
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.scale(s, s);
-
-        // Góc nghiêng lắc lư nhẹ khi bơi
-        const tilt = Math.sin(this.bobCycle) * 0.04;
-        ctx.rotate(tilt);
 
         // 2. Bóng nước / vệt nước dưới thân
         ctx.beginPath();
@@ -2506,29 +2597,7 @@
 
       drawHatCostume(ctx) {
         const c = this.costume;
-        if (c.hat === 'crown') {
-          ctx.save();
-          ctx.beginPath();
-          ctx.moveTo(1, -31);
-          ctx.lineTo(19, -31);
-          ctx.lineTo(21, -43);
-          ctx.lineTo(14, -36);
-          ctx.lineTo(10, -47);
-          ctx.lineTo(6, -36);
-          ctx.lineTo(-1, -43);
-          ctx.closePath();
-          ctx.fillStyle = '#fbbf24';
-          ctx.fill();
-          ctx.lineWidth = 1.8;
-          ctx.strokeStyle = '#000000';
-          ctx.stroke();
-
-          ctx.beginPath();
-          ctx.arc(10, -35, 2, 0, Math.PI * 2);
-          ctx.fillStyle = '#ef4444';
-          ctx.fill();
-          ctx.restore();
-        } else if (c.hat === 'police') {
+        if (c.hat === 'police') {
           ctx.save();
           ctx.beginPath();
           ctx.ellipse(10, -33, 14, 8, 0, Math.PI, 0);
@@ -2653,8 +2722,10 @@
         const halfH = boxH / 2;
         const minY = STATE.topBankH + halfH + 8;
         if (bubbleCenterY < minY) bubbleCenterY = minY;
-        if (bubbleCenterX - halfW < 10) bubbleCenterX = halfW + 10;
-        if (bubbleCenterX + halfW > STATE.canvasWidth - 10) bubbleCenterX = STATE.canvasWidth - 10 - halfW;
+        const camLeft = (STATE.cameraX || 0) + halfW + 10;
+        const camRight = (STATE.cameraX || 0) + STATE.canvasWidth - halfW - 10;
+        if (bubbleCenterX < camLeft) bubbleCenterX = camLeft;
+        if (bubbleCenterX > camRight) bubbleCenterX = camRight;
 
         ctx.translate(bubbleCenterX, bubbleCenterY);
 
@@ -2722,6 +2793,13 @@
         this.canvas.height = window.innerHeight;
       },
 
+      clear() {
+        this.particles = [];
+        if (this.ctx && this.canvas) {
+          this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        }
+      },
+
       fire(x, y, count = 70) {
         const colors = ['#f59e0b', '#ec4899', '#3b82f6', '#10b981', '#8b5cf6', '#ef4444', '#ffffff'];
         for (let i = 0; i < count; i++) {
@@ -2786,7 +2864,7 @@
         const tooltip = document.getElementById('duckTooltip');
         const handlePointer = (clientX, clientY) => {
           const rect = this.canvas.getBoundingClientRect();
-          const mx = clientX - rect.left;
+          const mx = clientX - rect.left + (STATE.cameraX || 0);
           const my = clientY - rect.top;
 
           let found = null;
@@ -2853,12 +2931,23 @@
           STATE.topBankH = Math.min(160, Math.max(75, Math.round(h * 0.18)));
         }
 
-        STATE.finishLineX = Math.round(w * 0.86);
-        STATE.startLineX = Math.max(50, Math.round(w * 0.10));
-        STATE.trackLength = STATE.finishLineX - STATE.startLineX;
+        // Tính cự ly đường đua dài cuộn màn hình (vạch đích nằm xa ngoài màn hình lúc bắt đầu)
+        if (STATE.raceDuration <= 15) {
+          STATE.trackLength = Math.max(Math.round(w * 2.2), 2600);
+        } else if (STATE.raceDuration <= 30) {
+          STATE.trackLength = Math.max(Math.round(w * 3.6), 4600);
+        } else if (STATE.raceDuration <= 45) {
+          STATE.trackLength = Math.max(Math.round(w * 5.0), 6400);
+        } else {
+          STATE.trackLength = Math.max(Math.round(w * 6.5), 8400);
+        }
+
+        STATE.startLineX = Math.max(220, Math.round(w * 0.22));
+        STATE.finishLineX = STATE.startLineX + STATE.trackLength;
 
         if (!STATE.isRunning) {
-          this.layoutLanes();
+          STATE.cameraX = 0;
+          this.layoutLanes(false);
         } else {
           this.realignDucksOnResize();
         }
@@ -2904,7 +2993,7 @@
         } else {
           if (total <= 12) {
             duckScale = Math.min(2.35, Math.max(1.85, (riverH / 360) * 1.4));
-            numLanes = Math.min(Math.ceil(total / 2), 6);
+            numLanes = Math.min(total, 6);
           } else if (total <= 25) {
             duckScale = Math.min(1.8, Math.max(1.45, (riverH / 460) * 1.3));
             numLanes = Math.min(Math.floor(riverH / 50), 11);
@@ -2917,19 +3006,23 @@
         const laneH = riverH / (numLanes + 1);
         const startY = topBankH + laneH * 0.8;
 
+        STATE.numLanes = numLanes;
+        STATE.laneH = laneH;
+        STATE.startY = startY;
+        STATE.duckScale = duckScale;
+
         STATE.ducks.forEach((duck, idx) => {
           duck.scale = duckScale;
-          const laneIndex = idx % numLanes;
-          const jitterY = (Math.cos(idx * 5) * 0.08) * laneH;
+          const assignedSlot = duck.assignedSlot !== undefined ? duck.assignedSlot : idx;
+          const laneIndex = assignedSlot % numLanes;
+          const jitterY = (Math.cos(assignedSlot * 5) * 0.06) * laneH;
           duck.baseY = startY + laneIndex * laneH + jitterY;
           duck.y = duck.baseY;
         });
       },
 
-      // Phân chia bố cục bầy vịt:
-      // Ít vịt (Ảnh 1): Vịt phóng to khổng lồ, chi tiết sắc sảo, thỏa mãn thị giác
-      // Nhiều vịt (Ảnh 2): Đàn vịt dày đặc chen chúc như một bầy marathon cuồng nhiệt
-      layoutLanes() {
+      // Phân chia bố cục bầy vịt công bằng 100%, cự ly xuất phát ngang hàng:
+      layoutLanes(shuffleLanes = false) {
         const total = STATE.ducks.length;
         if (total === 0) return;
 
@@ -2942,88 +3035,101 @@
 
         let duckScale = 1.0;
         let numLanes = total;
-        let colSpacing = 80;
-        let startBaseX = Math.max(80, Math.round(w * 0.12));
-        const finishX = STATE.finishLineX;
 
         if (isMobilePortrait) {
-          // Mobile Portrait (màn hình dọc)
           if (total <= 12) {
             duckScale = Math.min(1.42, Math.max(1.08, (w / 380) * 1.2));
             numLanes = Math.min(total, Math.floor(riverH / (48 * duckScale)));
-            colSpacing = Math.round(50 * duckScale);
-            startBaseX = Math.max(38, Math.round(w * 0.10));
           } else if (total <= 25) {
             duckScale = Math.min(1.2, Math.max(0.95, (w / 400) * 1.05));
             numLanes = Math.min(Math.floor(riverH / (40 * duckScale)), 12);
-            colSpacing = Math.round(44 * duckScale);
-            startBaseX = Math.max(30, Math.round(w * 0.08));
           } else {
             duckScale = Math.min(1.0, Math.max(0.8, (w / 420) * 0.9));
             numLanes = Math.min(Math.floor(riverH / (34 * duckScale)), 14);
-            colSpacing = Math.round(36 * duckScale);
-            startBaseX = Math.max(25, Math.round(w * 0.06));
           }
         } else if (isMobileLandscape) {
-          // Mobile Landscape (chiều cao h hẹp từ 360px - 480px, chiều ngang rộng 640px - 940px)
           if (total <= 12) {
             duckScale = Math.min(1.25, Math.max(0.98, (riverH / 320) * 1.08));
             numLanes = Math.min(total, Math.floor(riverH / (44 * duckScale)));
-            colSpacing = Math.round(56 * duckScale);
-            startBaseX = Math.max(50, Math.round(w * 0.08));
           } else if (total <= 25) {
             duckScale = Math.min(1.05, Math.max(0.82, (riverH / 360) * 0.95));
             numLanes = Math.min(Math.floor(riverH / (34 * duckScale)), 8);
-            colSpacing = Math.round(46 * duckScale);
-            startBaseX = Math.max(40, Math.round(w * 0.07));
           } else {
             duckScale = Math.min(0.85, Math.max(0.70, (riverH / 400) * 0.85));
             numLanes = Math.min(Math.floor(riverH / (28 * duckScale)), 10);
-            colSpacing = Math.round(38 * duckScale);
-            startBaseX = Math.max(35, Math.round(w * 0.06));
           }
         } else {
-          // Màn hình Desktop / Tablet ngang chuẩn Online-Stopwatch:
           if (total <= 12) {
             duckScale = Math.min(2.35, Math.max(1.85, (riverH / 360) * 1.4));
-            numLanes = Math.min(Math.ceil(total / 2), 6);
-            colSpacing = Math.round(78 * duckScale);
-            startBaseX = Math.max(160, Math.round(w * 0.16));
+            numLanes = Math.min(total, 6);
           } else if (total <= 25) {
             duckScale = Math.min(1.8, Math.max(1.45, (riverH / 460) * 1.3));
             numLanes = Math.min(Math.floor(riverH / 50), 11);
-            colSpacing = Math.round(65 * duckScale);
-            startBaseX = Math.max(70, Math.round(w * 0.11));
           } else {
             duckScale = Math.min(1.4, Math.max(1.22, (riverH / 600) * 1.25));
             numLanes = Math.min(Math.floor(riverH / 46), 14);
-            colSpacing = Math.round(48 * duckScale);
-            startBaseX = Math.max(50, Math.round(w * 0.08));
           }
         }
-
-        STATE.startLineX = startBaseX;
-        STATE.trackLength = finishX - startBaseX;
 
         const laneH = riverH / (numLanes + 1);
         const startY = topBankH + laneH * 0.8;
 
+        STATE.numLanes = numLanes;
+        STATE.laneH = laneH;
+        STATE.startY = startY;
+        STATE.duckScale = duckScale;
+
+        // Tính cự ly đường đua dài cuộn màn hình
+        if (STATE.raceDuration <= 15) {
+          STATE.trackLength = Math.max(Math.round(w * 2.2), 2600);
+        } else if (STATE.raceDuration <= 30) {
+          STATE.trackLength = Math.max(Math.round(w * 3.6), 4600);
+        } else if (STATE.raceDuration <= 45) {
+          STATE.trackLength = Math.max(Math.round(w * 5.0), 6400);
+        } else {
+          STATE.trackLength = Math.max(Math.round(w * 6.5), 8400);
+        }
+
+        STATE.startLineX = Math.max(220, Math.round(w * 0.22));
+        STATE.finishLineX = STATE.startLineX + STATE.trackLength;
+        STATE.cameraX = 0;
+
+        const slantOffset = Math.round(STATE.canvasHeight * 0.13);
+        const topStartX = STATE.startLineX + slantOffset;
+        const bottomStartX = STATE.startLineX - slantOffset;
+
+        // Trộn ngẫu nhiên vị trí làn đua nếu được yêu cầu (đảm bảo không thiên vị bất kỳ ai)
+        const laneSlots = [...Array(total).keys()];
+        if (shuffleLanes) {
+          laneSlots.sort(() => Math.random() - 0.5);
+        }
+
         STATE.ducks.forEach((duck, idx) => {
           duck.scale = duckScale;
-          const laneIndex = idx % numLanes;
-          const colIndex = Math.floor(idx / numLanes);
-          const staggerX = (laneIndex % 2 === 1) ? (colSpacing * 0.44) : 0;
-          const jitterX = (Math.sin(idx * 7) * 0.18) * colSpacing;
-          const jitterY = (Math.cos(idx * 5) * 0.08) * laneH;
+          const assignedSlot = shuffleLanes ? laneSlots[idx] : idx;
+          duck.assignedSlot = assignedSlot;
+          const laneIndex = assignedSlot % numLanes;
+          const jitterY = (Math.cos(assignedSlot * 5) * 0.05) * laneH;
 
           duck.baseY = startY + laneIndex * laneH + jitterY;
           duck.y = duck.baseY;
-          duck.x = startBaseX - (colIndex * colSpacing + staggerX + jitterX);
 
-          // Tốc độ cơ sở tính theo cự ly thực tế trên màn hình và thời lượng đua (giây)
-          const travelDist = finishX - duck.x;
-          duck.baseSpeed = travelDist / (STATE.raceDuration * 60);
-          duck.currentSpeed = duck.baseSpeed * (0.85 + Math.random() * 0.3);
+          // Căn chuẩn xác sau vạch xuất phát nghiêng: MỌI CHÚ VỊT ĐỀU CÙNG CỰ LY XUẤT PHÁT CÔNG BẰNG 100%
+          const lineXAtDuckY = topStartX + ((duck.y - topBankH) / riverH) * (bottomStartX - topStartX);
+          const microJitter = (Math.random() - 0.5) * 4 * duckScale;
+
+          duck.x = lineXAtDuckY - (38 * duckScale) + microJitter;
+
+          // Tốc độ bơi cơ sở tính theo cự ly thực tế trên trackLength & raceDuration
+          // Tăng tốc độ bơi lên, đồng bộ chính xác với đồng hồ đếm ngược
+          const targetSeconds = Math.max(STATE.raceDuration - 2.0, 10);
+          const targetFrames = targetSeconds * 60;
+          duck.baseSpeed = (STATE.trackLength / targetFrames) * 1.05;
+          duck.speedMultiplier = 1.0;
+          duck.targetMultiplier = 1.0;
+          duck.currentSpeed = duck.baseSpeed;
+          duck.phaseTimer = Math.floor(15 + Math.random() * 35);
+          duck.phase = 'normal';
         });
       },
 
@@ -3034,12 +3140,17 @@
         STATE.startTime = Date.now();
         STATE.pauseStartTime = 0;
         STATE.pausedDuration = 0;
+        STATE.gameTimeMs = 0;
         STATE.rankedResults = [];
+        STATE.currentLeader = null;
+        STATE.cameraX = 0;
+        this.lastFrameTime = performance.now();
+        document.getElementById('stopwatchDigits').innerText = formatStopwatchTime(STATE.raceDuration * 1000);
 
         updatePauseButtonUI(false);
         updateStartButtonUI(true);
 
-        this.layoutLanes();
+        this.layoutLanes(true); // Trộn ngẫu nhiên làn đua để công bằng 100%
         STATE.ducks.forEach(d => {
           d.isFinished = false;
           d.finishTime = 0;
@@ -3054,8 +3165,12 @@
         document.getElementById('btnFloatingResults').classList.remove('show');
         document.getElementById('btnViewResultsHeader').style.display = 'none';
 
+        AudioController.playAirhorn();
         AudioController.playQuack();
         AudioController.startMusic();
+        if (typeof ConfettiEngine !== 'undefined') {
+          ConfettiEngine.clear();
+        }
       },
 
       pauseRace() {
@@ -3063,11 +3178,13 @@
         STATE.isPaused = !STATE.isPaused;
         if (STATE.isPaused) {
           STATE.pauseStartTime = Date.now();
+          this.lastFrameTime = 0;
           updatePauseButtonUI(true);
           AudioController.stopMusic();
         } else {
           STATE.pausedDuration += (Date.now() - STATE.pauseStartTime);
           STATE.pauseStartTime = 0;
+          this.lastFrameTime = performance.now();
           updatePauseButtonUI(false);
           AudioController.startMusic();
         }
@@ -3078,9 +3195,17 @@
         STATE.isFinished = false;
         STATE.isPaused = false;
         STATE.rankedResults = [];
+        STATE.currentLeader = null;
+        STATE.cameraX = 0;
+        STATE.gameTimeMs = 0;
+        this.lastFrameTime = 0;
         AudioController.stopMusic();
 
-        document.getElementById('stopwatchDigits').innerText = '00:00:00';
+        if (typeof ConfettiEngine !== 'undefined') {
+          ConfettiEngine.clear();
+        }
+
+        document.getElementById('stopwatchDigits').innerText = formatStopwatchTime(STATE.raceDuration * 1000);
         updatePauseButtonUI(false);
         updateStartButtonUI(false);
         document.getElementById('hudOverlay').classList.remove('active');
@@ -3095,28 +3220,53 @@
           d.ripples = [];
         });
 
-        this.layoutLanes();
+        this.layoutLanes(false);
         if (openSetup) {
           document.getElementById('setupModal').classList.remove('hidden');
         }
       },
 
+      // Lấy danh sách xếp hạng trực tiếp: vịt đã về đích xếp theo rank, vịt đang bơi xếp theo x
+      getLiveRankedDucks() {
+        return [...STATE.ducks].sort((a, b) => {
+          if (a.isFinished && b.isFinished) return a.rank - b.rank;
+          if (a.isFinished) return -1;
+          if (b.isFinished) return 1;
+          return b.x - a.x;
+        });
+      },
+
       finishRace() {
         STATE.isRunning = false;
         STATE.isFinished = true;
+        this.lastFrameTime = 0;
         AudioController.stopMusic();
 
         updateStartButtonUI(false);
         updatePauseButtonUI(false);
 
-        // Xếp hạng nốt các chú vịt còn lại theo khoảng cách tới đích
+        // Xếp hạng nốt các chú vịt còn lại theo khoảng cách tới đích với thời gian tăng dần nghiêm ngặt
+        let prevTime = STATE.rankedResults.length > 0
+          ? STATE.rankedResults[STATE.rankedResults.length - 1].finishTime
+          : Math.round(STATE.gameTimeMs || 0);
+
         const unfinished = STATE.ducks.filter(d => !d.isFinished);
         unfinished.sort((a, b) => b.x - a.x);
         unfinished.forEach(d => {
           d.isFinished = true;
+          prevTime += Math.round(320 + Math.random() * 150);
+          d.finishTime = prevTime;
           STATE.rankedResults.push(d);
           d.rank = STATE.rankedResults.length;
         });
+
+        // Đồng bộ ngay lập tức thanh Top HUD với bảng kết quả
+        const lead1El = document.getElementById('lead1');
+        const lead2El = document.getElementById('lead2');
+        const lead3El = document.getElementById('lead3');
+        if (lead1El) lead1El.innerText = STATE.rankedResults[0] ? '#1 ' + STATE.rankedResults[0].name : '-';
+        if (lead2El) lead2El.innerText = STATE.rankedResults[1] ? '#2 ' + STATE.rankedResults[1].name : '-';
+        if (lead3El) lead3El.innerText = STATE.rankedResults[2] ? '#3 ' + STATE.rankedResults[2].name : '-';
 
         document.getElementById('btnViewResultsHeader').style.display = 'inline-flex';
 
@@ -3141,15 +3291,25 @@
           return; // Tạm dừng
         }
 
-        STATE.waterWaveOffset += 0.035;
+        // Tính delta-time chuẩn xác theo thời gian thực (FPS independent & Background-tab safe)
+        const now = performance.now();
+        if (!this.lastFrameTime) this.lastFrameTime = now;
+        const deltaMs = now - this.lastFrameTime;
+        this.lastFrameTime = now;
+        const clampedDeltaMs = Math.min(Math.max(deltaMs, 4), 100);
+        const dt = clampedDeltaMs / 16.667;
+        STATE.gameTimeMs = (STATE.gameTimeMs || 0) + clampedDeltaMs;
 
-        // Cập nhật đồng hồ bấm giờ điện tử
-        const elapsed = Date.now() - STATE.startTime - STATE.pausedDuration;
+        STATE.waterWaveOffset += 0.035 * dt;
+
+        // Cập nhật đồng hồ bấm giờ điện tử đếm ngược chuẩn Online-Stopwatch (đồng bộ 100% với đường bơi)
+        const totalDurationMs = STATE.raceDuration * 1000;
+        const remainingMs = Math.max(0, totalDurationMs - STATE.gameTimeMs);
         const digitsEl = document.getElementById('stopwatchDigits');
-        if (digitsEl) digitsEl.innerText = formatStopwatchTime(elapsed);
+        if (digitsEl) digitsEl.innerText = formatStopwatchTime(remainingMs);
 
-        // Vị trí vịt dẫn đầu
-        let leadingX = 0;
+        // Vị trí vịt dẫn đầu và số vịt đang bơi
+        let leadingX = -Infinity;
         let activeCount = 0;
 
         STATE.ducks.forEach(duck => {
@@ -3161,24 +3321,60 @@
           }
         });
 
-        const progressRatio = Math.min(Math.max((leadingX - STATE.startLineX) / (STATE.finishLineX - STATE.startLineX), 0), 1);
+        const progressRatio = Math.min(Math.max((leadingX - STATE.startLineX) / STATE.trackLength, 0), 1);
 
+        // Cập nhật từng vịt với bối cảnh cuộc đua và delta-time
         STATE.ducks.forEach(duck => {
-          duck.update(progressRatio);
+          duck.update(progressRatio, leadingX, STATE.ducks, dt);
         });
+
+        // Điều khiển Camera cuộn mượt mà theo nhóm dẫn đầu
+        const w = STATE.canvasWidth;
+        let targetCamX = leadingX - (w * 0.42);
+        if (targetCamX < 0) targetCamX = 0;
+        const maxCamX = STATE.finishLineX - (w * 0.82);
+        if (targetCamX > maxCamX) targetCamX = maxCamX;
+
+        STATE.cameraX += (targetCamX - STATE.cameraX) * Math.min(1.0, 0.08 * dt);
+        if (STATE.cameraX < 0) STATE.cameraX = 0;
+        if (STATE.cameraX > maxCamX && maxCamX > 0) STATE.cameraX = maxCamX;
 
         // Tiến độ HUD
         const percent = Math.floor(progressRatio * 100);
         document.getElementById('progressBarFill').style.width = percent + '%';
         document.getElementById('progressPercent').innerText = percent + '%';
 
-        const sortedLive = [...STATE.ducks].sort((a, b) => b.x - a.x);
-        document.getElementById('lead1').innerText = sortedLive[0] ? '#1 ' + sortedLive[0].name : '-';
-        document.getElementById('lead2').innerText = sortedLive[1] ? '#2 ' + sortedLive[1].name : '-';
-        document.getElementById('lead3').innerText = sortedLive[2] ? '#3 ' + sortedLive[2].name : '-';
+        // Bảng xếp hạng trực tiếp thống nhất
+        const sortedLive = this.getLiveRankedDucks();
+        const lead1El = document.getElementById('lead1');
+        const lead2El = document.getElementById('lead2');
+        const lead3El = document.getElementById('lead3');
+        if (lead1El) lead1El.innerText = sortedLive[0] ? '#1 ' + sortedLive[0].name : '-';
+        if (lead2El) lead2El.innerText = sortedLive[1] ? '#2 ' + sortedLive[1].name : '-';
+        if (lead3El) lead3El.innerText = sortedLive[2] ? '#3 ' + sortedLive[2].name : '-';
 
-        // Kết thúc khi toàn bộ vịt đã về đích hoặc top 3 đã về đích + thời gian tối đa
-        if (activeCount === 0 || (STATE.rankedResults.length >= Math.min(3, STATE.ducks.length) && progressRatio >= 0.99)) {
+        // Hiệu ứng bứt phá & âm thanh khi vịt vươn lên chiếm ngôi đầu bảng (#1)
+        if (sortedLive[0] && sortedLive[0] !== STATE.currentLeader) {
+          const oldLeader = STATE.currentLeader;
+          STATE.currentLeader = sortedLive[0];
+          STATE.lastLeadChangeTime = Date.now();
+          if (oldLeader && STATE.isRunning) {
+            AudioController.playQuack();
+          }
+          if (lead1El) {
+            lead1El.style.transform = 'scale(1.22)';
+            lead1El.style.boxShadow = '0 0 14px rgba(254, 208, 51, 0.9)';
+            setTimeout(() => {
+              if (lead1El) {
+                lead1El.style.transform = 'scale(1)';
+                lead1El.style.boxShadow = '';
+              }
+            }, 250);
+          }
+        }
+
+        // Kết thúc khi toàn bộ vịt đã về đích hoặc vịt quán quân đã về đích và quá thời gian quy định
+        if (activeCount === 0 || (STATE.rankedResults.length >= 1 && STATE.gameTimeMs > (STATE.raceDuration * 1000 + 2500))) {
           this.finishRace();
         }
       },
@@ -3191,33 +3387,87 @@
 
         ctx.clearRect(0, 0, w, h);
 
-        // 1. Khung cảnh thiên nhiên: Cỏ, bờ đất, sông nước
-        this.drawScenery(ctx, w, h);
+        // 1. Khung cảnh thiên nhiên: Cỏ, bờ đất, sông nước (cuộn theo camera)
+        this.drawScenery(ctx, w, h, STATE.cameraX);
+
+        // 2. Chuyển hệ toạ độ theo Camera
+        ctx.save();
+        ctx.translate(-STATE.cameraX, 0);
+
+        // 1.5 Vạch xuất phát nghiêng ca-rô chuẩn Online-Stopwatch với số làn đua
+        if (STATE.startLineX + 300 >= STATE.cameraX && STATE.startLineX - 300 <= STATE.cameraX + w) {
+          this.drawStartLine(ctx, STATE.startLineX, STATE.topBankH, h);
+        }
 
         // 2. Vạch đích nghiêng chéo 15 độ kinh điển (Slanted Checkered Finish Line)
-        this.drawFinishLine(ctx, STATE.finishLineX, STATE.topBankH, h);
+        if (STATE.finishLineX + 300 >= STATE.cameraX && STATE.finishLineX - 300 <= STATE.cameraX + w) {
+          this.drawFinishLine(ctx, STATE.finishLineX, STATE.topBankH, h);
+        }
 
         // 3. Vẽ bầy vịt (Depth Sorting theo trục Y: Vịt ở trên vẽ trước, vịt ở dưới vẽ sau đè lên tự nhiên)
         const sortedDucks = [...STATE.ducks].sort((a, b) => a.y - b.y);
         sortedDucks.forEach(duck => {
-          duck.draw(ctx);
+          if (duck.x + 250 >= STATE.cameraX && duck.x - 250 <= STATE.cameraX + w) {
+            duck.draw(ctx);
+          }
         });
+
+        ctx.restore();
+
+        // 4. Banner cảnh báo Nước Rút Về Đích trên màn hình
+        const leadingDuck = STATE.currentLeader;
+        const leadingX = leadingDuck ? leadingDuck.x : 0;
+        const progressRatio = Math.min(Math.max((leadingX - STATE.startLineX) / STATE.trackLength, 0), 1);
+        if (STATE.isRunning && !STATE.isFinished && progressRatio >= 0.80) {
+          this.drawSprintBanner(ctx, w, h);
+        }
       },
 
-      drawScenery(ctx, w, h) {
+      drawSprintBanner(ctx, w, h) {
+        ctx.save();
+        const pulse = 1.0 + Math.sin(Date.now() * 0.012) * 0.04;
+        const bannerW = Math.min(260, w * 0.55);
+        const bannerH = 34;
+        const bannerX = w / 2;
+        const bannerY = STATE.topBankH + 28;
+
+        ctx.translate(bannerX, bannerY);
+        ctx.scale(pulse, pulse);
+
+        ctx.beginPath();
+        ctx.roundRect(-bannerW / 2, -bannerH / 2, bannerW, bannerH, 17);
+        ctx.fillStyle = '#ef4444';
+        ctx.fill();
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        ctx.font = '900 13px Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+        ctx.shadowBlur = 3;
+        ctx.fillText('🏁 NƯỚC RÚT VỀ ĐÍCH! 🏁', 0, 1);
+
+        ctx.restore();
+      },
+
+      drawScenery(ctx, w, h, camX = 0) {
         const topBankH = STATE.topBankH;
 
         // 1. Sông nước xanh biếc
         ctx.fillStyle = '#417b9b';
         ctx.fillRect(0, topBankH, w, h - topBankH);
 
-        // 2. Các dải sóng nước uốn lượn ngang mềm mại
+        // 2. Các dải sóng nước uốn lượn ngang mềm mại (trôi theo thế giới sông nước)
         ctx.save();
         for (let waveY = topBankH + 45; waveY < h - 20; waveY += 56) {
           ctx.beginPath();
           ctx.moveTo(-100, waveY);
           for (let x = -100; x < w + 200; x += 70) {
-            const dy = Math.sin(x * 0.015 + STATE.waterWaveOffset + waveY * 0.035) * 8;
+            const worldX = x + camX;
+            const dy = Math.sin(worldX * 0.015 + STATE.waterWaveOffset + waveY * 0.035) * 8;
             ctx.lineTo(x, waveY + dy);
           }
           ctx.strokeStyle = 'rgba(88, 155, 188, 0.45)';
@@ -3231,12 +3481,14 @@
         ctx.fillStyle = '#20a336';
         ctx.fillRect(0, 0, w, topBankH - 18);
 
-        // 4. Khóm cỏ dại hình chữ M rải rác trên thảm cỏ
+        // 4. Khóm cỏ dại hình chữ M rải rác trên thảm cỏ (cuộn mượt theo camera)
         ctx.save();
         ctx.strokeStyle = '#0e5f1e';
         ctx.lineWidth = 1.8;
         ctx.lineCap = 'round';
-        for (let gx = 45; gx < w; gx += 110) {
+        const grassSpacing = 110;
+        const grassOffset = camX % grassSpacing;
+        for (let gx = -grassOffset - 20; gx < w + 110; gx += grassSpacing) {
           ctx.beginPath();
           ctx.moveTo(gx, topBankH - 36);
           ctx.lineTo(gx + 4, topBankH - 46);
@@ -3255,17 +3507,19 @@
         }
         ctx.restore();
 
-        // 6. Bờ đất nâu ấm giáp mép nước với viền cong tự nhiên
+        // 6. Bờ đất nâu ấm giáp mép nước với viền cong tự nhiên (cuộn mượt theo camera)
         ctx.save();
         ctx.beginPath();
         ctx.moveTo(0, topBankH - 18);
-        for (let x = 0; x <= w; x += 40) {
-          const bumpY = Math.sin(x * 0.05) * 2;
+        for (let x = 0; x <= w; x += 35) {
+          const worldX = x + camX;
+          const bumpY = Math.sin(worldX * 0.05) * 2;
           ctx.lineTo(x, topBankH - 18 + bumpY);
         }
         ctx.lineTo(w, topBankH);
-        for (let x = w; x >= 0; x -= 40) {
-          const bumpY2 = Math.cos(x * 0.04) * 2.5;
+        for (let x = w; x >= 0; x -= 35) {
+          const worldX = x + camX;
+          const bumpY2 = Math.cos(worldX * 0.04) * 2.5;
           ctx.lineTo(x, topBankH + bumpY2);
         }
         ctx.closePath();
@@ -3275,6 +3529,79 @@
         ctx.strokeStyle = '#000000';
         ctx.lineWidth = 2.4;
         ctx.stroke();
+        ctx.restore();
+      },
+
+      // Vẽ vạch xuất phát chéo ca-rô chuẩn Online-Stopwatch với các số làn đua lớn in nghiêng
+      drawStartLine(ctx, startX, topY, bottomY) {
+        const height = bottomY - topY;
+        const slantOffset = Math.round(STATE.canvasHeight * 0.13);
+        const topX = startX + slantOffset;
+        const bottomX = startX - slantOffset;
+        const bannerW = 44;
+        const squareH = 24;
+        const totalRows = Math.ceil(height / squareH);
+
+        ctx.save();
+        for (let r = 0; r < totalRows; r++) {
+          const t1 = r / totalRows;
+          const t2 = (r + 1) / totalRows;
+          const y1 = topY + t1 * height;
+          const y2 = topY + t2 * height;
+          const cx1 = topX + t1 * (bottomX - topX);
+          const cx2 = topX + t2 * (bottomX - topX);
+
+          // Cột trái
+          ctx.beginPath();
+          ctx.moveTo(cx1 - bannerW / 2, y1);
+          ctx.lineTo(cx1, y1);
+          ctx.lineTo(cx2, y2);
+          ctx.lineTo(cx2 - bannerW / 2, y2);
+          ctx.closePath();
+          ctx.fillStyle = r % 2 === 0 ? '#000000' : '#ffffff';
+          ctx.fill();
+
+          // Cột phải
+          ctx.beginPath();
+          ctx.moveTo(cx1, y1);
+          ctx.lineTo(cx1 + bannerW / 2, y1);
+          ctx.lineTo(cx2 + bannerW / 2, y2);
+          ctx.lineTo(cx2, y2);
+          ctx.closePath();
+          ctx.fillStyle = r % 2 === 0 ? '#ffffff' : '#000000';
+          ctx.fill();
+        }
+
+        // Viền đen đậm chuẩn hoạt hình bao quanh vạch xuất phát
+        ctx.beginPath();
+        ctx.moveTo(topX - bannerW / 2, topY);
+        ctx.lineTo(topX + bannerW / 2, topY);
+        ctx.lineTo(bottomX + bannerW / 2, bottomY);
+        ctx.lineTo(bottomX - bannerW / 2, bottomY);
+        ctx.closePath();
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 3.5;
+        ctx.stroke();
+
+        // Vẽ các số làn đua lớn in nghiêng cạnh vạch xuất phát (chuẩn Online-Stopwatch: 1, 2, 3...)
+        const numLanes = STATE.numLanes || 1;
+        const laneH = STATE.laneH || 50;
+        const startY = STATE.startY || topY + 40;
+        const numFontSize = Math.max(22, Math.round(36 * Math.min(STATE.duckScale || 1.0, 1.8)));
+
+        for (let lane = 0; lane < numLanes; lane++) {
+          const laneY = startY + lane * laneH;
+          const lineXAtLaneY = topX + ((laneY - topY) / height) * (bottomX - topX);
+          ctx.save();
+          ctx.font = 'italic 900 ' + numFontSize + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          ctx.fillStyle = '#000000';
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'middle';
+          const laneNumber = lane + 1;
+          ctx.fillText(String(laneNumber), lineXAtLaneY + bannerW * 0.72, laneY);
+          ctx.restore();
+        }
+
         ctx.restore();
       },
 
@@ -3381,6 +3708,7 @@
       document.getElementById('namesInput').value = defaultNames.join(', ');
       updateParticipantCount();
       buildDucksFromInput();
+      document.getElementById('stopwatchDigits').innerText = formatStopwatchTime(STATE.raceDuration * 1000);
 
       // Sự kiện gõ danh sách
       document.getElementById('namesInput').addEventListener('input', () => {
@@ -3424,7 +3752,10 @@
           document.querySelectorAll('.duration-chip').forEach(c => c.classList.remove('active'));
           const target = e.currentTarget;
           target.classList.add('active');
-          STATE.raceDuration = parseInt(target.dataset.time || '25', 10);
+          STATE.raceDuration = parseInt(target.dataset.time || '30', 10);
+          if (!STATE.isRunning) {
+            document.getElementById('stopwatchDigits').innerText = formatStopwatchTime(STATE.raceDuration * 1000);
+          }
           GameEngine.layoutLanes();
         });
       });
@@ -3647,10 +3978,46 @@
 
       if (!results || results.length === 0) return;
 
+      const winner = results[0];
+      const winTimeSec = (winner.finishTime / 1000).toFixed(2);
+
+      // Cập nhật tiêu đề Quán quân
+      const subEl = document.getElementById('resultsWinnerSubtitle');
+      if (subEl) {
+        subEl.innerHTML = 'Quán quân: <b style="color: #000000; text-decoration: underline;">' + escapeHtml(winner.name) + '</b> (' + winTimeSec + 's) xuất sắc về đích đầu tiên!';
+      }
+
       // Cập nhật 3 vị trí trên bục vinh quang (#1, #2, #3)
-      document.getElementById('podiumName1').innerText = results[0] ? results[0].name : '--';
-      document.getElementById('podiumName2').innerText = results[1] ? results[1].name : '--';
-      document.getElementById('podiumName3').innerText = results[2] ? results[2].name : '--';
+      const slot1 = document.getElementById('podiumSlot1');
+      const slot2 = document.getElementById('podiumSlot2');
+      const slot3 = document.getElementById('podiumSlot3');
+
+      // #1
+      document.getElementById('podiumName1').innerText = winner.name;
+      const t1El = document.getElementById('podiumTime1');
+      if (t1El) t1El.innerText = winTimeSec + 's';
+
+      // #2
+      if (results[1]) {
+        if (slot2) slot2.style.display = '';
+        document.getElementById('podiumName2').innerText = results[1].name;
+        const diff2 = ((results[1].finishTime - winner.finishTime) / 1000).toFixed(2);
+        const t2El = document.getElementById('podiumTime2');
+        if (t2El) t2El.innerText = '+' + diff2 + 's';
+      } else if (slot2) {
+        slot2.style.display = 'none';
+      }
+
+      // #3
+      if (results[2]) {
+        if (slot3) slot3.style.display = '';
+        document.getElementById('podiumName3').innerText = results[2].name;
+        const diff3 = ((results[2].finishTime - winner.finishTime) / 1000).toFixed(2);
+        const t3El = document.getElementById('podiumTime3');
+        if (t3El) t3El.innerText = '+' + diff3 + 's';
+      } else if (slot3) {
+        slot3.style.display = 'none';
+      }
 
       // Tạo bảng chi tiết toàn bộ người tham gia
       let html = '';
@@ -3661,12 +4028,17 @@
         else if (rank === 2) badgeClass = 'badge-rank-2';
         else if (rank === 3) badgeClass = 'badge-rank-3';
 
-        const timeStr = duck.finishTime ? '+' + (duck.finishTime / 1000).toFixed(2) + 's' : '--';
+        const curTimeSec = (duck.finishTime / 1000).toFixed(2);
+        let timeDisplay = curTimeSec + 's';
+        if (rank > 1) {
+          const diff = ((duck.finishTime - winner.finishTime) / 1000).toFixed(2);
+          timeDisplay += ' <span style="font-size: 11px; opacity: 0.8; font-weight: 600;">(+' + diff + 's)</span>';
+        }
 
         html += '<tr>' +
           '<td class="rank-col"><span class="rank-badge ' + badgeClass + '">#' + rank + '</span></td>' +
           '<td><b>' + escapeHtml(duck.name) + '</b></td>' +
-          '<td style="text-align: right; color: #64748b; font-size: 12px;">' + timeStr + '</td>' +
+          '<td style="text-align: right; color: #000000; font-weight: 700; font-size: 13px; font-variant-numeric: tabular-nums;">' + timeDisplay + '</td>' +
           '</tr>';
       });
 
@@ -3686,13 +4058,18 @@
       const results = STATE.rankedResults;
       if (!results || results.length === 0) return;
 
-      let text = '🏁 KẾT QUẢ ĐUA VỊT MAY MẮN (DUCK RACE) 🏁\\n\\n';
+      const winner = results[0];
+      let text = '🏁 KẾT QUẢ ĐUA VỊT MAY MẮN (DUCK RACE) 🏁\n\n';
       results.forEach((duck, idx) => {
         const rank = idx + 1;
-        const timeStr = duck.finishTime ? ' (+' + (duck.finishTime / 1000).toFixed(2) + 's)' : '';
-        text += '#' + rank + ' ' + duck.name + timeStr + '\\n';
+        const curTimeSec = (duck.finishTime / 1000).toFixed(2);
+        let timeStr = curTimeSec + 's';
+        if (rank > 1) {
+          const diff = ((duck.finishTime - winner.finishTime) / 1000).toFixed(2);
+          timeStr += ' (+' + diff + 's)';
+        }
+        text += '#' + rank + ' ' + duck.name + ' - ' + timeStr + '\n';
       });
-
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(() => {
