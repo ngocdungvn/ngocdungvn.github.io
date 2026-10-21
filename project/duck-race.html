@@ -1370,13 +1370,6 @@
         this.index = index;
         this.total = total;
 
-        // Tỉ lệ scale chuẩn, giữ vịt to tròn, rõ nét, không bị teo nhỏ thưa thớt
-        let s = 1.0;
-        if (total > 50) s = 0.76;
-        else if (total > 25) s = 0.85;
-        else if (total > 12) s = 0.94;
-        this.scale = s;
-
         // Tọa độ
         this.x = STATE.startLineX - (Math.random() * 30 + 10);
         this.baseY = 0; // Được tính toán trong layoutLanes
@@ -1392,9 +1385,6 @@
         // Hiệu ứng bơi & quẫy nước
         this.bobCycle = Math.random() * Math.PI * 2;
         this.bobSpeed = 0.12 + Math.random() * 0.06;
-        this.driftCycle = Math.random() * Math.PI * 2;
-        this.driftSpeed = 0.02 + Math.random() * 0.02;
-        this.driftAmp = (3.5 + (index % 4) * 1.5) * s;
         this.paddleAngle = 0;
         this.wobbleX = 0;
 
@@ -1410,26 +1400,19 @@
         this.colorHat = palette.hat;
 
         // Kích thước chuẩn
-        this.width = 44 * s;
-        this.height = 38 * s;
+        this.width = 44;
+        this.height = 38;
 
         // Gợn sóng đuôi (wake trail)
         this.ripples = [];
       }
 
       update(progressRatio) {
-        if (this.isFinished) {
-          // Nhấp nhô nhẹ nhàng thư thái khi đã về đích
-          this.bobCycle += this.bobSpeed * 0.5;
-          this.y = this.baseY + Math.sin(this.bobCycle) * (3 * this.scale);
-          return;
-        }
+        if (this.isFinished) return;
 
-        // Cập nhật dao động nhấp nhô & lượn sóng tự nhiên tạo cảm giác đàn vịt bơi sống động
+        // Cập nhật dao động nhấp nhô
         this.bobCycle += this.bobSpeed;
-        this.driftCycle += this.driftSpeed;
-        const driftY = Math.sin(this.driftCycle) * this.driftAmp;
-        this.y = this.baseY + Math.sin(this.bobCycle) * (3.5 * this.scale) + driftY;
+        this.y = this.baseY + Math.sin(this.bobCycle) * 4;
 
         // Thay đổi tốc độ ngẫu nhiên định kỳ tạo cảm giác kịch tính
         this.speedBurstTimer--;
@@ -1450,10 +1433,10 @@
         // Sinh bọt nước gợn sóng phía sau
         if (Math.random() < 0.4) {
           this.ripples.push({
-            x: this.x - 12 * this.scale,
-            y: this.y + (12 * this.scale) + (Math.random() * 6 - 3) * this.scale,
-            radius: 2 * this.scale,
-            maxRadius: (14 + Math.random() * 8) * this.scale,
+            x: this.x - 12,
+            y: this.y + 12 + (Math.random() * 6 - 3),
+            radius: 3,
+            maxRadius: 16 + Math.random() * 10,
             alpha: 0.6
           });
         }
@@ -1486,20 +1469,17 @@
       }
 
       draw(ctx) {
-        const s = this.scale || 1.0;
-
         // 1. Vẽ các gợn sóng nước phía sau đuôi
         this.ripples.forEach(r => {
           ctx.beginPath();
           ctx.ellipse(r.x, r.y, r.radius * 1.6, r.radius * 0.7, 0, 0, Math.PI * 2);
           ctx.strokeStyle = `rgba(255, 255, 255, ${r.alpha})`;
-          ctx.lineWidth = Math.max(1.2 * s, 0.8);
+          ctx.lineWidth = 1.5;
           ctx.stroke();
         });
 
         ctx.save();
         ctx.translate(this.x, this.y);
-        ctx.scale(s, s);
 
         // 2. Bóng dưới nước
         ctx.beginPath();
@@ -1568,28 +1548,26 @@
         ctx.arc(8, -21, 4, 0, Math.PI * 2);
         ctx.fill();
 
+        // 9. Bảng tên & số thứ tự nổi phía trên
         ctx.restore();
 
-        // 9. Bảng tên & số thứ tự nổi phía trên (tối ưu tỉ lệ hiển thị)
+        // Vẽ Name Tag trong không gian Canvas tuyệt đối
         ctx.save();
-        const tagOffsetY = Math.round(24 * s + 5);
-        ctx.translate(this.x, this.y - tagOffsetY);
+        ctx.translate(this.x, this.y - 32);
 
         // Nền thẻ tên
         const tagText = `${this.index + 1}. ${this.name}`;
-        const fontSize = Math.max(Math.round(11 * s), 8.5);
-        ctx.font = `bold ${fontSize}px Inter, sans-serif`;
+        ctx.font = 'bold 11px Inter, sans-serif';
         const textWidth = ctx.measureText(tagText).width;
-        const tagW = Math.max(textWidth + (8 * s + 4), 26);
-        const tagH = Math.max(Math.round(18 * s), 13);
-        const radius = Math.min(tagH / 2, 8);
+        const tagW = Math.max(textWidth + 12, 34);
+        const tagH = 18;
 
         ctx.beginPath();
-        ctx.roundRect(-tagW / 2, -tagH / 2, tagW, tagH, radius);
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
+        ctx.roundRect(-tagW / 2, -tagH / 2, tagW, tagH, 9);
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
         ctx.fill();
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
-        ctx.lineWidth = Math.max(1 * s, 0.75);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.lineWidth = 1;
         ctx.stroke();
 
         // Chữ thẻ tên
@@ -1704,47 +1682,22 @@
         }
       },
 
-      // Phân chia vị trí bơi hài hòa, đông đúc và sinh động cho các chú vịt
+      // Phân chia làn bơi hài hòa cho các chú vịt
       layoutLanes() {
         const total = STATE.ducks.length;
         if (total === 0) return;
 
-        // Vùng an toàn phía trên: tránh Header (60px) + Bờ cỏ (68px) + HUD Overlay
-        const isMobile = window.innerWidth <= 640;
-        const topSafeMargin = isMobile ? 140 : 120;
-        const bottomSafeMargin = 80;
-        const riverH = Math.max(STATE.canvasHeight - topSafeMargin - bottomSafeMargin, 180);
+        // Giới hạn chiều cao sông nước (tránh sát bờ cỏ)
+        const topBankH = 75;
+        const bottomBankH = 75;
+        const riverH = Math.max(STATE.canvasHeight - topBankH - bottomBankH, 200);
 
-        const duckScale = STATE.ducks[0]?.scale || 1.0;
-
-        // Tính số làn và phân cột để bầy vịt bơi tập trung, đông vui, không bị kéo thành 1 sợi dây thưa thớt
-        let numLanes = total;
-        if (total > 35) {
-          numLanes = Math.min(Math.floor(riverH / 30), Math.max(Math.ceil(total / 2.6), 16));
-        } else if (total > 15) {
-          numLanes = Math.min(Math.floor(riverH / 34), Math.max(Math.ceil(total / 1.7), 10));
-        } else {
-          numLanes = total;
-        }
-
-        // Khoảng cách giữa các làn vừa vặn
-        const laneHeight = Math.min(riverH / numLanes, 44);
-        const totalFlockHeight = numLanes * laneHeight;
-        // Căn giữa bầy vịt theo chiều dọc dòng sông
-        const startY = topSafeMargin + (riverH - totalFlockHeight) / 2;
-
-        const colSpacing = Math.round(50 * duckScale);
+        const laneHeight = riverH / Math.max(total, 1);
 
         STATE.ducks.forEach((duck, idx) => {
-          const laneIndex = idx % numLanes;
-          const colIndex = Math.floor(idx / numLanes);
-
-          duck.baseY = startY + (laneIndex + 0.5) * laneHeight;
+          // Tính toạ độ Y theo làn + độ lệch ngẫu nhiên nhẹ
+          duck.baseY = topBankH + (idx + 0.5) * laneHeight;
           duck.y = duck.baseY;
-
-          // Xếp so le theo cột và hàng đan xen (staggered flock)
-          const staggerX = (laneIndex % 2) * (colSpacing * 0.45);
-          duck.x = STATE.startLineX - (colIndex * colSpacing + staggerX + Math.random() * 12 + 12);
         });
       },
 
@@ -1755,31 +1708,9 @@
         STATE.rankedResults = [];
         STATE.cameraX = 0;
 
-        // Reset vị trí vịt (sử dụng vị trí xuất phát so le tự nhiên)
-        const total = STATE.ducks.length;
-        const isMobile = window.innerWidth <= 640;
-        const topSafeMargin = isMobile ? 140 : 120;
-        const bottomSafeMargin = 80;
-        const riverH = Math.max(STATE.canvasHeight - topSafeMargin - bottomSafeMargin, 180);
-        const duckScale = STATE.ducks[0]?.scale || 1.0;
-
-        let numLanes = total;
-        if (total > 35) {
-          numLanes = Math.min(Math.floor(riverH / 30), Math.max(Math.ceil(total / 2.6), 16));
-        } else if (total > 15) {
-          numLanes = Math.min(Math.floor(riverH / 34), Math.max(Math.ceil(total / 1.7), 10));
-        } else {
-          numLanes = total;
-        }
-
-        const colSpacing = Math.round(50 * duckScale);
-
-        STATE.ducks.forEach((d, idx) => {
-          const laneIndex = idx % numLanes;
-          const colIndex = Math.floor(idx / numLanes);
-          const staggerX = (laneIndex % 2) * (colSpacing * 0.45);
-
-          d.x = STATE.startLineX - (colIndex * colSpacing + staggerX + Math.random() * 14 + 12);
+        // Reset vị trí vịt
+        STATE.ducks.forEach(d => {
+          d.x = STATE.startLineX - (Math.random() * 40 + 10);
           d.isFinished = false;
           d.finishTime = 0;
           d.rank = 0;
@@ -1822,7 +1753,7 @@
             STATE.waterWaveOffset += 0.02;
             STATE.ducks.forEach(duck => {
               duck.bobCycle += duck.bobSpeed * 0.5;
-              duck.y = duck.baseY + Math.sin(duck.bobCycle) * (3 * duck.scale);
+              duck.y = duck.baseY + Math.sin(duck.bobCycle) * 3;
             });
           }
           return;
