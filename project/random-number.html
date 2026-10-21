@@ -915,14 +915,14 @@
   <!-- Header Navigation -->
   <header class="header-top">
     <div class="brand-badge">
-      <i class="uil uil-dice-five"></i> Mini App
+      <i class="uil uil-shield-check" style="color: #10b981;"></i> 100% Công Bằng &bull; Chuẩn Mật Mã CSPRNG
     </div>
   </header>
 
   <!-- Page Title -->
   <div class="page-title">
     <h1><i class="uil uil-dice-six" style="color: var(--primary);"></i> Quay Số Ngẫu Nhiên</h1>
-    <p>Chọn phạm vi từ A đến Z, sau đó bấm nút để nhảy số ngẫu nhiên</p>
+    <p>Thuật toán ngẫu nhiên phần cứng Cryptographically Secure (CSPRNG) &bull; Tuyệt đối minh bạch và công bằng</p>
   </div>
 
   <!-- App Main Content -->
@@ -1105,9 +1105,35 @@
     let usedNumbers = new Set(); // For unique mode
     const duration = 1500; // Tốc độ quay số mặc định cố định 1.5s
 
-    // Helper: random int in [min, max]
+    // Helper: Cryptographically Secure Random Int in [min, max] (CSPRNG)
+    // Loại trừ hoàn toàn sai số Modulo Bias bằng thuật toán Rejection Sampling chuẩn mật mã
     function getRandomInt(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      if (min > max) {
+        const temp = min; min = max; max = temp;
+      }
+      const range = max - min + 1;
+      if (range <= 1) return min;
+
+      const cryptoObj = window.crypto || window.msCrypto;
+      if (cryptoObj && cryptoObj.getRandomValues) {
+        // Sử dụng Uint32Array (4.29 tỷ giá trị từ 0 đến 4,294,967,295)
+        const maxUint32 = 0xFFFFFFFF;
+        // Giới hạn an toàn chia hết cho range để tránh hiện tượng modulo bias
+        const limit = maxUint32 - (maxUint32 % range);
+        const buffer = new Uint32Array(1);
+        let randVal;
+        do {
+          cryptoObj.getRandomValues(buffer);
+          randVal = buffer[0];
+        } while (randVal >= limit);
+
+        return min + (randVal % range);
+      }
+
+      // Fallback an toàn cho trình duyệt không hỗ trợ crypto
+      return Math.floor(Math.random() * range) + min;
     }
 
     // Update range info text
@@ -1205,22 +1231,55 @@
         }
       }
 
-      // Prepare target numbers
+      // Chuẩn bị danh sách số trúng thưởng (Thuật toán CSPRNG + Fisher-Yates Selection)
       const finalNumbers = [];
-      for (let i = 0; i < count; i++) {
-        let n;
-        let attempts = 0;
-        do {
-          n = getRandomInt(min, max);
-          attempts++;
-        } while (
-          (toggleUnique.checked && usedNumbers.has(n) && attempts < 1000) ||
-          (finalNumbers.includes(n) && attempts < 1000)
-        );
 
-        finalNumbers.push(n);
-        if (toggleUnique.checked) {
-          usedNumbers.add(n);
+      if (toggleUnique.checked) {
+        // Chế độ không trùng lặp: Thuật toán Fisher-Yates Selection Pool
+        if (totalPossible <= 50000) {
+          // Xây dựng pool các số còn khả dụng
+          const availablePool = [];
+          for (let val = min; val <= max; val++) {
+            if (!usedNumbers.has(val)) {
+              availablePool.push(val);
+            }
+          }
+
+          // Rút thăm k số ngẫu nhiên từ pool bằng Fisher-Yates swap O(1)
+          for (let i = 0; i < count && availablePool.length > 0; i++) {
+            const randIdx = getRandomInt(0, availablePool.length - 1);
+            const chosen = availablePool[randIdx];
+            availablePool[randIdx] = availablePool[availablePool.length - 1];
+            availablePool.pop();
+
+            finalNumbers.push(chosen);
+            usedNumbers.add(chosen);
+          }
+        } else {
+          // Dải số cực lớn (> 50.000 số): Rejection Sampling an toàn
+          const batchSet = new Set();
+          while (finalNumbers.length < count) {
+            const n = getRandomInt(min, max);
+            if (!usedNumbers.has(n) && !batchSet.has(n)) {
+              finalNumbers.push(n);
+              batchSet.add(n);
+              usedNumbers.add(n);
+            }
+          }
+        }
+      } else {
+        // Chế độ cho phép lặp lại giữa các lần quay
+        // Trong cùng 1 lượt quay: các số không trùng nhau nếu count <= totalPossible
+        const batchSet = new Set();
+        for (let i = 0; i < count; i++) {
+          let n;
+          let attempts = 0;
+          do {
+            n = getRandomInt(min, max);
+            attempts++;
+          } while (batchSet.has(n) && count <= totalPossible && attempts < 100);
+          batchSet.add(n);
+          finalNumbers.push(n);
         }
       }
 

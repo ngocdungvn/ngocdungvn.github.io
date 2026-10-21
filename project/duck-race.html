@@ -110,7 +110,7 @@
       pointer-events: none;
     }
 
-    header.game-header > * {
+    header.game-header>* {
       pointer-events: auto;
     }
 
@@ -230,8 +230,14 @@
       font-weight: 900;
       line-height: 1;
     }
-    .os-arrows .up { color: #22c55e; }
-    .os-arrows .down { color: #ef4444; }
+
+    .os-arrows .up {
+      color: #22c55e;
+    }
+
+    .os-arrows .down {
+      color: #ef4444;
+    }
 
     .os-brand-text {
       font-family: 'Outfit', sans-serif;
@@ -726,6 +732,7 @@
       from {
         transform: translateY(0) scale(1);
       }
+
       to {
         transform: translateY(-8px) scale(1.12);
       }
@@ -823,7 +830,7 @@
       color: #000000;
       border: 3px solid #000000;
       border-bottom: none;
-      box-shadow: 2px 0 0 #000000 inset, -2px 0 0 rgba(0,0,0,0.12) inset;
+      box-shadow: 2px 0 0 #000000 inset, -2px 0 0 rgba(0, 0, 0, 0.12) inset;
       transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
@@ -1083,6 +1090,7 @@
     }
 
     @media (max-width: 640px) {
+
       /* Mobile HUD & Header Optimization */
       .game-header {
         padding: 6px 10px;
@@ -1101,7 +1109,8 @@
       }
 
       .os-right-controls {
-        display: none; /* Hide fullscreen button on mobile to preserve stopwatch space */
+        display: none;
+        /* Hide fullscreen button on mobile to preserve stopwatch space */
       }
 
       .os-stopwatch-hud {
@@ -1426,14 +1435,32 @@
     }
 
     @keyframes rotateBounce {
-      0%, 20% { transform: rotate(0deg); }
-      50% { transform: rotate(90deg); }
-      80%, 100% { transform: rotate(0deg); }
+
+      0%,
+      20% {
+        transform: rotate(0deg);
+      }
+
+      50% {
+        transform: rotate(90deg);
+      }
+
+      80%,
+      100% {
+        transform: rotate(0deg);
+      }
     }
 
     @keyframes hintSlideDown {
-      from { opacity: 0; transform: translate(-50%, -10px); }
-      to { opacity: 1; transform: translate(-50%, 0); }
+      from {
+        opacity: 0;
+        transform: translate(-50%, -10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
     }
 
     .close-hint-btn {
@@ -1446,11 +1473,14 @@
       color: #000000;
       opacity: 0.6;
     }
+
     .close-hint-btn:hover {
       opacity: 1;
     }
 
-    @media (orientation: landscape), (min-width: 641px), (max-height: 520px) {
+    @media (orientation: landscape),
+    (min-width: 641px),
+    (max-height: 520px) {
       .rotate-hint {
         display: none !important;
       }
@@ -1494,7 +1524,8 @@
 
       <!-- Top Right: Action Tools -->
       <div class="os-right-controls">
-        <button class="os-icon-btn" id="btnViewResultsHeader" title="Xem lại kết quả" style="display: none; background: #ea580c; border-color: #ea580c;">
+        <button class="os-icon-btn" id="btnViewResultsHeader" title="Xem lại kết quả"
+          style="display: none; background: #ea580c; border-color: #ea580c;">
           <i class="uil uil-trophy"></i>
         </button>
         <button class="os-icon-btn" id="btnFullscreen" title="Toàn màn hình">
@@ -1557,7 +1588,7 @@
               <span>Danh sách người tham gia (ngăn cách bởi dấu phẩy <b>,</b> hoặc xuống dòng)</span>
             </div>
             <textarea class="names-input" id="namesInput"
-              placeholder="Nhập tên người tham gia, ngăn cách bởi dấu phẩy (,) hoặc xuống dòng&#10;Ví dụ: Ngọc Dũng, Minh Sáng, Hoàng Nam, Thanh Trúc, Văn Hùng..."></textarea>
+              placeholder="Nhập tên người tham gia, ngăn cách bởi dấu phẩy (,) hoặc xuống dòng&#10;Ví dụ: Ngọc Dũng, Minh Sáng, Hoàng Nam,..."></textarea>
 
             <div class="quick-preset-btns">
               <button class="preset-btn" data-preset="numbers" data-count="5">5 Vịt</button>
@@ -1590,7 +1621,8 @@
           <div class="fair-play-box">
             <i class="uil uil-shield-check fair-play-icon"></i>
             <div class="fair-play-text">
-              <b>Cơ chế quay 100% ngẫu nhiên & công bằng:</b> Mỗi chú vịt đều có cơ hội chiến thắng hoàn toàn bình đẳng với thuật toán gia tốc ngẫu nhiên và mô phỏng sóng nước.
+              <b>Cơ chế quay 100% ngẫu nhiên & công bằng:</b> Mỗi chú vịt đều có cơ hội chiến thắng hoàn toàn bình đẳng
+              với thuật toán gia tốc ngẫu nhiên và mô phỏng sóng nước.
             </div>
           </div>
         </div>
@@ -1746,7 +1778,7 @@
 
           osc.start(now);
           osc.stop(now + 0.22);
-        } catch (e) {}
+        } catch (e) { }
       },
 
       playCheer() {
@@ -1771,7 +1803,7 @@
             osc.start(now);
             osc.stop(now + 0.35);
           });
-        } catch (e) {}
+        } catch (e) { }
       },
 
       playClick() {
@@ -1794,7 +1826,7 @@
 
           osc.start(now);
           osc.stop(now + 0.05);
-        } catch (e) {}
+        } catch (e) { }
       },
 
       startMusic() {
@@ -1830,7 +1862,7 @@
 
             osc.start(now);
             osc.stop(now + note.d / 1000);
-          } catch (e) {}
+          } catch (e) { }
 
           this.musicTimer = setTimeout(playNext, note.d);
         };
@@ -2167,8 +2199,8 @@
 
         // 9. Thẻ tên thí sinh dạng bong bóng lời thoại hoạt hình (comic speech bubble như ảnh)
         const isHovered = STATE.hoveredDuck === this;
-        const isRacingByNames = STATE.isRacingByNames !== undefined 
-          ? STATE.isRacingByNames 
+        const isRacingByNames = STATE.isRacingByNames !== undefined
+          ? STATE.isRacingByNames
           : (STATE.ducks && STATE.ducks.some(d => !/^Sốs*d+$/i.test(d.name) && !/^d+$/.test(d.name)));
         let shouldShowNameTag = false;
         if (isHovered) {
@@ -3501,13 +3533,13 @@
           if (req) {
             req.call(docEl).then(() => {
               if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock('landscape').catch(() => {});
+                screen.orientation.lock('landscape').catch(() => { });
               }
-            }).catch(() => {});
+            }).catch(() => { });
           }
         } else {
           const exit = document.exitFullscreen || document.webkitExitFullscreen;
-          if (exit) exit.call(document).catch(() => {});
+          if (exit) exit.call(document).catch(() => { });
         }
       });
 
@@ -3525,9 +3557,9 @@
           if (req) {
             req.call(docEl).then(() => {
               if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock('landscape').catch(() => {});
+                screen.orientation.lock('landscape').catch(() => { });
               }
-            }).catch(() => {});
+            }).catch(() => { });
           }
         });
       }
