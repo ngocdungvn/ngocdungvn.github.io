@@ -1624,6 +1624,78 @@
         display: none !important;
       }
     }
+
+    /* Exit Landscape Hint (Mobile Landscape) */
+    .landscape-exit-hint {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      left: auto;
+      transform: none;
+      background: #ffffff;
+      color: #000000;
+      border: 2.5px solid #000000;
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 800;
+      box-shadow: 2.5px 2.5px 0px #000000;
+      align-items: center;
+      gap: 7px;
+      z-index: 35;
+      animation: landscapeSlideDown 0.4s ease;
+      white-space: nowrap;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    @keyframes landscapeSlideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .landscape-exit-hint:hover {
+      background: #fffbeb;
+      box-shadow: 3.5px 3.5px 0px #000000;
+    }
+
+    .landscape-exit-hint .exit-link {
+      color: #dc2626;
+      text-decoration: underline;
+      font-weight: 900;
+    }
+
+    .landscape-exit-icon {
+      font-size: 13px;
+      display: inline-block;
+      animation: exitRotateBounce 2s infinite ease-in-out;
+    }
+
+    @keyframes exitRotateBounce {
+      0%, 20% {
+        transform: rotate(0deg);
+      }
+      50% {
+        transform: rotate(-90deg);
+      }
+      80%, 100% {
+        transform: rotate(0deg);
+      }
+    }
+
+    @media (orientation: landscape) and (max-height: 520px),
+    (orientation: landscape) and (hover: none) and (pointer: coarse) {
+      .landscape-exit-hint {
+        display: flex;
+      }
+    }
   </style>
 </head>
 
@@ -1685,6 +1757,13 @@
       <span class="rotate-hint-icon">📱</span>
       <span>Xoay ngang để đường đua dài & đã mắt hơn!</span>
       <button id="btnCloseRotateHint" class="close-hint-btn" title="Đóng gợi ý">✕</button>
+    </div>
+
+    <!-- Exit Landscape Hint for Mobile Landscape -->
+    <div id="landscapeExitHint" class="landscape-exit-hint" title="Bấm để thoát xoay ngang hoặc xoay dọc máy">
+      <span class="landscape-exit-icon">🔄</span>
+      <span>Xoay dọc máy hoặc <strong class="exit-link">bấm vào đây</strong> để thoát xoay ngang</span>
+      <button id="btnCloseLandscapeHint" class="close-hint-btn" title="Đóng hướng dẫn">✕</button>
     </div>
 
     <!-- Canvas Simulation -->
@@ -2199,101 +2278,75 @@
         const isLeader = (ducksAhead === 0);
         const leaderGap = isLeader ? (leadingX - (secondLeadX > -Infinity ? secondLeadX : leadingX)) : 0;
 
-        // Lực kéo núp gió tự nhiên (Drafting / Slipstream):
-        // Vịt càng bị tụt lại phía sau thì càng được dòng nước của đàn trước cuốn đi (+4% đến +22% tốc độ)
-        const draftAssist = isLeader ? 0 : Math.min(0.22, (distBehindLeader / (200 * this.scale)) * 0.20);
+        // Lực kéo núp gió & nén đàn tự nhiên (Flock Compression & Drafting):
+        // Giữ cả bầy vịt luôn bơi bó sát nhau kề cận, kèn cựa từng centimet, chống giãn cách đội hình
+        let draftAssist = 0;
+        if (!isLeader) {
+          if (progressRatio >= 0.75) {
+            // Giai đoạn nước rút về đích: Nén đàn mạnh mẽ, bất kỳ vịt nào tụt lại đều được hút nước bám sát ngay sau mỏ vịt đầu (trong tầm 15-30px)
+            draftAssist = Math.min(0.24, Math.max(0, (distBehindLeader / (25 * this.scale)) * 0.16));
+          } else {
+            // Giai đoạn đường trường: Đàn bơi cùng nhau, vịt sau được hút nước bám đuổi
+            draftAssist = Math.min(0.18, Math.max(0, (distBehindLeader / (45 * this.scale)) * 0.14));
+          }
+        }
 
-        // 2. Quản lý nhịp bứt phá & giữ sức linh hoạt (Dynamic Unpredictable Racing Engine)
+        // 2. Quản lý nhịp bơi & nước rút kề cận (Photo-Finish Sprint Engine)
         this.phaseTimer -= dt;
         if (this.phaseTimer <= 0) {
           const roll = Math.random();
 
-          if (progressRatio >= 0.80) {
-            // --- GIAI ĐOẠN NƯỚC RÚT VỀ ĐÍCH (80% -> 100%): KỊCH TÍNH, ĐẢO CHIỀU KHÔNG THỂ ĐOÁN TRƯỚC ---
-            // Tuyệt đối không khóa cứng phaseTimer; cập nhật liên tục mỗi 15-28 frames (0.25s - 0.45s)
+          if (progressRatio >= 0.75) {
+            // --- GIAI ĐOẠN NƯỚC RÚT VỀ ĐÍCH (75% -> 100%): BÓ SÁT, TRANH CHẤP MỎ VỊT, PHOTO-FINISH NGHẸT THỞ ---
+            // Chu kỳ siêu ngắn 7-14 frames (0.12s - 0.23s) để liên tục đổi mũi dẫn đầu mà không tạo khoảng cách lớn
             this.phase = 'sprint';
-            this.phaseTimer = Math.floor(15 + Math.random() * 14);
+            this.phaseTimer = Math.floor(7 + Math.random() * 8);
 
-            if (progressRatio >= 0.86) {
-              // Đoạn quyết định 14% cuối cùng trước vạch đích
-              if (isLeader) {
-                // Vịt đang dẫn đầu chịu áp lực lớn và sức cản nước: 45% khả năng bị hụt hơi chặng cuối
-                if (roll < 0.45) {
-                  this.targetMultiplier = 1.00 + Math.random() * 0.12; // 1.00 - 1.12x (hụt hơi)
-                } else {
-                  this.targetMultiplier = 1.16 + Math.random() * 0.22; // 1.16 - 1.38x
-                }
-              } else if (distBehindLeader <= 180 * this.scale) {
-                // Các vịt bám đuổi trong tầm ngắm (Top 2, 3, 4, 5...): 60% kích hoạt "Cú rướn lội ngược dòng" ngoạn mục!
-                if (roll < 0.60) {
-                  this.targetMultiplier = 1.38 + Math.random() * 0.32; // 1.38 - 1.70x bứt phá cực mạnh
-                  this.phaseTimer = Math.floor(22 + Math.random() * 18);
-                } else {
-                  this.targetMultiplier = 1.18 + Math.random() * 0.20; // 1.18 - 1.38x
-                }
+            if (isLeader) {
+              // Vịt dẫn đầu: Chống tách tốp đơn độc. Nếu bứt lên trước > 14px sẽ gặp sức cản nước giữ lại cùng đàn
+              if (leaderGap > 14 * this.scale) {
+                this.targetMultiplier = 1.01 + Math.random() * 0.04; // Chậm nhẹ để đàn bám kịp
               } else {
-                this.targetMultiplier = 1.25 + Math.random() * 0.25;
+                this.targetMultiplier = 1.10 + Math.random() * 0.08; // 1.10 - 1.18x
               }
             } else {
-              // 80% - 86%: Tăng tốc toàn đàn, vịt sau có tỷ lệ bứt tốc cao hơn vịt dẫn đầu
-              if (isLeader) {
-                this.targetMultiplier = 1.08 + Math.random() * 0.18; // 1.08 - 1.26x
+              // Các vịt bám đuổi: Luôn bơi ở nhịp cao, thay phiên nhau thò mỏ vượt lên
+              if (distBehindLeader > 28 * this.scale) {
+                // Hơi tụt lại: Bứt tốc ngay để bắt kịp bầy
+                this.targetMultiplier = 1.20 + Math.random() * 0.08; // 1.20 - 1.28x
               } else {
-                this.targetMultiplier = 1.16 + Math.random() * 0.28; // 1.16 - 1.44x
+                // Đang kè sát mỏ nhau (trong khoảng 0-28px): Dao động vi mô cực nhỏ để đổi ngôi liên tục
+                this.targetMultiplier = 1.08 + Math.random() * 0.14; // 1.08 - 1.22x
               }
             }
           } else {
-            // --- GIAI ĐOẠN ĐƯỜNG TRƯỜNG (0% -> 80%): LIÊN TỤC ĐỔI NGÔI, ĐÀN BÁM SÍT SAO ---
-            // Chu kỳ ngắn 18 - 38 frames (0.3s - 0.65s) giúp thế trận thay đổi dồn dập
-            this.phaseTimer = Math.floor(18 + Math.random() * 20);
+            // --- GIAI ĐOẠN ĐƯỜNG TRƯỜNG (0% -> 75%): LIÊN TỤC ĐỔI NGÔI, ĐÀN BÁM SÍT SAO ---
+            this.phaseTimer = Math.floor(15 + Math.random() * 18);
 
             if (isLeader) {
-              // CHỐNG ĐỘC TÔN: Vịt dẫn đầu nếu bứt xa khỏi đàn (> 40px) sẽ gặp xoáy nước cản lại
-              if (leaderGap > 40 * this.scale) {
+              // CHỐNG ĐỘC TÔN: Vịt dẫn đầu nếu bứt xa khỏi đàn (> 30px) sẽ gặp xoáy nước cản lại
+              if (leaderGap > 30 * this.scale) {
                 this.phase = 'cruise';
-                this.targetMultiplier = 0.90 + Math.random() * 0.12; // 0.90 - 1.02x (chậm lại chờ đàn)
-                this.phaseTimer = Math.floor(25 + Math.random() * 20);
-              } else if (roll < 0.25) {
+                this.targetMultiplier = 0.92 + Math.random() * 0.08;
+                this.phaseTimer = Math.floor(20 + Math.random() * 15);
+              } else if (roll < 0.35) {
                 this.phase = 'surge';
-                this.targetMultiplier = 1.12 + Math.random() * 0.14; // 1.12 - 1.26x
-              } else if (roll < 0.70) {
-                this.phase = 'normal';
-                this.targetMultiplier = 0.98 + Math.random() * 0.10; // 0.98 - 1.08x
+                this.targetMultiplier = 1.10 + Math.random() * 0.10;
               } else {
-                this.phase = 'cruise';
-                this.targetMultiplier = 0.88 + Math.random() * 0.10; // 0.88 - 0.98x
+                this.phase = 'normal';
+                this.targetMultiplier = 0.98 + Math.random() * 0.08;
               }
             } else {
-              // VỊT PHÍA SAU: Tỷ lệ bùng nổ vượt mặt cực kỳ thường xuyên
-              if (ducksAhead >= 2) {
-                // Nhóm giữa và sau: 65% cơ hội bứt phá thần tốc
-                if (roll < 0.40) {
-                  this.phase = 'super_surge';
-                  this.targetMultiplier = 1.28 + Math.random() * 0.30; // 1.28 - 1.58x
-                  this.phaseTimer = Math.floor(25 + Math.random() * 20);
-                } else if (roll < 0.75) {
-                  this.phase = 'surge';
-                  this.targetMultiplier = 1.15 + Math.random() * 0.20; // 1.15 - 1.35x
-                } else if (roll < 0.92) {
-                  this.phase = 'normal';
-                  this.targetMultiplier = 0.98 + Math.random() * 0.12;
-                } else {
-                  this.phase = 'cruise';
-                  this.targetMultiplier = 0.86 + Math.random() * 0.10;
-                }
+              // Vịt bám đuổi: Thường xuyên bứt phá tấn công
+              if (distBehindLeader > 45 * this.scale) {
+                this.phase = 'super_surge';
+                this.targetMultiplier = 1.22 + Math.random() * 0.12;
+              } else if (roll < 0.50) {
+                this.phase = 'surge';
+                this.targetMultiplier = 1.14 + Math.random() * 0.12;
               } else {
-                // Đang chạy nhì (#2): 55% cơ hội tấn công tranh chấp vị trí số 1
-                if (roll < 0.55) {
-                  this.phase = 'surge';
-                  this.targetMultiplier = 1.22 + Math.random() * 0.24; // 1.22 - 1.46x
-                  this.phaseTimer = Math.floor(22 + Math.random() * 18);
-                } else if (roll < 0.82) {
-                  this.phase = 'normal';
-                  this.targetMultiplier = 1.00 + Math.random() * 0.10;
-                } else {
-                  this.phase = 'cruise';
-                  this.targetMultiplier = 0.88 + Math.random() * 0.10;
-                }
+                this.phase = 'normal';
+                this.targetMultiplier = 1.00 + Math.random() * 0.08;
               }
             }
           }
@@ -2301,7 +2354,7 @@
 
         // Tích hợp lực đẩy núp gió vào mục tiêu tốc độ và hòa trộn mượt mà
         const finalTarget = this.targetMultiplier + draftAssist;
-        const blendRate = (this.phase === 'sprint' || this.phase === 'super_surge') ? 0.11 : 0.08;
+        const blendRate = (progressRatio >= 0.75) ? 0.16 : 0.09;
         this.speedMultiplier += (finalTarget - this.speedMultiplier) * Math.min(1.0, blendRate * dt);
         this.currentSpeed = this.baseSpeed * this.speedMultiplier;
 
@@ -2334,21 +2387,15 @@
           }
         }
 
-        // Kiểm tra cán vạch đích nghiêng (Slanted Checkered Banner)
-        const height = STATE.canvasHeight - STATE.topBankH;
-        const slantOffset = Math.round(STATE.canvasHeight * 0.13);
-        const topX = STATE.finishLineX + slantOffset;
-        const bottomX = STATE.finishLineX - slantOffset;
-        const lineXAtDuckY = topX + ((this.y - STATE.topBankH) / height) * (bottomX - topX);
+        // Kiểm tra cán vạch đích (Checkered Finish Line)
         const duckNoseX = this.x + (34 * this.scale);
-
-        if (duckNoseX >= lineXAtDuckY && !this.isFinished) {
+        if (duckNoseX >= STATE.finishLineX && !this.isFinished) {
           this.isFinished = true;
           const rawTime = Math.round(STATE.gameTimeMs || 0);
           const prevTime = STATE.rankedResults.length > 0
             ? STATE.rankedResults[STATE.rankedResults.length - 1].finishTime
             : 0;
-          this.finishTime = Math.max(rawTime, prevTime + 90);
+          this.finishTime = Math.max(rawTime, prevTime + 30);
           STATE.rankedResults.push(this);
           this.rank = STATE.rankedResults.length;
 
@@ -3175,10 +3222,6 @@
         STATE.finishLineX = STATE.startLineX + STATE.trackLength;
         STATE.cameraX = 0;
 
-        const slantOffset = Math.round(STATE.canvasHeight * 0.13);
-        const topStartX = STATE.startLineX + slantOffset;
-        const bottomStartX = STATE.startLineX - slantOffset;
-
         // Trộn ngẫu nhiên vị trí làn đua nếu được yêu cầu (đảm bảo không thiên vị bất kỳ ai)
         const laneSlots = [...Array(total).keys()];
         if (shuffleLanes) {
@@ -3198,11 +3241,9 @@
           duck.baseY = startY + laneIndex * laneH + jitterY;
           duck.y = duck.baseY;
 
-          // Căn chuẩn xác sau vạch xuất phát nghiêng: MỌI CHÚ VỊT ĐỀU CÙNG CỰ LY XUẤT PHÁT CÔNG BẰNG 100%
-          const lineXAtDuckY = topStartX + ((duck.y - topBankH) / riverH) * (bottomStartX - topStartX);
+          // Căn chuẩn xác sau vạch xuất phát thẳng đứng: MỌI CHÚ VỊT ĐỀU CÙNG CỰ LY XUẤT PHÁT CÔNG BẰNG 100%
           const microJitter = (Math.random() - 0.5) * 4 * duckScale;
-
-          duck.x = lineXAtDuckY - (38 * duckScale) + microJitter;
+          duck.x = STATE.startLineX - (38 * duckScale) + microJitter;
 
           // Tốc độ bơi cơ sở tính theo cự ly thực tế trên trackLength & raceDuration
           // Tăng tốc độ bơi lên, đồng bộ chính xác với đồng hồ đếm ngược
@@ -3497,44 +3538,6 @@
         });
 
         ctx.restore();
-
-        // 4. Banner cảnh báo Nước Rút Về Đích trên màn hình
-        const leadingDuck = STATE.currentLeader;
-        const leadingX = leadingDuck ? leadingDuck.x : 0;
-        const progressRatio = Math.min(Math.max((leadingX - STATE.startLineX) / STATE.trackLength, 0), 1);
-        if (STATE.isRunning && !STATE.isFinished && progressRatio >= 0.80) {
-          this.drawSprintBanner(ctx, w, h);
-        }
-      },
-
-      drawSprintBanner(ctx, w, h) {
-        ctx.save();
-        const pulse = 1.0 + Math.sin(Date.now() * 0.012) * 0.04;
-        const bannerW = Math.min(260, w * 0.55);
-        const bannerH = 34;
-        const bannerX = w / 2;
-        const bannerY = STATE.topBankH + 28;
-
-        ctx.translate(bannerX, bannerY);
-        ctx.scale(pulse, pulse);
-
-        ctx.beginPath();
-        ctx.roundRect(-bannerW / 2, -bannerH / 2, bannerW, bannerH, 17);
-        ctx.fillStyle = '#ef4444';
-        ctx.fill();
-        ctx.strokeStyle = '#000000';
-        ctx.lineWidth = 2.5;
-        ctx.stroke();
-
-        ctx.font = '900 13px Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-        ctx.fillStyle = '#ffffff';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.shadowColor = 'rgba(0,0,0,0.4)';
-        ctx.shadowBlur = 3;
-        ctx.fillText('🏁 NƯỚC RÚT VỀ ĐÍCH! 🏁', 0, 1);
-
-        ctx.restore();
       },
 
       drawScenery(ctx, w, h, camX = 0) {
@@ -3616,126 +3619,71 @@
         ctx.restore();
       },
 
-      // Vẽ vạch xuất phát chéo ca-rô chuẩn Online-Stopwatch với các số làn đua lớn in nghiêng
+      // Vẽ vạch xuất phát ca-rô thẳng đứng chuẩn Online-Stopwatch
       drawStartLine(ctx, startX, topY, bottomY) {
         const height = bottomY - topY;
-        const slantOffset = Math.round(STATE.canvasHeight * 0.13);
-        const topX = startX + slantOffset;
-        const bottomX = startX - slantOffset;
         const bannerW = 44;
         const squareH = 24;
         const totalRows = Math.ceil(height / squareH);
 
         ctx.save();
         for (let r = 0; r < totalRows; r++) {
-          const t1 = r / totalRows;
-          const t2 = (r + 1) / totalRows;
-          const y1 = topY + t1 * height;
-          const y2 = topY + t2 * height;
-          const cx1 = topX + t1 * (bottomX - topX);
-          const cx2 = topX + t2 * (bottomX - topX);
+          const y1 = topY + (r / totalRows) * height;
+          const y2 = topY + ((r + 1) / totalRows) * height;
+          const hRow = y2 - y1;
 
           // Cột trái
           ctx.beginPath();
-          ctx.moveTo(cx1 - bannerW / 2, y1);
-          ctx.lineTo(cx1, y1);
-          ctx.lineTo(cx2, y2);
-          ctx.lineTo(cx2 - bannerW / 2, y2);
-          ctx.closePath();
+          ctx.rect(startX - bannerW / 2, y1, bannerW / 2, hRow);
           ctx.fillStyle = r % 2 === 0 ? '#000000' : '#ffffff';
           ctx.fill();
 
           // Cột phải
           ctx.beginPath();
-          ctx.moveTo(cx1, y1);
-          ctx.lineTo(cx1 + bannerW / 2, y1);
-          ctx.lineTo(cx2 + bannerW / 2, y2);
-          ctx.lineTo(cx2, y2);
-          ctx.closePath();
+          ctx.rect(startX, y1, bannerW / 2, hRow);
           ctx.fillStyle = r % 2 === 0 ? '#ffffff' : '#000000';
           ctx.fill();
         }
 
         // Viền đen đậm chuẩn hoạt hình bao quanh vạch xuất phát
         ctx.beginPath();
-        ctx.moveTo(topX - bannerW / 2, topY);
-        ctx.lineTo(topX + bannerW / 2, topY);
-        ctx.lineTo(bottomX + bannerW / 2, bottomY);
-        ctx.lineTo(bottomX - bannerW / 2, bottomY);
-        ctx.closePath();
+        ctx.rect(startX - bannerW / 2, topY, bannerW, height);
         ctx.strokeStyle = '#000000';
         ctx.lineWidth = 3.5;
         ctx.stroke();
 
-        // Vẽ các số làn đua lớn in nghiêng cạnh vạch xuất phát (chuẩn Online-Stopwatch: 1, 2, 3...)
-        const numLanes = STATE.numLanes || 1;
-        const laneH = STATE.laneH || 50;
-        const startY = STATE.startY || topY + 40;
-        const numFontSize = Math.max(22, Math.round(36 * Math.min(STATE.duckScale || 1.0, 1.8)));
-
-        for (let lane = 0; lane < numLanes; lane++) {
-          const laneY = startY + lane * laneH;
-          const lineXAtLaneY = topX + ((laneY - topY) / height) * (bottomX - topX);
-          ctx.save();
-          ctx.font = 'italic 900 ' + numFontSize + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-          ctx.fillStyle = '#000000';
-          ctx.textAlign = 'left';
-          ctx.textBaseline = 'middle';
-          const laneNumber = lane + 1;
-          ctx.fillText(String(laneNumber), lineXAtLaneY + bannerW * 0.72, laneY);
-          ctx.restore();
-        }
-
         ctx.restore();
       },
 
-      // Vẽ vạch đích chéo ca-rô 15 độ kinh điển của Online-Stopwatch
+      // Vẽ vạch đích ca-rô thẳng đứng kinh điển của Online-Stopwatch
       drawFinishLine(ctx, finishX, topY, bottomY) {
         const height = bottomY - topY;
-        const slantOffset = Math.round(STATE.canvasHeight * 0.13);
-        const topX = finishX + slantOffset;
-        const bottomX = finishX - slantOffset;
         const bannerW = 44;
         const squareH = 24;
         const totalRows = Math.ceil(height / squareH);
 
         ctx.save();
         for (let r = 0; r < totalRows; r++) {
-          const t1 = r / totalRows;
-          const t2 = (r + 1) / totalRows;
-          const y1 = topY + t1 * height;
-          const y2 = topY + t2 * height;
-          const cx1 = topX + t1 * (bottomX - topX);
-          const cx2 = topX + t2 * (bottomX - topX);
+          const y1 = topY + (r / totalRows) * height;
+          const y2 = topY + ((r + 1) / totalRows) * height;
+          const hRow = y2 - y1;
 
           // Cột trái
           ctx.beginPath();
-          ctx.moveTo(cx1 - bannerW / 2, y1);
-          ctx.lineTo(cx1, y1);
-          ctx.lineTo(cx2, y2);
-          ctx.lineTo(cx2 - bannerW / 2, y2);
-          ctx.closePath();
+          ctx.rect(finishX - bannerW / 2, y1, bannerW / 2, hRow);
           ctx.fillStyle = r % 2 === 0 ? '#000000' : '#ffffff';
           ctx.fill();
 
           // Cột phải
           ctx.beginPath();
-          ctx.moveTo(cx1, y1);
-          ctx.lineTo(cx1 + bannerW / 2, y1);
-          ctx.lineTo(cx2 + bannerW / 2, y2);
-          ctx.lineTo(cx2, y2);
-          ctx.closePath();
+          ctx.rect(finishX, y1, bannerW / 2, hRow);
           ctx.fillStyle = r % 2 === 0 ? '#ffffff' : '#000000';
           ctx.fill();
         }
 
         // Viền đen đậm chuẩn hoạt hình bao quanh toàn bộ vạch đích
         ctx.beginPath();
-        ctx.moveTo(topX - bannerW / 2, topY);
-        ctx.lineTo(topX + bannerW / 2, topY);
-        ctx.lineTo(bottomX + bannerW / 2, bottomY);
-        ctx.lineTo(bottomX - bannerW / 2, bottomY);
-        ctx.closePath();
+        ctx.rect(finishX - bannerW / 2, topY, bannerW, height);
         ctx.strokeStyle = '#000000';
         ctx.lineWidth = 3.5;
         ctx.stroke();
@@ -3920,21 +3868,70 @@
       }
 
       // Nút Toàn màn hình & Tự động xoay ngang trên Mobile
-      document.getElementById('btnFullscreen').addEventListener('click', () => {
-        AudioController.playClick();
-        if (!document.fullscreenElement) {
-          const docEl = document.documentElement;
-          const req = docEl.requestFullscreen || docEl.webkitRequestFullscreen;
-          if (req) {
-            req.call(docEl).then(() => {
-              if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock('landscape').catch(() => { });
-              }
-            }).catch(() => { });
+      const btnFullscreen = document.getElementById('btnFullscreen');
+      function updateFullscreenUI() {
+        const isFs = !!document.fullscreenElement;
+        if (btnFullscreen) {
+          const icon = btnFullscreen.querySelector('i');
+          if (icon) {
+            icon.className = isFs ? 'uil uil-compress-arrows' : 'uil uil-expand-arrows';
           }
-        } else {
+          btnFullscreen.title = isFs ? 'Thoát toàn màn hình & mở khóa xoay' : 'Toàn màn hình & xoay ngang';
+        }
+      }
+
+      function safeUnlockOrientation() {
+        try {
+          if (screen.orientation && typeof screen.orientation.unlock === 'function') {
+            screen.orientation.unlock();
+          }
+        } catch (e) { }
+      }
+
+      function exitLandscape() {
+        AudioController.playClick();
+        safeUnlockOrientation();
+        if (document.fullscreenElement) {
           const exit = document.exitFullscreen || document.webkitExitFullscreen;
           if (exit) exit.call(document).catch(() => { });
+        }
+        const exitHint = document.getElementById('landscapeExitHint');
+        if (exitHint) exitHint.style.display = 'none';
+        showToast('Đã mở khóa xoay! Bạn có thể xoay dọc điện thoại để xem bình thường.');
+        setTimeout(() => {
+          GameEngine.layoutLanes();
+        }, 200);
+      }
+
+      if (btnFullscreen) {
+        btnFullscreen.addEventListener('click', () => {
+          AudioController.playClick();
+          if (!document.fullscreenElement) {
+            const docEl = document.documentElement;
+            const req = docEl.requestFullscreen || docEl.webkitRequestFullscreen;
+            if (req) {
+              req.call(docEl).then(() => {
+                if (screen.orientation && screen.orientation.lock) {
+                  screen.orientation.lock('landscape').catch(() => { });
+                }
+              }).catch(() => { });
+            }
+          } else {
+            exitLandscape();
+          }
+        });
+      }
+
+      document.addEventListener('fullscreenchange', () => {
+        updateFullscreenUI();
+        if (!document.fullscreenElement) {
+          safeUnlockOrientation();
+        }
+      });
+      document.addEventListener('webkitfullscreenchange', () => {
+        updateFullscreenUI();
+        if (!document.fullscreenElement) {
+          safeUnlockOrientation();
         }
       });
 
@@ -3958,6 +3955,32 @@
           }
         });
       }
+
+      // Gợi ý & hướng dẫn thoát màn hình xoay ngang (Mobile Landscape Exit Hint)
+      const landscapeExitHint = document.getElementById('landscapeExitHint');
+      const btnCloseLandscapeHint = document.getElementById('btnCloseLandscapeHint');
+      if (btnCloseLandscapeHint && landscapeExitHint) {
+        btnCloseLandscapeHint.addEventListener('click', (e) => {
+          e.stopPropagation();
+          landscapeExitHint.style.display = 'none';
+        });
+        landscapeExitHint.addEventListener('click', () => {
+          exitLandscape();
+        });
+      }
+
+      // Reset hiển thị hint khi thay đổi hướng thiết bị
+      window.addEventListener('orientationchange', () => {
+        setTimeout(() => {
+          if (landscapeExitHint && window.matchMedia('(orientation: portrait)').matches) {
+            landscapeExitHint.style.display = '';
+          }
+          if (rotateHint && window.matchMedia('(orientation: landscape)').matches) {
+            rotateHint.style.display = '';
+          }
+          GameEngine.layoutLanes();
+        }, 300);
+      });
 
       // Nút Xem lại kết quả trên Header & Nút nổi
       document.getElementById('btnViewResultsHeader').addEventListener('click', () => {
