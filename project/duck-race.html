@@ -1555,18 +1555,14 @@
           <div class="form-group">
             <div class="form-label">
               <span>Danh sách người tham gia (ngăn cách bởi dấu phẩy <b>,</b> hoặc xuống dòng)</span>
-              <span class="count-info" id="participantCount">0 chú vịt</span>
             </div>
             <textarea class="names-input" id="namesInput"
               placeholder="Nhập tên người tham gia, ngăn cách bởi dấu phẩy (,) hoặc xuống dòng&#10;Ví dụ: Ngọc Dũng, Minh Sáng, Hoàng Nam, Thanh Trúc, Văn Hùng..."></textarea>
 
             <div class="quick-preset-btns">
-              <span style="font-size: 11px; color: #64748b; align-self: center;">Sinh nhanh:</span>
-              <button class="preset-btn" data-preset="numbers" data-count="5">5 Vịt (Số)</button>
+              <button class="preset-btn" data-preset="numbers" data-count="5">5 Vịt</button>
               <button class="preset-btn" data-preset="numbers" data-count="10">10 Vịt</button>
               <button class="preset-btn" data-preset="numbers" data-count="20">20 Vịt</button>
-              <button class="preset-btn" data-preset="numbers" data-count="50">50 Vịt</button>
-              <button class="preset-btn" data-preset="sample">Mẫu tên vui</button>
               <button class="preset-btn" data-preset="clear">Xóa hết</button>
             </div>
           </div>
@@ -3584,7 +3580,10 @@
     function updateParticipantCount() {
       const text = document.getElementById('namesInput').value;
       const names = parseNames(text);
-      document.getElementById('participantCount').innerText = names.length + ' chú vịt';
+      const countEl = document.getElementById('participantCount');
+      if (countEl) {
+        countEl.innerText = names.length + ' chú vịt';
+      }
     }
 
     function parseNames(text) {
