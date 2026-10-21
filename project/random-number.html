@@ -279,6 +279,7 @@
         transform: scale(1);
         box-shadow: 2px 2px 0px #000000;
       }
+
       100% {
         transform: scale(1.05);
         box-shadow: 3.5px 3.5px 0px #000000;
@@ -322,6 +323,7 @@
       0% {
         transform: translate(-1.5px, 0.5px) scale(1.02);
       }
+
       100% {
         transform: translate(1.5px, -0.5px) scale(0.98);
       }
@@ -372,6 +374,7 @@
         opacity: 0;
         transform: scale(0.6) translateY(8px);
       }
+
       100% {
         opacity: 1;
         transform: scale(1) translateY(0);
@@ -619,7 +622,7 @@
       box-shadow: var(--shadow-neo-active);
     }
 
-    /* SỐ LƯỢNG KẾT QUẢ MỖI LẦN QUAY (1 - 5 - 10) */
+    /* SỐ KẾT QUẢ MỖI LẦN QUAY (XỔ XUỐNG) */
     .count-selector-group {
       margin-top: 0.25rem;
       margin-bottom: 1.25rem;
@@ -639,59 +642,8 @@
       margin-bottom: 0.5rem;
     }
 
-    .count-controls-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .count-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-    }
-
-    .count-pill {
-      background: #FFFFFF;
-      border: 2px solid #000000;
-      box-shadow: var(--shadow-neo-sm);
-      color: #000000;
-      font-size: 0.82rem;
-      font-weight: 800;
-      padding: 0.4rem 0.85rem;
-      min-height: 38px;
-      border-radius: var(--radius-full);
-      cursor: pointer;
-      transition: all 0.12s ease;
-      touch-action: manipulation;
-      user-select: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .count-pill:hover {
-      background: var(--bg-cream);
-      transform: translate(-1px, -1px);
-      box-shadow: var(--shadow-neo);
-    }
-
-    .count-pill.active {
-      background: var(--primary);
-      color: #000000;
-      transform: translate(2px, 2px);
-      box-shadow: var(--shadow-neo-active);
-    }
-
-    .count-pill:focus-visible {
-      outline: 3px solid #000000;
-      outline-offset: 2px;
-    }
-
     .count-select-wrap {
-      flex: 1;
-      min-width: 105px;
+      width: 100%;
     }
 
     .option-select {
@@ -700,9 +652,9 @@
       border: 2px solid #000000;
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-neo-sm);
-      padding: 0.4rem 0.75rem;
-      min-height: 38px;
-      font-size: 0.88rem;
+      padding: 0.65rem 0.85rem;
+      min-height: 44px;
+      font-size: 0.95rem;
       font-weight: 800;
       color: #000000;
       outline: none;
@@ -983,15 +935,19 @@
       from {
         transform: rotate(0deg);
       }
+
       to {
         transform: rotate(360deg);
       }
     }
 
     @keyframes pulse {
-      0%, 100% {
+
+      0%,
+      100% {
         opacity: 1;
       }
+
       50% {
         opacity: 0.6;
       }
@@ -1001,9 +957,11 @@
       0% {
         transform: scale(0.7);
       }
+
       60% {
         transform: scale(1.15);
       }
+
       100% {
         transform: scale(1);
       }
@@ -1014,6 +972,7 @@
         opacity: 0;
         transform: translateY(4px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -1025,6 +984,7 @@
         opacity: 0;
         transform: translateX(-8px);
       }
+
       to {
         opacity: 1;
         transform: translateX(0);
@@ -1185,20 +1145,8 @@
         justify-content: center;
       }
 
-      .count-pills {
-        gap: 0.4rem;
-      }
-
-      .count-pill {
-        padding: 0.4rem 0.75rem;
-        min-height: 38px;
-        font-size: 0.82rem;
-        border-width: 2px;
-        box-shadow: var(--shadow-neo-sm);
-      }
-
       .option-select {
-        min-height: 38px;
+        min-height: 44px;
         border-width: 2px;
         box-shadow: var(--shadow-neo-sm);
       }
@@ -1250,7 +1198,10 @@
 
     /* Accessibility: Respect Reduced Motion Preferences */
     @media (prefers-reduced-motion: reduce) {
-      *, ::before, ::after {
+
+      *,
+      ::before,
+      ::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
@@ -1346,7 +1297,8 @@
             </div>
           </div>
 
-          <button type="button" class="btn-swap" id="btn-swap" title="Hoán đổi Min - Max" aria-label="Hoán đổi giá trị nhỏ nhất và lớn nhất">
+          <button type="button" class="btn-swap" id="btn-swap" title="Hoán đổi Min - Max"
+            aria-label="Hoán đổi giá trị nhỏ nhất và lớn nhất">
             <i class="uil uil-exchange-alt"></i>
           </button>
 
@@ -1368,26 +1320,19 @@
           <button type="button" class="preset-pill active" data-min="1" data-max="100">1 – 100</button>
         </div>
 
-        <!-- Số lượng kết quả mỗi lần quay (1 - 5 - 10) -->
+        <!-- Số kết quả mỗi lần quay (xổ xuống) -->
         <div class="count-selector-group">
           <label for="select-count" class="count-title">
-            <i class="uil uil-layers"></i> Số lượng kết quả mỗi lần quay:
+            <i class="uil uil-layers"></i> Số kết quả mỗi lần quay:
           </label>
-          <div class="count-controls-wrap">
-            <div class="count-pills" id="count-pills">
-              <button type="button" class="count-pill active" data-count="1">1 số</button>
-              <button type="button" class="count-pill" data-count="5">5 số</button>
-              <button type="button" class="count-pill" data-count="10">10 số</button>
-            </div>
-            <div class="count-select-wrap">
-              <select id="select-count" class="option-select num-font" aria-label="Tùy chọn số lượng kết quả">
-                <option value="1" selected>1 số</option>
-                <option value="2">2 số</option>
-                <option value="3">3 số</option>
-                <option value="5">5 số</option>
-                <option value="10">10 số</option>
-              </select>
-            </div>
+          <div class="count-select-wrap">
+            <select id="select-count" class="option-select num-font" aria-label="Số kết quả mỗi lần quay">
+              <option value="1" selected>1 số</option>
+              <option value="2">2 số</option>
+              <option value="3">3 số</option>
+              <option value="5">5 số</option>
+              <option value="10">10 số</option>
+            </select>
           </div>
         </div>
 
@@ -1469,7 +1414,6 @@
     const inputMax = document.getElementById('input-max');
     const btnSwap = document.getElementById('btn-swap');
     const presetPills = document.querySelectorAll('.preset-pill');
-    const countPills = document.querySelectorAll('.count-pill');
     const selectCount = document.getElementById('select-count');
     const toggleUnique = document.getElementById('toggle-unique');
     const historyList = document.getElementById('history-list');
@@ -1561,27 +1505,8 @@
       });
     }
 
-    // Count pills & select sync handler (1 - 5 - 10)
-    countPills.forEach(pill => {
-      pill.addEventListener('click', () => {
-        countPills.forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
-        selectCount.value = pill.dataset.count;
-        resetUniquePool();
-      });
-    });
-
-    selectCount.addEventListener('change', () => {
-      const val = selectCount.value;
-      countPills.forEach(pill => {
-        if (pill.dataset.count === val) {
-          pill.classList.add('active');
-        } else {
-          pill.classList.remove('active');
-        }
-      });
-      resetUniquePool();
-    });
+    // Lựa chọn số kết quả mỗi lần quay (xổ xuống)
+    selectCount.addEventListener('change', resetUniquePool);
 
     // Toast Notification
     function showToast(msg) {
@@ -1694,10 +1619,10 @@
         return;
       }
 
-      // Rolling Animation Mode: Gồm 2 giai đoạn (Quay nhanh + 1s Hiệu ứng hồi hộp trước khi chốt kết quả)
+      // Rolling Animation Mode: Gồm 2 giai đoạn (Quay nhanh + 0.5s Hiệu ứng hồi hộp trước khi chốt kết quả)
       const rollDuration = 1000; // 1s quay lướt nhanh ban đầu
-      const suspenseDuration = 1000; // Đúng 1s hiệu ứng hồi hộp trước khi ra kết quả
-      const totalDuration = rollDuration + suspenseDuration; // 2.0s tổng thời gian
+      const suspenseDuration = 500; // Đúng 0.5s hiệu ứng hồi hộp trước khi ra kết quả
+      const totalDuration = rollDuration + suspenseDuration; // 1.5s tổng thời gian
 
       isSpinning = true;
       btnSpin.disabled = true;
@@ -1728,7 +1653,7 @@
             setTimeout(() => numberDisplay.classList.remove('pop'), 50);
           }
         } else if (elapsed < totalDuration) {
-          // GIAI ĐOẠN 2: ĐÚNG 1 GIÂY HIỆU ỨNG HỒI HỘP TRƯỚC KHI RA KẾT QUẢ (1000ms -> 2000ms)
+          // GIAI ĐOẠN 2: ĐÚNG 0.5 GIÂY HIỆU ỨNG HỒI HỘP TRƯỚC KHI RA KẾT QUẢ (1000ms -> 1500ms)
           if (!inSuspense) {
             inSuspense = true;
             stageStatus.className = 'stage-status suspense';
@@ -1737,16 +1662,16 @@
           }
 
           // Nhịp số nhảy chậm dần tạo cảm giác hồi hộp, kịch tính
-          const suspenseElapsed = elapsed - rollDuration; // 0 -> 1000ms
+          const suspenseElapsed = elapsed - rollDuration; // 0 -> 500ms
           const suspenseProgress = suspenseElapsed / suspenseDuration; // 0 -> 1
-          const interval = 120 + Math.pow(suspenseProgress, 2) * 350; // 120ms -> 470ms
+          const interval = 90 + Math.pow(suspenseProgress, 2) * 220; // 90ms -> 310ms
 
           if (now - lastTickTime >= interval) {
             lastTickTime = now;
             const tempVal = getRandomInt(min, max);
             numberDisplay.innerText = tempVal;
             numberDisplay.classList.add('pop');
-            setTimeout(() => numberDisplay.classList.remove('pop'), 80);
+            setTimeout(() => numberDisplay.classList.remove('pop'), 70);
           }
         } else {
           // GIAI ĐOẠN 3: KẾT THÚC VÀ CHỐT KẾT QUẢ CHÍNH THỨC!
