@@ -1290,7 +1290,7 @@
      * - Đồng hồ bấm giờ điện tử lớn chuẩn Online-Stopwatch với nút Pause / Clear
      * - Vịt to khổng lồ khi ít người (Ảnh 1) & Đàn vịt dày đặc chen chúc khi nhiều người (Ảnh 2)
      * - Huy hiệu số hình oval trắng viền đen trên cánh vịt
-     * - 18 bộ trang phục độc đáo: Sherlock, Vương miện, Siêu nhân, Công nhân, Rudolph, Thợ lặn, Mafia...
+     * - 18 bộ trang phục độc đáo: Sherlock, Vương miện, Siêu nhân, Công nhân, Rudolph, Người dơi Batman, Mafia...
      */
 
     // --- 1. WEB AUDIO SYNTHESIZER ---
@@ -1482,7 +1482,8 @@
       canvasWidth: 0,
       canvasHeight: 0,
       waterWaveOffset: 0,
-      showNameTags: false,
+      showNameTags: true,
+      isRacingByNames: true,
       hoveredDuck: null
     };
 
@@ -1500,20 +1501,22 @@
 
     // 18 Bộ Trang Phục & Skins chuẩn phong cách Online-Stopwatch
     const DUCK_COSTUMES = [
-      { id: 'sherlock', name: 'Sherlock Holmes', body: '#fed033', hat: 'sherlock' },
-      { id: 'green_hearts', name: 'Trái Tim Xanh', body: '#22c55e', pattern: 'hearts', hat: 'none' },
-      { id: 'crown', name: 'Vua Vịt Hoàng Gia', body: '#fed033', hat: 'crown' },
-      { id: 'superman', name: 'Siêu Nhân Duck', body: '#1d4ed8', suit: 'superman', hat: 'superhair' },
+      { id: 'classic', name: 'Vịt Vàng Classic', body: '#fed033', hat: 'none' },
+      { id: 'stripes', name: 'Vịt Sọc Tím', body: '#581c87', pattern: 'stripes', hat: 'none' },
       { id: 'builder', name: 'Công Nhân Xây Dựng', body: '#fed033', hat: 'builder' },
+      { id: 'classic_2', name: 'Vịt Vàng Vui Vẻ', body: '#fed033', hat: 'none' },
+      { id: 'batman', name: 'Người Dơi Batman', body: '#09090b', hat: 'batman', suit: 'batman' },
+      { id: 'crown', name: 'Vua Vịt Hoàng Gia', body: '#fed033', hat: 'crown' },
+      { id: 'sherlock', name: 'Sherlock Holmes', body: '#fed033', hat: 'sherlock' },
+      { id: 'superman', name: 'Siêu Nhân Duck', body: '#1d4ed8', suit: 'superman', hat: 'superhair' },
       { id: 'spiderman', name: 'Người Nhện', body: '#dc2626', suit: 'spiderman', hat: 'none' },
       { id: 'police', name: 'Cảnh Sát', body: '#fed033', hat: 'police' },
       { id: 'reindeer', name: 'Tuần Lộc Rudolph', body: '#6b3e1b', hat: 'antlers', nose: 'rudolph' },
-      { id: 'diver', name: 'Thợ Lặn Biển', body: '#fed033', hat: 'snorkel', goggles: true },
+      { id: 'green_hearts', name: 'Trái Tim Xanh', body: '#22c55e', pattern: 'hearts', hat: 'none' },
       { id: 'business', name: 'Doanh Nhân / Mafia', body: '#fed033', suit: 'tuxedo', hat: 'glasses' },
       { id: 'godfather', name: 'Bố Già Mafia', body: '#78350f', suit: 'godfather', hat: 'fedora' },
       { id: 'trump', name: 'Tỷ Phú Tóc Vàng', body: '#fed033', suit: 'trump_suit', hat: 'trump_hair' },
       { id: 'doctor', name: 'Bác Sĩ Y Tá', body: '#fed033', hat: 'mask' },
-      { id: 'stripes', name: 'Sóng Tím Hồng', body: '#c026d3', pattern: 'stripes', hat: 'none' },
       { id: 'stars', name: 'Ngôi Sao Hồng', body: '#f472b6', pattern: 'stars', hat: 'none' },
       { id: 'cowboy', name: 'Cao Bồi Miền Tây', body: '#fed033', hat: 'cowboy' },
       { id: 'chef', name: 'Bếp Trưởng Vịt', body: '#fed033', hat: 'chef' },
@@ -1756,9 +1759,12 @@
 
         ctx.restore();
 
-        // 9. Thẻ tên thí sinh nổi (chỉ vẽ khi bật & ít vịt, hoặc đang hover)
+        // 9. Thẻ tên thí sinh dạng bong bóng lời thoại hoạt hình (comic speech bubble như ảnh)
         const isHovered = STATE.hoveredDuck === this;
-        if ((STATE.showNameTags && this.total <= 12) || isHovered) {
+        const isRacingByNames = STATE.isRacingByNames || (STATE.ducks && STATE.ducks.some(d => !/^Sốs*d+$/i.test(d.name) && !/^d+$/.test(d.name)));
+        const shouldShowNameTag = (isRacingByNames && this.total <= 25) || STATE.showNameTags || isHovered;
+
+        if (shouldShowNameTag) {
           this.drawNameTag(ctx, s, isHovered);
         }
       }
@@ -1780,13 +1786,65 @@
           ctx.restore();
         } else if (c.pattern === 'stripes') {
           ctx.save();
-          ctx.strokeStyle = '#ec4899';
-          ctx.lineWidth = 2.4;
+          ctx.strokeStyle = '#9333ea';
+          ctx.lineWidth = 2.2;
           ctx.beginPath();
-          ctx.moveTo(-22, 2); ctx.lineTo(-12, 18);
-          ctx.moveTo(-14, -2); ctx.lineTo(-2, 19);
-          ctx.moveTo(-4, -4); ctx.lineTo(8, 17);
-          ctx.moveTo(6, 0); ctx.lineTo(18, 14);
+          ctx.moveTo(-20, 2); ctx.lineTo(-20, 18);
+          ctx.moveTo(-13, -2); ctx.lineTo(-13, 19);
+          ctx.moveTo(-6, -4); ctx.lineTo(-6, 20);
+          ctx.moveTo(1, -2); ctx.lineTo(1, 19);
+          ctx.moveTo(8, 2); ctx.lineTo(8, 16);
+          ctx.stroke();
+          ctx.restore();
+        } else if (c.suit === 'batman') {
+          ctx.save();
+          // Huy hiệu oval màu vàng trên ngực vịt Batman
+          ctx.beginPath();
+          ctx.ellipse(14, 11, 7.5, 5, 0.05, 0, Math.PI * 2);
+          ctx.fillStyle = '#facc15';
+          ctx.fill();
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+
+          // Biểu tượng cánh dơi đen bên trong oval
+          ctx.fillStyle = '#000000';
+          ctx.beginPath();
+          ctx.moveTo(14, 8);
+          ctx.lineTo(16, 9.2);
+          ctx.lineTo(19, 7.8);
+          ctx.lineTo(18.5, 11.2);
+          ctx.lineTo(15.2, 12.8);
+          ctx.lineTo(14, 11.8);
+          ctx.lineTo(12.8, 12.8);
+          ctx.lineTo(9.5, 11.2);
+          ctx.lineTo(9, 7.8);
+          ctx.lineTo(12, 9.2);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        } else if (c.id === 'builder' || c.hat === 'builder') {
+          ctx.save();
+          // Bay xây dựng (trowel) cắm bên hông cạnh số báo danh (như Rozalyn trong ảnh)
+          // Cán bay màu cam
+          ctx.beginPath();
+          ctx.ellipse(22, 10, 2.5, 5, -0.6, 0, Math.PI * 2);
+          ctx.fillStyle = '#ea580c';
+          ctx.fill();
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+
+          // Lưỡi bay kim loại hình tam giác xám
+          ctx.beginPath();
+          ctx.moveTo(18, 12);
+          ctx.lineTo(8, 17);
+          ctx.lineTo(20, 18);
+          ctx.closePath();
+          ctx.fillStyle = '#cbd5e1';
+          ctx.fill();
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 1.2;
           ctx.stroke();
           ctx.restore();
         } else if (c.pattern === 'stars') {
@@ -2064,31 +2122,33 @@
           ctx.lineWidth = 1.2;
           ctx.stroke();
           ctx.restore();
-        } else if (c.hat === 'snorkel') {
+        } else if (c.hat === 'batman') {
           ctx.save();
-          // Ống thở
+          // Hai tai dơi nhọn Batman trên đầu vịt (chuẩn như Aaron trong ảnh tham chiếu)
+          // Tai 1 (bên phải / phía trước)
           ctx.beginPath();
-          ctx.moveTo(20, -10);
-          ctx.lineTo(28, -10);
-          ctx.lineTo(30, -38);
-          ctx.lineTo(34, -40);
-          ctx.strokeStyle = '#eab308';
-          ctx.lineWidth = 3.5;
-          ctx.lineCap = 'round';
+          ctx.moveTo(11, -31);
+          ctx.lineTo(13, -47);
+          ctx.lineTo(18, -33);
+          ctx.closePath();
+          ctx.fillStyle = '#09090b';
+          ctx.fill();
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 2.2;
+          ctx.lineJoin = 'round';
           ctx.stroke();
 
+          // Tai 2 (bên trái / phía sau)
           ctx.beginPath();
-          ctx.arc(34, -40, 2.5, 0, Math.PI * 2);
-          ctx.fillStyle = '#ef4444';
+          ctx.moveTo(2, -28);
+          ctx.lineTo(3, -43);
+          ctx.lineTo(9, -31);
+          ctx.closePath();
+          ctx.fillStyle = '#09090b';
           ctx.fill();
-
-          // Kính bơi
-          ctx.beginPath();
-          ctx.ellipse(16, -21, 6, 7, 0, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(56, 189, 248, 0.65)';
-          ctx.fill();
-          ctx.strokeStyle = '#0284c7';
-          ctx.lineWidth = 2;
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 2.2;
+          ctx.lineJoin = 'round';
           ctx.stroke();
           ctx.restore();
         } else if (c.hat === 'glasses') {
@@ -2204,29 +2264,70 @@
 
       drawNameTag(ctx, s, isHovered) {
         ctx.save();
-        const tagOffsetY = Math.round(44 * s + 8);
-        const tagY = Math.max(STATE.topBankH + 15, this.y - tagOffsetY);
-        ctx.translate(this.x, tagY);
 
-        const tagText = (this.index + 1) + '. ' + this.name;
-        const fontSize = Math.max(Math.round(11 * s), 10);
-        ctx.font = 'bold ' + fontSize + 'px Inter, Arial, sans-serif';
-        const textWidth = ctx.measureText(tagText).width;
-        const tagW = Math.max(textWidth + 14, 30);
-        const tagH = Math.max(Math.round(20 * s), 17);
+        const text = this.name;
+        // Kích thước chữ theo tỷ lệ vịt chuẩn hoạt hình
+        const fontSize = Math.max(Math.round(8.5 * s), 13);
+        ctx.font = 'bold ' + fontSize + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif';
+        const textW = ctx.measureText(text).width;
 
+        const padX = Math.max(Math.round(9 * s), 10);
+        const padY = Math.max(Math.round(4.5 * s), 5);
+        const boxW = Math.max(textW + padX * 2, Math.round(36 * s));
+        const boxH = Math.max(fontSize + padY * 2, Math.round(22 * s));
+        const r = Math.min(Math.round(7 * s), boxH / 2);
+
+        // Tọa độ bong bóng: đặt phía trên lưng vịt (lùi nhẹ về sau đầu giống hệt ảnh tham chiếu)
+        let bubbleCenterX = this.x - Math.round(18 * s);
+        let bubbleCenterY = this.y - Math.round(48 * s);
+
+        const halfW = boxW / 2;
+        const halfH = boxH / 2;
+        const minY = STATE.topBankH + halfH + 8;
+        if (bubbleCenterY < minY) bubbleCenterY = minY;
+        if (bubbleCenterX - halfW < 10) bubbleCenterX = halfW + 10;
+        if (bubbleCenterX + halfW > STATE.canvasWidth - 10) bubbleCenterX = STATE.canvasWidth - 10 - halfW;
+
+        ctx.translate(bubbleCenterX, bubbleCenterY);
+
+        // Đuôi thoại luôn nằm ở góc phải cạnh đáy (hướng về phía vịt chuẩn như ảnh tham chiếu)
+        const tbRight = halfW - r - Math.max(Math.round(3 * s), 3);
+        const tbLeft = tbRight - Math.max(Math.round(8 * s), 8);
+        const tipX = tbRight + Math.max(Math.round(4 * s), 4);
+        const tipY = halfH + Math.max(Math.round(10 * s), 9);
+
+        // Vẽ trọn vẹn hình bong bóng thoại liền mạch (khung bo tròn + mấu đuôi nhọn chỉ vào vịt)
         ctx.beginPath();
-        ctx.roundRect(-tagW / 2, -tagH / 2, tagW, tagH, tagH / 2);
+        ctx.moveTo(-halfW + r, -halfH);
+        ctx.lineTo(halfW - r, -halfH);
+        ctx.arcTo(halfW, -halfH, halfW, -halfH + r, r);
+        ctx.lineTo(halfW, halfH - r);
+        ctx.arcTo(halfW, halfH, halfW - r, halfH, r);
+        ctx.lineTo(tbRight, halfH);
+        ctx.lineTo(tipX, tipY);
+        ctx.lineTo(tbLeft, halfH);
+        ctx.lineTo(-halfW + r, halfH);
+        ctx.arcTo(-halfW, halfH, -halfW, halfH - r, r);
+        ctx.lineTo(-halfW, -halfH + r);
+        ctx.arcTo(-halfW, -halfH, -halfW + r, -halfH, r);
+        ctx.closePath();
+
+        // Nền trắng tinh hoạt hình (hoặc vàng nhạt khi hover)
         ctx.fillStyle = isHovered ? '#fef08a' : '#ffffff';
         ctx.fill();
+
+        // Viền đen hoạt hình đậm nét chuẩn Online-Stopwatch
         ctx.strokeStyle = '#000000';
-        ctx.lineWidth = isHovered ? 2.5 : 2;
+        ctx.lineWidth = Math.max(Math.round(2.4 * Math.min(s, 1.8)), 2.2);
+        ctx.lineJoin = 'round';
         ctx.stroke();
 
+        // Tên thí sinh in đậm sắc nét, căn giữa hoàn hảo
         ctx.fillStyle = '#000000';
+        ctx.font = 'bold ' + fontSize + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(tagText, 0, 0.5);
+        ctx.fillText(text, 0, 0.5);
 
         ctx.restore();
       }
@@ -2739,8 +2840,7 @@
     function initUI() {
       // Dữ liệu mẫu ban đầu
       const defaultNames = [
-        'Ngọc Dũng', 'Minh Sáng', 'Hoàng Nam', 'Thanh Trúc', 'Văn Hùng',
-        'Thu Trang', 'Tuấn Kiệt', 'Bích Phương', 'Quốc Bảo', 'Khánh Linh'
+        'Rory', 'Ilia', 'Rozalyn', 'George', 'Aaron'
       ];
       document.getElementById('namesInput').value = defaultNames.join(', ');
       updateParticipantCount();
@@ -2769,7 +2869,7 @@
             const funNames = [
               'Vịt Siêu Tốc', 'Vịt Donal', 'Vịt Vàng Bí Ẩn', 'Vịt Hoàng Gia',
               'Vịt Điệp Viên', 'Vịt Xanh Lá', 'Vịt Người Nhện', 'Vịt Cảnh Sát',
-              'Vịt Rudolph', 'Vịt Bác Sĩ', 'Vịt Tỷ Phú', 'Vịt Thợ Lặn'
+              'Vịt Rudolph', 'Vịt Bác Sĩ', 'Vịt Tỷ Phú', 'Người Dơi Aaron'
             ];
             document.getElementById('namesInput').value = funNames.join(', ');
           } else if (preset === 'clear') {
@@ -2928,6 +3028,25 @@
       const text = document.getElementById('namesInput').value;
       const names = parseNames(text);
       STATE.names = names;
+
+      const hasCustomNames = names.length > 0 && names.some(n => !/^Sốs*d+$/i.test(n.trim()) && !/^d+$/.test(n.trim()));
+      STATE.isRacingByNames = hasCustomNames;
+
+      // Khi đua bằng tên thì tự động hiển thị bong bóng tên như ảnh
+      if (hasCustomNames && names.length <= 25) {
+        STATE.showNameTags = true;
+      } else if (!hasCustomNames) {
+        STATE.showNameTags = false;
+      }
+
+      const btnToggleLabels = document.getElementById('btnToggleLabels');
+      if (btnToggleLabels) {
+        if (STATE.showNameTags) {
+          btnToggleLabels.classList.add('active-glow');
+        } else {
+          btnToggleLabels.classList.remove('active-glow');
+        }
+      }
 
       const total = names.length;
       STATE.ducks = names.map((name, idx) => {
