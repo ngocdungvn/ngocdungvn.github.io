@@ -94,92 +94,150 @@
       overflow: hidden;
     }
 
-    /* Top Navigation Bar */
+    /* Top Navigation Bar (Online-Stopwatch Style) */
     header.game-header {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      height: 60px;
+      height: 72px;
       padding: 0 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       z-index: 40;
-      background: linear-gradient(180deg, rgba(12, 74, 110, 0.85) 0%, rgba(12, 74, 110, 0) 100%);
+      background: transparent;
       pointer-events: none;
     }
 
-    header.game-header>* {
+    header.game-header > * {
       pointer-events: auto;
     }
 
-    .brand-group {
+    /* Top Left: 3 Black Rounded-Square Control Buttons */
+    .os-left-controls {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
     }
 
-    .back-btn {
+    .os-icon-btn {
+      width: 40px;
+      height: 40px;
+      background: #000000;
+      border: 2px solid #000000;
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 20px;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 7px 12px;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-full);
-      color: #0369a1;
-      font-size: 13px;
-      font-weight: 700;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+      transition: all 0.15s ease;
       text-decoration: none;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      transition: all 0.2s ease;
     }
 
-    .back-btn:hover {
-      background: #ffffff;
+    .os-icon-btn:hover {
+      background: #27272a;
       transform: translateY(-1px);
-      color: #0284c7;
     }
 
-    .brand-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 17px;
-      font-weight: 800;
-      color: #ffffff;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    .os-icon-btn:active {
+      transform: translateY(1px);
+    }
+
+    .os-icon-btn.active-glow {
+      border-color: #facc15;
+      color: #facc15;
+    }
+
+    /* Top Center: Iconic White Stopwatch HUD */
+    .os-stopwatch-hud {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 12px;
     }
 
-    .duck-badge {
-      font-size: 18px;
-      display: inline-block;
-      animation: duckWiggle 2s infinite ease-in-out;
+    .os-stopwatch-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      align-items: flex-end;
     }
 
-    @keyframes duckWiggle {
-
-      0%,
-      100% {
-        transform: rotate(0deg) scale(1);
-      }
-
-      25% {
-        transform: rotate(-10deg) scale(1.1);
-      }
-
-      75% {
-        transform: rotate(10deg) scale(1.1);
-      }
+    .os-text-btn {
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 1px 4px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 2px #000000;
+      transition: color 0.15s, transform 0.15s;
     }
 
-    .header-actions {
+    .os-text-btn:hover {
+      color: #fde047;
+      transform: scale(1.08);
+    }
+
+    .os-stopwatch-box {
+      background: #ffffff;
+      border: 3.5px solid #000000;
+      border-radius: 14px;
+      padding: 4px 22px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 210px;
+    }
+
+    #stopwatchDigits {
+      font-family: 'Outfit', 'Inter', monospace;
+      font-size: 38px;
+      font-weight: 900;
+      color: #000000;
+      letter-spacing: 2.5px;
+      line-height: 1;
+    }
+
+    /* Top Right: Brand Logo matching Online-Stopwatch style */
+    .os-right-controls {
       display: flex;
       align-items: center;
       gap: 8px;
+    }
+
+    .os-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid #000000;
+      border-radius: 8px;
+      padding: 5px 10px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    .os-arrows {
+      display: flex;
+      font-size: 15px;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .os-arrows .up { color: #22c55e; }
+    .os-arrows .down { color: #ef4444; }
+
+    .os-brand-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      color: #15803d;
+      letter-spacing: 0.3px;
     }
 
     .icon-btn {
@@ -228,7 +286,7 @@
     /* Progress & Leaderboard HUD (Overlay during race) */
     .hud-overlay {
       position: absolute;
-      top: 64px;
+      bottom: 16px;
       left: 16px;
       right: 16px;
       z-index: 30;
@@ -238,6 +296,24 @@
       align-items: center;
       gap: 12px;
       pointer-events: none;
+    }
+
+    .duck-tooltip {
+      position: absolute;
+      pointer-events: none;
+      background: rgba(0, 0, 0, 0.88);
+      color: #ffffff;
+      border: 1.5px solid #facc15;
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+      transform: translate(-50%, -120%);
+      z-index: 50;
+      display: none;
+      white-space: nowrap;
     }
 
     .hud-overlay.active {
@@ -980,35 +1056,57 @@
 
 <body>
   <div id="app-container">
-    <!-- Header -->
+    <!-- Header: Online-Stopwatch Navigation & HUD -->
     <header class="game-header">
-      <div class="brand-group">
-        <a href="../index.html" class="back-btn" title="Trở về Trang chủ DungX Portfolio">
-          <i class="uil uil-arrow-left"></i> <span>Trang chủ</span>
+      <!-- Top Left: Controls (Settings, Sound, Music, Home) -->
+      <div class="os-left-controls">
+        <a href="../index.html" class="os-icon-btn" title="Trở về Trang chủ DungX Portfolio">
+          <i class="uil uil-home"></i>
         </a>
-        <div class="brand-title" id="brandTitle">
-          <span class="duck-badge">🦆</span>
-          <span>Đua Vịt <span class="hide-mobile">Chọn Người Thắng</span></span>
+        <button class="os-icon-btn" id="btnSettingsToggle" title="Cài đặt cuộc đua (Settings)">
+          <i class="uil uil-setting"></i>
+        </button>
+        <button class="os-icon-btn active-glow" id="btnMusicToggle" title="Bật / Tắt nhạc nền">
+          <i class="uil uil-music"></i>
+        </button>
+        <button class="os-icon-btn active-glow" id="btnSoundToggle" title="Bật / Tắt âm thanh hiệu ứng">
+          <i class="uil uil-bell"></i>
+        </button>
+        <button class="os-icon-btn" id="btnToggleLabels" title="Bật / Tắt nhãn tên trên vịt">
+          <i class="uil uil-tag"></i>
+        </button>
+      </div>
+
+      <!-- Top Center: Online-Stopwatch Digital Clock HUD -->
+      <div class="os-stopwatch-hud" id="stopwatchHUD">
+        <div class="os-stopwatch-actions">
+          <button class="os-text-btn" id="btnPauseRace" title="Tạm dừng / Tiếp tục">Pause</button>
+          <button class="os-text-btn" id="btnClearRace" title="Đặt lại cuộc đua">Clear</button>
+        </div>
+        <div class="os-stopwatch-box" id="stopwatchBox">
+          <span id="stopwatchDigits">00:00:00</span>
         </div>
       </div>
 
-      <div class="header-actions">
-        <button class="icon-btn" id="btnViewResultsHeader" title="Xem lại kết quả" style="display: none;">
+      <!-- Top Right: Brand Badge & Action Tools -->
+      <div class="os-right-controls">
+        <div class="os-brand-logo" title="Duck Race | DungX">
+          <div class="os-arrows">
+            <span class="up">▲</span><span class="down">▼</span>
+          </div>
+          <span class="os-brand-text">Online-Stopwatch.com</span>
+        </div>
+        <button class="os-icon-btn" id="btnViewResultsHeader" title="Xem lại kết quả" style="display: none; background: #ea580c; border-color: #ea580c;">
           <i class="uil uil-trophy"></i>
         </button>
-        <button class="icon-btn" id="btnSoundToggle" title="Bật/Tắt âm thanh">
-          <i class="uil uil-volume"></i>
-        </button>
-        <button class="icon-btn" id="btnSettingsToggle" title="Cài đặt cuộc đua">
-          <i class="uil uil-setting"></i>
-        </button>
-        <button class="icon-btn" id="btnFullscreen" title="Toàn màn hình">
+        <button class="os-icon-btn" id="btnFullscreen" title="Toàn màn hình">
           <i class="uil uil-expand-arrows"></i>
         </button>
       </div>
     </header>
 
     <!-- Canvas Simulation -->
+    <div id="duckTooltip" class="duck-tooltip"></div>
     <div id="canvas-wrap">
       <canvas id="raceCanvas"></canvas>
       <canvas id="confettiCanvas"></canvas>
@@ -1062,6 +1160,7 @@
               <button class="preset-btn" data-preset="numbers" data-count="5">5 Vịt (Số)</button>
               <button class="preset-btn" data-preset="numbers" data-count="10">10 Vịt</button>
               <button class="preset-btn" data-preset="numbers" data-count="20">20 Vịt</button>
+              <button class="preset-btn" data-preset="numbers" data-count="50">50 Vịt</button>
               <button class="preset-btn" data-preset="sample">Mẫu tên vui</button>
               <button class="preset-btn" data-preset="clear">Xóa hết</button>
             </div>
@@ -1186,180 +1285,244 @@
 
   <script>
     /**
-     * DUCK RACE LUCKY DRAW - TẠ NGỌC DŨNG (DUNGX)
-     * Đồ họa Canvas 2D mượt mà, Web Audio Synth, Camera Lerp & Random Fair Draw
+     * DUCK RACE LUCKY DRAW - ONLINE-STOPWATCH.COM RETRO CARTOON EDITION
+     * Thiết kế bởi Tạ Ngọc Dũng (DungX)
+     * Đồ họa hoạt hình chuẩn xác theo Online-Stopwatch:
+     * - Bờ cỏ xanh thẳm với bụi cây & khóm cỏ chữ M
+     * - Bờ đất nâu viền hoạt hình đậm
+     * - Sông nước xanh biếc với các dải sóng uốn lượn
+     * - Vạch đích ca-rô nghiêng chéo 15 độ kinh điển (Slanted Checkered Finish Line)
+     * - Đồng hồ bấm giờ điện tử lớn chuẩn Online-Stopwatch với nút Pause / Clear
+     * - Vịt to khổng lồ khi ít người (Ảnh 1) & Đàn vịt dày đặc chen chúc khi nhiều người (Ảnh 2)
+     * - Huy hiệu số hình oval trắng viền đen trên cánh vịt
+     * - 18 bộ trang phục độc đáo: Sherlock, Vương miện, Siêu nhân, Công nhân, Rudolph, Thợ lặn, Mafia...
      */
 
     // --- 1. WEB AUDIO SYNTHESIZER ---
     const AudioController = {
       ctx: null,
-      enabled: true,
+      isMuted: false,
+      isMusicOn: true,
+      musicTimer: null,
+      musicStep: 0,
 
       init() {
-        if (!this.ctx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          if (AudioContext) {
-            this.ctx = new AudioContext();
-          }
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+          this.ctx = new AudioContext();
         }
+      },
+
+      resume() {
         if (this.ctx && this.ctx.state === 'suspended') {
           this.ctx.resume();
         }
       },
 
-      toggle() {
-        this.enabled = !this.enabled;
-        return this.enabled;
-      },
-
-      // Tiếng còi trọng tài xuất phát
-      playWhistle() {
-        if (!this.enabled || !this.ctx) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(2200, now);
-        osc.frequency.linearRampToValueAtTime(2600, now + 0.1);
-        osc.frequency.linearRampToValueAtTime(2400, now + 0.35);
-
-        gain.gain.setValueAtTime(0, now);
-        gain.gain.linearRampToValueAtTime(0.2, now + 0.05);
-        gain.gain.linearRampToValueAtTime(0.18, now + 0.25);
-        gain.gain.linearRampToValueAtTime(0.001, now + 0.4);
-
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.45);
-      },
-
-      // Tiếng vịt quạc quạc
       playQuack() {
-        if (!this.enabled || !this.ctx) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        const filter = this.ctx.createBiquadFilter();
-
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(320, now);
-        osc.frequency.exponentialRampToValueAtTime(160, now + 0.15);
-
-        filter.type = 'bandpass';
-        filter.frequency.setValueAtTime(800, now);
-        filter.Q.setValueAtTime(3, now);
-
-        gain.gain.setValueAtTime(0.12, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
-
-        osc.connect(filter);
-        filter.connect(gain);
-        gain.connect(this.ctx.destination);
-
-        osc.start(now);
-        osc.stop(now + 0.2);
-      },
-
-      // Tiếng nước vỗ nhẹ
-      playSplash() {
-        if (!this.enabled || !this.ctx) return;
-        const now = this.ctx.currentTime;
-        const bufferSize = this.ctx.sampleRate * 0.12;
-        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          data[i] = Math.random() * 2 - 1;
-        }
-
-        const noise = this.ctx.createBufferSource();
-        noise.buffer = buffer;
-
-        const filter = this.ctx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(400, now);
-        filter.frequency.linearRampToValueAtTime(150, now + 0.1);
-
-        const gain = this.ctx.createGain();
-        gain.gain.setValueAtTime(0.08, now);
-        gain.gain.linearRampToValueAtTime(0.001, now + 0.12);
-
-        noise.connect(filter);
-        filter.connect(gain);
-        gain.connect(this.ctx.destination);
-
-        noise.start(now);
-      },
-
-      // Hợp âm kèn đồng vinh danh chiến thắng
-      playVictory() {
-        if (!this.enabled || !this.ctx) return;
-        const now = this.ctx.currentTime;
-        // Điệu nhạc: C5, E5, G5, C6
-        const notes = [523.25, 659.25, 783.99, 1046.50];
-        const times = [0, 0.16, 0.32, 0.52];
-        const durations = [0.15, 0.15, 0.2, 0.8];
-
-        notes.forEach((freq, idx) => {
-          const startTime = now + times[idx];
-          const dur = durations[idx];
+        if (this.isMuted || !this.ctx) return;
+        this.resume();
+        try {
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
+          const now = this.ctx.currentTime;
 
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(freq, startTime);
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(360, now);
+          osc.frequency.exponentialRampToValueAtTime(140, now + 0.18);
 
-          gain.gain.setValueAtTime(0, startTime);
-          gain.gain.linearRampToValueAtTime(0.2, startTime + 0.04);
-          gain.gain.exponentialRampToValueAtTime(0.001, startTime + dur);
+          const filter = this.ctx.createBiquadFilter();
+          filter.type = 'bandpass';
+          filter.frequency.setValueAtTime(450, now);
+          filter.Q.setValueAtTime(3.5, now);
+
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+
+          osc.connect(filter);
+          filter.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          osc.start(now);
+          osc.stop(now + 0.22);
+        } catch (e) {}
+      },
+
+      playCheer() {
+        if (this.isMuted || !this.ctx) return;
+        this.resume();
+        try {
+          const notes = [523.25, 659.25, 783.99, 1046.50];
+          notes.forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            const now = this.ctx.currentTime + idx * 0.08;
+
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now);
+
+            gain.gain.setValueAtTime(0.2, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+
+            osc.start(now);
+            osc.stop(now + 0.35);
+          });
+        } catch (e) {}
+      },
+
+      playClick() {
+        if (this.isMuted || !this.ctx) return;
+        this.resume();
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const now = this.ctx.currentTime;
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(700, now);
+          osc.frequency.exponentialRampToValueAtTime(400, now + 0.04);
+
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
 
           osc.connect(gain);
           gain.connect(this.ctx.destination);
 
-          osc.start(startTime);
-          osc.stop(startTime + dur + 0.05);
-        });
+          osc.start(now);
+          osc.stop(now + 0.05);
+        } catch (e) {}
+      },
+
+      startMusic() {
+        if (!this.isMusicOn || !this.ctx) return;
+        this.stopMusic();
+
+        const melody = [
+          { f: 261.63, d: 250 }, { f: 329.63, d: 250 }, { f: 392.00, d: 250 }, { f: 523.25, d: 250 },
+          { f: 392.00, d: 250 }, { f: 329.63, d: 250 }, { f: 261.63, d: 500 },
+          { f: 293.66, d: 250 }, { f: 349.23, d: 250 }, { f: 440.00, d: 250 }, { f: 587.33, d: 250 },
+          { f: 440.00, d: 250 }, { f: 349.23, d: 250 }, { f: 293.66, d: 500 }
+        ];
+
+        this.musicStep = 0;
+        const playNext = () => {
+          if (!this.isMusicOn || !STATE.isRunning || STATE.isPaused) return;
+          const note = melody[this.musicStep % melody.length];
+          this.musicStep++;
+
+          try {
+            const now = this.ctx.currentTime;
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(note.f, now);
+
+            gain.gain.setValueAtTime(0.045, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + (note.d / 1000) * 0.9);
+
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+
+            osc.start(now);
+            osc.stop(now + note.d / 1000);
+          } catch (e) {}
+
+          this.musicTimer = setTimeout(playNext, note.d);
+        };
+
+        playNext();
+      },
+
+      stopMusic() {
+        if (this.musicTimer) {
+          clearTimeout(this.musicTimer);
+          this.musicTimer = null;
+        }
+      },
+
+      toggleMusic() {
+        this.isMusicOn = !this.isMusicOn;
+        const btn = document.getElementById('btnMusicToggle');
+        if (this.isMusicOn) {
+          if (btn) btn.classList.add('active-glow');
+          if (STATE.isRunning && !STATE.isPaused) this.startMusic();
+        } else {
+          if (btn) btn.classList.remove('active-glow');
+          this.stopMusic();
+        }
+      },
+
+      toggleSound() {
+        this.isMuted = !this.isMuted;
+        const btn = document.getElementById('btnSoundToggle');
+        if (this.isMuted) {
+          if (btn) btn.classList.remove('active-glow');
+        } else {
+          if (btn) btn.classList.add('active-glow');
+          this.playClick();
+        }
       }
     };
 
-    // --- 2. CONFIGURATION & STATE ---
+    // --- 2. GLOBAL STATE & COSTUMES ---
     const STATE = {
       ducks: [],
       names: [],
-      trackLength: 4200,      // Chiều dài đường đua pixel
-      raceDuration: 25,       // Giây dự kiến
+      raceDuration: 25,       // Thời lượng cuộc đua (giây)
       isRunning: false,
       isFinished: false,
+      isPaused: false,
       startTime: 0,
-      elapsedTime: 0,
-      cameraX: 0,
-      finishLineX: 4200,
-      startLineX: 180,
+      pauseStartTime: 0,
+      pausedDuration: 0,
+      finishLineX: 0,
+      startLineX: 0,
+      trackLength: 0,
+      topBankH: 160,
       rankedResults: [],
       canvasWidth: 0,
       canvasHeight: 0,
-      waterWaveOffset: 0
+      waterWaveOffset: 0,
+      showNameTags: false,
+      hoveredDuck: null
     };
 
-    // Màu sắc sặc sỡ phân biệt các chú vịt
-    const DUCK_PALETTES = [
-      { body: '#facc15', beak: '#f97316', hat: '#ef4444' }, // Vàng tươi
-      { body: '#fb923c', beak: '#ea580c', hat: '#3b82f6' }, // Cam sữa
-      { body: '#4ade80', beak: '#f97316', hat: '#a855f7' }, // Xanh ngọc
-      { body: '#38bdf8', beak: '#ea580c', hat: '#eab308' }, // Xanh lơ
-      { body: '#f472b6', beak: '#f97316', hat: '#06b6d4' }, // Hồng phấn
-      { body: '#c084fc', beak: '#f97316', hat: '#10b981' }, // Tím mộng mơ
-      { body: '#fbbf24', beak: '#ea580c', hat: '#6366f1' }, // Vàng mật
-      { body: '#a3e635', beak: '#f97316', hat: '#ec4899' }, // Xanh chuối
-      { body: '#f87171', beak: '#ea580c', hat: '#14b8a6' }, // Đỏ san hô
-      { body: '#e2e8f0', beak: '#f97316', hat: '#f43f5e' }  // Trắng thiên nga
-    ];
+    function formatStopwatchTime(ms) {
+      if (ms < 0) ms = 0;
+      const totalSec = Math.floor(ms / 1000);
+      const hours = Math.floor(totalSec / 3600);
+      const mins = Math.floor((totalSec % 3600) / 60);
+      const secs = totalSec % 60;
+      const hh = String(hours).padStart(2, '0');
+      const mm = String(mins).padStart(2, '0');
+      const ss = String(secs).padStart(2, '0');
+      return hh + ':' + mm + ':' + ss;
+    }
 
-    // Mẫu tên thí sinh
-    const SAMPLE_NAMES = [
-      'Ngọc Dũng', 'Minh Sáng', 'Hoàng Nam', 'Thanh Trúc', 'Văn Hùng',
-      'Thu Trang', 'Tuấn Kiệt', 'Bích Phương', 'Quốc Bảo', 'Khánh Linh'
+    // 18 Bộ Trang Phục & Skins chuẩn phong cách Online-Stopwatch
+    const DUCK_COSTUMES = [
+      { id: 'sherlock', name: 'Sherlock Holmes', body: '#fed033', hat: 'sherlock' },
+      { id: 'green_hearts', name: 'Trái Tim Xanh', body: '#22c55e', pattern: 'hearts', hat: 'none' },
+      { id: 'crown', name: 'Vua Vịt Hoàng Gia', body: '#fed033', hat: 'crown' },
+      { id: 'superman', name: 'Siêu Nhân Duck', body: '#1d4ed8', suit: 'superman', hat: 'superhair' },
+      { id: 'builder', name: 'Công Nhân Xây Dựng', body: '#fed033', hat: 'builder' },
+      { id: 'spiderman', name: 'Người Nhện', body: '#dc2626', suit: 'spiderman', hat: 'none' },
+      { id: 'police', name: 'Cảnh Sát', body: '#fed033', hat: 'police' },
+      { id: 'reindeer', name: 'Tuần Lộc Rudolph', body: '#6b3e1b', hat: 'antlers', nose: 'rudolph' },
+      { id: 'diver', name: 'Thợ Lặn Biển', body: '#fed033', hat: 'snorkel', goggles: true },
+      { id: 'business', name: 'Doanh Nhân / Mafia', body: '#fed033', suit: 'tuxedo', hat: 'glasses' },
+      { id: 'godfather', name: 'Bố Già Mafia', body: '#78350f', suit: 'godfather', hat: 'fedora' },
+      { id: 'trump', name: 'Tỷ Phú Tóc Vàng', body: '#fed033', suit: 'trump_suit', hat: 'trump_hair' },
+      { id: 'doctor', name: 'Bác Sĩ Y Tá', body: '#fed033', hat: 'mask' },
+      { id: 'stripes', name: 'Sóng Tím Hồng', body: '#c026d3', pattern: 'stripes', hat: 'none' },
+      { id: 'stars', name: 'Ngôi Sao Hồng', body: '#f472b6', pattern: 'stars', hat: 'none' },
+      { id: 'cowboy', name: 'Cao Bồi Miền Tây', body: '#fed033', hat: 'cowboy' },
+      { id: 'chef', name: 'Bếp Trưởng Vịt', body: '#fed033', hat: 'chef' },
+      { id: 'ninja', name: 'Ninja Huyền Bí', body: '#fed033', hat: 'ninja' }
     ];
 
     // --- 3. DUCK CLASS ---
@@ -1370,211 +1533,705 @@
         this.index = index;
         this.total = total;
 
+        // Gán bộ trang phục theo vòng lặp
+        this.costume = DUCK_COSTUMES[index % DUCK_COSTUMES.length];
+        this.bodyColor = this.costume.body || '#fed033';
+
         // Tọa độ
-        this.x = STATE.startLineX - (Math.random() * 30 + 10);
-        this.baseY = 0; // Được tính toán trong layoutLanes
+        this.x = 100;
+        this.baseY = 0;
         this.y = 0;
-        this.targetY = 0;
+        this.scale = 1.0;
 
         // Tốc độ & Vật lý
-        this.vx = 0;
-        this.baseSpeed = (STATE.trackLength - STATE.startLineX) / (STATE.raceDuration * 60);
-        this.currentSpeed = this.baseSpeed * (0.85 + Math.random() * 0.3);
+        this.baseSpeed = 1.0;
+        this.currentSpeed = 1.0;
         this.speedBurstTimer = Math.floor(Math.random() * 60);
 
-        // Hiệu ứng bơi & quẫy nước
+        // Hiệu ứng nhấp nhô
         this.bobCycle = Math.random() * Math.PI * 2;
-        this.bobSpeed = 0.12 + Math.random() * 0.06;
-        this.paddleAngle = 0;
-        this.wobbleX = 0;
+        this.bobSpeed = 0.12 + Math.random() * 0.05;
 
         // Trạng thái về đích
         this.isFinished = false;
         this.finishTime = 0;
         this.rank = 0;
 
-        // Màu sắc
-        const palette = DUCK_PALETTES[index % DUCK_PALETTES.length];
-        this.colorBody = palette.body;
-        this.colorBeak = palette.beak;
-        this.colorHat = palette.hat;
-
-        // Kích thước chuẩn
-        this.width = 44;
-        this.height = 38;
-
-        // Gợn sóng đuôi (wake trail)
+        // Gợn sóng đuôi
         this.ripples = [];
       }
 
       update(progressRatio) {
-        if (this.isFinished) return;
+        if (this.isFinished) {
+          this.bobCycle += this.bobSpeed * 0.5;
+          this.y = this.baseY + Math.sin(this.bobCycle) * (3 * this.scale);
+          return;
+        }
 
-        // Cập nhật dao động nhấp nhô
+        // Nhấp nhô bơi
         this.bobCycle += this.bobSpeed;
-        this.y = this.baseY + Math.sin(this.bobCycle) * 4;
+        this.y = this.baseY + Math.sin(this.bobCycle) * (3.5 * this.scale);
 
-        // Thay đổi tốc độ ngẫu nhiên định kỳ tạo cảm giác kịch tính
+        // Đổi tốc độ ngẫu nhiên & bứt phá
         this.speedBurstTimer--;
         if (this.speedBurstTimer <= 0) {
-          const speedVariance = 0.75 + Math.random() * 0.55;
+          let speedVariance = 0.75 + Math.random() * 0.55;
+          // Tăng tốc hồi hộp khi gần về đích
+          if (progressRatio > 0.75 && Math.random() < 0.35) {
+            speedVariance *= 1.25;
+          }
           this.currentSpeed = this.baseSpeed * speedVariance;
           this.speedBurstTimer = Math.floor(40 + Math.random() * 60);
 
-          // Thi thoảng kêu quạc quạc
-          if (Math.random() < 0.15) {
+          if (Math.random() < 0.12) {
             AudioController.playQuack();
           }
         }
 
-        // Cập nhật vị trí X theo tốc độ ngẫu nhiên tự nhiên
+        // Cập nhật vị trí X
         this.x += this.currentSpeed;
 
-        // Sinh bọt nước gợn sóng phía sau
-        if (Math.random() < 0.4) {
+        // Sinh bọt sóng sau đuôi
+        if (Math.random() < 0.35) {
           this.ripples.push({
-            x: this.x - 12,
-            y: this.y + 12 + (Math.random() * 6 - 3),
-            radius: 3,
-            maxRadius: 16 + Math.random() * 10,
+            x: this.x - 22 * this.scale,
+            y: this.y + 16 * this.scale + (Math.random() * 6 - 3) * this.scale,
+            radius: 3 * this.scale,
+            maxRadius: (16 + Math.random() * 12) * this.scale,
             alpha: 0.6
           });
         }
 
-        // Cập nhật gợn sóng
+        // Cập nhật bọt sóng
         for (let i = this.ripples.length - 1; i >= 0; i--) {
           const r = this.ripples[i];
-          r.radius += 0.5;
-          r.alpha -= 0.02;
+          r.radius += 0.55;
+          r.alpha -= 0.022;
           if (r.alpha <= 0) {
             this.ripples.splice(i, 1);
           }
         }
 
-        // Kiểm tra cán đích
-        if (this.x >= STATE.finishLineX && !this.isFinished) {
+        // Kiểm tra cán vạch đích nghiêng (Slanted Checkered Banner)
+        const height = STATE.canvasHeight - STATE.topBankH;
+        const slantOffset = Math.round(STATE.canvasHeight * 0.13);
+        const topX = STATE.finishLineX + slantOffset;
+        const bottomX = STATE.finishLineX - slantOffset;
+        const lineXAtDuckY = topX + ((this.y - STATE.topBankH) / height) * (bottomX - topX);
+        const duckNoseX = this.x + (34 * this.scale);
+
+        if (duckNoseX >= lineXAtDuckY && !this.isFinished) {
           this.isFinished = true;
-          this.finishTime = (Date.now() - STATE.startTime) / 1000;
+          this.finishTime = Date.now() - STATE.startTime - STATE.pausedDuration;
           STATE.rankedResults.push(this);
           this.rank = STATE.rankedResults.length;
 
-          // Hiệu ứng âm thanh khi có vịt đầu tiên về đích
           if (this.rank === 1) {
-            AudioController.playVictory();
-            ConfettiEngine.start();
-          } else {
-            AudioController.playSplash();
+            AudioController.playCheer();
+            ConfettiEngine.fire(this.x, this.y, 90);
           }
         }
       }
 
       draw(ctx) {
-        // 1. Vẽ các gợn sóng nước phía sau đuôi
+        const s = this.scale || 1.0;
+
+        // 1. Gợn sóng bọt nước sau đuôi
         this.ripples.forEach(r => {
           ctx.beginPath();
           ctx.ellipse(r.x, r.y, r.radius * 1.6, r.radius * 0.7, 0, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(255, 255, 255, ${r.alpha})`;
-          ctx.lineWidth = 1.5;
+          ctx.strokeStyle = 'rgba(255, 255, 255, ' + r.alpha + ')';
+          ctx.lineWidth = Math.max(1.4 * s, 0.9);
           ctx.stroke();
         });
 
         ctx.save();
         ctx.translate(this.x, this.y);
+        ctx.scale(s, s);
 
-        // 2. Bóng dưới nước
+        // Góc nghiêng lắc lư nhẹ khi bơi
+        const tilt = Math.sin(this.bobCycle) * 0.04;
+        ctx.rotate(tilt);
+
+        // 2. Bóng nước / vệt nước dưới thân
         ctx.beginPath();
-        ctx.ellipse(0, 16, 22, 9, 0, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(2, 60, 100, 0.28)';
+        ctx.ellipse(-2, 19, 32, 10, 0, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(25, 75, 115, 0.35)';
         ctx.fill();
 
-        // 3. Thân vịt (Body)
         ctx.beginPath();
-        ctx.ellipse(-2, 4, 18, 14, -0.08, 0, Math.PI * 2);
-        ctx.fillStyle = this.colorBody;
-        ctx.fill();
+        ctx.arc(-26, 17, 8, Math.PI * 0.8, Math.PI * 1.5);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
         ctx.lineWidth = 1.5;
-        ctx.strokeStyle = 'rgba(0,0,0,0.12)';
         ctx.stroke();
 
-        // Đuôi vểnh ngộ nghĩnh
+        // 3. Thân vịt cao su chuẩn hoạt hình (Body)
         ctx.beginPath();
-        ctx.moveTo(-16, 0);
-        ctx.lineTo(-24, -6);
-        ctx.lineTo(-15, 6);
-        ctx.fillStyle = this.colorBody;
+        ctx.moveTo(16, -6);
+        ctx.quadraticCurveTo(28, 6, 24, 16);
+        ctx.quadraticCurveTo(8, 22, -18, 20);
+        ctx.quadraticCurveTo(-26, 20, -36, 0);
+        ctx.quadraticCurveTo(-22, 2, -10, -4);
+        ctx.quadraticCurveTo(-6, -10, -2, -18);
+        ctx.closePath();
+
+        ctx.fillStyle = this.bodyColor;
         ctx.fill();
+        ctx.lineWidth = 2.4;
+        ctx.strokeStyle = '#000000';
         ctx.stroke();
 
-        // 4. Cánh vịt nhấp nhô
-        const wingOffset = Math.sin(this.bobCycle * 1.8) * 2;
-        ctx.beginPath();
-        ctx.ellipse(-4, 3 + wingOffset, 10, 6, -0.2, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
-        ctx.fill();
+        // Họa tiết hoặc trang phục trên thân vịt
+        this.drawBodyCostume(ctx);
 
-        // 5. Đầu vịt (Head)
+        // 4. Đầu vịt tròn xoe (Head)
         ctx.beginPath();
-        ctx.arc(10, -8, 11, 0, Math.PI * 2);
-        ctx.fillStyle = this.colorBody;
+        ctx.arc(10, -18, 16, 0, Math.PI * 2);
+        ctx.fillStyle = this.bodyColor;
         ctx.fill();
+        ctx.lineWidth = 2.4;
+        ctx.strokeStyle = '#000000';
         ctx.stroke();
 
-        // 6. Mỏ vịt màu cam
+        // Tóc hoặc nơ đầu (nếu có trước khi vẽ mỏ)
+        this.drawHeadCostumePre(ctx);
+
+        // 5. Mỏ vịt màu cam tươi (Beak)
         ctx.beginPath();
-        ctx.moveTo(18, -10);
-        ctx.quadraticCurveTo(28, -8, 26, -5);
-        ctx.lineTo(17, -4);
-        ctx.fillStyle = this.colorBeak;
+        ctx.moveTo(22, -22);
+        ctx.quadraticCurveTo(36, -20, 39, -15);
+        ctx.quadraticCurveTo(28, -13, 21, -13);
+        ctx.quadraticCurveTo(32, -12, 34, -9);
+        ctx.quadraticCurveTo(26, -6, 20, -8);
+        ctx.closePath();
+        ctx.fillStyle = '#f26522';
         ctx.fill();
+        ctx.lineWidth = 2.2;
+        ctx.strokeStyle = '#000000';
         ctx.stroke();
 
-        // 7. Mắt vịt to tròn lấp lánh
+        // Đường rãnh khoé cười của mỏ
         ctx.beginPath();
-        ctx.arc(13, -10, 3, 0, Math.PI * 2);
-        ctx.fillStyle = '#0f172a';
+        ctx.moveTo(20, -13);
+        ctx.quadraticCurveTo(28, -13, 38, -15);
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 1.8;
+        ctx.stroke();
+
+        // 6. Mắt to tròn hoạt hình (Eye)
+        // Tròng trắng
+        ctx.beginPath();
+        ctx.arc(15, -21, 6, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff';
         ctx.fill();
-        // Điểm sáng trong mắt
+        ctx.lineWidth = 1.8;
+        ctx.strokeStyle = '#000000';
+        ctx.stroke();
+
+        // Con ngươi đen
         ctx.beginPath();
-        ctx.arc(14, -11, 1, 0, Math.PI * 2);
+        ctx.arc(16, -21, 3.4, 0, Math.PI * 2);
+        ctx.fillStyle = '#000000';
+        ctx.fill();
+
+        // Điểm sáng phản quang trắng
+        ctx.beginPath();
+        ctx.arc(17.2, -22.5, 1.3, 0, Math.PI * 2);
         ctx.fillStyle = '#ffffff';
         ctx.fill();
 
-        // 8. Mũ nơ trang trí ngẫu nhiên
+        // 7. Huy hiệu số thứ tự hình oval màu trắng viền đen trên thân (Badge)
         ctx.beginPath();
-        ctx.ellipse(8, -19, 7, 3, 0, 0, Math.PI * 2);
-        ctx.fillStyle = this.colorHat;
+        ctx.ellipse(-4, 9, 13, 9, -0.05, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff';
         ctx.fill();
-        ctx.beginPath();
-        ctx.arc(8, -21, 4, 0, Math.PI * 2);
-        ctx.fill();
-
-        // 9. Bảng tên & số thứ tự nổi phía trên
-        ctx.restore();
-
-        // Vẽ Name Tag trong không gian Canvas tuyệt đối
-        ctx.save();
-        ctx.translate(this.x, this.y - 32);
-
-        // Nền thẻ tên
-        const tagText = `${this.index + 1}. ${this.name}`;
-        ctx.font = 'bold 11px Inter, sans-serif';
-        const textWidth = ctx.measureText(tagText).width;
-        const tagW = Math.max(textWidth + 12, 34);
-        const tagH = 18;
-
-        ctx.beginPath();
-        ctx.roundRect(-tagW / 2, -tagH / 2, tagW, tagH, 9);
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
-        ctx.fill();
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#000000';
         ctx.stroke();
 
-        // Chữ thẻ tên
-        ctx.fillStyle = '#ffffff';
+        const badgeNum = String(this.index + 1);
+        ctx.fillStyle = '#000000';
+        ctx.font = 'bold ' + (badgeNum.length > 2 ? 10 : 12) + 'px Inter, Arial, sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(tagText, 0, 0);
+        ctx.fillText(badgeNum, -4, 9.5);
+
+        // 8. Mũ, sừng hoặc phụ kiện trên đầu
+        this.drawHatCostume(ctx);
+
+        ctx.restore();
+
+        // 9. Thẻ tên thí sinh nổi (chỉ vẽ khi bật & ít vịt, hoặc đang hover)
+        const isHovered = STATE.hoveredDuck === this;
+        if ((STATE.showNameTags && this.total <= 12) || isHovered) {
+          this.drawNameTag(ctx, s, isHovered);
+        }
+      }
+
+      drawBodyCostume(ctx) {
+        const c = this.costume;
+        if (c.pattern === 'hearts') {
+          ctx.save();
+          const hearts = [[-14, 10], [6, 12], [-6, 2], [14, 4], [-22, 4]];
+          ctx.fillStyle = '#15803d';
+          hearts.forEach(([hx, hy]) => {
+            ctx.beginPath();
+            ctx.arc(hx - 1.5, hy, 2, Math.PI, 0);
+            ctx.arc(hx + 1.5, hy, 2, Math.PI, 0);
+            ctx.lineTo(hx, hy + 3.5);
+            ctx.closePath();
+            ctx.fill();
+          });
+          ctx.restore();
+        } else if (c.pattern === 'stripes') {
+          ctx.save();
+          ctx.strokeStyle = '#ec4899';
+          ctx.lineWidth = 2.4;
+          ctx.beginPath();
+          ctx.moveTo(-22, 2); ctx.lineTo(-12, 18);
+          ctx.moveTo(-14, -2); ctx.lineTo(-2, 19);
+          ctx.moveTo(-4, -4); ctx.lineTo(8, 17);
+          ctx.moveTo(6, 0); ctx.lineTo(18, 14);
+          ctx.stroke();
+          ctx.restore();
+        } else if (c.pattern === 'stars') {
+          ctx.save();
+          const stars = [[-14, 10], [6, 12], [-4, 4], [12, 4], [-22, 4]];
+          ctx.fillStyle = '#fef08a';
+          stars.forEach(([sx, sy]) => {
+            ctx.beginPath();
+            ctx.arc(sx, sy, 2.2, 0, Math.PI * 2);
+            ctx.fill();
+          });
+          ctx.restore();
+        } else if (c.suit === 'superman') {
+          ctx.save();
+          // Áo choàng đỏ sau đuôi
+          ctx.beginPath();
+          ctx.moveTo(-16, 0);
+          ctx.lineTo(-36, -6);
+          ctx.lineTo(-38, 14);
+          ctx.lineTo(-24, 16);
+          ctx.closePath();
+          ctx.fillStyle = '#dc2626';
+          ctx.fill();
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          // Biểu tượng kim cương vàng trên ngực
+          ctx.beginPath();
+          ctx.moveTo(14, 2);
+          ctx.lineTo(19, 6);
+          ctx.lineTo(14, 10);
+          ctx.lineTo(9, 6);
+          ctx.closePath();
+          ctx.fillStyle = '#fbbf24';
+          ctx.fill();
+          ctx.strokeStyle = '#dc2626';
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+          ctx.restore();
+        } else if (c.suit === 'spiderman') {
+          ctx.save();
+          ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.moveTo(0, 10); ctx.lineTo(-20, 4);
+          ctx.moveTo(0, 10); ctx.lineTo(18, 4);
+          ctx.moveTo(0, 10); ctx.lineTo(-12, 18);
+          ctx.moveTo(0, 10); ctx.lineTo(12, 18);
+          ctx.stroke();
+
+          // Con nhện đen
+          ctx.beginPath();
+          ctx.ellipse(-2, 10, 3, 4, 0, 0, Math.PI * 2);
+          ctx.fillStyle = '#000000';
+          ctx.fill();
+          ctx.restore();
+        } else if (c.suit === 'tuxedo') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(12, -4);
+          ctx.lineTo(20, 14);
+          ctx.lineTo(-8, 14);
+          ctx.lineTo(-6, -4);
+          ctx.fillStyle = '#1e293b';
+          ctx.fill();
+
+          // Áo sơ mi trắng
+          ctx.beginPath();
+          ctx.moveTo(10, -3);
+          ctx.lineTo(14, 7);
+          ctx.lineTo(6, 7);
+          ctx.closePath();
+          ctx.fillStyle = '#ffffff';
+          ctx.fill();
+
+          // Cà vạt đỏ
+          ctx.beginPath();
+          ctx.arc(10, 0, 2, 0, Math.PI * 2);
+          ctx.fillStyle = '#dc2626';
+          ctx.fill();
+          ctx.restore();
+        } else if (c.suit === 'godfather') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(12, -4);
+          ctx.lineTo(22, 14);
+          ctx.lineTo(-6, 14);
+          ctx.lineTo(-4, -4);
+          ctx.fillStyle = '#451a03';
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.moveTo(10, -3); ctx.lineTo(14, 6); ctx.lineTo(6, 6); ctx.closePath();
+          ctx.fillStyle = '#ffffff';
+          ctx.fill();
+          ctx.restore();
+        } else if (c.suit === 'trump_suit') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(12, -4);
+          ctx.lineTo(20, 14);
+          ctx.lineTo(-8, 14);
+          ctx.lineTo(-6, -4);
+          ctx.fillStyle = '#1e3a8a';
+          ctx.fill();
+
+          // Áo sơ mi trắng
+          ctx.beginPath();
+          ctx.moveTo(10, -3); ctx.lineTo(14, 6); ctx.lineTo(6, 6); ctx.closePath();
+          ctx.fillStyle = '#ffffff';
+          ctx.fill();
+
+          // Cà vạt đỏ dài
+          ctx.beginPath();
+          ctx.moveTo(9, 0); ctx.lineTo(11, 0); ctx.lineTo(12, 12); ctx.lineTo(8, 12); ctx.closePath();
+          ctx.fillStyle = '#ef4444';
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+
+      drawHeadCostumePre(ctx) {
+        const c = this.costume;
+        if (c.hat === 'superhair') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(14, -29, 6, Math.PI * 0.2, Math.PI * 1.4);
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 3.5;
+          ctx.stroke();
+          ctx.restore();
+        } else if (c.hat === 'trump_hair') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(-4, -30);
+          ctx.quadraticCurveTo(12, -44, 28, -28);
+          ctx.quadraticCurveTo(24, -22, 16, -26);
+          ctx.quadraticCurveTo(6, -34, -4, -30);
+          ctx.fillStyle = '#fde047';
+          ctx.fill();
+          ctx.strokeStyle = '#ca8a04';
+          ctx.lineWidth = 1.8;
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+
+      drawHatCostume(ctx) {
+        const c = this.costume;
+        if (c.hat === 'sherlock') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.ellipse(10, -32, 13, 8, 0, Math.PI, 0);
+          ctx.fillStyle = '#8b5a2b';
+          ctx.fill();
+          ctx.lineWidth = 1.8;
+          ctx.strokeStyle = '#000000';
+          ctx.stroke();
+
+          // Vành trước & vành sau
+          ctx.beginPath();
+          ctx.moveTo(19, -29); ctx.quadraticCurveTo(30, -28, 33, -24);
+          ctx.moveTo(1, -29); ctx.quadraticCurveTo(-9, -28, -12, -24);
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 2.2;
+          ctx.stroke();
+
+          // Nơ buộc đỉnh
+          ctx.beginPath();
+          ctx.arc(10, -40, 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = '#261709';
+          ctx.fill();
+
+          // Tẩu thuốc gỗ
+          ctx.beginPath();
+          ctx.moveTo(25, -11); ctx.lineTo(31, -7); ctx.lineTo(31, -3);
+          ctx.strokeStyle = '#261709';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.rect(29, -9, 6, 8);
+          ctx.fillStyle = '#5c3a21';
+          ctx.fill();
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(32, -9, 1.8, 0, Math.PI * 2);
+          ctx.fillStyle = '#ef4444';
+          ctx.fill();
+          ctx.restore();
+        } else if (c.hat === 'crown') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(1, -31);
+          ctx.lineTo(19, -31);
+          ctx.lineTo(21, -43);
+          ctx.lineTo(14, -36);
+          ctx.lineTo(10, -47);
+          ctx.lineTo(6, -36);
+          ctx.lineTo(-1, -43);
+          ctx.closePath();
+          ctx.fillStyle = '#fbbf24';
+          ctx.fill();
+          ctx.lineWidth = 1.8;
+          ctx.strokeStyle = '#000000';
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(10, -35, 2, 0, Math.PI * 2);
+          ctx.fillStyle = '#ef4444';
+          ctx.fill();
+          ctx.restore();
+        } else if (c.hat === 'builder') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(10, -32, 12, Math.PI, 0);
+          ctx.fillStyle = '#f97316';
+          ctx.fill();
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = '#000000';
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.moveTo(-4, -32); ctx.lineTo(26, -32); ctx.lineTo(28, -29); ctx.lineTo(-4, -29);
+          ctx.closePath();
+          ctx.fillStyle = '#ea580c';
+          ctx.fill();
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.restore();
+        } else if (c.hat === 'police') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.ellipse(10, -33, 14, 8, 0, Math.PI, 0);
+          ctx.fillStyle = '#1e293b';
+          ctx.fill();
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.moveTo(3, -31); ctx.quadraticCurveTo(18, -32, 28, -26);
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 3;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(10, -35, 3, 0, Math.PI * 2);
+          ctx.fillStyle = '#eab308';
+          ctx.fill();
+          ctx.restore();
+        } else if (c.hat === 'antlers') {
+          ctx.save();
+          ctx.strokeStyle = '#4a2810';
+          ctx.lineWidth = 2.4;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(4, -32); ctx.lineTo(-2, -45); ctx.lineTo(-8, -48);
+          ctx.moveTo(-2, -45); ctx.lineTo(-1, -52);
+          ctx.moveTo(14, -33); ctx.lineTo(18, -46); ctx.lineTo(24, -49);
+          ctx.moveTo(18, -46); ctx.lineTo(20, -53);
+          ctx.stroke();
+
+          // Mũi đỏ tròn của Rudolph
+          ctx.beginPath();
+          ctx.arc(38, -13, 4, 0, Math.PI * 2);
+          ctx.fillStyle = '#ef4444';
+          ctx.fill();
+          ctx.strokeStyle = '#991b1b';
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+          ctx.restore();
+        } else if (c.hat === 'snorkel') {
+          ctx.save();
+          // Ống thở
+          ctx.beginPath();
+          ctx.moveTo(20, -10);
+          ctx.lineTo(28, -10);
+          ctx.lineTo(30, -38);
+          ctx.lineTo(34, -40);
+          ctx.strokeStyle = '#eab308';
+          ctx.lineWidth = 3.5;
+          ctx.lineCap = 'round';
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(34, -40, 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = '#ef4444';
+          ctx.fill();
+
+          // Kính bơi
+          ctx.beginPath();
+          ctx.ellipse(16, -21, 6, 7, 0, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(56, 189, 248, 0.65)';
+          ctx.fill();
+          ctx.strokeStyle = '#0284c7';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.restore();
+        } else if (c.hat === 'glasses') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(15, -21, 5, 0, Math.PI * 2);
+          ctx.strokeStyle = '#1e293b';
+          ctx.lineWidth = 1.8;
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(10, -21); ctx.lineTo(2, -20);
+          ctx.stroke();
+          ctx.restore();
+        } else if (c.hat === 'fedora') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.ellipse(10, -33, 14, 8, 0, Math.PI, 0);
+          ctx.fillStyle = '#451a03';
+          ctx.fill();
+          ctx.lineWidth = 1.8;
+          ctx.strokeStyle = '#000000';
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.moveTo(-4, -32); ctx.lineTo(26, -32);
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 2.4;
+          ctx.stroke();
+
+          // Điếu xì gà
+          ctx.beginPath();
+          ctx.moveTo(25, -11); ctx.lineTo(34, -8);
+          ctx.strokeStyle = '#78350f';
+          ctx.lineWidth = 2.5;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(34, -8, 1.4, 0, Math.PI * 2);
+          ctx.fillStyle = '#ef4444';
+          ctx.fill();
+          ctx.restore();
+        } else if (c.hat === 'mask') {
+          ctx.save();
+          // Khẩu trang y tế xanh dương
+          ctx.beginPath();
+          ctx.moveTo(12, -18);
+          ctx.quadraticCurveTo(32, -16, 32, -9);
+          ctx.quadraticCurveTo(24, -4, 12, -7);
+          ctx.closePath();
+          ctx.fillStyle = '#7dd3fc';
+          ctx.fill();
+          ctx.strokeStyle = '#0284c7';
+          ctx.lineWidth = 1.6;
+          ctx.stroke();
+
+          // Dây đeo
+          ctx.beginPath();
+          ctx.moveTo(12, -16); ctx.lineTo(4, -18);
+          ctx.moveTo(12, -8); ctx.lineTo(5, -14);
+          ctx.strokeStyle = '#ffffff';
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+          ctx.restore();
+        } else if (c.hat === 'cowboy') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(10, -34, 11, Math.PI, 0);
+          ctx.fillStyle = '#78350f';
+          ctx.fill();
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 1.8;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.moveTo(-6, -33);
+          ctx.quadraticCurveTo(10, -37, 28, -33);
+          ctx.strokeStyle = '#451a03';
+          ctx.lineWidth = 3.5;
+          ctx.stroke();
+          ctx.restore();
+        } else if (c.hat === 'chef') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(3, -34, 14, 5);
+          ctx.fillStyle = '#ffffff';
+          ctx.fill();
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(6, -42, 6, 0, Math.PI * 2);
+          ctx.arc(10, -46, 7, 0, Math.PI * 2);
+          ctx.arc(15, -42, 6, 0, Math.PI * 2);
+          ctx.fillStyle = '#ffffff';
+          ctx.fill();
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+          ctx.restore();
+        } else if (c.hat === 'ninja') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(1, -26, 18, 5);
+          ctx.fillStyle = '#dc2626';
+          ctx.fill();
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+
+      drawNameTag(ctx, s, isHovered) {
+        ctx.save();
+        const tagOffsetY = Math.round(44 * s + 8);
+        const tagY = Math.max(STATE.topBankH + 15, this.y - tagOffsetY);
+        ctx.translate(this.x, tagY);
+
+        const tagText = (this.index + 1) + '. ' + this.name;
+        const fontSize = Math.max(Math.round(11 * s), 10);
+        ctx.font = 'bold ' + fontSize + 'px Inter, Arial, sans-serif';
+        const textWidth = ctx.measureText(tagText).width;
+        const tagW = Math.max(textWidth + 14, 30);
+        const tagH = Math.max(Math.round(20 * s), 17);
+
+        ctx.beginPath();
+        ctx.roundRect(-tagW / 2, -tagH / 2, tagW, tagH, tagH / 2);
+        ctx.fillStyle = isHovered ? '#fef08a' : '#ffffff';
+        ctx.fill();
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = isHovered ? 2.5 : 2;
+        ctx.stroke();
+
+        ctx.fillStyle = '#000000';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(tagText, 0, 0.5);
 
         ctx.restore();
       }
@@ -1585,13 +2242,14 @@
       canvas: null,
       ctx: null,
       particles: [],
-      active: false,
 
       init() {
         this.canvas = document.getElementById('confettiCanvas');
-        this.ctx = this.canvas.getContext('2d');
-        this.resize();
-        window.addEventListener('resize', () => this.resize());
+        if (this.canvas) {
+          this.ctx = this.canvas.getContext('2d');
+          this.resize();
+          window.addEventListener('resize', () => this.resize());
+        }
       },
 
       resize() {
@@ -1600,61 +2258,55 @@
         this.canvas.height = window.innerHeight;
       },
 
-      start() {
-        this.active = true;
-        this.particles = [];
-        const colors = ['#f59e0b', '#38bdf8', '#ec4899', '#10b981', '#8b5cf6', '#ef4444', '#fbbf24'];
-
-        for (let i = 0; i < 160; i++) {
+      fire(x, y, count = 70) {
+        const colors = ['#f59e0b', '#ec4899', '#3b82f6', '#10b981', '#8b5cf6', '#ef4444', '#ffffff'];
+        for (let i = 0; i < count; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 4 + Math.random() * 9;
           this.particles.push({
-            x: Math.random() * this.canvas.width,
-            y: -20 - Math.random() * this.canvas.height * 0.5,
-            w: 8 + Math.random() * 8,
-            h: 5 + Math.random() * 6,
+            x: x,
+            y: y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 4,
+            size: 5 + Math.random() * 6,
             color: colors[Math.floor(Math.random() * colors.length)],
-            vx: Math.random() * 4 - 2,
-            vy: 2.5 + Math.random() * 4,
             rotation: Math.random() * Math.PI * 2,
-            vRot: (Math.random() - 0.5) * 0.15,
-            opacity: 1
+            rotSpeed: (Math.random() - 0.5) * 0.25,
+            alpha: 1.0,
+            gravity: 0.18
           });
         }
       },
 
-      stop() {
-        this.active = false;
-        this.particles = [];
-        if (this.ctx) {
-          this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        }
-      },
-
       updateAndDraw() {
-        if (!this.active || !this.ctx) return;
+        if (!this.ctx) return;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.particles.forEach(p => {
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+          const p = this.particles[i];
           p.x += p.vx;
           p.y += p.vy;
-          p.rotation += p.vRot;
+          p.vy += p.gravity;
+          p.rotation += p.rotSpeed;
+          p.alpha -= 0.012;
+
+          if (p.alpha <= 0 || p.y > this.canvas.height) {
+            this.particles.splice(i, 1);
+            continue;
+          }
 
           this.ctx.save();
           this.ctx.translate(p.x, p.y);
           this.ctx.rotate(p.rotation);
           this.ctx.fillStyle = p.color;
-          this.ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          this.ctx.globalAlpha = Math.max(p.alpha, 0);
+          this.ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
           this.ctx.restore();
-
-          // Reset khi rơi xuống đáy
-          if (p.y > this.canvas.height + 20) {
-            p.y = -10;
-            p.x = Math.random() * this.canvas.width;
-          }
-        });
+        }
       }
     };
 
-    // --- 5. GAME ENGINE (Canvas Renderer) ---
+    // --- 5. GAME ENGINE (Mô phỏng đường đua chuẩn Online-Stopwatch) ---
     const GameEngine = {
       canvas: null,
       ctx: null,
@@ -1663,88 +2315,214 @@
       init() {
         this.canvas = document.getElementById('raceCanvas');
         this.ctx = this.canvas.getContext('2d');
-        this.resize();
-        window.addEventListener('resize', () => this.resize());
-        this.loop = this.loop.bind(this);
+        this.initCanvas();
+        window.addEventListener('resize', () => this.initCanvas());
+
+        // Chuột di chuyển để xem Tooltip
+        const tooltip = document.getElementById('duckTooltip');
+        this.canvas.addEventListener('mousemove', (e) => {
+          const rect = this.canvas.getBoundingClientRect();
+          const mx = e.clientX - rect.left;
+          const my = e.clientY - rect.top;
+
+          let found = null;
+          const sorted = [...STATE.ducks].sort((a, b) => b.y - a.y);
+          for (const duck of sorted) {
+            const dx = mx - duck.x;
+            const dy = my - duck.y;
+            const r = 36 * duck.scale;
+            if (dx * dx + dy * dy < r * r) {
+              found = duck;
+              break;
+            }
+          }
+          STATE.hoveredDuck = found;
+          if (found && tooltip) {
+            tooltip.style.display = 'block';
+            tooltip.style.left = e.clientX + 'px';
+            tooltip.style.top = e.clientY + 'px';
+            tooltip.innerText = '#' + (found.index + 1) + '. ' + found.name;
+            this.canvas.style.cursor = 'pointer';
+          } else if (tooltip) {
+            tooltip.style.display = 'none';
+            this.canvas.style.cursor = 'default';
+          }
+        });
+
+        this.canvas.addEventListener('mouseleave', () => {
+          STATE.hoveredDuck = null;
+          if (tooltip) tooltip.style.display = 'none';
+        });
+
+        this.loop();
       },
 
-      resize() {
+      initCanvas() {
+        if (!this.canvas) return;
         const dpr = window.devicePixelRatio || 1;
-        STATE.canvasWidth = window.innerWidth;
-        STATE.canvasHeight = window.innerHeight;
+        const w = window.innerWidth;
+        const h = window.innerHeight;
 
-        this.canvas.width = STATE.canvasWidth * dpr;
-        this.canvas.height = STATE.canvasHeight * dpr;
+        this.canvas.width = Math.round(w * dpr);
+        this.canvas.height = Math.round(h * dpr);
+        this.ctx.resetTransform();
         this.ctx.scale(dpr, dpr);
 
-        if (!STATE.isRunning && STATE.ducks.length > 0) {
+        STATE.canvasWidth = w;
+        STATE.canvasHeight = h;
+        STATE.topBankH = Math.max(140, Math.round(h * 0.18));
+        STATE.finishLineX = Math.round(w * 0.86);
+        STATE.startLineX = Math.max(70, Math.round(w * 0.11));
+        STATE.trackLength = STATE.finishLineX - STATE.startLineX;
+
+        if (!STATE.isRunning) {
           this.layoutLanes();
         }
       },
 
-      // Phân chia làn bơi hài hòa cho các chú vịt
+      // Phân chia bố cục bầy vịt:
+      // Ít vịt (Ảnh 1): Vịt phóng to khổng lồ, chi tiết sắc sảo, thỏa mãn thị giác
+      // Nhiều vịt (Ảnh 2): Đàn vịt dày đặc chen chúc như một bầy marathon cuồng nhiệt
       layoutLanes() {
         const total = STATE.ducks.length;
         if (total === 0) return;
 
-        // Giới hạn chiều cao sông nước (tránh sát bờ cỏ)
-        const topBankH = 75;
-        const bottomBankH = 75;
-        const riverH = Math.max(STATE.canvasHeight - topBankH - bottomBankH, 200);
+        const topBankH = STATE.topBankH;
+        const riverH = STATE.canvasHeight - topBankH;
+        const finishX = STATE.finishLineX;
 
-        const laneHeight = riverH / Math.max(total, 1);
+        let duckScale = 1.0;
+        let numLanes = total;
+        let colSpacing = 80;
+        let startBaseX = Math.max(80, Math.round(STATE.canvasWidth * 0.12));
+
+        if (total <= 12) {
+          // ÍT VỊT (như Ảnh 1): Vịt to béo khổng lồ, xếp 2 cột so le ngoạn mục
+          duckScale = Math.min(2.35, Math.max(1.85, (riverH / 360) * 1.4));
+          numLanes = Math.min(Math.ceil(total / 2), 6);
+          colSpacing = Math.round(78 * duckScale);
+          startBaseX = Math.max(160, Math.round(STATE.canvasWidth * 0.16));
+        } else if (total <= 25) {
+          duckScale = Math.min(1.8, Math.max(1.45, (riverH / 460) * 1.3));
+          numLanes = Math.min(Math.floor(riverH / 50), 11);
+          colSpacing = Math.round(65 * duckScale);
+          startBaseX = Math.max(70, Math.round(STATE.canvasWidth * 0.11));
+        } else {
+          // NHIỀU VỊT (như Ảnh 2, 50 - 80 vịt): Đàn vịt dày đặc chen chúc
+          duckScale = Math.min(1.4, Math.max(1.22, (riverH / 600) * 1.25));
+          numLanes = Math.min(Math.floor(riverH / 46), 14);
+          colSpacing = Math.round(48 * duckScale);
+          startBaseX = Math.max(50, Math.round(STATE.canvasWidth * 0.08));
+        }
+
+        STATE.startLineX = startBaseX;
+        STATE.trackLength = finishX - startBaseX;
+
+        const laneH = riverH / (numLanes + 1);
+        const startY = topBankH + laneH * 0.8;
 
         STATE.ducks.forEach((duck, idx) => {
-          // Tính toạ độ Y theo làn + độ lệch ngẫu nhiên nhẹ
-          duck.baseY = topBankH + (idx + 0.5) * laneHeight;
+          duck.scale = duckScale;
+          const laneIndex = idx % numLanes;
+          const colIndex = Math.floor(idx / numLanes);
+          const staggerX = (laneIndex % 2 === 1) ? (colSpacing * 0.44) : 0;
+          const jitterX = (Math.sin(idx * 7) * 0.18) * colSpacing;
+          const jitterY = (Math.cos(idx * 5) * 0.08) * laneH;
+
+          duck.baseY = startY + laneIndex * laneH + jitterY;
           duck.y = duck.baseY;
+          duck.x = startBaseX - (colIndex * colSpacing + staggerX + jitterX);
+
+          // Tốc độ cơ sở tính theo cự ly thực tế trên màn hình và thời lượng đua (giây)
+          const travelDist = finishX - duck.x;
+          duck.baseSpeed = travelDist / (STATE.raceDuration * 60);
+          duck.currentSpeed = duck.baseSpeed * (0.85 + Math.random() * 0.3);
         });
       },
 
       startRace() {
         STATE.isRunning = true;
         STATE.isFinished = false;
+        STATE.isPaused = false;
         STATE.startTime = Date.now();
+        STATE.pauseStartTime = 0;
+        STATE.pausedDuration = 0;
         STATE.rankedResults = [];
-        STATE.cameraX = 0;
 
-        // Reset vị trí vịt
+        document.getElementById('btnPauseRace').innerText = 'Pause';
+
+        this.layoutLanes();
         STATE.ducks.forEach(d => {
-          d.x = STATE.startLineX - (Math.random() * 40 + 10);
           d.isFinished = false;
           d.finishTime = 0;
           d.rank = 0;
           d.ripples = [];
-          d.currentSpeed = d.baseSpeed * (0.8 + Math.random() * 0.4);
         });
 
-        // Bật HUD & ẩn các modal và nút nổi kết quả cũ
+        // Bật HUD & ẩn modal
         document.getElementById('hudOverlay').classList.add('active');
         document.getElementById('setupModal').classList.add('hidden');
         document.getElementById('resultsModal').classList.add('hidden');
-        const floatingBtn = document.getElementById('btnFloatingResults');
-        if (floatingBtn) floatingBtn.classList.remove('active');
-        const headerResultsBtn = document.getElementById('btnViewResultsHeader');
-        if (headerResultsBtn) headerResultsBtn.style.display = 'none';
+        document.getElementById('btnFloatingResults').classList.remove('show');
+        document.getElementById('btnViewResultsHeader').style.display = 'none';
 
-        ConfettiEngine.stop();
-
-        // Âm thanh xuất phát
-        AudioController.playWhistle();
-
-        // Chạy vòng lặp Render
-        if (this.animId) cancelAnimationFrame(this.animId);
-        this.animId = requestAnimationFrame(this.loop);
+        AudioController.playQuack();
+        AudioController.startMusic();
       },
 
-      loop() {
-        this.update();
-        this.render();
-        ConfettiEngine.updateAndDraw();
-
-        if (STATE.isRunning || STATE.isFinished || ConfettiEngine.active) {
-          this.animId = requestAnimationFrame(this.loop);
+      pauseRace() {
+        if (!STATE.isRunning || STATE.isFinished) return;
+        STATE.isPaused = !STATE.isPaused;
+        const btn = document.getElementById('btnPauseRace');
+        if (STATE.isPaused) {
+          STATE.pauseStartTime = Date.now();
+          if (btn) btn.innerText = 'Continue';
+          AudioController.stopMusic();
+        } else {
+          STATE.pausedDuration += (Date.now() - STATE.pauseStartTime);
+          STATE.pauseStartTime = 0;
+          if (btn) btn.innerText = 'Pause';
+          AudioController.startMusic();
         }
+      },
+
+      clearRace() {
+        STATE.isRunning = false;
+        STATE.isFinished = false;
+        STATE.isPaused = false;
+        STATE.rankedResults = [];
+        AudioController.stopMusic();
+
+        document.getElementById('stopwatchDigits').innerText = '00:00:00';
+        document.getElementById('btnPauseRace').innerText = 'Pause';
+        document.getElementById('hudOverlay').classList.remove('active');
+        document.getElementById('resultsModal').classList.add('hidden');
+        document.getElementById('btnFloatingResults').classList.remove('show');
+        document.getElementById('btnViewResultsHeader').style.display = 'none';
+
+        this.layoutLanes();
+        document.getElementById('setupModal').classList.remove('hidden');
+      },
+
+      finishRace() {
+        STATE.isRunning = false;
+        STATE.isFinished = true;
+        AudioController.stopMusic();
+
+        // Xếp hạng nốt các chú vịt còn lại theo khoảng cách tới đích
+        const unfinished = STATE.ducks.filter(d => !d.isFinished);
+        unfinished.sort((a, b) => b.x - a.x);
+        unfinished.forEach(d => {
+          d.isFinished = true;
+          STATE.rankedResults.push(d);
+          d.rank = STATE.rankedResults.length;
+        });
+
+        document.getElementById('btnViewResultsHeader').style.display = 'inline-flex';
+
+        setTimeout(() => {
+          showResultsModal();
+        }, 1200);
       },
 
       update() {
@@ -1753,15 +2531,24 @@
             STATE.waterWaveOffset += 0.02;
             STATE.ducks.forEach(duck => {
               duck.bobCycle += duck.bobSpeed * 0.5;
-              duck.y = duck.baseY + Math.sin(duck.bobCycle) * 3;
+              duck.y = duck.baseY + Math.sin(duck.bobCycle) * (3 * duck.scale);
             });
           }
           return;
         }
 
-        STATE.waterWaveOffset += 0.04;
+        if (STATE.isPaused) {
+          return; // Tạm dừng
+        }
 
-        // Tìm vị trí vịt dẫn đầu để camera bám theo
+        STATE.waterWaveOffset += 0.035;
+
+        // Cập nhật đồng hồ bấm giờ điện tử
+        const elapsed = Date.now() - STATE.startTime - STATE.pausedDuration;
+        const digitsEl = document.getElementById('stopwatchDigits');
+        if (digitsEl) digitsEl.innerText = formatStopwatchTime(elapsed);
+
+        // Vị trí vịt dẫn đầu
         let leadingX = 0;
         let activeCount = 0;
 
@@ -1776,412 +2563,496 @@
 
         const progressRatio = Math.min(Math.max((leadingX - STATE.startLineX) / (STATE.finishLineX - STATE.startLineX), 0), 1);
 
-        // Cập nhật từng chú vịt
         STATE.ducks.forEach(duck => {
           duck.update(progressRatio);
         });
 
-        // Cập nhật Camera mượt mà (Lerp)
-        // Camera cố gắng giữ vịt dẫn đầu ở vị trí khoảng 45% bề ngang màn hình
-        const targetCamX = Math.max(leadingX - STATE.canvasWidth * 0.45, 0);
-        STATE.cameraX += (targetCamX - STATE.cameraX) * 0.08;
-
-        // Cập nhật HUD tiến độ
+        // Tiến độ HUD
         const percent = Math.floor(progressRatio * 100);
-        document.getElementById('progressBarFill').style.width = `${percent}%`;
-        document.getElementById('progressPercent').innerText = `${percent}%`;
+        document.getElementById('progressBarFill').style.width = percent + '%';
+        document.getElementById('progressPercent').innerText = percent + '%';
 
-        // Cập nhật Top 3 Leaderboard
         const sortedLive = [...STATE.ducks].sort((a, b) => b.x - a.x);
-        document.getElementById('lead1').innerText = sortedLive[0] ? `#1 ${sortedLive[0].name}` : '-';
-        document.getElementById('lead2').innerText = sortedLive[1] ? `#2 ${sortedLive[1].name}` : '-';
-        document.getElementById('lead3').innerText = sortedLive[2] ? `#3 ${sortedLive[2].name}` : '-';
+        document.getElementById('lead1').innerText = sortedLive[0] ? '#1 ' + sortedLive[0].name : '-';
+        document.getElementById('lead2').innerText = sortedLive[1] ? '#2 ' + sortedLive[1].name : '-';
+        document.getElementById('lead3').innerText = sortedLive[2] ? '#3 ' + sortedLive[2].name : '-';
 
-        // Kiểm tra tất cả đã về đích hoặc Top 3 đã về đích xong một lúc
-        if (STATE.rankedResults.length === STATE.ducks.length || (STATE.rankedResults.length >= Math.min(STATE.ducks.length, 3) && leadingX >= STATE.finishLineX + 350)) {
+        // Kết thúc khi toàn bộ vịt đã về đích hoặc top 3 đã về đích + thời gian tối đa
+        if (activeCount === 0 || (STATE.rankedResults.length >= Math.min(3, STATE.ducks.length) && progressRatio >= 0.99)) {
           this.finishRace();
         }
-      },
-
-      finishRace() {
-        STATE.isRunning = false;
-        STATE.isFinished = true;
-
-        // Bổ sung những vịt chưa kịp cán đích vào danh sách theo thứ tự khoảng cách
-        if (STATE.rankedResults.length < STATE.ducks.length) {
-          const remaining = STATE.ducks.filter(d => !d.isFinished).sort((a, b) => b.x - a.x);
-          remaining.forEach(d => {
-            d.finishTime = (Date.now() - STATE.startTime) / 1000;
-            STATE.rankedResults.push(d);
-            d.rank = STATE.rankedResults.length;
-          });
-        }
-
-        // Ẩn HUD và hiển thị Modal Kết Quả sau 1.2s kịch tính
-        setTimeout(() => {
-          document.getElementById('hudOverlay').classList.remove('active');
-          showResultsModal();
-        }, 1200);
       },
 
       render() {
         const ctx = this.ctx;
         const w = STATE.canvasWidth;
         const h = STATE.canvasHeight;
-        const camX = STATE.cameraX;
+        if (!ctx || w === 0 || h === 0) return;
 
         ctx.clearRect(0, 0, w, h);
 
-        // 1. NỀN DÒNG SÔNG NƯỚC XANH
-        const riverGrad = ctx.createLinearGradient(0, 0, 0, h);
-        riverGrad.addColorStop(0, '#0284c7');
-        riverGrad.addColorStop(0.5, '#0ea5e9');
-        riverGrad.addColorStop(1, '#0369a1');
-        ctx.fillStyle = riverGrad;
-        ctx.fillRect(0, 0, w, h);
+        // 1. Khung cảnh thiên nhiên: Cỏ, bờ đất, sông nước
+        this.drawScenery(ctx, w, h);
 
-        // 2. CÁC TẦNG SÓNG NƯỚC UỐN LƯỢN (Parallax water waves)
+        // 2. Vạch đích nghiêng chéo 15 độ kinh điển (Slanted Checkered Finish Line)
+        this.drawFinishLine(ctx, STATE.finishLineX, STATE.topBankH, h);
+
+        // 3. Vẽ bầy vịt (Depth Sorting theo trục Y: Vịt ở trên vẽ trước, vịt ở dưới vẽ sau đè lên tự nhiên)
+        const sortedDucks = [...STATE.ducks].sort((a, b) => a.y - b.y);
+        sortedDucks.forEach(duck => {
+          duck.draw(ctx);
+        });
+      },
+
+      drawScenery(ctx, w, h) {
+        const topBankH = STATE.topBankH;
+
+        // 1. Sông nước xanh biếc
+        ctx.fillStyle = '#417b9b';
+        ctx.fillRect(0, topBankH, w, h - topBankH);
+
+        // 2. Các dải sóng nước uốn lượn ngang mềm mại
         ctx.save();
-        ctx.translate(-camX % 120, 0);
-
-        for (let waveY = 80; waveY < h - 70; waveY += 45) {
+        for (let waveY = topBankH + 45; waveY < h - 20; waveY += 56) {
           ctx.beginPath();
           ctx.moveTo(-100, waveY);
-          for (let x = -100; x < w + 200; x += 60) {
-            const dy = Math.sin((x + camX) * 0.015 + STATE.waterWaveOffset + waveY * 0.05) * 6;
+          for (let x = -100; x < w + 200; x += 70) {
+            const dy = Math.sin(x * 0.015 + STATE.waterWaveOffset + waveY * 0.035) * 8;
             ctx.lineTo(x, waveY + dy);
           }
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
-          ctx.lineWidth = 2;
+          ctx.strokeStyle = 'rgba(88, 155, 188, 0.45)';
+          ctx.lineWidth = 14;
+          ctx.lineCap = 'round';
           ctx.stroke();
         }
         ctx.restore();
 
-        // 3. THẾ GIỚI TRONG TỌA ĐỘ CAMERA (WORLD SPACE)
+        // 3. Thảm cỏ bờ trên xanh tươi
+        ctx.fillStyle = '#20a336';
+        ctx.fillRect(0, 0, w, topBankH - 18);
+
+        // 4. Bụi cây xanh tròn nhấp nhô trên cỏ
         ctx.save();
-        ctx.translate(-camX, 0);
-
-        // 3.1 Vạch xuất phát (Start Line)
-        this.drawCheckerLine(ctx, STATE.startLineX, 70, h - 70, '#38bdf8', '#0284c7', 'XUẤT PHÁT');
-
-        // 3.2 Vạch đích rực rỡ (Finish Line)
-        this.drawCheckerLine(ctx, STATE.finishLineX, 70, h - 70, '#ffffff', '#ef4444', 'ĐÍCH ĐẾN 🏁');
-
-        // 3.3 Phao phân làn trang trí nổi trên sông
-        for (let buoyX = 400; buoyX < STATE.finishLineX; buoyX += 500) {
-          this.drawBuoy(ctx, buoyX, 85);
-          this.drawBuoy(ctx, buoyX + 250, h - 90);
+        ctx.fillStyle = '#188a2c';
+        ctx.strokeStyle = '#0e5f1e';
+        ctx.lineWidth = 1.6;
+        for (let bx = 30; bx < w + 120; bx += 160) {
+          ctx.beginPath();
+          ctx.arc(bx + 40, topBankH - 70, 24, 0, Math.PI * 2);
+          ctx.arc(bx + 75, topBankH - 76, 30, 0, Math.PI * 2);
+          ctx.arc(bx + 110, topBankH - 68, 22, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
         }
 
-        // 3.4 Vẽ các chú vịt (Sắp xếp theo Y để chú nào ở dưới đè lên chú ở trên)
-        const sortedByY = [...STATE.ducks].sort((a, b) => a.y - b.y);
-        sortedByY.forEach(duck => {
-          duck.draw(ctx);
-        });
+        // 5. Khóm cỏ dại hình chữ M rải rác trên thảm cỏ
+        ctx.strokeStyle = '#0e5f1e';
+        ctx.lineWidth = 1.8;
+        ctx.lineCap = 'round';
+        for (let gx = 45; gx < w; gx += 110) {
+          ctx.beginPath();
+          ctx.moveTo(gx, topBankH - 36);
+          ctx.lineTo(gx + 4, topBankH - 46);
+          ctx.lineTo(gx + 8, topBankH - 39);
+          ctx.lineTo(gx + 12, topBankH - 48);
+          ctx.lineTo(gx + 16, topBankH - 36);
+          ctx.stroke();
 
-        ctx.restore();
-
-        // 4. HAI BỜ SÔNG (CỎ XANH & HOA LÁ TRANG TRÍ - SCREEN SPACE)
-        this.drawRiverBanks(ctx, w, h, camX);
-      },
-
-      // Vẽ vạch bàn cờ xuất phát / đích đến
-      drawCheckerLine(ctx, x, topY, bottomY, col1, col2, label) {
-        const squareSize = 14;
-        const numCols = 2;
-        const totalRows = Math.ceil((bottomY - topY) / squareSize);
-
-        for (let col = 0; col < numCols; col++) {
-          for (let row = 0; row < totalRows; row++) {
-            ctx.fillStyle = (row + col) % 2 === 0 ? col1 : col2;
-            ctx.fillRect(x + col * squareSize, topY + row * squareSize, squareSize, squareSize);
-          }
+          ctx.beginPath();
+          ctx.moveTo(gx + 55, topBankH - 30);
+          ctx.lineTo(gx + 58, topBankH - 38);
+          ctx.lineTo(gx + 62, topBankH - 33);
+          ctx.lineTo(gx + 66, topBankH - 40);
+          ctx.lineTo(gx + 69, topBankH - 30);
+          ctx.stroke();
         }
-
-        // Cột cờ
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(x - 2, topY - 20, 6, bottomY - topY + 40);
-
-        // Biển chữ vạch
-        ctx.save();
-        ctx.font = 'bold 13px Outfit, sans-serif';
-        ctx.fillStyle = '#ffffff';
-        ctx.shadowColor = 'rgba(0,0,0,0.6)';
-        ctx.shadowBlur = 6;
-        ctx.textAlign = 'center';
-        ctx.fillText(label, x + squareSize, topY - 10);
-        ctx.fillText(label, x + squareSize, bottomY + 24);
         ctx.restore();
-      },
 
-      // Vẽ phao tròn trên nước
-      drawBuoy(ctx, x, y) {
+        // 6. Bờ đất nâu ấm giáp mép nước với viền cong tự nhiên
         ctx.save();
         ctx.beginPath();
-        ctx.ellipse(x, y + 4, 12, 6, 0, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(0,0,0,0.2)';
+        ctx.moveTo(0, topBankH - 18);
+        for (let x = 0; x <= w; x += 40) {
+          const bumpY = Math.sin(x * 0.05) * 2;
+          ctx.lineTo(x, topBankH - 18 + bumpY);
+        }
+        ctx.lineTo(w, topBankH);
+        for (let x = w; x >= 0; x -= 40) {
+          const bumpY2 = Math.cos(x * 0.04) * 2.5;
+          ctx.lineTo(x, topBankH + bumpY2);
+        }
+        ctx.closePath();
+        ctx.fillStyle = '#7c4a1e';
         ctx.fill();
 
-        ctx.beginPath();
-        ctx.arc(x, y, 9, 0, Math.PI * 2);
-        ctx.fillStyle = '#f97316';
-        ctx.fill();
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = '#ffffff';
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 2.4;
         ctx.stroke();
         ctx.restore();
       },
 
-      // Vẽ hai bờ sông xanh mát
-      drawRiverBanks(ctx, w, h, camX) {
-        const bankH = 68;
+      // Vẽ vạch đích chéo ca-rô 15 độ kinh điển của Online-Stopwatch
+      drawFinishLine(ctx, finishX, topY, bottomY) {
+        const height = bottomY - topY;
+        const slantOffset = Math.round(STATE.canvasHeight * 0.13);
+        const topX = finishX + slantOffset;
+        const bottomX = finishX - slantOffset;
+        const bannerW = 44;
+        const squareH = 24;
+        const totalRows = Math.ceil(height / squareH);
 
-        // Bờ trên
-        const topGrad = ctx.createLinearGradient(0, 0, 0, bankH);
-        topGrad.addColorStop(0, '#15803d');
-        topGrad.addColorStop(0.85, '#166534');
-        topGrad.addColorStop(1, '#14532d');
-        ctx.fillStyle = topGrad;
-        ctx.fillRect(0, 0, w, bankH);
+        ctx.save();
+        for (let r = 0; r < totalRows; r++) {
+          const t1 = r / totalRows;
+          const t2 = (r + 1) / totalRows;
+          const y1 = topY + t1 * height;
+          const y2 = topY + t2 * height;
+          const cx1 = topX + t1 * (bottomX - topX);
+          const cx2 = topX + t2 * (bottomX - topX);
 
-        // Viền mép nước bờ trên (bọt cát)
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(0, bankH - 3, w, 3);
+          // Cột trái
+          ctx.beginPath();
+          ctx.moveTo(cx1 - bannerW / 2, y1);
+          ctx.lineTo(cx1, y1);
+          ctx.lineTo(cx2, y2);
+          ctx.lineTo(cx2 - bannerW / 2, y2);
+          ctx.closePath();
+          ctx.fillStyle = r % 2 === 0 ? '#000000' : '#ffffff';
+          ctx.fill();
 
-        // Bờ dưới
-        const botGrad = ctx.createLinearGradient(0, h - bankH, 0, h);
-        botGrad.addColorStop(0, '#14532d');
-        botGrad.addColorStop(0.15, '#166534');
-        botGrad.addColorStop(1, '#15803d');
-        ctx.fillStyle = botGrad;
-        ctx.fillRect(0, h - bankH, w, bankH);
-
-        // Viền mép nước bờ dưới
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(0, h - bankH, w, 3);
-
-        // Hàng rào trang trí nhẹ trên bờ
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-        for (let x = -(camX * 0.5) % 30; x < w; x += 30) {
-          ctx.fillRect(x, bankH - 12, 4, 10);
-          ctx.fillRect(x, h - bankH + 2, 4, 10);
+          // Cột phải
+          ctx.beginPath();
+          ctx.moveTo(cx1, y1);
+          ctx.lineTo(cx1 + bannerW / 2, y1);
+          ctx.lineTo(cx2 + bannerW / 2, y2);
+          ctx.lineTo(cx2, y2);
+          ctx.closePath();
+          ctx.fillStyle = r % 2 === 0 ? '#ffffff' : '#000000';
+          ctx.fill();
         }
+
+        // Viền đen đậm chuẩn hoạt hình bao quanh toàn bộ vạch đích
+        ctx.beginPath();
+        ctx.moveTo(topX - bannerW / 2, topY);
+        ctx.lineTo(topX + bannerW / 2, topY);
+        ctx.lineTo(bottomX + bannerW / 2, bottomY);
+        ctx.lineTo(bottomX - bannerW / 2, bottomY);
+        ctx.closePath();
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 3.5;
+        ctx.stroke();
+
+        ctx.restore();
+      },
+
+      loop() {
+        this.update();
+        this.render();
+        ConfettiEngine.updateAndDraw();
+        this.animId = requestAnimationFrame(() => this.loop());
       }
     };
 
-    // --- 6. UI LOGIC & EVENT HANDLERS ---
+    // --- 6. UI & INTERACTIONS ---
     function initUI() {
-      const namesInput = document.getElementById('namesInput');
-      const participantCount = document.getElementById('participantCount');
-      const setupModal = document.getElementById('setupModal');
-      const resultsModal = document.getElementById('resultsModal');
-      // Cập nhật số lượng thí sinh
-      function updateDuckCount() {
-        const names = getParsedNames();
-        participantCount.innerText = `${names.length} chú vịt`;
-      }
+      // Dữ liệu mẫu ban đầu
+      const defaultNames = [
+        'Ngọc Dũng', 'Minh Sáng', 'Hoàng Nam', 'Thanh Trúc', 'Văn Hùng',
+        'Thu Trang', 'Tuấn Kiệt', 'Bích Phương', 'Quốc Bảo', 'Khánh Linh'
+      ];
+      document.getElementById('namesInput').value = defaultNames.join(', ');
+      updateParticipantCount();
+      buildDucksFromInput();
 
-      function getParsedNames() {
-        const text = namesInput.value.trim();
-        if (!text) return [];
-        return text
-          .split(/[\n,;，]+/)
-          .map(s => s.trim())
-          .filter(s => s.length > 0);
-      }
+      // Sự kiện gõ danh sách
+      document.getElementById('namesInput').addEventListener('input', () => {
+        updateParticipantCount();
+        buildDucksFromInput();
+      });
 
-      namesInput.addEventListener('input', updateDuckCount);
-
-      // Cài đặt mẫu sẵn
+      // Quick Preset Buttons
       document.querySelectorAll('.preset-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-          const preset = e.target.getAttribute('data-preset');
-          const count = parseInt(e.target.getAttribute('data-count'), 10);
+          AudioController.playClick();
+          const preset = e.target.dataset.preset;
+          const count = parseInt(e.target.dataset.count || '0', 10);
 
           if (preset === 'numbers') {
             const arr = [];
             for (let i = 1; i <= count; i++) {
-              arr.push(`Số ${i < 10 ? '0' + i : i}`);
+              arr.push('Số ' + (i < 10 ? '0' + i : i));
             }
-            namesInput.value = arr.join(', ');
+            document.getElementById('namesInput').value = arr.join(', ');
           } else if (preset === 'sample') {
-            namesInput.value = SAMPLE_NAMES.join(', ');
+            const funNames = [
+              'Vịt Siêu Tốc', 'Vịt Donal', 'Vịt Vàng Bí Ẩn', 'Vịt Hoàng Gia',
+              'Vịt Điệp Viên', 'Vịt Xanh Lá', 'Vịt Người Nhện', 'Vịt Cảnh Sát',
+              'Vịt Rudolph', 'Vịt Bác Sĩ', 'Vịt Tỷ Phú', 'Vịt Thợ Lặn'
+            ];
+            document.getElementById('namesInput').value = funNames.join(', ');
           } else if (preset === 'clear') {
-            namesInput.value = '';
+            document.getElementById('namesInput').value = '';
           }
-          updateDuckCount();
+
+          updateParticipantCount();
+          buildDucksFromInput();
         });
       });
 
-      // Tùy chọn thời lượng / cự ly đua
+      // Chọn cự ly / thời lượng đua
       document.querySelectorAll('.duration-chip').forEach(chip => {
         chip.addEventListener('click', (e) => {
+          AudioController.playClick();
           document.querySelectorAll('.duration-chip').forEach(c => c.classList.remove('active'));
           const target = e.currentTarget;
           target.classList.add('active');
-          STATE.trackLength = parseInt(target.getAttribute('data-dist'), 10);
-          STATE.raceDuration = parseInt(target.getAttribute('data-time'), 10);
-          STATE.finishLineX = STATE.trackLength;
+          STATE.raceDuration = parseInt(target.dataset.time || '25', 10);
+          GameEngine.layoutLanes();
         });
       });
 
-      // Nút bắt đầu đua
+      // Nút Bắt đầu đua
       document.getElementById('btnStartRace').addEventListener('click', () => {
-        AudioController.init();
-        const names = getParsedNames();
-        if (names.length < 2) {
-          showToast('⚠️ Vui lòng nhập ít nhất 2 chú vịt để bắt đầu đua!');
+        AudioController.playClick();
+        buildDucksFromInput();
+        if (STATE.ducks.length === 0) {
+          alert('Vui lòng nhập ít nhất 1 tên hoặc số tham gia!');
           return;
         }
-
-        STATE.names = names;
-
-        // Khởi tạo danh sách Ducks (100% ngẫu nhiên công bằng)
-        STATE.ducks = names.map((name, idx) => new Duck(idx + 1, name, idx, names.length));
-        GameEngine.layoutLanes();
         GameEngine.startRace();
       });
 
-      // Nút mở Modal Setup từ Header
+      // Nút Pause / Continue trên đồng hồ Online-Stopwatch
+      document.getElementById('btnPauseRace').addEventListener('click', () => {
+        AudioController.playClick();
+        GameEngine.pauseRace();
+      });
+
+      // Nút Clear trên đồng hồ Online-Stopwatch
+      document.getElementById('btnClearRace').addEventListener('click', () => {
+        AudioController.playClick();
+        GameEngine.clearRace();
+      });
+
+      // Nút Mở cài đặt
       document.getElementById('btnSettingsToggle').addEventListener('click', () => {
-        setupModal.classList.remove('hidden');
+        AudioController.playClick();
+        document.getElementById('setupModal').classList.remove('hidden');
       });
 
+      // Nút Đóng cài đặt
       document.getElementById('btnCloseSetup').addEventListener('click', () => {
-        setupModal.classList.add('hidden');
+        AudioController.playClick();
+        document.getElementById('setupModal').classList.add('hidden');
       });
 
-      // Nút bật/tắt âm thanh
-      const btnSound = document.getElementById('btnSoundToggle');
-      btnSound.addEventListener('click', () => {
-        AudioController.init();
-        const on = AudioController.toggle();
-        btnSound.innerHTML = on ? '<i class="uil uil-volume"></i>' : '<i class="uil uil-volume-mute"></i>';
-        showToast(on ? 'Đã bật âm thanh' : 'Đã tắt âm thanh');
+      // Nút Bật / Tắt Nhạc nền
+      document.getElementById('btnMusicToggle').addEventListener('click', () => {
+        AudioController.toggleMusic();
       });
+
+      // Nút Bật / Tắt Âm thanh
+      document.getElementById('btnSoundToggle').addEventListener('click', () => {
+        AudioController.toggleSound();
+      });
+
+      // Nút Bật / Tắt Nhãn tên trên vịt
+      const btnToggleLabels = document.getElementById('btnToggleLabels');
+      if (btnToggleLabels) {
+        btnToggleLabels.addEventListener('click', () => {
+          AudioController.playClick();
+          STATE.showNameTags = !STATE.showNameTags;
+          if (STATE.showNameTags) {
+            btnToggleLabels.classList.add('active-glow');
+            showToast('Đã BẬT nhãn tên trên vịt!');
+          } else {
+            btnToggleLabels.classList.remove('active-glow');
+            showToast('Đã TẮT nhãn tên (chuẩn Online-Stopwatch)!');
+          }
+        });
+      }
 
       // Nút Toàn màn hình
-      const btnFullscreen = document.getElementById('btnFullscreen');
-      btnFullscreen.addEventListener('click', () => {
+      document.getElementById('btnFullscreen').addEventListener('click', () => {
+        AudioController.playClick();
         if (!document.fullscreenElement) {
-          document.documentElement.requestFullscreen().catch(() => { });
+          document.documentElement.requestFullscreen().catch(() => {});
         } else {
-          document.exitFullscreen().catch(() => { });
+          document.exitFullscreen().catch(() => {});
         }
       });
 
-      // Chơi lại cùng danh sách
+      // Nút Xem lại kết quả trên Header & Nút nổi
+      document.getElementById('btnViewResultsHeader').addEventListener('click', () => {
+        AudioController.playClick();
+        showResultsModal();
+      });
+
+      document.getElementById('btnFloatingResults').addEventListener('click', () => {
+        AudioController.playClick();
+        showResultsModal();
+      });
+
+      // Nút Đóng bảng kết quả góc trên
+      document.getElementById('btnCloseResultsCorner').addEventListener('click', () => {
+        AudioController.playClick();
+        closeResultsModal();
+      });
+
+      // Nút Đóng bảng kết quả thanh hành động dưới
+      document.getElementById('btnCloseResultsAction').addEventListener('click', () => {
+        AudioController.playClick();
+        closeResultsModal();
+      });
+
+      // Nút Đua lại
       document.getElementById('btnReplay').addEventListener('click', () => {
-        resultsModal.classList.add('hidden');
+        AudioController.playClick();
+        document.getElementById('resultsModal').classList.add('hidden');
+        document.getElementById('btnFloatingResults').classList.remove('show');
         GameEngine.startRace();
       });
 
-      // Đổi danh sách đua
+      // Nút Đổi danh sách
       document.getElementById('btnChangeSettings').addEventListener('click', () => {
-        resultsModal.classList.add('hidden');
-        setupModal.classList.remove('hidden');
+        AudioController.playClick();
+        document.getElementById('resultsModal').classList.add('hidden');
+        document.getElementById('setupModal').classList.remove('hidden');
       });
 
-      // Đóng bảng kết quả về màn hình đua
-      function closeResultsModal() {
-        resultsModal.classList.add('hidden');
-        const floatingBtn = document.getElementById('btnFloatingResults');
-        if (floatingBtn) floatingBtn.classList.add('active');
-        const headerBtn = document.getElementById('btnViewResultsHeader');
-        if (headerBtn) headerBtn.style.display = 'inline-flex';
-        showToast('Nhấn cúp 🏆 hoặc nút nổi để mở lại kết quả!');
-      }
-
-      document.getElementById('btnCloseResultsCorner').addEventListener('click', closeResultsModal);
-      document.getElementById('btnCloseResultsAction').addEventListener('click', closeResultsModal);
-
-      // Mở lại bảng kết quả từ nút nổi hoặc nút trên header
-      document.getElementById('btnFloatingResults').addEventListener('click', () => {
-        showResultsModal();
-      });
-
-      document.getElementById('btnViewResultsHeader').addEventListener('click', () => {
-        showResultsModal();
-      });
-
-      // Sao chép kết quả gửi Zalo / Messenger
+      // Nút Sao chép kết quả
       document.getElementById('btnCopyResults').addEventListener('click', () => {
-        copyResultsToClipboard();
+        AudioController.playClick();
+        copyRaceResults();
       });
-
-      // Giá trị ban đầu
-      namesInput.value = SAMPLE_NAMES.join(', ');
-      updateDuckCount();
     }
 
-    // Hiển thị Modal Kết Quả & Podium
+    function updateParticipantCount() {
+      const text = document.getElementById('namesInput').value;
+      const names = parseNames(text);
+      document.getElementById('participantCount').innerText = names.length + ' chú vịt';
+    }
+
+    function parseNames(text) {
+      if (!text || !text.trim()) return [];
+      // Hỗ trợ cả dấu phẩy (,) và xuống dòng
+      return text
+        .split(/[,\n]/)
+        .map(n => n.trim())
+        .filter(n => n.length > 0);
+    }
+
+    function buildDucksFromInput() {
+      const text = document.getElementById('namesInput').value;
+      const names = parseNames(text);
+      STATE.names = names;
+
+      const total = names.length;
+      STATE.ducks = names.map((name, idx) => {
+        return new Duck(idx + 1, name, idx, total);
+      });
+
+      GameEngine.layoutLanes();
+    }
+
+    // Hiển thị Modal Kết Quả & Bục Vinh Quang
     function showResultsModal() {
-      const resultsModal = document.getElementById('resultsModal');
-      const podiumWrap = document.getElementById('podiumWrap');
+      const modal = document.getElementById('resultsModal');
       const tableBody = document.getElementById('resultsTableBody');
+      const results = STATE.rankedResults;
 
-      const r1 = STATE.rankedResults[0];
-      const r2 = STATE.rankedResults[1];
-      const r3 = STATE.rankedResults[2];
+      if (!results || results.length === 0) return;
 
-      document.getElementById('podiumName1').innerText = r1 ? r1.name : '--';
-      document.getElementById('podiumName2').innerText = r2 ? r2.name : '--';
-      document.getElementById('podiumName3').innerText = r3 ? r3.name : '--';
+      // Cập nhật 3 vị trí trên bục vinh quang (#1, #2, #3)
+      document.getElementById('podiumName1').innerText = results[0] ? results[0].name : '--';
+      document.getElementById('podiumName2').innerText = results[1] ? results[1].name : '--';
+      document.getElementById('podiumName3').innerText = results[2] ? results[2].name : '--';
 
-      // Tạo bảng xếp hạng đầy đủ (#1, #2, #3, ...)
-      tableBody.innerHTML = '';
-      STATE.rankedResults.forEach((duck, idx) => {
-        const tr = document.createElement('tr');
-        const rankLabel = `#${idx + 1}`;
-        tr.innerHTML = `
-          <td class="col-rank">${rankLabel}</td>
-          <td class="col-name">${duck.name}</td>
-          <td class="col-time">${duck.finishTime.toFixed(2)}s</td>
-        `;
-        tableBody.appendChild(tr);
+      // Tạo bảng chi tiết toàn bộ người tham gia
+      let html = '';
+      results.forEach((duck, idx) => {
+        const rank = idx + 1;
+        let badgeClass = 'badge-other';
+        if (rank === 1) badgeClass = 'badge-rank-1';
+        else if (rank === 2) badgeClass = 'badge-rank-2';
+        else if (rank === 3) badgeClass = 'badge-rank-3';
+
+        const timeStr = duck.finishTime ? '+' + (duck.finishTime / 1000).toFixed(2) + 's' : '--';
+
+        html += '<tr>' +
+          '<td class="rank-col"><span class="rank-badge ' + badgeClass + '">#' + rank + '</span></td>' +
+          '<td><b>' + escapeHtml(duck.name) + '</b></td>' +
+          '<td style="text-align: right; color: #64748b; font-size: 12px;">' + timeStr + '</td>' +
+          '</tr>';
       });
 
-      // Ẩn nút nổi khi modal đang mở, giữ nút header
-      const floatingBtn = document.getElementById('btnFloatingResults');
-      if (floatingBtn) floatingBtn.classList.remove('active');
-      const headerBtn = document.getElementById('btnViewResultsHeader');
-      if (headerBtn) headerBtn.style.display = 'inline-flex';
-
-      resultsModal.classList.remove('hidden');
+      tableBody.innerHTML = html;
+      modal.classList.remove('hidden');
+      document.getElementById('btnFloatingResults').classList.remove('show');
     }
 
-    // Sao chép định dạng văn bản kết quả
-    function copyResultsToClipboard() {
-      if (STATE.rankedResults.length === 0) return;
+    function closeResultsModal() {
+      document.getElementById('resultsModal').classList.add('hidden');
+      // Hiện nút nổi "Xem Lại Kết Quả" để người dùng mở lại bất kỳ lúc nào
+      document.getElementById('btnFloatingResults').classList.add('show');
+      document.getElementById('btnViewResultsHeader').style.display = 'inline-flex';
+    }
 
-      let text = `🦆 KẾT QUẢ ĐUA VỊT (DUCK RACE) 🏁\n`;
-      text += `━━━━━━━━━━━━━━━━━━━━━\n`;
-      STATE.rankedResults.forEach((duck, i) => {
-        text += `#${i + 1} ${duck.name} (${duck.finishTime.toFixed(2)}s)\n`;
+    function copyRaceResults() {
+      const results = STATE.rankedResults;
+      if (!results || results.length === 0) return;
+
+      let text = '🏁 KẾT QUẢ ĐUA VỊT MAY MẮN (DUCK RACE) 🏁\\n\\n';
+      results.forEach((duck, idx) => {
+        const rank = idx + 1;
+        const timeStr = duck.finishTime ? ' (+' + (duck.finishTime / 1000).toFixed(2) + 's)' : '';
+        text += '#' + rank + ' ' + duck.name + timeStr + '\\n';
       });
-      text += `━━━━━━━━━━━━━━━━━━━━━\n`;
-      text += `🌟 Chơi ngay tại: https://ngocdungvn.github.io/project/duck-race.html`;
+
+      text += '\\nĐua vịt chọn người thắng tại: https://ngocdungvn.github.io/project/duck-race.html';
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(() => {
-          showToast('Đã sao chép kết quả Zalo/Messenger!');
+          showToast('Đã sao chép bảng kết quả vào bộ nhớ tạm!');
+        }).catch(() => {
+          fallbackCopyText(text);
         });
       } else {
-        const area = document.createElement('textarea');
-        area.value = text;
-        document.body.appendChild(area);
-        area.select();
-        document.execCommand('copy');
-        document.body.removeChild(area);
-        showToast('Đã sao chép kết quả!');
+        fallbackCopyText(text);
       }
     }
 
-    // Hiển thị Toast thông báo
+    function fallbackCopyText(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast('Đã sao chép bảng kết quả!');
+      } catch (err) {
+        alert('Không thể sao chép kết quả tự động, vui lòng thử lại!');
+      }
+      document.body.removeChild(ta);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
     function showToast(msg) {
       const toast = document.getElementById('toastMsg');
-      const toastText = document.getElementById('toastText');
-      toastText.innerText = msg;
+      const text = document.getElementById('toastText');
+      if (!toast || !text) return;
+
+      text.innerText = msg;
       toast.classList.add('show');
       setTimeout(() => {
         toast.classList.remove('show');
@@ -2195,6 +3066,7 @@
       GameEngine.init();
       initUI();
     });
+
   </script>
 </body>
 
