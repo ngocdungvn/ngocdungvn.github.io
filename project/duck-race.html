@@ -2218,7 +2218,10 @@
         this.finishTime = 0;
         this.rank = 0;
         this.glideSpeed = 0;
-        this.raceRole = 'pack'; // 'early_leader' (Chặng 1) | 'mid_challenger' (Chặng 2) | 'final_surge' (Chặng 3) | 'pack'
+        this.duckIndex = 0;
+        this.raceRole = 'contender'; // 'stage1_leader' | 'stage2_leader' | 'stage3_winner' | 'contender'
+        this.surgeTimer = Math.floor(Math.random() * 40);
+        this.surgeSpeed = 1.0;
         this.scrambleTimer = 0;
         this.scrambleSpeed = 1.0;
       }
@@ -2239,10 +2242,10 @@
         const currentProgress = Math.max(progressRatio, timeRatio);
 
         // Chia 3 chặng đua 2D kịch tính:
-        // Chặng 1 (0% -> 40%): Nhóm 1 dẫn đầu
-        // Chặng 2 (40% -> 70%): Nhóm 2 bứt lên dẫn đầu
+        // Chặng 1 (0% -> 40%): stage1_leader dẫn trước một khoảng ngắn (~30-40px), cả đàn bám sát
+        // Chặng 2 (40% -> 70%): stage2_leader vượt lên dẫn trước (~30-40px)
         // Chặng 3 (70% -> 100%):
-        //   - 70% -> 90%: Giằng co kịch tính, các con vịt lên xuống thất thường khó đoán
+        //   - 70% -> 90%: Giằng co kịch tính, TẤT CẢ các con vịt lên xuống thất thường, so kè mỏ vịt khó đoán
         //   - 90% -> 100%: 10% cuối cùng mới bung sức bứt tốc quyết định về đích
         let stage = 1;
         if (currentProgress >= 0.90) {
@@ -2250,9 +2253,9 @@
         } else if (currentProgress >= 0.70) {
           stage = 3; // 70% -> 90%: Lên xuống thất thường, so kè mỏ vịt khó đoán
         } else if (currentProgress >= 0.40) {
-          stage = 2; // Chặng 2: Nhóm 2 dẫn đầu
+          stage = 2; // Chặng 2: stage2_leader dẫn đầu
         } else {
-          stage = 1; // Chặng 1: Nhóm 1 dẫn đầu
+          stage = 1; // Chặng 1: stage1_leader dẫn đầu
         }
 
         // Đếm số vịt đang bơi trước chú vịt này (xác định thứ hạng 2D trực tiếp)
@@ -2263,65 +2266,94 @@
           if (d.isFinished || d.x > this.x + 2) ducksAhead++;
         }
 
-        const isFinalCandidate = (this.raceRole === 'final_surge') || (allDucks.length <= 2 && this.raceRole === 'early_leader');
+        // Nhịp bơi nhấp nhô nhẹ tự nhiên cho từng chú vịt trong đàn
+        const packJitter = Math.sin((this.duckIndex || 0) * 2.3 + (STATE.gameTimeMs || 0) * 0.003) * 0.03;
 
-        // Gán tốc độ 2D trực tiếp cho từng nhóm qua các chặng (không cần mô phỏng động lực học / núp gió)
+        // Xử lý nhịp bứt tốc vi mô (micro-surge) ngẫu nhiên cho từng chú vịt trong đàn
+        // Giúp bất kỳ chú vịt nào (kể cả con 4, 5...) cũng có những cú nhích lên dẫn đầu kịch tính
+        this.surgeTimer = (this.surgeTimer || 0) - dt;
+        if (this.surgeTimer <= 0) {
+          this.surgeTimer = Math.floor(35 + Math.random() * 45); // Đổi nhịp sau mỗi 0.6s - 1.3s
+          this.surgeSpeed = 0.95 + Math.random() * 0.22; // 0.95 đến 1.17x
+        }
+
         let target = 1.0;
 
         if (stage === 1) {
-          // Chặng 1 (0% -> 40%): Nhóm 1 dẫn đầu
-          if (this.raceRole === 'early_leader') {
-            target = 1.25;
+          // Chặng 1 (0% -> 40%): Top dẫn trước
+          // stage1_leader có ưu thế nhẹ (1.10x), nhưng các con vịt khác khi có nhịp bứt tốc (lên tới 1.17x)
+          // hoàn toàn có thể vượt lên chiếm ngôi đầu (#1) tạm thời, tạo sự so kè nghẹt thở!
+          if (this.raceRole === 'stage1_leader') {
+            target = 1.10 + (this.surgeSpeed - 1.0) * 0.4;
           } else {
-            target = 0.95;
+            target = 1.01 + (this.surgeSpeed - 1.0) * 0.9 + packJitter;
           }
         } else if (stage === 2) {
-          // Chặng 2 (40% -> 70%): Nhóm 2 bứt lên dẫn đầu
-          if (this.raceRole === 'mid_challenger') {
-            target = 1.35;
-          } else if (this.raceRole === 'early_leader') {
-            target = 0.92;
-          } else if (this.raceRole === 'final_surge') {
-            target = 1.05;
+          // Chặng 2 (40% -> 70%): Một top khác bứt lên dẫn trước
+          // stage2_leader bứt phá dẫn đầu (1.18x), stage1_leader tụt lại (0.96x)
+          // Các chú vịt khác (con 3, 4, 5...) bám đuổi quyết liệt và có thời điểm vượt lên tranh chấp #1!
+          if (this.raceRole === 'stage2_leader') {
+            target = 1.18 + (this.surgeSpeed - 1.0) * 0.4;
+          } else if (this.raceRole === 'stage1_leader') {
+            target = 0.96;
           } else {
-            target = 0.95;
+            target = 1.03 + (this.surgeSpeed - 1.0) * 0.9 + packJitter;
           }
         } else if (stage === 3) {
           // Chặng 3 giai đoạn 1 (70% -> 90%): CÁC CON VỊT LÊN XUỐNG THẤT THƯỜNG KHÓ ĐOÁN
-          // Mỗi chú vịt thay đổi nhịp bơi ngẫu nhiên liên tục sau mỗi 10-22 frames (~0.2 - 0.35s)
-          this.scrambleTimer = (this.scrambleTimer || 0) - dt;
-          if (this.scrambleTimer <= 0) {
-            this.scrambleTimer = Math.floor(10 + Math.random() * 14);
-
-            if (isFinalCandidate) {
-              // Nhóm 3 (ứng viên về đích): Nhấp nhô bứt phá trong khoảng 1.15 đến 1.40x
-              this.scrambleSpeed = 1.15 + Math.random() * 0.25;
-            } else if (this.raceRole === 'mid_challenger') {
-              // Nhóm 2 (đã dẫn chặng 2): Vẫn so kè quyết liệt nhưng bắt đầu hụt hơi dần (1.02 đến 1.25x)
-              this.scrambleSpeed = 1.02 + Math.random() * 0.23;
-            } else {
-              // Các chú vịt khác: Nhấp nhô bám đuổi (0.95 đến 1.22x)
-              this.scrambleSpeed = 0.95 + Math.random() * 0.27;
+          // Con dẫn chặng 2 tụt lại; TẤT CẢ các con vịt còn lại (con 1, 2, 3, 4, 5...) đều scramble đổi tốc độ liên tục!
+          // Vị trí #1, #2, #3, #4 liên tục đổi chủ nghẹt thở
+          if (this.raceRole === 'stage2_leader') {
+            target = 0.92; // Nhóm chặng 2 tụt lại rõ rệt
+          } else {
+            this.scrambleTimer = (this.scrambleTimer || 0) - dt;
+            if (this.scrambleTimer <= 0) {
+              this.scrambleTimer = Math.floor(8 + Math.random() * 12); // Đổi nhịp sau mỗi 0.13 - 0.3s
+              this.scrambleSpeed = 1.08 + Math.random() * 0.32; // 1.08 đến 1.40x
             }
+            target = this.scrambleSpeed || 1.16;
           }
-          target = this.scrambleSpeed || 1.10;
         } else {
           // Chặng 3 giai đoạn 2 (90% -> 100%): 10% CUỐI CÙNG MỚI BỨT TỐC VỀ ĐÍCH!
-          if (this.raceRole === 'mid_challenger' && ducksAhead === 0) {
-            target = 0.90; // Nhóm 2 nhường lại vị trí Quán quân cho Nhóm 3
-          } else if (ducksAhead === 0) {
-            target = 1.48; // Top 1 Quán quân bứt phá vũ bão
-          } else if (ducksAhead === 1) {
-            target = 1.22; // Top 2 Á quân
-          } else if (ducksAhead === 2) {
-            target = 1.02; // Top 3 Quý quân
+          if (this.raceRole === 'stage3_winner') {
+            target = 1.48; // Quán quân (bất kể là con 1, 2, 3, 4, 5...) bung sức bứt tốc về đích đầu tiên!
+          } else if (this.raceRole === 'stage2_leader') {
+            target = 0.88; // Đảm bảo con dẫn chặng 2 không giành vị trí cao
           } else {
-            target = 0.85; // Top 4+
+            // Các chú vịt khác phân cấp Top 2, Top 3 rõ rệt với khoảng cách nới rộng
+            if (ducksAhead <= 1) {
+              target = 1.22; // Á quân (Top 2)
+            } else if (ducksAhead === 2) {
+              target = 1.04; // Quý quân (Top 3)
+            } else {
+              target = 0.86; // Top 4+
+            }
           }
         }
 
-        // Cập nhật tốc độ 2D mượt mà (ở stage 3 tăng độ nhạy 0.18 để các pha rượt đuổi lên xuống rõ nét)
-        const blendRate = (stage === 3) ? 0.18 : 0.12;
+        // Giữ đàn chặt chẽ (Flotilla Cohesion) cho chặng 1 & 2:
+        // Cả đàn vịt luôn so kè gần nhau trong khoảng ~30-45px, không con nào bị tụt lại quá xa thành NPC
+        if (stage <= 2) {
+          const distBehindLead = leadingX - this.x;
+          if (distBehindLead > 48) {
+            target += 0.08; // Tăng tốc bám đàn nếu bị tụt lại
+          } else if (distBehindLead < 4 && ducksAhead === 0) {
+            // Nếu con dẫn đầu bứt quá xa (> 38px so với con thứ 2), hãm nhẹ để đàn bám sát
+            let secondPlaceX = -Infinity;
+            for (let i = 0; i < allDucks.length; i++) {
+              const d = allDucks[i];
+              if (d !== this && !d.isFinished && d.x > secondPlaceX) {
+                secondPlaceX = d.x;
+              }
+            }
+            if (this.x - secondPlaceX > 38) {
+              target -= 0.07;
+            }
+          }
+        }
+
+        // Cập nhật tốc độ 2D mượt mà
+        const blendRate = (stage === 3) ? 0.20 : 0.12;
         this.speedMultiplier += (target - this.speedMultiplier) * Math.min(1.0, blendRate * dt);
         this.currentSpeed = this.baseSpeed * this.speedMultiplier;
         this.x += this.currentSpeed * dt;
@@ -3227,10 +3259,8 @@
 
         this.layoutLanes(true); // Trộn ngẫu nhiên làn đua để công bằng 100%
 
-        // Phân bổ nhóm chiến thuật cho 3 chặng đua kịch tính:
-        // Chặng 1 (0% -> 40% thời gian): Nhóm 1 (early_leader) bứt phá dẫn trước rõ rệt
-        // Chặng 2 (40% -> 70% thời gian): Nhóm 2 (mid_challenger) từ sau bứt tốc vượt lên soán ngôi dẫn đầu
-        // Chặng 3 (70% -> 100% thời gian): Nhóm 3 (final_surge) lội ngược dòng soán ngôi dẫn đầu về đích (KHÔNG PHẢI nhóm chặng 2)
+        // Phân bổ ngẫu nhiên công bằng 100%: Mọi chú vịt (con 1, 2, 3, 4, 5...) đều có xác suất bình đẳng
+        // để dẫn đầu chặng 1, bứt phá chặng 2, hoặc bứt tốc về đích Quán quân!
         const totalDucks = STATE.ducks.length;
         const shuffled = [...Array(totalDucks).keys()];
         for (let i = shuffled.length - 1; i > 0; i--) {
@@ -3238,57 +3268,36 @@
           [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
         }
 
-        let g1Count = 1;
-        let g2Count = 1;
-        let g3Count = 1;
-        if (totalDucks <= 1) {
-          g1Count = 1;
-          g2Count = 0;
-          g3Count = 0;
-        } else if (totalDucks === 2) {
-          g1Count = 1;
-          g2Count = 1;
-          g3Count = 0; // Duck 0 dẫn chặng 1, Duck 1 dẫn chặng 2, chặng 3 Duck 0 lật kèo dẫn lại về đích
-        } else if (totalDucks === 3) {
-          g1Count = 1;
-          g2Count = 1;
-          g3Count = 1;
-        } else if (totalDucks <= 6) {
-          g1Count = 1;
-          g2Count = 1;
-          g3Count = 1;
-        } else if (totalDucks <= 9) {
-          g1Count = 2;
-          g2Count = 2;
-          g3Count = 2;
-        } else {
-          const perGroup = Math.max(2, Math.min(5, Math.floor(totalDucks * 0.22)));
-          g1Count = perGroup;
-          g2Count = perGroup;
-          g3Count = perGroup;
-        }
+        // 1. Quán quân chặng 3: Bất kỳ con nào (con 1, 2, 3, 4, 5...) đều có xác suất 1/N hoàn toàn ngẫu nhiên
+        const stage3WinnerIdx = shuffled[0];
 
-        const group1Set = new Set(shuffled.slice(0, g1Count));
-        const group2Set = new Set(shuffled.slice(g1Count, g1Count + g2Count));
-        const group3Set = new Set(shuffled.slice(g1Count + g2Count, g1Count + g2Count + g3Count));
+        // 2. Vịt dẫn đầu chặng 2: Tuyệt đối KHÁC Quán quân (thỏa mãn luật chặng 2 không về nhất)
+        const stage2LeaderIdx = (totalDucks > 1) ? shuffled[1] : shuffled[0];
+
+        // 3. Vịt dẫn đầu chặng 1: Ưu tiên một con KHÁC cả chặng 2 và chặng 3 (nếu totalDucks >= 3)
+        // Ví dụ: Con 4 dẫn chặng 1 -> Con 2 bứt phá chặng 2 -> Con 5 (hoặc con 3) bứt tốc về đích!
+        // Đảm bảo 3 chặng là 3 con/top hoàn toàn khác nhau, xóa bỏ hoàn toàn kịch bản lặp lại dễ đoán!
+        const stage1LeaderIdx = (totalDucks >= 3) ? shuffled[2] : (totalDucks > 1 ? shuffled[1] : shuffled[0]);
 
         STATE.ducks.forEach((d, idx) => {
+          d.duckIndex = idx;
           d.isFinished = false;
           d.finishTime = 0;
           d.rank = 0;
           d.glideSpeed = 0;
-          d.inFinalSprint = false;
-          d.lastStage = 0;
-          d.scrambleTimer = 0;
+          d.surgeTimer = Math.floor(Math.random() * 40);
+          d.surgeSpeed = 1.0;
+          d.scrambleTimer = Math.floor(Math.random() * 12);
           d.scrambleSpeed = 1.0;
-          if (group1Set.has(idx)) {
-            d.raceRole = 'early_leader'; // Nhóm 1: Dẫn đầu chặng 1 (0% -> 40%)
-          } else if (group2Set.has(idx)) {
-            d.raceRole = 'mid_challenger'; // Nhóm 2: Lật kèo dẫn đầu chặng 2 (40% -> 70%)
-          } else if (group3Set.has(idx)) {
-            d.raceRole = 'final_surge'; // Nhóm 3: Soán ngôi dẫn đầu chặng 3 về đích (70% -> 100%)
+
+          if (idx === stage1LeaderIdx) {
+            d.raceRole = 'stage1_leader'; // Dẫn đầu chặng 1 (0% -> 40%)
+          } else if (idx === stage2LeaderIdx) {
+            d.raceRole = 'stage2_leader'; // Vượt lên dẫn đầu chặng 2 (40% -> 70%)
+          } else if (idx === stage3WinnerIdx) {
+            d.raceRole = 'stage3_winner'; // Quán quân bứt tốc chặng 3 (90% -> 100%)
           } else {
-            d.raceRole = 'pack'; // Tốp bầy vịt còn lại
+            d.raceRole = 'contender'; // Các chú vịt so kè bám đuổi (tranh chấp top 2, 3 và có thể dẫn đầu)
           }
         });
 
@@ -3352,9 +3361,9 @@
           d.finishTime = 0;
           d.rank = 0;
           d.glideSpeed = 0;
-          d.inFinalSprint = false;
-          d.raceRole = 'pack';
-          d.lastStage = 0;
+          d.raceRole = 'contender';
+          d.surgeTimer = 0;
+          d.surgeSpeed = 1.0;
           d.scrambleTimer = 0;
           d.scrambleSpeed = 1.0;
         });
