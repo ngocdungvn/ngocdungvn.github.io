@@ -2228,7 +2228,7 @@
         this.speedJitter = 0;
       }
 
-      update(progressRatio, leadingX, allDucks, dt = 1.0) {
+      update(progressRatio, leadingX, allDucks, dt = 1.0, groupMaxes = null) {
         if (this.isFinished) {
           if (this.glideSpeed > 0.05) {
             this.glideSpeed *= Math.pow(0.955, dt);
@@ -2276,19 +2276,10 @@
         const s2Len = Math.max((STATE.stage2Group && STATE.stage2Group.length) || 1, 1);
         const s3Len = Math.max((STATE.stage3Group && STATE.stage3Group.length) || 1, 1);
 
-        // Rà soát vị trí x lớn nhất của từng nhóm hiện tại để kiểm soát vượt mặt vật lý
-        let g1MaxX = -Infinity;
-        let g2MaxX = -Infinity;
-        let g3MaxX = -Infinity;
-        if (allDucks && allDucks.length > 0) {
-          for (let i = 0; i < allDucks.length; i++) {
-            const od = allDucks[i];
-            if (od.isFinished) continue;
-            if (od.groupType === 1 && od.x > g1MaxX) g1MaxX = od.x;
-            if (od.groupType === 2 && od.x > g2MaxX) g2MaxX = od.x;
-            if (od.groupType === 3 && od.x > g3MaxX) g3MaxX = od.x;
-          }
-        }
+        // Lấy vị trí x lớn nhất của từng nhóm (được tính 1 lần duy nhất trong gameLoop để đạt hiệu năng O(N) tối ưu)
+        const g1MaxX = groupMaxes ? groupMaxes.g1 : -Infinity;
+        const g2MaxX = groupMaxes ? groupMaxes.g2 : -Infinity;
+        const g3MaxX = groupMaxes ? groupMaxes.g3 : -Infinity;
 
         const isTwoDucks = (allDucks && allDucks.length === 2);
         const g1Wave = Math.sin(timeMs * 0.0036 + (this.groupSlot * (Math.PI * 2) / s1Len)) * 0.14;
@@ -2341,8 +2332,9 @@
           if (isTwoDucks) {
             // Với 2 con vịt:
             if (this.podiumRole === 'winner') {
-              // Con chiến thắng: Nếu đang ở sau con 2, bung sức phản công vượt mặt!
-              const hasOvertaken = (g2MaxX > -Infinity && this.x >= g2MaxX + 10);
+              // Con chiến thắng: so sánh với vị trí của con còn lại để tung đòn phản công
+              const otherDuckX = (this.groupType === 1 ? g2MaxX : g1MaxX);
+              const hasOvertaken = (otherDuckX > -Infinity && this.x >= otherDuckX + 15);
               target = (!hasOvertaken ? 1.60 : 1.32) + personalJitter;
             } else {
               // Con về nhì: chậm lại nhường ngôi cho con chiến thắng
@@ -3304,7 +3296,15 @@
         let stage3SecondIdx;
         let stage3ThirdIdx;
 
-        if (totalDucks === 2) {
+        if (totalDucks <= 1) {
+          // Trường hợp 1 con vịt:
+          stage1Group = [0];
+          stage2Group = [0];
+          stage3Group = [0];
+          stage3WinnerIdx = 0;
+          stage3SecondIdx = -1;
+          stage3ThirdIdx = -1;
+        } else if (totalDucks === 2) {
           // Trường hợp 2 con vịt:
           // Con shuffled[0] là người dẫn đầu Chặng 1
           // Con shuffled[1] BẮT BUỘC là người bứt phá vượt lên dẫn đầu Chặng 2
@@ -3555,24 +3555,29 @@
         const digitsEl = document.getElementById('stopwatchDigits');
         if (digitsEl) digitsEl.innerText = formatStopwatchTime(remainingMs);
 
-        // Vị trí vịt dẫn đầu và số vịt đang bơi
+        // Vị trí vịt dẫn đầu và vị trí x lớn nhất theo từng nhóm
         let leadingX = -Infinity;
+        let g1MaxX = -Infinity;
+        let g2MaxX = -Infinity;
+        let g3MaxX = -Infinity;
         let activeCount = 0;
 
         STATE.ducks.forEach(duck => {
           if (!duck.isFinished) {
             activeCount++;
-          }
-          if (duck.x > leadingX) {
-            leadingX = duck.x;
+            if (duck.x > leadingX) leadingX = duck.x;
+            if (duck.groupType === 1 && duck.x > g1MaxX) g1MaxX = duck.x;
+            if (duck.groupType === 2 && duck.x > g2MaxX) g2MaxX = duck.x;
+            if (duck.groupType === 3 && duck.x > g3MaxX) g3MaxX = duck.x;
           }
         });
 
         const progressRatio = Math.min(Math.max((leadingX - STATE.startLineX) / STATE.trackLength, 0), 1);
+        const groupMaxes = { g1: g1MaxX, g2: g2MaxX, g3: g3MaxX };
 
-        // Cập nhật từng vịt với bối cảnh cuộc đua và delta-time
+        // Cập nhật từng vịt với bối cảnh cuộc đua, delta-time và groupMaxes (O(N) hiệu năng tối ưu)
         STATE.ducks.forEach(duck => {
-          duck.update(progressRatio, leadingX, STATE.ducks, dt);
+          duck.update(progressRatio, leadingX, STATE.ducks, dt, groupMaxes);
         });
 
         // Điều khiển Camera cuộn mượt mà theo nhóm dẫn đầu
@@ -3597,8 +3602,22 @@
         const lead2El = document.getElementById('lead2');
         const lead3El = document.getElementById('lead3');
         if (lead1El) lead1El.innerText = sortedLive[0] ? '#1 ' + sortedLive[0].name : '-';
-        if (lead2El) lead2El.innerText = sortedLive[1] ? '#2 ' + sortedLive[1].name : '-';
-        if (lead3El) lead3El.innerText = sortedLive[2] ? '#3 ' + sortedLive[2].name : '-';
+        if (lead2El) {
+          if (sortedLive[1]) {
+            lead2El.style.display = 'inline-flex';
+            lead2El.innerText = '#2 ' + sortedLive[1].name;
+          } else {
+            lead2El.style.display = 'none';
+          }
+        }
+        if (lead3El) {
+          if (sortedLive[2]) {
+            lead3El.style.display = 'inline-flex';
+            lead3El.innerText = '#3 ' + sortedLive[2].name;
+          } else {
+            lead3El.style.display = 'none';
+          }
+        }
 
         // Hiệu ứng bứt phá & âm thanh khi vịt vươn lên chiếm ngôi đầu bảng (#1)
         if (sortedLive[0] && sortedLive[0] !== STATE.currentLeader) {
