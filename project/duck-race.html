@@ -2391,10 +2391,19 @@
           }
         }
 
+        // Nhịp điều hòa đồng bộ tốc độ bơi khớp 100% với đồng hồ đếm ngược:
+        // Đảm bảo vịt quán quân về đích đúng ở những giây cuối cùng (timeRatio ~ 0.96)
+        let paceFactor = 1.0;
+        if (progressRatio > 0.05 && timeRatio > 0.05) {
+          const idealLeadProgress = Math.min(timeRatio / 0.96, 1.0);
+          const ratioDiff = progressRatio - idealLeadProgress;
+          paceFactor = Math.max(0.78, Math.min(1.25, 1.0 - ratioDiff * 1.8));
+        }
+
         // Cập nhật tốc độ 2D mượt mà với blendRate phản hồi nhanh
         const blendRate = (stage === 4) ? 0.30 : (stage === 3 ? 0.25 : 0.22);
         this.speedMultiplier += (target - this.speedMultiplier) * Math.min(1.0, blendRate * dt);
-        this.currentSpeed = this.baseSpeed * this.speedMultiplier;
+        this.currentSpeed = this.baseSpeed * this.speedMultiplier * paceFactor;
         this.x += this.currentSpeed * dt;
 
         // Nhấp nhô 2D đơn giản trên mặt nước
@@ -3267,11 +3276,12 @@
           const naturalStagger = Math.sin(assignedSlot * 2.8) * (8 * duckScale);
           duck.x = STATE.startLineX - (44 * duckScale) + naturalStagger;
 
-          // Tốc độ bơi cơ sở tính theo cự ly thực tế trên trackLength & raceDuration
-          // Tăng tốc độ bơi lên, đồng bộ chính xác với đồng hồ đếm ngược
-          const targetSeconds = Math.max(STATE.raceDuration - 2.0, 10);
-          const targetFrames = targetSeconds * 60;
-          duck.baseSpeed = (STATE.trackLength / targetFrames) * 1.05;
+          // Tốc độ bơi cơ sở chuẩn xác: đồng bộ hoàn hảo với thời lượng cuộc đua (raceDuration)
+          // Đảm bảo vịt quán quân cán đích ở những giây cuối cùng và đồng hồ đếm ngược về đúng 00:00:00
+          const winnerTargetSeconds = Math.max(STATE.raceDuration - 1.2, 5);
+          const winnerTargetFrames = winnerTargetSeconds * 60;
+          const avgLeadMultiplier = 1.34;
+          duck.baseSpeed = STATE.trackLength / (winnerTargetFrames * avgLeadMultiplier);
           duck.speedMultiplier = 1.0;
           duck.targetMultiplier = 1.0;
           duck.currentSpeed = duck.baseSpeed;
@@ -3511,6 +3521,14 @@
         updateStartButtonUI(false);
         updatePauseButtonUI(false);
 
+        // Luôn đồng bộ đồng hồ dừng ở 00:00:00 và thanh tiến độ đạt 100% khi kết thúc cuộc đua
+        const digitsEl = document.getElementById('stopwatchDigits');
+        if (digitsEl) digitsEl.innerText = formatStopwatchTime(0);
+        const barFill = document.getElementById('progressBarFill');
+        if (barFill) barFill.style.width = '100%';
+        const barPercent = document.getElementById('progressPercent');
+        if (barPercent) barPercent.innerText = '100%';
+
         // Xếp hạng nốt các chú vịt còn lại theo khoảng cách tới đích với thời gian tăng dần nghiêm ngặt
         let prevTime = STATE.rankedResults.length > 0
           ? STATE.rankedResults[STATE.rankedResults.length - 1].finishTime
@@ -3666,8 +3684,16 @@
           }
         }
 
-        // Kết thúc khi toàn bộ vịt đã về đích hoặc vịt quán quân đã về đích và quá thời gian quy định
-        if (activeCount === 0 || (STATE.rankedResults.length >= 1 && STATE.gameTimeMs > (STATE.raceDuration * 1000 + 4000))) {
+        // Cuộc đua kết thúc khi:
+        // 1. Toàn bộ vịt đã về đích VÀ đồng hồ đếm ngược đã về 00:00:00 (hoặc còn dưới 0.3s)
+        // 2. Hoặc thời gian cuộc đua đã hết (gameTimeMs >= totalDurationMs) và ít nhất vịt Quán quân đã cán đích
+        // 3. Hoặc thời gian vượt quá thời lượng quy định + 2.5s bù giờ (bảo đảm luôn kết thúc an toàn)
+        const isTimeUp = STATE.gameTimeMs >= totalDurationMs;
+        const winnerFinished = STATE.rankedResults.length >= 1;
+
+        if ((activeCount === 0 && (isTimeUp || (totalDurationMs - STATE.gameTimeMs) < 300)) ||
+            (winnerFinished && isTimeUp) ||
+            (STATE.gameTimeMs >= totalDurationMs + 2500)) {
           this.finishRace();
         }
       },
