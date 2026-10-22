@@ -2164,22 +2164,20 @@
       return hh + ':' + mm + ':' + ss;
     }
 
-    // Các Bộ Trang Phục & Skins chuẩn hoạt hình đẹp mắt
+    // Các Bộ Trang Phục & Skins vịt cao su hoạt hình rực rỡ, nét vẽ đơn giản chuẩn Online-Stopwatch
     const DUCK_COSTUMES = [
-      { id: 'classic', name: 'Vịt Vàng Classic', body: '#fed033', hat: 'none' },
-      { id: 'stripes', name: 'Vịt Sọc Tím', body: '#581c87', pattern: 'stripes', hat: 'none' },
-      { id: 'classic_2', name: 'Vịt Vàng Vui Vẻ', body: '#fed033', hat: 'none' },
-      { id: 'sailor', name: 'Thủy Thủ Vàng', body: '#fed033', hat: 'none' },
-      { id: 'superman', name: 'Siêu Nhân Duck', body: '#1d4ed8', suit: 'superman', hat: 'superhair' },
-      { id: 'spiderman', name: 'Người Nhện', body: '#dc2626', suit: 'spiderman', hat: 'none' },
-      { id: 'police', name: 'Cảnh Sát', body: '#fed033', hat: 'police' },
-      { id: 'green_hearts', name: 'Trái Tim Xanh', body: '#22c55e', pattern: 'hearts', hat: 'none' },
-      { id: 'business', name: 'Doanh Nhân / Mafia', body: '#fed033', suit: 'tuxedo', hat: 'glasses' },
-      { id: 'godfather', name: 'Bố Già Mafia', body: '#78350f', suit: 'godfather', hat: 'fedora' },
-      { id: 'trump', name: 'Tỷ Phú Tóc Vàng', body: '#fed033', suit: 'trump_suit', hat: 'trump_hair' },
-      { id: 'doctor', name: 'Bác Sĩ Y Tá', body: '#fed033', hat: 'mask' },
-      { id: 'stars', name: 'Ngôi Sao Hồng', body: '#f472b6', pattern: 'stars', hat: 'none' },
-      { id: 'cowboy', name: 'Cao Bồi Miền Tây', body: '#fed033', hat: 'cowboy' }
+      { id: 'yellow_1', name: 'Vịt Vàng Classic', body: '#fed033', hat: 'none' },
+      { id: 'cyan', name: 'Vịt Xanh Biển', body: '#38bdf8', hat: 'none' },
+      { id: 'green', name: 'Vịt Xanh Lá', body: '#4ade80', hat: 'none' },
+      { id: 'pink', name: 'Vịt Hồng Dễ Thương', body: '#f472b6', hat: 'none' },
+      { id: 'orange', name: 'Vịt Cam Năng Động', body: '#fb923c', hat: 'none' },
+      { id: 'purple', name: 'Vịt Tím Mộng Mơ', body: '#c084fc', hat: 'none' },
+      { id: 'yellow_2', name: 'Vịt Vàng Tươi', body: '#fde047', hat: 'none' },
+      { id: 'teal', name: 'Vịt Xanh Ngọc', body: '#2dd4bf', hat: 'none' },
+      { id: 'red', name: 'Vịt Đỏ Bứt Phá', body: '#f87171', hat: 'none' },
+      { id: 'blue', name: 'Vịt Xanh Hoàng Gia', body: '#60a5fa', hat: 'none' },
+      { id: 'mint', name: 'Vịt Xanh Bạc Hà', body: '#34d399', hat: 'none' },
+      { id: 'rose', name: 'Vịt Đỏ San Hô', body: '#fb7185', hat: 'none' }
     ];
 
     // --- 3. DUCK CLASS ---
@@ -2438,15 +2436,15 @@
         ctx.lineJoin = 'round';
         ctx.lineCap = 'round';
 
-        // 1. Bóng nước gợn nhẹ dưới thân
+        // 1. Bóng nước gợn nhẹ ôm sát đáy thân vịt
         ctx.beginPath();
-        ctx.ellipse(-1, 25, 27, 7, 0, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(25, 75, 115, 0.30)';
+        ctx.ellipse(-1, 26.5, 26, 3.2, 0, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(20, 20, 20, 0.35)';
         ctx.fill();
 
-        // 2. Vệt nước đuôi đơn giản 2D (gợn sóng nhẹ phía sau đuôi)
+        // 2. Vệt nước đuôi nhẹ nhàng phía sau khi bơi
         const waveOffset = Math.sin(this.bobCycle * 1.5) * 1.5;
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.50)';
         ctx.lineWidth = 1.6;
         ctx.beginPath();
         ctx.arc(-30 + waveOffset, 21, 8, Math.PI * 0.75, Math.PI * 1.35);
@@ -2454,32 +2452,45 @@
 
         ctx.beginPath();
         ctx.arc(-37 + waveOffset, 21, 12, Math.PI * 0.8, Math.PI * 1.3);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.30)';
         ctx.lineWidth = 1.4;
         ctx.stroke();
 
-        // 3. Thân & Đầu vịt đúc khuôn hoàn hảo theo Online-Stopwatch chuẩn vector
-        // Bắt đầu từ gáy cổ (-5, -9)
+        // 3. Thân & Đầu vịt liền khối đúc khuôn chuẩn xác 100% theo Online-Stopwatch sprite
         ctx.beginPath();
-        ctx.moveTo(-5, -9);
-        // Vòng gáy lên đỉnh đầu
-        ctx.bezierCurveTo(-7, -22, 0, -33, 8, -33);
+        ctx.moveTo(-2, -5);
+        // Gáy cổ sau lên đầu
+        ctx.bezierCurveTo(-5, -10, -7, -15, -7, -21);
+        ctx.bezierCurveTo(-7, -29, -1, -34, 6, -34);
         // Đỉnh đầu sang trán
-        ctx.bezierCurveTo(16, -33, 21, -25, 19, -15);
-        // Trán xuống gốc mỏ
-        ctx.lineTo(19, -13);
-        // Cổ trước xuống ngực căng tròn
-        ctx.bezierCurveTo(18, -6, 22, -1, 26, 4);
-        ctx.bezierCurveTo(31, 10, 31, 16, 26, 21);
-        // Bụng và đáy ngồi trên mặt nước
-        ctx.bezierCurveTo(20, 26, 6, 27, -8, 27);
-        ctx.bezierCurveTo(-18, 27, -27, 24, -31, 15);
-        // Đuôi vểnh cong ngược lên
-        ctx.bezierCurveTo(-34, 6, -34, -2, -33, -7);
-        // Đỉnh đuôi bo tròn vòng vào lưng
-        ctx.bezierCurveTo(-32, -10, -29, -8, -27, -4);
+        ctx.bezierCurveTo(13, -34, 18, -31, 21, -26);
+        // Trán xuống gốc mỏ trên
+        ctx.bezierCurveTo(22, -24.5, 22, -23.5, 21, -23);
+        // Mỏ trên: vòm mỏ trên lượn ngang ra chóp mỏ
+        ctx.bezierCurveTo(24, -23.5, 28, -23, 31, -21);
+        ctx.bezierCurveTo(32.5, -20, 32.5, -18.5, 31.5, -17.5);
+        // Rãnh khóe miệng lượn vào trong
+        ctx.lineTo(22, -17);
+        // Từ khóe miệng lượn ra mỏ dưới
+        ctx.bezierCurveTo(27, -16, 30.5, -15.5, 31.5, -14);
+        // Chóp mỏ dưới bo tròn lượn về cằm
+        ctx.bezierCurveTo(32, -12.5, 30.5, -11, 28, -10);
+        ctx.bezierCurveTo(25, -9.5, 22, -9, 20, -9);
+        // Cổ trước / họng
+        ctx.bezierCurveTo(20, -6, 20, -3, 22, 0);
+        // Ngực nở tròn vươn xa ra trước
+        ctx.bezierCurveTo(25, 4, 30.5, 7, 32, 12);
+        ctx.bezierCurveTo(33, 17, 31, 22, 26, 25);
+        // Đáy bụng
+        ctx.bezierCurveTo(20, 27, 8, 27, -2, 27);
+        ctx.bezierCurveTo(-14, 27, -20, 26, -24, 23);
+        // Đuôi vểnh lên
+        ctx.bezierCurveTo(-30, 18, -34, 8, -34, -2);
+        ctx.bezierCurveTo(-34, -7, -32, -10, -28, -10);
+        // Đuôi vòng vào lưng
+        ctx.bezierCurveTo(-25, -10, -23, -7, -22, -5);
         // Lưng chạy ngang vào gáy cổ
-        ctx.bezierCurveTo(-22, -5, -14, -6, -5, -9);
+        ctx.lineTo(-2, -5);
         ctx.closePath();
 
         ctx.fillStyle = this.bodyColor;
@@ -2491,17 +2502,19 @@
         // Họa tiết hoặc trang phục trên thân vịt (nếu có)
         this.drawBodyCostume(ctx);
 
-        // 4. Mảng trắng yên ngựa trên thân (Badge số thứ tự kinh điển chuẩn Online-Stopwatch)
+        // 4. Mảng trắng yên ngựa (Badge số thứ tự kinh điển chuẩn Online-Stopwatch)
         ctx.beginPath();
-        ctx.moveTo(-25, -4);
-        ctx.lineTo(2, -4);
-        ctx.bezierCurveTo(5, -4, 5, 10, 2, 11);
-        ctx.lineTo(-20, 11);
-        ctx.bezierCurveTo(-26, 11, -27, 5, -25, -4);
+        ctx.moveTo(-24, -5);
+        ctx.lineTo(-2, -5);
+        ctx.bezierCurveTo(1.5, -5, 2.5, 3, 1.5, 8);
+        ctx.bezierCurveTo(0.5, 12, -1, 13.5, -3, 13.5);
+        ctx.lineTo(-21, 13.5);
+        ctx.bezierCurveTo(-25, 13.5, -26, 8, -25, 2);
+        ctx.bezierCurveTo(-25, 0, -24.5, -3, -24, -5);
         ctx.closePath();
         ctx.fillStyle = '#ffffff';
         ctx.fill();
-        ctx.lineWidth = 2.0;
+        ctx.lineWidth = 1.8;
         ctx.strokeStyle = '#000000';
         ctx.stroke();
 
@@ -2511,18 +2524,20 @@
         ctx.font = '900 ' + (badgeNum.length > 2 ? 10 : 13) + 'px -apple-system, BlinkMacSystemFont, Arial, sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(badgeNum, -11, 4);
+        ctx.fillText(badgeNum, -12, 4);
 
         // Tóc hoặc nơ đầu (nếu có trước khi vẽ mỏ)
         this.drawHeadCostumePre(ctx);
 
-        // 5. Mỏ vịt cam tươi, dáng cười mở rộng kinh điển
+        // 5. Mỏ vịt cam tươi hé cười
         ctx.beginPath();
-        ctx.moveTo(18, -18);
-        ctx.bezierCurveTo(24, -21, 31, -19, 32, -16);
-        ctx.lineTo(26, -13); // Khóe mép trong
-        ctx.bezierCurveTo(32, -11, 31, -7, 26, -8);
-        ctx.lineTo(17, -10);
+        ctx.moveTo(21, -23);
+        ctx.bezierCurveTo(24, -23.5, 28, -23, 31, -21);
+        ctx.bezierCurveTo(32.5, -20, 32.5, -18.5, 31.5, -17.5);
+        ctx.lineTo(22, -17);
+        ctx.bezierCurveTo(27, -16, 30.5, -15.5, 31.5, -14);
+        ctx.bezierCurveTo(32, -12.5, 30.5, -11, 28, -10);
+        ctx.bezierCurveTo(25, -9.5, 22, -9, 20, -9);
         ctx.closePath();
         ctx.fillStyle = '#fb6b2c';
         ctx.fill();
@@ -2530,17 +2545,21 @@
         ctx.strokeStyle = '#000000';
         ctx.stroke();
 
-        // Đường rãnh miệng cười nhẹ ở mỏ
+        // Khoang miệng mở màu cam sẫm / đỏ gạch
         ctx.beginPath();
-        ctx.moveTo(19, -13);
-        ctx.quadraticCurveTo(23, -12, 27, -14);
-        ctx.lineWidth = 1.8;
+        ctx.moveTo(22, -17);
+        ctx.lineTo(31.5, -17.5);
+        ctx.quadraticCurveTo(31.5, -14.5, 28, -14.5);
+        ctx.closePath();
+        ctx.fillStyle = '#c73b0f';
+        ctx.fill();
         ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 1.4;
         ctx.stroke();
 
         // 6. Mắt to hình oval đứng chuẩn hoạt hình
         ctx.beginPath();
-        ctx.ellipse(12, -21, 4.2, 5.8, 0, 0, Math.PI * 2);
+        ctx.ellipse(18.5, -22, 4.5, 6.2, 0.10, 0, Math.PI * 2);
         ctx.fillStyle = '#ffffff';
         ctx.fill();
         ctx.lineWidth = 2.0;
@@ -2549,17 +2568,17 @@
 
         // Con ngươi đen
         ctx.beginPath();
-        ctx.ellipse(12.5, -21, 2.7, 3.8, 0, 0, Math.PI * 2);
+        ctx.ellipse(19.0, -21.8, 2.7, 4.2, 0.10, 0, Math.PI * 2);
         ctx.fillStyle = '#000000';
         ctx.fill();
 
-        // Đốm sáng phản quang trắng long lanh
+        // Đốm sáng phản quang trắng tròn
         ctx.beginPath();
-        ctx.arc(13.5, -23, 1.4, 0, Math.PI * 2);
+        ctx.arc(17.6, -24.0, 1.3, 0, Math.PI * 2);
         ctx.fillStyle = '#ffffff';
         ctx.fill();
 
-        // 7. Mũ, sừng hoặc phụ kiện trên đầu
+        // 7. Mũ hoặc phụ kiện trên đầu (nếu có)
         this.drawHatCostume(ctx);
 
         ctx.restore();
