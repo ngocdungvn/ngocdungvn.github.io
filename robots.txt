@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sơ đồ trang web
-Sitemap: https://ngocdungvn.github.io/sitemap.xml
+Sitemap: https://ngocdungx.github.io/sitemap.xml

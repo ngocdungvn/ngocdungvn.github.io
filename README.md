@@ -2,7 +2,7 @@
 
 # 🌟 Tạ Ngọc Dũng (DungX) | Chuyên Gia IT AI & Marketing Portfolio
 
-[![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-success?style=for-the-badge&logo=github)](https://ngocdungvn.github.io/)
+[![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-success?style=for-the-badge&logo=github)](https://ngocdungx.github.io/)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
@@ -13,7 +13,7 @@
   Thiết kế theo phong cách hiện đại (Glassmorphism & Neumorphism), tương thích hoàn hảo 100% với thiết bị di động.
 </p>
 
-[🌐 Trải nghiệm Trực tiếp (Live Demo)](https://ngocdungvn.github.io/) • [🚀 Danh sách Mini Apps](#-kho-mini-apps--tiện-ích-tương-tác) • [🛠️ Công nghệ Sử dụng](#-công-nghệ-sử-dụng) • [📫 Kết nối](#-kết-nối)
+[🌐 Trải nghiệm Trực tiếp (Live Demo)](https://ngocdungx.github.io/) • [🚀 Danh sách Mini Apps](#-kho-mini-apps--tiện-ích-tương-tác) • [🛠️ Công nghệ Sử dụng](#-công-nghệ-sử-dụng) • [📫 Kết nối](#-kết-nối)
 
 ---
 
@@ -87,8 +87,8 @@ Dự án là một **Static Web Application thuần túy**, không yêu cầu c�
 
 1. **Clone kho lưu trữ**:
    ```bash
-   git clone https://github.com/ngocdungvn/ngocdungvn.github.io.git
-   cd ngocdungvn.github.io
+   git clone https://github.com/ngocdungx/ngocdungx.github.io.git
+   cd ngocdungx.github.io
    ```
 
 2. **Khởi chạy Local Server**:
@@ -114,7 +114,7 @@ Dự án là một **Static Web Application thuần túy**, không yêu cầu c�
 ## 📂 Cấu Trúc Thư Mục (Project Structure)
 
 ```text
-ngocdungvn.github.io/
+ngocdungx.github.io/
 ├── assets/                  # Tài nguyên dùng chung
 │   ├── css/
 │   │   ├── styles.css       # Toàn bộ hệ thống CSS & Design Tokens
@@ -160,7 +160,7 @@ Nếu bạn thấy các dự án nhỏ này thú vị hoặc có ích, hãy đ�
 - **Facebook**: [facebook.com/61592643973967](https://www.facebook.com/profile.php?id=61592643973967)
 - **YouTube**: [@tangocdung](https://www.youtube.com/@tangocdung)
 - **X (Twitter)**: [@ngocdungvn](https://x.com/ngocdungvn)
-- **Website cá nhân**: [https://ngocdungvn.github.io/](https://ngocdungvn.github.io/)
+- **Website cá nhân**: [https://ngocdungx.github.io/](https://ngocdungx.github.io/)
 
 ---
 
