@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Cake | by DungX</title>
-  <meta name="description" content="Bánh kem sinh nhật 3D tương tác: Click chuột trái để thổi nến, double-click để thắp lại nến lung linh." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Bánh Sinh Nhật Online | Chúc Mừng Sinh Nhật</title>
+  <meta name="description" content="Chiếc bánh kem sinh nhật 2D nghệ thuật lung linh ấm áp: Thổi nến ước nguyện, thắp lại nến, nghe nhạc chúc mừng và gửi tặng người thương." />
   <meta name="author" content="Tạ Ngọc Dũng" />
   <link rel="canonical" href="https://ngocdungvn.github.io/project/birthday-cake.html" />
 
@@ -13,629 +13,1664 @@
   <meta property="og:site_name" content="Tạ Ngọc Dũng Portfolio & Mini Apps" />
   <meta property="og:locale" content="vi_VN" />
   <meta property="og:url" content="https://ngocdungvn.github.io/project/birthday-cake.html" />
-  <meta property="og:title" content="Thổi Nến Sinh Nhật Online | Birthday Cake by DungX" />
-  <meta property="og:description" content="Bánh kem sinh nhật 3D tương tác: Click chuột trái để thổi nến, double-click để thắp lại nến lung linh." />
+  <meta property="og:title" content="Thổi Nến Sinh Nhật Online | Happy Birthday Cake" />
+  <meta property="og:description" content="Chiếc bánh kem sinh nhật 2D nghệ thuật lung linh ấm áp: Thổi nến ước nguyện, thắp lại nến và gửi thiệp chúc mừng sinh nhật." />
   <meta property="og:image" content="https://ngocdungvn.github.io/assets/img/og-cover.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
-  <!-- X / Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://ngocdungvn.github.io/project/birthday-cake.html" />
-  <meta name="twitter:title" content="Thổi Nến Sinh Nhật Online | Birthday Cake by DungX" />
-  <meta name="twitter:description" content="Bánh kem sinh nhật 3D tương tác: Click chuột trái để thổi nến, double-click để thắp lại nến lung linh." />
-  <meta name="twitter:image" content="https://ngocdungvn.github.io/assets/img/og-cover.png" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent !important;
-            -webkit-touch-callout: none !important;
-        }
+  <style>
+    :root {
+      --bg-dark: #120722;
+      --gold-accent: #f59e0b;
+      --gold-glow: rgba(245, 158, 11, 0.4);
+      --pink-accent: #f43f5e;
+      --card-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.18);
+    }
 
-        *:focus, *:active {
-            outline: none;
-            -webkit-tap-highlight-color: transparent !important;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent !important;
+    }
 
-        ::selection {
-            background: transparent;
-        }
+    html, body {
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      font-family: 'Outfit', sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+      background-color: var(--bg-dark);
+      color: #ffffff;
+    }
 
-        ::-moz-selection {
-            background: transparent;
-        }
+    /* Khung cảnh nền dạ tiệc sinh nhật lung linh */
+    body {
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 48%, rgba(244, 63, 94, 0.22) 0%, transparent 60%),
+        radial-gradient(circle at 20% 20%, rgba(168, 85, 247, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 80% 30%, rgba(245, 158, 11, 0.20) 0%, transparent 55%),
+        linear-gradient(180deg, #1a0a30 0%, #120522 60%, #0a0214 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            outline: none;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            -webkit-tap-highlight-color: transparent !important;
-            -webkit-touch-callout: none !important;
-            touch-action: manipulation;
-        }
+    /* Canvas pháo hoa giấy confetti */
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 50;
+    }
 
-        body {
-            background: linear-gradient(135deg, #f43f5e 0%, #fb7185 50%, #fda4af 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Outfit', sans-serif;
-        }
+    /* Các đốm sáng bokeh lơ lửng mềm mại */
+    .bokeh-wrap {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
 
-        /* Responsive Scene Container */
-        .scene-container {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent !important;
-            -webkit-touch-callout: none !important;
-            user-select: none;
-            -webkit-user-select: none;
-        }
+    .bokeh {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(24px);
+      opacity: 0.18;
+      animation: floatBokeh 14s infinite ease-in-out alternate;
+    }
 
-        .cake-scene {
-            position: absolute;
-            top: 48%;
-            left: 50%;
-            width: 600px;
-            height: 600px;
-            transform: translate(-50%, -50%);
-            transform-origin: center center;
-            pointer-events: auto;
-            -webkit-tap-highlight-color: transparent !important;
-            -webkit-touch-callout: none !important;
-            user-select: none;
-            -webkit-user-select: none;
-        }
+    @keyframes floatBokeh {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.12; }
+      50% { opacity: 0.28; }
+      100% { transform: translate(35px, -45px) scale(1.3); opacity: 0.16; }
+    }
 
-        .cake {
-            position: absolute;
-            width: 600px;
-            height: 500px;
-            top: 50%;
-            left: 50%;
-            margin-top: -250px;
-            margin-left: -300px;
-            cursor: pointer;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent !important;
-            -webkit-touch-callout: none !important;
-            user-select: none;
-            -webkit-user-select: none;
-        }
+    /* Dây cờ đuôi nheo (Bunting banner) trên đỉnh */
+    .bunting-svg {
+      position: absolute;
+      top: -6px;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      pointer-events: none;
+      z-index: 10;
+    }
 
-        .cake > * {
-            position: relative;
-        }
+    /* Chùm bóng bay 2 bên */
+    .balloon-cluster {
+      position: absolute;
+      top: 12%;
+      pointer-events: none;
+      z-index: 8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.6s ease;
+    }
 
-        .layer, .icing {
-            display: block;
-            width: 100%;
-            border-bottom-left-radius: 50%;
-            border-bottom-right-radius: 50%;
-            border: solid 1px #000000;
-        }
+    .balloon-cluster.left {
+      left: 4%;
+      animation: floatBalloon 6s ease-in-out infinite alternate;
+    }
 
-        .layer {
-            margin-top: -100px;
-            height: 200px;
-            background: #553c13;
-            z-index: 0;
-        }
+    .balloon-cluster.right {
+      right: 4%;
+      animation: floatBalloon 7s ease-in-out 1s infinite alternate-reverse;
+    }
 
-        .bottom { z-index: 1; }
-        .middle { z-index: 2; }
-        .top { z-index: 3; }
+    @keyframes floatBalloon {
+      0% { transform: translateY(0px) rotate(-1.5deg); }
+      100% { transform: translateY(-18px) rotate(2deg); }
+    }
 
-        .top, .icing {
-            border-top-left-radius: 25%;
-            border-top-right-radius: 25%;
-        }
+    @media (max-width: 860px) {
+      .balloon-cluster {
+        display: none;
+      }
+    }
 
-        .icing {
-            margin-top: 0px;
-            height: 100px;
-            background: #f0e4d0;
-            z-index: 4;
-        }
+    /* Vùng chứa sân khấu bánh sinh nhật */
+    .stage-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 15;
+      padding: 12px;
+      overflow: hidden;
+    }
 
-        .drip {
-            border-bottom-left-radius: 50%;
-            border-bottom-right-radius: 50%;
-            background-color: #f0e4d0;
-            border-bottom: solid 1px #000000;
-            z-index: 5;
-        }
+    /* Tiêu đề & Lời chúc mừng sinh nhật */
+    .title-banner {
+      text-align: center;
+      margin-bottom: 4px;
+      pointer-events: none;
+      z-index: 20;
+      max-width: 96vw;
+    }
 
-        .drip:nth-child(1) {
-            width: 40px;
-            height: 50px;
-            margin-top: 35px;
-            margin-left: -1px;
-            border-left: solid 1px #000000;
-            border-right: solid 1px #000000;
-            transform: skewY(20deg);
-        }
+    .sub-greeting {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #fcd34d;
+      text-shadow: 0 0 12px rgba(251, 191, 36, 0.6);
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
 
-        .drip:nth-child(2) {
-            width: 175px;
-            height: 100px;
-            margin-top: -60px;
-            margin-left: 40px;
-        }
+    .main-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(30px, 7.5vw, 64px);
+      font-weight: 700;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 40%, #f472b6 75%, #fb7185 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 18px rgba(244, 63, 94, 0.45));
+      word-break: break-word;
+    }
 
-        .drip:nth-child(3) {
-            width: 200px;
-            height: 100px;
-            margin-top: -60px;
-            margin-left: 200px;
-        }
+    .custom-message {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(14px, 2.2vw, 18px);
+      color: #fbcfe8;
+      margin-top: 4px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      max-width: 90vw;
+      padding: 0 8px;
+      min-height: 22px;
+    }
 
-        .drip:nth-child(4) {
-            width: 175px;
-            height: 100px;
-            margin-top: -130px;
-            margin-left: 395px;
-        }
+    /* Khung hiển thị bánh sinh nhật (SVG 2D tương tác) */
+    .cake-wrapper {
+      position: relative;
+      width: min(92vw, 540px);
+      max-height: 52vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
 
-        .drip:nth-child(5) {
-            width: 40px;
-            height: 50px;
-            margin-top: -90px;
-            margin-left: 559px;
-            border-left: solid 1px #000000;
-            border-right: solid 1px #000000;
-            transform: skewY(-20deg);
-        }
+    .cake-wrapper:hover {
+      transform: scale(1.02);
+    }
 
-        .candle {
-            position: absolute;
-            width: 18px;
-            height: 100px;
-            top: 50%;
-            left: 50%;
-            margin-top: -325px;
-            margin-left: -10px;
-            background: #ffffff;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            z-index: 10;
-            cursor: pointer;
-            touch-action: manipulation;
-        }
+    .cake-wrapper:active {
+      transform: scale(0.985);
+    }
 
-        .candle:after, .candle:before {
-            background: rgba(255, 0, 0, 0.4);
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 3px;
-            border-radius: 100%;
-            transform: skewY(-50deg);
-        }
+    .cake-svg {
+      width: 100%;
+      height: auto;
+      max-height: 48vh;
+      overflow: visible;
+      filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.55));
+    }
 
-        .candle:after {
-            top: 25%;
-            left: 0;
-        }
+    /* Hiệu ứng ngọn lửa nến lung linh sống động */
+    .flame-element {
+      transform-origin: 0px 0px;
+      animation: candleFlicker 1.4s ease-in-out infinite alternate;
+      cursor: pointer;
+      filter: drop-shadow(0 0 10px rgba(254, 215, 60, 0.95)) drop-shadow(0 0 22px rgba(249, 115, 22, 0.7));
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
 
-        .candle:before {
-            top: 50%;
-            left: 0;
-        }
+    .flame-element:nth-child(2n) {
+      animation-duration: 1.1s;
+      animation-delay: 0.15s;
+    }
 
-        .flame {
-            border-radius: 100%;
-            position: relative;
-            width: 7px;
-            height: 18px;
-            top: 0px;
-            left: 50%;
-            margin-left: -3.2px;
-            margin-top: -18px;
-            pointer-events: none;
-        }
+    .flame-element:nth-child(3n) {
+      animation-duration: 1.6s;
+      animation-delay: 0.3s;
+    }
 
-        .flame:nth-child(1) { animation: flame 2s 0s infinite; }
-        .flame:nth-child(2) { animation: flame 1.5s 0s infinite; }
-        .flame:nth-child(3) { animation: flame 1s 0s infinite; }
-        .flame:nth-child(4) { animation: flame 0.5s 0s infinite; }
-        .flame:nth-child(5) { animation: flame 0.25s 0s infinite; }
+    @keyframes candleFlicker {
+      0% {
+        transform: scale(1) rotate(-1.5deg);
+      }
+      25% {
+        transform: scale(1.06, 0.94) rotate(2deg) skewX(1deg);
+      }
+      50% {
+        transform: scale(0.96, 1.05) rotate(-2deg);
+      }
+      75% {
+        transform: scale(1.04, 0.97) rotate(1deg);
+      }
+      100% {
+        transform: scale(0.98, 1.02) rotate(-0.5deg);
+      }
+    }
 
-        @keyframes flame {
-            0%, 100% {
-                background: rgba(254, 248, 97, 0.6);
-                box-shadow: 0 0 35px 10px rgba(248, 233, 209, 0.3);
-                transform: translateY(0) scale(1);
-            }
-            50% {
-                background: rgba(255, 50, 0, 0.2);
-                box-shadow: 0 0 40px 20px rgba(248, 233, 209, 0.3);
-                transform: translateY(-20px) scale(0);
-            }
-        }
+    /* Vệt khói bốc lên khi nến tắt */
+    .smoke-puff {
+      opacity: 0;
+      transform-origin: center bottom;
+      pointer-events: none;
+    }
 
-        .message {
-            position: absolute;
-            width: 600px;
-            top: 50%;
-            left: 50%;
-            margin-top: 250px;
-            margin-left: -300px;
-            text-align: center;
-            font-family: 'Dancing Script', 'Outfit', cursive, sans-serif;
-            font-weight: 700;
-            font-size: 42px;
-            color: #ffffff;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            pointer-events: none;
-        }
+    .smoke-puff.blown {
+      animation: smokeRise 1.8s ease-out forwards;
+    }
 
-        .music-toggle {
-            position: fixed;
-            bottom: calc(1rem + env(safe-area-inset-bottom));
-            right: calc(1rem + env(safe-area-inset-right));
-            z-index: 10;
-            display: grid;
-            place-items: center;
-            width: 46px;
-            height: 46px;
-            padding: 0;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            background: rgba(97, 22, 48, 0.25);
-            color: #fff;
-            font: 1.35rem/1 'Outfit', sans-serif;
-            cursor: pointer;
-            opacity: 0.58;
-            transition: opacity 0.2s ease, background-color 0.2s ease;
-        }
+    @keyframes smokeRise {
+      0% {
+        opacity: 0.75;
+        transform: translateY(0) scale(0.6) rotate(0deg);
+      }
+      50% {
+        opacity: 0.45;
+        transform: translateY(-22px) scale(1.2) rotate(15deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-48px) scale(1.8) rotate(-25deg);
+      }
+    }
 
-        .music-toggle:hover,
-        .music-toggle:focus-visible {
-            opacity: 0.95;
-            background: rgba(97, 22, 48, 0.6);
-        }
+    /* Chỉ dẫn tương tác dưới bánh */
+    .action-hint {
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(254, 243, 199, 0.85);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+      transition: all 0.25s ease;
+      max-width: 92vw;
+      text-align: center;
+      line-height: 1.35;
+    }
 
-        .music-toggle::before {
-            content: '♫';
-            opacity: 0.45;
-        }
+    .action-hint .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #fbbf24;
+      box-shadow: 0 0 8px #fbbf24;
+      animation: pulseDot 1.5s infinite;
+      flex-shrink: 0;
+    }
 
-        .music-toggle[aria-pressed="true"]::before {
-            opacity: 1;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-        }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 0.5; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.25); }
+    }
 
-        .music-toggle[aria-pressed="false"]::after {
-            content: '';
-            position: absolute;
-            width: 27px;
-            height: 2px;
-            border-radius: 2px;
-            background: rgba(255, 255, 255, 0.58);
-            transform: rotate(-45deg);
-        }
+    /* Thanh điều khiển hành động phía dưới */
+    .control-toolbar {
+      position: fixed;
+      bottom: calc(12px + env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      z-index: 40;
+      background: rgba(23, 11, 40, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      padding: 5px 10px;
+      border-radius: 999px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+      max-width: 94vw;
+      width: max-content;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
 
-        .music-toggle:focus-visible {
-            outline: 2px solid #fff;
-            outline-offset: 3px;
-        }
+    .control-toolbar::-webkit-scrollbar {
+      display: none;
+    }
 
-    </style>
+    .btn-action {
+      background: rgba(255, 255, 255, 0.10);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      padding: 6px 11px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+      font-family: inherit;
+    }
+
+    .btn-action:hover {
+      background: rgba(255, 255, 255, 0.20);
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.32);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-action:active {
+      transform: translateY(0);
+    }
+
+    .btn-action.primary {
+      background: linear-gradient(135deg, #f59e0b, #f43f5e);
+      border: none;
+      box-shadow: 0 3px 12px rgba(244, 63, 94, 0.45);
+    }
+
+    .btn-action.primary:hover {
+      background: linear-gradient(135deg, #fbbf24, #fb7185);
+      box-shadow: 0 6px 18px rgba(244, 63, 94, 0.6);
+    }
+
+    @media (max-width: 600px) {
+      .bunting-svg {
+        height: 65px;
+      }
+
+      .stage-container {
+        padding: 6px 8px 56px 8px;
+        justify-content: space-evenly;
+      }
+
+      .title-banner {
+        margin-bottom: 2px;
+      }
+
+      .sub-greeting {
+        font-size: 11px;
+        letter-spacing: 2px;
+      }
+
+      .main-title {
+        font-size: clamp(24px, 6.8vw, 34px);
+      }
+
+      .custom-message {
+        font-size: 12.5px;
+        margin-top: 2px;
+        min-height: 18px;
+      }
+
+      .cake-wrapper {
+        width: min(92vw, 400px);
+        max-height: 46vh;
+      }
+
+      .cake-svg {
+        max-height: 42vh;
+      }
+
+      .action-hint {
+        font-size: 11.5px;
+        padding: 5px 12px;
+        margin-top: 6px;
+      }
+
+      .control-toolbar {
+        bottom: calc(8px + env(safe-area-inset-bottom));
+        padding: 4px 6px;
+        gap: 4px;
+        max-width: calc(100vw - 16px);
+      }
+
+      .btn-action {
+        padding: 5px 8px;
+        font-size: 11px;
+        gap: 3px;
+      }
+    }
+
+    /* Modal tạo thiệp chúc mừng sinh nhật */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 3, 16, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 16px;
+    }
+
+    .modal-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: linear-gradient(145deg, #231238, #18092a);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 440px;
+      padding: 24px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+      transform: translateY(20px) scale(0.96);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-backdrop.active .modal-card {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .modal-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: #fef08a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-close {
+      background: rgba(255, 255, 255, 0.12);
+      border: none;
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+
+    .btn-close:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 12px;
+      padding: 10px 14px;
+      color: #ffffff;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      border-color: #fb7185;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .modal-footer {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn-modal-action {
+      flex: 1;
+      padding: 11px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .btn-modal-action.submit {
+      background: linear-gradient(135deg, #f59e0b, #f43f5e);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(244, 63, 94, 0.45);
+    }
+
+    .btn-modal-action.submit:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+
+    /* Toast thông báo */
+    .toast-msg {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-30px);
+      background: rgba(244, 63, 94, 0.92);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
 </head>
-<body onload="init();">
-    <button type="button" class="music-toggle" id="music-toggle" aria-label="Bật nhạc nền" aria-pressed="false"></button>
-    <div class="scene-container">
-        <div class="cake-scene">
-            <div class="cake">
-                <div class="icing">
-                    <div class="drip"></div>
-                    <div class="drip"></div>
-                    <div class="drip"></div>
-                    <div class="drip"></div>
-                    <div class="drip"></div>
-                </div>
-                <div class="layer top"></div>
-                <div class="layer middle"></div>
-                <div class="layer bottom"></div>
-            </div>
-            <div id="candles_container"></div>
-            <div id="message_container" class="message"></div>
-        </div>
+<body>
+
+  <!-- Canvas pháo giấy sinh nhật -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Đốm sáng bokeh lấp lánh trên nền tiệc sinh nhật -->
+  <div class="bokeh-wrap" id="bokeh-container"></div>
+
+  <!-- Dây cờ đuôi nheo tam giác sinh nhật (Bunting Garland) -->
+  <svg class="bunting-svg" viewBox="0 0 1200 110" preserveAspectRatio="none">
+    <defs>
+      <filter id="garland-shadow" x="-10%" y="-10%" width="120%" height="130%">
+        <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.35" />
+      </filter>
+    </defs>
+    <!-- Dây cung treo cờ -->
+    <path d="M 0,15 Q 300,75 600,60 Q 900,75 1200,15" fill="none" stroke="#fcd34d" stroke-width="2.2" stroke-linecap="round" opacity="0.8" />
+    <path d="M 0,35 Q 350,90 600,70 Q 850,90 1200,35" fill="none" stroke="#f472b6" stroke-width="1.6" stroke-linecap="round" opacity="0.65" />
+
+    <!-- Dàn cờ tam giác đuôi nheo nhiều màu sinh nhật -->
+    <g filter="url(#garland-shadow)">
+      <polygon points="40,20 85,25 62,85" fill="#f43f5e" />
+      <polygon points="120,29 165,34 142,92" fill="#fbbf24" />
+      <polygon points="200,38 245,43 222,100" fill="#38bdf8" />
+      <polygon points="280,47 325,51 302,106" fill="#a855f7" />
+      <polygon points="360,54 405,57 382,108" fill="#4ade80" />
+      <polygon points="440,59 485,61 462,110" fill="#f43f5e" />
+      <polygon points="520,61 565,60 542,109" fill="#fb923c" />
+      <polygon points="600,60 645,61 622,109" fill="#facc15" />
+      <polygon points="680,60 725,58 702,108" fill="#2dd4bf" />
+      <polygon points="760,57 805,53 782,105" fill="#ec4899" />
+      <polygon points="840,51 885,46 862,100" fill="#818cf8" />
+      <polygon points="920,43 965,37 942,93" fill="#f59e0b" />
+      <polygon points="1000,34 1045,28 1022,86" fill="#fb7185" />
+      <polygon points="1080,25 1125,19 1102,77" fill="#34d399" />
+    </g>
+  </svg>
+
+  <!-- Chùm bóng bay pastel sinh nhật 2 bên cánh gà -->
+  <div class="balloon-cluster left">
+    <svg width="170" height="320" viewBox="0 0 170 320">
+      <defs>
+        <radialGradient id="balloon-pink" cx="35%" cy="30%" r="65%">
+          <stop offset="0%" stop-color="#fda4af"/>
+          <stop offset="50%" stop-color="#f43f5e"/>
+          <stop offset="100%" stop-color="#be123c"/>
+        </radialGradient>
+        <radialGradient id="balloon-gold" cx="35%" cy="30%" r="65%">
+          <stop offset="0%" stop-color="#fef08a"/>
+          <stop offset="50%" stop-color="#f59e0b"/>
+          <stop offset="100%" stop-color="#b45309"/>
+        </radialGradient>
+        <radialGradient id="balloon-purple" cx="35%" cy="30%" r="65%">
+          <stop offset="0%" stop-color="#e9d5ff"/>
+          <stop offset="50%" stop-color="#a855f7"/>
+          <stop offset="100%" stop-color="#6b21a8"/>
+        </radialGradient>
+      </defs>
+      <!-- Dây bóng bay -->
+      <path d="M 50,110 Q 70,180 85,310" stroke="#fcd34d" stroke-width="1.5" fill="none" opacity="0.6"/>
+      <path d="M 115,100 Q 100,190 85,310" stroke="#fcd34d" stroke-width="1.5" fill="none" opacity="0.6"/>
+      <path d="M 80,65 Q 82,180 85,310" stroke="#fcd34d" stroke-width="1.5" fill="none" opacity="0.6"/>
+
+      <!-- Quả bóng tím phía sau -->
+      <ellipse cx="115" cy="85" rx="36" ry="46" fill="url(#balloon-purple)"/>
+      <polygon points="112,130 118,130 115,135" fill="#a855f7"/>
+      <ellipse cx="104" cy="65" rx="8" ry="14" fill="#ffffff" opacity="0.4" transform="rotate(-20 104 65)"/>
+
+      <!-- Quả bóng vàng giữa -->
+      <ellipse cx="50" cy="95" rx="38" ry="48" fill="url(#balloon-gold)"/>
+      <polygon points="47,142 53,142 50,147" fill="#f59e0b"/>
+      <ellipse cx="38" cy="74" rx="9" ry="15" fill="#ffffff" opacity="0.45" transform="rotate(-20 38 74)"/>
+
+      <!-- Quả bóng hồng nổi bật phía trước -->
+      <ellipse cx="80" cy="55" rx="42" ry="52" fill="url(#balloon-pink)"/>
+      <polygon points="76,106 84,106 80,112" fill="#f43f5e"/>
+      <ellipse cx="68" cy="35" rx="10" ry="16" fill="#ffffff" opacity="0.5" transform="rotate(-20 68 35)"/>
+    </svg>
+  </div>
+
+  <div class="balloon-cluster right">
+    <svg width="170" height="320" viewBox="0 0 170 320">
+      <defs>
+        <radialGradient id="balloon-cyan" cx="35%" cy="30%" r="65%">
+          <stop offset="0%" stop-color="#bae6fd"/>
+          <stop offset="50%" stop-color="#0ea5e9"/>
+          <stop offset="100%" stop-color="#0369a1"/>
+        </radialGradient>
+      </defs>
+      <!-- Dây bóng bay -->
+      <path d="M 60,95 Q 75,190 85,310" stroke="#fcd34d" stroke-width="1.5" fill="none" opacity="0.6"/>
+      <path d="M 115,110 Q 95,190 85,310" stroke="#fcd34d" stroke-width="1.5" fill="none" opacity="0.6"/>
+      <path d="M 90,60 Q 88,180 85,310" stroke="#fcd34d" stroke-width="1.5" fill="none" opacity="0.6"/>
+
+      <!-- Quả bóng hồng phía sau -->
+      <ellipse cx="60" cy="85" rx="36" ry="46" fill="url(#balloon-pink)"/>
+      <polygon points="57,130 63,130 60,135" fill="#f43f5e"/>
+      <ellipse cx="49" cy="65" rx="8" ry="14" fill="#ffffff" opacity="0.4" transform="rotate(-20 49 65)"/>
+
+      <!-- Quả bóng cyan giữa -->
+      <ellipse cx="115" cy="98" rx="38" ry="48" fill="url(#balloon-cyan)"/>
+      <polygon points="112,145 118,145 115,150" fill="#0ea5e9"/>
+      <ellipse cx="103" cy="77" rx="9" ry="15" fill="#ffffff" opacity="0.45" transform="rotate(-20 103 77)"/>
+
+      <!-- Quả bóng vàng nổi bật phía trước -->
+      <ellipse cx="90" cy="50" rx="42" ry="52" fill="url(#balloon-gold)"/>
+      <polygon points="86,101 94,101 90,107" fill="#f59e0b"/>
+      <ellipse cx="78" cy="30" rx="10" ry="16" fill="#ffffff" opacity="0.5" transform="rotate(-20 78 30)"/>
+    </svg>
+  </div>
+
+  <!-- Vùng sân khấu chính -->
+  <main class="stage-container">
+
+    <!-- Lời chúc mừng sinh nhật -->
+    <header class="title-banner">
+      <div class="sub-greeting">
+        <span>✨</span> Chúc Mừng Sinh Nhật <span>✨</span>
+      </div>
+      <h1 class="main-title" id="main_title_text">Happy Birthday to you!</h1>
+      <p class="custom-message" id="message_text">Hãy ước một điều thật đẹp và nhấp thổi nến nhé!</p>
+    </header>
+
+    <!-- Khung Bánh Kem Sinh Nhật 2D Nghệ Thuật (Vector SVG) -->
+    <div class="cake-wrapper" id="cake_click_area" title="Nhấp chuột trái để thổi nến, nhấp đúp để thắp nến">
+      <svg class="cake-svg" viewBox="0 0 540 440" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Gradient đĩa bánh viền vàng sang trọng -->
+          <linearGradient id="plate-rim" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#d97706"/>
+            <stop offset="30%" stop-color="#fbbf24"/>
+            <stop offset="50%" stop-color="#fef08a"/>
+            <stop offset="70%" stop-color="#fbbf24"/>
+            <stop offset="100%" stop-color="#b45309"/>
+          </linearGradient>
+
+          <linearGradient id="plate-surface" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="60%" stop-color="#f8fafc"/>
+            <stop offset="100%" stop-color="#e2e8f0"/>
+          </linearGradient>
+
+          <!-- Gradient tầng bánh dưới (Kem dâu pastel mềm mượt) -->
+          <linearGradient id="bottom-tier-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#f472b6"/>
+            <stop offset="20%" stop-color="#fbcfe8"/>
+            <stop offset="65%" stop-color="#f472b6"/>
+            <stop offset="100%" stop-color="#db2777"/>
+          </linearGradient>
+
+          <!-- Gradient tầng bánh trên (Kem bơ sữa dâu tây ngọt ngào) -->
+          <linearGradient id="top-tier-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#fb7185"/>
+            <stop offset="25%" stop-color="#ffe4e6"/>
+            <stop offset="70%" stop-color="#f43f5e"/>
+            <stop offset="100%" stop-color="#e11d48"/>
+          </linearGradient>
+
+          <!-- Lớp kem phủ vani chảy (Smooth White Glaze Drip) -->
+          <linearGradient id="frosting-glaze" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="60%" stop-color="#fffbeb"/>
+            <stop offset="100%" stop-color="#fef3c7"/>
+          </linearGradient>
+
+          <!-- Đổ bóng tự nhiên cho bánh -->
+          <filter id="cake-shadow" x="-10%" y="-10%" width="120%" height="130%">
+            <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#000000" flood-opacity="0.45" />
+          </filter>
+
+          <!-- Quầng sáng ấm áp của nến -->
+          <radialGradient id="candle-glow-rad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffedd5" stop-opacity="0.8"/>
+            <stop offset="35%" stop-color="#fbbf24" stop-opacity="0.4"/>
+            <stop offset="75%" stop-color="#f97316" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#f97316" stop-opacity="0"/>
+          </radialGradient>
+
+          <!-- Ngọn lửa nến sinh nhật chuyển sắc tự nhiên -->
+          <radialGradient id="flame-grad" cx="45%" cy="80%" r="75%">
+            <stop offset="0%" stop-color="#38bdf8"/>
+            <stop offset="22%" stop-color="#ffffff"/>
+            <stop offset="55%" stop-color="#facc15"/>
+            <stop offset="85%" stop-color="#f97316"/>
+            <stop offset="100%" stop-color="#dc2626"/>
+          </radialGradient>
+
+          <!-- Gradient quả dâu tây -->
+          <radialGradient id="strawberry-grad" cx="35%" cy="30%" r="65%">
+            <stop offset="0%" stop-color="#fca5a5"/>
+            <stop offset="45%" stop-color="#dc2626"/>
+            <stop offset="100%" stop-color="#881337"/>
+          </radialGradient>
+        </defs>
+
+        <!-- ========================================== -->
+        <!-- 1. ĐĨA BÁNH VÀ BÓNG ĐỔ TRÊN BÀN TIỆC -->
+        <!-- ========================================== -->
+        <g id="cake-stand">
+          <!-- Bóng đổ đĩa bánh -->
+          <ellipse cx="270" cy="408" rx="230" ry="24" fill="#05020a" opacity="0.65" filter="blur(10px)"/>
+          <!-- Đế đĩa bánh -->
+          <path d="M 220,395 L 205,420 Q 270,428 335,420 L 320,395 Z" fill="#b45309"/>
+          <!-- Vành ngoài đĩa viền vàng ánh kim -->
+          <ellipse cx="270" cy="392" rx="235" ry="32" fill="url(#plate-rim)"/>
+          <!-- Lòng đĩa sứ trắng mịn màng -->
+          <ellipse cx="270" cy="390" rx="222" ry="26" fill="url(#plate-surface)"/>
+          <!-- Vệt sáng phản chiếu trên vành đĩa -->
+          <path d="M 90,393 Q 270,415 450,393" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.75"/>
+        </g>
+
+        <!-- ========================================== -->
+        <!-- 2. TẦNG BÁNH DƯỚI (BOTTOM TIER) -->
+        <!-- ========================================== -->
+        <g id="bottom-tier" filter="url(#cake-shadow)">
+          <!-- Thân bánh tầng 1 -->
+          <path d="M 75,275 C 75,345 465,345 465,275 L 465,365 C 465,425 75,425 75,365 Z" fill="url(#bottom-tier-grad)"/>
+
+          <!-- Mặt phẳng cắt phía trên tầng 1 -->
+          <ellipse cx="270" cy="275" rx="195" ry="32" fill="#fbcfe8"/>
+
+          <!-- Lớp viền kem sò chân tầng dưới -->
+          <g fill="#ffffff" opacity="0.95">
+            <circle cx="88" cy="368" r="8"/>
+            <circle cx="106" cy="374" r="8.5"/>
+            <circle cx="126" cy="380" r="9"/>
+            <circle cx="148" cy="385" r="9"/>
+            <circle cx="172" cy="389" r="9.5"/>
+            <circle cx="198" cy="392" r="9.5"/>
+            <circle cx="226" cy="394" r="10"/>
+            <circle cx="255" cy="395" r="10"/>
+            <circle cx="285" cy="395" r="10"/>
+            <circle cx="314" cy="394" r="10"/>
+            <circle cx="342" cy="392" r="9.5"/>
+            <circle cx="368" cy="389" r="9.5"/>
+            <circle cx="392" cy="385" r="9"/>
+            <circle cx="414" cy="380" r="9"/>
+            <circle cx="434" cy="374" r="8.5"/>
+            <circle cx="452" cy="368" r="8"/>
+          </g>
+
+          <!-- Lớp sốt kem vani dâu chảy lượn sóng tự nhiên (Dripping Glaze) -->
+          <path d="
+            M 75,275
+            C 75,305 85,320 95,300
+            C 105,285 115,335 125,335
+            C 135,335 145,295 155,295
+            C 165,295 175,348 185,348
+            C 195,348 205,300 215,300
+            C 225,300 235,355 245,355
+            C 255,355 265,305 275,305
+            C 285,305 295,345 305,345
+            C 315,345 325,295 335,295
+            C 345,295 355,350 365,350
+            C 375,350 385,300 395,300
+            C 405,300 415,330 425,330
+            C 435,330 445,285 455,305
+            C 460,315 465,300 465,275
+            C 465,245 75,245 75,275 Z
+          " fill="url(#frosting-glaze)" opacity="0.96"/>
+
+          <!-- Đường viền highlight sáng bóng trên lớp kem chảy -->
+          <path d="
+            M 85,295
+            Q 125,345 130,332
+            Q 180,358 190,344
+            Q 240,366 250,351
+            Q 300,355 310,340
+            Q 360,360 370,346
+            Q 420,338 455,295
+          " fill="none" stroke="#ffffff" stroke-width="2.2" opacity="0.7"/>
+
+          <!-- Cốm trang trí sắc màu rải trên tầng 1 (Sprinkles) -->
+          <g opacity="0.85">
+            <rect x="110" y="325" width="4" height="11" rx="2" fill="#fbbf24" transform="rotate(25 110 325)"/>
+            <rect x="160" y="315" width="4" height="11" rx="2" fill="#38bdf8" transform="rotate(-35 160 315)"/>
+            <rect x="210" y="330" width="4" height="11" rx="2" fill="#f43f5e" transform="rotate(40 210 330)"/>
+            <rect x="260" y="320" width="4" height="11" rx="2" fill="#4ade80" transform="rotate(-20 260 320)"/>
+            <rect x="315" y="330" width="4" height="11" rx="2" fill="#c084fc" transform="rotate(30 315 330)"/>
+            <rect x="370" y="315" width="4" height="11" rx="2" fill="#fbbf24" transform="rotate(-45 370 315)"/>
+            <rect x="420" y="325" width="4" height="11" rx="2" fill="#f43f5e" transform="rotate(15 420 325)"/>
+          </g>
+        </g>
+
+        <!-- ========================================== -->
+        <!-- 3. TẦNG BÁNH TRÊN (TOP TIER) -->
+        <!-- ========================================== -->
+        <g id="top-tier" filter="url(#cake-shadow)">
+          <!-- Thân bánh tầng 2 -->
+          <path d="M 130,165 C 130,230 410,230 410,165 L 410,250 C 410,310 130,310 130,250 Z" fill="url(#top-tier-grad)"/>
+
+          <!-- Mặt trên phẳng của tầng bánh 2 -->
+          <ellipse cx="270" cy="165" rx="140" ry="26" fill="#ffe4e6"/>
+
+          <!-- Lớp viền kem sò trắng quanh chân tầng 2 -->
+          <g fill="#ffffff" opacity="0.95">
+            <circle cx="142" cy="250" r="7"/>
+            <circle cx="160" cy="256" r="7.5"/>
+            <circle cx="180" cy="261" r="8"/>
+            <circle cx="202" cy="265" r="8.5"/>
+            <circle cx="226" cy="268" r="8.5"/>
+            <circle cx="252" cy="270" r="9"/>
+            <circle cx="279" cy="270" r="9"/>
+            <circle cx="305" cy="268" r="8.5"/>
+            <circle cx="329" cy="265" r="8.5"/>
+            <circle cx="351" cy="261" r="8"/>
+            <circle cx="371" cy="256" r="7.5"/>
+            <circle cx="389" cy="250" r="7"/>
+          </g>
+
+          <!-- Lớp kem phủ vani chảy lượn sóng trên tầng 2 -->
+          <path d="
+            M 130,165
+            C 130,190 140,210 150,195
+            C 160,180 170,230 180,230
+            C 190,230 200,185 210,185
+            C 220,185 230,238 240,238
+            C 250,238 260,195 270,195
+            C 280,195 290,235 300,235
+            C 310,235 320,185 330,185
+            C 340,185 350,225 360,225
+            C 370,225 380,190 390,205
+            C 400,220 410,190 410,165
+            C 410,135 130,135 130,165 Z
+          " fill="url(#frosting-glaze)" opacity="0.97"/>
+
+          <!-- Highlight kem chảy tầng 2 -->
+          <path d="
+            M 140,185
+            Q 175,238 185,225
+            Q 235,246 245,233
+            Q 295,243 305,230
+            Q 355,233 390,190
+          " fill="none" stroke="#ffffff" stroke-width="2.2" opacity="0.75"/>
+
+          <!-- Bông kem xoắn trên đỉnh viền -->
+          <g fill="#ffffff">
+            <ellipse cx="152" cy="162" rx="13" ry="9" opacity="0.95"/>
+            <ellipse cx="188" cy="176" rx="14" ry="10" opacity="0.95"/>
+            <ellipse cx="230" cy="183" rx="15" ry="11" opacity="0.95"/>
+            <ellipse cx="275" cy="185" rx="15" ry="11" opacity="0.95"/>
+            <ellipse cx="320" cy="183" rx="15" ry="11" opacity="0.95"/>
+            <ellipse cx="362" cy="176" rx="14" ry="10" opacity="0.95"/>
+            <ellipse cx="395" cy="162" rx="13" ry="9" opacity="0.95"/>
+          </g>
+
+          <!-- Dâu tây tươi mọng và quả việt quất trang trí -->
+          <!-- Dâu tây trái -->
+          <g transform="translate(170, 160) scale(0.85)">
+            <path d="M 0,-15 C 20,-15 22,12 0,22 C -22,12 -20,-15 0,-15 Z" fill="url(#strawberry-grad)"/>
+            <ellipse cx="-4" cy="-6" rx="3" ry="5" fill="#ffffff" opacity="0.55" transform="rotate(-20 -4 -6)"/>
+            <path d="M 0,-15 C -8,-24 -14,-18 -6,-14 M 0,-15 C 0,-25 6,-25 3,-14 M 0,-15 C 8,-24 14,-18 6,-14" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
+          </g>
+
+          <!-- Dâu tây giữa -->
+          <g transform="translate(268, 168) scale(0.95)">
+            <path d="M 0,-15 C 20,-15 22,12 0,22 C -22,12 -20,-15 0,-15 Z" fill="url(#strawberry-grad)"/>
+            <ellipse cx="-4" cy="-6" rx="3.5" ry="6" fill="#ffffff" opacity="0.55" transform="rotate(-20 -4 -6)"/>
+            <path d="M 0,-15 C -8,-24 -14,-18 -6,-14 M 0,-15 C 0,-25 6,-25 3,-14 M 0,-15 C 8,-24 14,-18 6,-14" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
+          </g>
+
+          <!-- Dâu tây phải -->
+          <g transform="translate(365, 160) scale(0.85)">
+            <path d="M 0,-15 C 20,-15 22,12 0,22 C -22,12 -20,-15 0,-15 Z" fill="url(#strawberry-grad)"/>
+            <ellipse cx="-4" cy="-6" rx="3" ry="5" fill="#ffffff" opacity="0.55" transform="rotate(-20 -4 -6)"/>
+            <path d="M 0,-15 C -8,-24 -14,-18 -6,-14 M 0,-15 C 0,-25 6,-25 3,-14 M 0,-15 C 8,-24 14,-18 6,-14" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
+          </g>
+
+          <!-- Quả việt quất xinh xắn -->
+          <circle cx="212" cy="182" r="7" fill="#1e1b4b"/>
+          <circle cx="210" cy="180" r="2.2" fill="#a5b4fc" opacity="0.6"/>
+          <circle cx="325" cy="182" r="7" fill="#1e1b4b"/>
+          <circle cx="323" cy="180" r="2.2" fill="#a5b4fc" opacity="0.6"/>
+
+          <!-- Cốm sắc màu rải trên đỉnh bánh -->
+          <g opacity="0.9">
+            <rect x="235" y="172" width="3" height="8" rx="1.5" fill="#f59e0b" transform="rotate(30 235 172)"/>
+            <rect x="250" y="180" width="3" height="8" rx="1.5" fill="#38bdf8" transform="rotate(-40 250 180)"/>
+            <rect x="288" y="178" width="3" height="8" rx="1.5" fill="#4ade80" transform="rotate(25 288 178)"/>
+            <rect x="300" y="170" width="3" height="8" rx="1.5" fill="#f43f5e" transform="rotate(-30 300 170)"/>
+          </g>
+        </g>
+
+        <!-- ========================================== -->
+        <!-- 4. QUẦNG SÁNG & DÀN NẾN SINH NHẬT -->
+        <!-- ========================================== -->
+        <!-- Quầng sáng ấm áp tỏa ra từ ngọn nến -->
+        <g id="candles-ambient-glow">
+          <ellipse cx="270" cy="90" rx="200" ry="85" fill="url(#candle-glow-rad)" id="main_candle_glow"/>
+        </g>
+
+        <!-- Nhóm chứa các cây nến được render động -->
+        <g id="candles_svg_group"></g>
+      </svg>
     </div>
 
-    <script>
-        let currentCandleCount = 9;
-        let audioCtx = null;
-        let clickTimeout = null;
-        let lastTapTime = 0;
-        let musicSource = null;
-        let musicGain = null;
-        let musicEnabled = false;
+    <!-- Hướng dẫn tương tác -->
+    <div class="action-hint" id="status_hint">
+      <span class="dot"></span>
+      <span id="hint_text">Nhấp vào bánh để thổi nến • Nhấp đúp để thắp nến</span>
+    </div>
 
-        const birthdayMelody = [
-            [392, 0.5], [392, 0.5], [440, 1], [392, 1], [523.25, 1], [493.88, 2],
-            [392, 0.5], [392, 0.5], [440, 1], [392, 1], [587.33, 1], [523.25, 2],
-            [392, 0.5], [392, 0.5], [783.99, 1], [659.25, 1], [523.25, 1], [493.88, 1], [440, 2],
-            [698.46, 0.5], [698.46, 0.5], [659.25, 1], [523.25, 1], [587.33, 1], [523.25, 2]
-        ];
+  </main>
 
-        function createBirthdayMusic(ctx) {
-            const sampleRate = 22050;
-            const beatSeconds = 0.48;
-            const duration = birthdayMelody.reduce((sum, [, beats]) => sum + beats * beatSeconds, 0) + 0.3;
-            const buffer = ctx.createBuffer(1, Math.ceil(duration * sampleRate), sampleRate);
-            const samples = buffer.getChannelData(0);
-            let noteStart = 0;
+  <!-- Thanh công cụ tiện ích sinh nhật phía dưới -->
+  <footer class="control-toolbar">
+    <button type="button" class="btn-action primary" id="btn_blow" title="Thổi tắt nến">
+      <span>💨</span> Thổi nến
+    </button>
+    <button type="button" class="btn-action" id="btn_relight" title="Thắp sáng lại nến" style="display: none;">
+      <span>✨</span> Thắp nến
+    </button>
+    <button type="button" class="btn-action" id="btn_confetti" title="Tung hoa giấy">
+      <span>🎊</span> Tung hoa
+    </button>
+    <button type="button" class="btn-action" id="btn_music" title="Bật/Tắt nhạc sinh nhật" aria-pressed="false">
+      <span id="music_icon">🎵</span> <span id="music_text">Bật nhạc</span>
+    </button>
+    <button type="button" class="btn-action" id="btn_customize" title="Tạo thiệp sinh nhật gửi bạn bè">
+      <span>💌</span> Tạo thiệp
+    </button>
+  </footer>
 
-            birthdayMelody.forEach(([frequency, beats]) => {
-                const noteLength = beats * beatSeconds;
-                const soundingLength = noteLength * 0.88;
-                const firstSample = Math.round(noteStart * sampleRate);
-                const count = Math.floor(soundingLength * sampleRate);
+  <!-- Modal Tạo thiệp mừng sinh nhật -->
+  <div class="modal-backdrop" id="custom_modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title"><span>🎂</span> Tùy Biến Thiệp Sinh Nhật</h3>
+        <button type="button" class="btn-close" id="btn_close_modal">&times;</button>
+      </div>
 
-                for (let i = 0; i < count; i++) {
-                    const t = i / sampleRate;
-                    const envelope = Math.min(1, t / 0.025, (soundingLength - t) / 0.12);
-                    samples[firstSample + i] = envelope * (
-                        Math.sin(2 * Math.PI * frequency * t) +
-                        0.18 * Math.sin(4 * Math.PI * frequency * t)
-                    ) * 0.35;
-                }
-                noteStart += noteLength;
-            });
-            return buffer;
+      <div class="form-group">
+        <label class="form-label" for="input_name">Tên người nhận sinh nhật:</label>
+        <input type="text" id="input_name" class="form-input" placeholder="Ví dụ: Hoàng Yến, Tuấn Anh, My Darling..." />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="input_candles">Số lượng nến (Tuổi):</label>
+        <input type="number" id="input_candles" class="form-input" min="1" max="15" value="7" placeholder="1 đến 15 nến" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="input_message">Lời chúc yêu thương:</label>
+        <input type="text" id="input_message" class="form-input" placeholder="Ví dụ: Tuổi mới luôn rạng ngời, bình an và hạnh phúc nhé!" />
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-modal-action submit" id="btn_apply_modal">
+          Tạo Thiệp & Copy Link 🎁
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast thông báo -->
+  <div class="toast-msg" id="toast_msg">Đã sao chép liên kết chúc mừng!</div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    // Trạng thái ứng dụng
+    let candleCount = 7;
+    let recipientName = "to you!";
+    let customWish = "Hãy ước một điều thật đẹp và nhấp thổi nến nhé!";
+    let areCandlesLit = true;
+    let audioCtx = null;
+    let musicSource = null;
+    let musicGain = null;
+    let musicEnabled = false;
+
+    // Giai điệu bài hát "Happy Birthday to You" (Web Audio Synth)
+    const birthdayMelody = [
+      [392, 0.5], [392, 0.5], [440, 1], [392, 1], [523.25, 1], [493.88, 2],
+      [392, 0.5], [392, 0.5], [440, 1], [392, 1], [587.33, 1], [523.25, 2],
+      [392, 0.5], [392, 0.5], [783.99, 1], [659.25, 1], [523.25, 1], [493.88, 1], [440, 2],
+      [698.46, 0.5], [698.46, 0.5], [659.25, 1], [523.25, 1], [587.33, 1], [523.25, 2]
+    ];
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      return audioCtx;
+    }
+
+    function createBirthdayMusic(ctx) {
+      const sampleRate = 22050;
+      const beatSeconds = 0.46;
+      const duration = birthdayMelody.reduce((sum, [, beats]) => sum + beats * beatSeconds, 0) + 0.3;
+      const buffer = ctx.createBuffer(1, Math.ceil(duration * sampleRate), sampleRate);
+      const samples = buffer.getChannelData(0);
+      let noteStart = 0;
+
+      birthdayMelody.forEach(([frequency, beats]) => {
+        const noteLength = beats * beatSeconds;
+        const soundingLength = noteLength * 0.88;
+        const firstSample = Math.round(noteStart * sampleRate);
+        const count = Math.floor(soundingLength * sampleRate);
+
+        for (let i = 0; i < count; i++) {
+          const t = i / sampleRate;
+          // Hiệu ứng hộp nhạc (Music box chime timbre)
+          const envelope = Math.min(1, t / 0.02, Math.exp(-t * 2.8));
+          samples[firstSample + i] = envelope * (
+            Math.sin(2 * Math.PI * frequency * t) +
+            0.28 * Math.sin(4 * Math.PI * frequency * t) +
+            0.12 * Math.sin(6 * Math.PI * frequency * t)
+          ) * 0.38;
+        }
+        noteStart += noteLength;
+      });
+      return buffer;
+    }
+
+    function toggleMusic() {
+      try {
+        const ctx = getAudioContext();
+        if (!musicSource) {
+          musicGain = ctx.createGain();
+          musicGain.gain.value = 0.16;
+          musicGain.connect(ctx.destination);
+          musicSource = ctx.createBufferSource();
+          musicSource.buffer = createBirthdayMusic(ctx);
+          musicSource.loop = true;
+          musicSource.connect(musicGain);
+          musicSource.start();
+          musicEnabled = true;
+        } else {
+          musicEnabled = !musicEnabled;
+          musicGain.gain.setTargetAtTime(musicEnabled ? 0.16 : 0, ctx.currentTime, 0.03);
         }
 
-        function updateMusicButton() {
-            const button = document.getElementById('music-toggle');
-            button.setAttribute('aria-label', musicEnabled ? 'Tắt nhạc nền' : 'Bật nhạc nền');
-            button.setAttribute('aria-pressed', String(musicEnabled));
+        const icon = document.getElementById("music_icon");
+        const text = document.getElementById("music_text");
+        const btn = document.getElementById("btn_music");
+
+        if (musicEnabled) {
+          icon.textContent = "🔊";
+          text.textContent = "Tắt nhạc";
+          btn.setAttribute("aria-pressed", "true");
+        } else {
+          icon.textContent = "🎵";
+          text.textContent = "Bật nhạc";
+          btn.setAttribute("aria-pressed", "false");
+        }
+      } catch (err) {
+        console.warn("Audio Context:", err);
+      }
+    }
+
+    // Âm thanh tiếng thổi phù (Puff sound)
+    function playPuffSound() {
+      try {
+        const ctx = getAudioContext();
+        const bufferSize = ctx.sampleRate * 0.32;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const output = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.12));
+        }
+        const whiteNoise = ctx.createBufferSource();
+        whiteNoise.buffer = buffer;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(600, ctx.currentTime);
+        filter.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.3);
+
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0.3, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+
+        whiteNoise.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+
+        whiteNoise.start();
+      } catch (e) {}
+    }
+
+    // Âm thanh chuông ngân nga khi thắp sáng nến (Chime)
+    function playChimeSound() {
+      try {
+        const ctx = getAudioContext();
+        [523.25, 659.25, 783.99, 1046.50, 1318.51].forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          const t = ctx.currentTime + idx * 0.07;
+          gain.gain.setValueAtTime(0.12, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.55);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(t);
+          osc.stop(t + 0.55);
+        });
+      } catch (e) {}
+    }
+
+    // =========================================================
+    // RENDER NẾN SINH NHẬT VÀ NGỌN LỬA NGHỆ THUẬT
+    // =========================================================
+    const CANDLE_PALETTE = [
+      { base: '#f43f5e', stripe: '#fecdd3' }, // Hồng dâu sọc pastel
+      { base: '#38bdf8', stripe: '#e0f2fe' }, // Xanh biển sọc trắng
+      { base: '#fbbf24', stripe: '#fef3c7' }, // Vàng mật ong sọc kem
+      { base: '#a855f7', stripe: '#f3e8ff' }, // Tím mộng mơ
+      { base: '#34d399', stripe: '#d1fae5' }, // Xanh mint thanh mát
+      { base: '#fb923c', stripe: '#ffedd5' }  // Cam ngọt ngào
+    ];
+
+    function buildCandles(count) {
+      const container = document.getElementById("candles_svg_group");
+      if (!container) return;
+      container.innerHTML = "";
+
+      const n = Math.max(1, Math.min(15, count));
+      const startX = 180;
+      const endX = 360;
+      const step = n > 1 ? (endX - startX) / (n - 1) : 0;
+      const candleWidth = Math.max(8, Math.min(13, 110 / n));
+
+      for (let i = 0; i < n; i++) {
+        const cx = n === 1 ? 270 : startX + i * step;
+        const norm = (cx - 270) / 95;
+        const cy = 158 + (norm * norm) * 10;
+        const color = CANDLE_PALETTE[i % CANDLE_PALETTE.length];
+        const candleHeight = 52;
+
+        const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        g.setAttribute("class", "candle-item");
+        g.setAttribute("data-index", i);
+
+        // 1. Thân nến bo góc
+        const candleX = cx - candleWidth / 2;
+        const candleY = cy - candleHeight;
+        const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        rect.setAttribute("x", candleX);
+        rect.setAttribute("y", candleY);
+        rect.setAttribute("width", candleWidth);
+        rect.setAttribute("height", candleHeight);
+        rect.setAttribute("rx", candleWidth / 3.5);
+        rect.setAttribute("fill", color.base);
+        rect.setAttribute("stroke", "rgba(0,0,0,0.18)");
+        rect.setAttribute("stroke-width", "1");
+        g.appendChild(rect);
+
+        // 2. Các sọc xoắn chéo trên thân nến
+        const stripeClipId = `candle-clip-${i}`;
+        const clipPath = document.createElementNS("http://www.w3.org/2000/svg", "clipPath");
+        clipPath.setAttribute("id", stripeClipId);
+        const clipRect = rect.cloneNode();
+        clipPath.appendChild(clipRect);
+        g.appendChild(clipPath);
+
+        const stripesG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        stripesG.setAttribute("clip-path", `url(#${stripeClipId})`);
+        for (let s = -candleHeight; s < candleHeight * 2; s += 12) {
+          const stripe = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          stripe.setAttribute("x1", candleX - 6);
+          stripe.setAttribute("y1", candleY + s);
+          stripe.setAttribute("x2", candleX + candleWidth + 6);
+          stripe.setAttribute("y2", candleY + s + 10);
+          stripe.setAttribute("stroke", color.stripe);
+          stripe.setAttribute("stroke-width", "3.2");
+          stripesG.appendChild(stripe);
+        }
+        g.appendChild(stripesG);
+
+        // 3. Bấc nến màu đen
+        const wick = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        wick.setAttribute("x1", cx);
+        wick.setAttribute("y1", candleY);
+        wick.setAttribute("x2", cx);
+        wick.setAttribute("y2", candleY - 8);
+        wick.setAttribute("stroke", "#1f2937");
+        wick.setAttribute("stroke-width", "1.8");
+        wick.setAttribute("stroke-linecap", "round");
+        g.appendChild(wick);
+
+        // 4. Ngọn lửa nến ấm áp (Flame) - Đặt trong wrapper translate độc lập
+        const flameWrapper = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        flameWrapper.setAttribute("class", "flame-wrapper");
+        flameWrapper.setAttribute("id", `flame-wrap-${i}`);
+        flameWrapper.setAttribute("transform", `translate(${cx}, ${candleY - 7})`);
+
+        const flameG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        flameG.setAttribute("class", "flame-element");
+        flameG.setAttribute("id", `flame-${i}`);
+        flameG.style.transformOrigin = "0px 0px";
+
+        // Vỏ ngoài ngọn lửa màu vàng ấm
+        const flamePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        flamePath.setAttribute("d", "M 0,-24 C 8,-16 9,-2 0,0 C -9,-2 -8,-16 0,-24 Z");
+        flamePath.setAttribute("fill", "url(#flame-grad)");
+        flameG.appendChild(flamePath);
+
+        // Lõi sáng trắng trong lòng ngọn lửa
+        const innerFlame = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+        innerFlame.setAttribute("cx", "0");
+        innerFlame.setAttribute("cy", "-7");
+        innerFlame.setAttribute("rx", "2.8");
+        innerFlame.setAttribute("ry", "6.5");
+        innerFlame.setAttribute("fill", "#ffffff");
+        innerFlame.setAttribute("opacity", "0.9");
+        flameG.appendChild(innerFlame);
+
+        flameWrapper.appendChild(flameG);
+        g.appendChild(flameWrapper);
+
+        // 5. Khói bốc lên khi nến tắt (Smoke puff)
+        const smoke = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        smoke.setAttribute("class", "smoke-puff");
+        smoke.setAttribute("id", `smoke-${i}`);
+        smoke.setAttribute("d", `M ${cx},${candleY - 10} Q ${cx - 6},${candleY - 26} ${cx + 4},${candleY - 40} Q ${cx - 4},${candleY - 55} ${cx + 2},${candleY - 70}`);
+        smoke.setAttribute("fill", "none");
+        smoke.setAttribute("stroke", "rgba(255, 255, 255, 0.7)");
+        smoke.setAttribute("stroke-width", "3.2");
+        smoke.setAttribute("stroke-linecap", "round");
+        g.appendChild(smoke);
+
+        container.appendChild(g);
+      }
+
+      areCandlesLit = true;
+      updateStatusUI();
+    }
+
+    // =========================================================
+    // HÀNH ĐỘNG THỔI NẾN VÀ THẮP NẾN
+    // =========================================================
+    function blowOutCandles() {
+      if (!areCandlesLit) return;
+      areCandlesLit = false;
+
+      playPuffSound();
+
+      // Tắt các ngọn lửa & kích hoạt làn khói
+      const flames = document.querySelectorAll(".flame-element");
+      flames.forEach(f => {
+        f.style.opacity = "0";
+        f.style.transform = "scale(0)";
+      });
+
+      const smokes = document.querySelectorAll(".smoke-puff");
+      smokes.forEach(s => {
+        s.classList.remove("blown");
+        void s.offsetWidth; // trigger reflow
+        s.classList.add("blown");
+      });
+
+      // Làm mờ quầng sáng của nến
+      const glow = document.getElementById("main_candle_glow");
+      if (glow) glow.style.opacity = "0.08";
+
+      // Bắn pháo hoa giấy chúc mừng!
+      fireConfetti(true);
+
+      // Cập nhật trạng thái và lời chúc
+      updateStatusUI();
+    }
+
+    function relightCandles() {
+      if (areCandlesLit) return;
+      areCandlesLit = true;
+
+      playChimeSound();
+
+      const flames = document.querySelectorAll(".flame-element");
+      flames.forEach((f, idx) => {
+        setTimeout(() => {
+          f.style.opacity = "1";
+          f.style.transform = "scale(1)";
+        }, idx * 60);
+      });
+
+      const smokes = document.querySelectorAll(".smoke-puff");
+      smokes.forEach(s => s.classList.remove("blown"));
+
+      const glow = document.getElementById("main_candle_glow");
+      if (glow) glow.style.opacity = "1";
+
+      updateStatusUI();
+    }
+
+    function updateStatusUI() {
+      const hintText = document.getElementById("hint_text");
+      const messageText = document.getElementById("message_text");
+      const btnBlow = document.getElementById("btn_blow");
+      const btnRelight = document.getElementById("btn_relight");
+
+      if (areCandlesLit) {
+        hintText.textContent = "Nhấp vào bánh để thổi nến • Nhấp đúp để thắp nến";
+        messageText.textContent = customWish;
+        btnBlow.style.display = "inline-flex";
+        btnRelight.style.display = "none";
+      } else {
+        hintText.textContent = "🎉 Ước nguyện đã gửi gắm! Chúc mọi điều ước thành hiện thực! ✨";
+        messageText.innerHTML = "🌟 <strong>Mọi điều ước của bạn sẽ thành hiện thực!</strong> 🎂";
+        btnBlow.style.display = "none";
+        btnRelight.style.display = "inline-flex";
+      }
+    }
+
+    // =========================================================
+    // HỆ THỐNG PHÁO GIẤY CONFETTI NGHỆ THUẬT
+    // =========================================================
+    const confettiCanvas = document.getElementById("confetti-canvas");
+    const confettiCtx = confettiCanvas.getContext("2d");
+    let confettiParticles = [];
+    let confettiAnimationId = null;
+
+    function resizeConfetti() {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeConfetti);
+    resizeConfetti();
+
+    const CONFETTI_COLORS = ["#f43f5e", "#fbbf24", "#38bdf8", "#4ade80", "#c084fc", "#fb923c", "#f472b6", "#ffffff"];
+
+    function fireConfetti(isGrand = false) {
+      const count = isGrand ? 160 : 70;
+      const originX = confettiCanvas.width / 2;
+      const originY = confettiCanvas.height * 0.65;
+
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = Math.random() * 14 + 6;
+        confettiParticles.push({
+          x: originX,
+          y: originY,
+          vx: Math.cos(angle) * velocity,
+          vy: Math.sin(angle) * velocity - (Math.random() * 8 + 4),
+          size: Math.random() * 8 + 5,
+          color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 12,
+          opacity: 1,
+          gravity: 0.38,
+          drag: 0.95
+        });
+      }
+
+      if (!confettiAnimationId) {
+        animateConfetti();
+      }
+    }
+
+    function animateConfetti() {
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+      for (let i = confettiParticles.length - 1; i >= 0; i--) {
+        const p = confettiParticles[i];
+        p.vx *= p.drag;
+        p.vy = p.vy * p.drag + p.gravity;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rotation += p.rotationSpeed;
+        p.opacity -= 0.007;
+
+        if (p.opacity <= 0 || p.y > confettiCanvas.height + 20) {
+          confettiParticles.splice(i, 1);
+          continue;
         }
 
-        function startMusic() {
-            try {
-                const ctx = getAudioContext();
-                if (!musicSource) {
-                    musicGain = ctx.createGain();
-                    musicGain.gain.value = 0.13;
-                    musicGain.connect(ctx.destination);
-                    musicSource = ctx.createBufferSource();
-                    musicSource.buffer = createBirthdayMusic(ctx);
-                    musicSource.loop = true;
-                    musicSource.connect(musicGain);
-                    musicSource.start();
-                }
-                musicEnabled = true;
-                musicGain.gain.setTargetAtTime(0.13, ctx.currentTime, 0.02);
-                updateMusicButton();
-            } catch (e) {
-                // Audio is optional on browsers without Web Audio support.
-            }
+        confettiCtx.save();
+        confettiCtx.translate(p.x, p.y);
+        confettiCtx.rotate((p.rotation * Math.PI) / 180);
+        confettiCtx.globalAlpha = p.opacity;
+        confettiCtx.fillStyle = p.color;
+        confettiCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.65);
+        confettiCtx.restore();
+      }
+
+      if (confettiParticles.length > 0) {
+        confettiAnimationId = requestAnimationFrame(animateConfetti);
+      } else {
+        confettiAnimationId = null;
+        confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      }
+    }
+
+    // =========================================================
+    // ĐỐM SÁNG BOKEH VÀ TIỆC LUNG LINH
+    // =========================================================
+    function createBokehLights() {
+      const wrap = document.getElementById("bokeh-container");
+      if (!wrap) return;
+      const colors = ["#fbbf24", "#f43f5e", "#a855f7", "#38bdf8", "#fed7aa"];
+
+      for (let i = 0; i < 22; i++) {
+        const orb = document.createElement("div");
+        orb.className = "bokeh";
+        const size = Math.random() * 60 + 25;
+        orb.style.width = `${size}px`;
+        orb.style.height = `${size}px`;
+        orb.style.left = `${Math.random() * 100}%`;
+        orb.style.top = `${Math.random() * 90}%`;
+        orb.style.background = colors[Math.floor(Math.random() * colors.length)];
+        orb.style.animationDuration = `${Math.random() * 8 + 8}s`;
+        orb.style.animationDelay = `${Math.random() * 5}s`;
+        wrap.appendChild(orb);
+      }
+    }
+
+    // =========================================================
+    // KHỞI TẠO VÀ XỬ LÝ SỰ KIỆN TƯƠNG TÁC
+    // =========================================================
+    let clickTimer = null;
+    let lastTap = 0;
+
+    function showToast(text) {
+      const toast = document.getElementById("toast_msg");
+      toast.textContent = text;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2800);
+    }
+
+    function init() {
+      createBokehLights();
+
+      // Đọc URL parameters: ?name=...&candles=...&message=...
+      const url = new URL(window.location.href);
+      const nameParam = url.searchParams.get("name");
+      const candlesParam = parseInt(url.searchParams.get("candles"));
+      const messageParams = url.searchParams.getAll("message");
+
+      if (nameParam && nameParam.trim() !== "") {
+        recipientName = nameParam.trim();
+        document.getElementById("main_title_text").textContent = `Happy Birthday ${recipientName}!`;
+      }
+
+      if (!isNaN(candlesParam) && candlesParam > 0) {
+        candleCount = Math.min(15, candlesParam);
+      }
+
+      if (messageParams && messageParams.length > 0) {
+        customWish = messageParams.join(" • ");
+        document.getElementById("message_text").textContent = customWish;
+      }
+
+      // Xây dựng dàn nến
+      buildCandles(candleCount);
+
+      // Tương tác trực tiếp trên Bánh sinh nhật
+      const cakeArea = document.getElementById("cake_click_area");
+
+      cakeArea.addEventListener("click", (e) => {
+        if (clickTimer) {
+          clearTimeout(clickTimer);
+          clickTimer = null;
+          relightCandles();
+        } else {
+          clickTimer = setTimeout(() => {
+            blowOutCandles();
+            clickTimer = null;
+          }, 240);
+        }
+      });
+
+      cakeArea.addEventListener("dblclick", (e) => {
+        if (clickTimer) clearTimeout(clickTimer);
+        clickTimer = null;
+        relightCandles();
+      });
+
+      cakeArea.addEventListener("touchend", (e) => {
+        const now = Date.now();
+        if (now - lastTap < 300) {
+          if (clickTimer) clearTimeout(clickTimer);
+          clickTimer = null;
+          relightCandles();
+          if (e.cancelable) e.preventDefault();
+        }
+        lastTap = now;
+      });
+
+      // Tương tác các nút trên thanh công cụ
+      document.getElementById("btn_blow").addEventListener("click", blowOutCandles);
+      document.getElementById("btn_relight").addEventListener("click", relightCandles);
+      document.getElementById("btn_confetti").addEventListener("click", () => fireConfetti(true));
+      document.getElementById("btn_music").addEventListener("click", toggleMusic);
+
+      // Kích hoạt nhạc tự động khi người dùng nhấp tương tác đầu tiên
+      window.addEventListener("pointerdown", () => {
+        if (!musicSource) toggleMusic();
+      }, { once: true });
+
+      // Modal Tùy biến thiệp sinh nhật
+      const modal = document.getElementById("custom_modal");
+      const btnCustomize = document.getElementById("btn_customize");
+      const btnCloseModal = document.getElementById("btn_close_modal");
+      const btnApplyModal = document.getElementById("btn_apply_modal");
+
+      btnCustomize.addEventListener("click", () => {
+        document.getElementById("input_name").value = (recipientName !== "to you!" ? recipientName : "");
+        document.getElementById("input_candles").value = candleCount;
+        document.getElementById("input_message").value = (customWish !== "Hãy ước một điều thật đẹp và nhấp thổi nến nhé!" ? customWish : "");
+        modal.classList.add("active");
+      });
+
+      btnCloseModal.addEventListener("click", () => modal.classList.remove("active"));
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) modal.classList.remove("active");
+      });
+
+      btnApplyModal.addEventListener("click", () => {
+        const newName = document.getElementById("input_name").value.trim();
+        const newCandles = parseInt(document.getElementById("input_candles").value) || candleCount;
+        const newMsg = document.getElementById("input_message").value.trim();
+
+        if (newName !== "") {
+          recipientName = newName;
+          document.getElementById("main_title_text").textContent = `Happy Birthday ${recipientName}!`;
+        }
+        if (newCandles > 0) {
+          candleCount = Math.min(15, newCandles);
+          buildCandles(candleCount);
+        }
+        if (newMsg !== "") {
+          customWish = newMsg;
+          document.getElementById("message_text").textContent = customWish;
         }
 
-        function toggleMusic() {
-            if (!musicSource) {
-                startMusic();
-                return;
-            }
-            musicEnabled = !musicEnabled;
-            const ctx = getAudioContext();
-            musicGain.gain.setTargetAtTime(musicEnabled ? 0.13 : 0, ctx.currentTime, 0.02);
-            updateMusicButton();
+        // Tạo link chia sẻ
+        const shareUrl = new URL(window.location.origin + window.location.pathname);
+        if (newName) shareUrl.searchParams.set("name", newName);
+        if (newCandles) shareUrl.searchParams.set("candles", newCandles);
+        if (newMsg) shareUrl.searchParams.set("message", newMsg);
+
+        // Copy vào Clipboard
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(shareUrl.toString()).then(() => {
+            showToast("Đã tạo thiệp & sao chép link chia sẻ vào Clipboard! 💌");
+          }).catch(() => {
+            showToast("Đã áp dụng thiệp mới thành công! 🎂");
+          });
+        } else {
+          showToast("Đã áp dụng thiệp mới thành công! 🎂");
         }
 
-        function handleSceneClick(e) {
-            if (e.button !== undefined && e.button !== 0) return;
-            if (clickTimeout) {
-                clearTimeout(clickTimeout);
-                clickTimeout = null;
-            }
-            clickTimeout = setTimeout(() => {
-                putOutCandles();
-                clickTimeout = null;
-            }, 250);
-        }
+        modal.classList.remove("active");
+        fireConfetti(true);
+      });
+    }
 
-        function handleSceneDblClick(e) {
-            if (e.button !== undefined && e.button !== 0) return;
-            if (clickTimeout) {
-                clearTimeout(clickTimeout);
-                clickTimeout = null;
-            }
-            relightCandles();
-        }
-
-        function handleTouchEnd(e) {
-            const currentTime = new Date().getTime();
-            const tapLength = currentTime - lastTapTime;
-            if (tapLength > 0 && tapLength < 300) {
-                if (clickTimeout) {
-                    clearTimeout(clickTimeout);
-                    clickTimeout = null;
-                }
-                relightCandles();
-                if (e.cancelable) e.preventDefault();
-            }
-            lastTapTime = currentTime;
-        }
-
-        function getAudioContext() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            return audioCtx;
-        }
-
-        function playPuffSound() {
-            try {
-                const ctx = getAudioContext();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(140, ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(30, ctx.currentTime + 0.25);
-                gain.gain.setValueAtTime(0.15, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 0.25);
-            } catch(e) {}
-        }
-
-        function playChimeSound() {
-            try {
-                const ctx = getAudioContext();
-                [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.value = freq;
-                    const t = ctx.currentTime + idx * 0.08;
-                    gain.gain.setValueAtTime(0.08, t);
-                    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start(t);
-                    osc.stop(t + 0.4);
-                });
-            } catch(e) {}
-        }
-
-        function updateScale() {
-            const scene = document.querySelector('.cake-scene');
-            if (!scene) return;
-            const availableWidth = window.innerWidth - 32;
-            const scale = Math.min(1, Math.max(0.35, availableWidth / 600));
-            scene.style.transform = `translate(-50%, -50%) scale(${scale})`;
-        }
-
-        function init() {
-            updateScale();
-            window.addEventListener('resize', updateScale);
-
-            window.addEventListener('click', handleSceneClick);
-            window.addEventListener('dblclick', handleSceneDblClick);
-            window.addEventListener('touchend', handleTouchEnd, { passive: false });
-
-            const musicButton = document.getElementById('music-toggle');
-            musicButton.addEventListener('pointerdown', (e) => e.stopPropagation());
-            musicButton.addEventListener('touchend', (e) => e.stopPropagation());
-            musicButton.addEventListener('dblclick', (e) => e.stopPropagation());
-            musicButton.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleMusic();
-            });
-            window.addEventListener('pointerdown', () => {
-                if (!musicSource) startMusic();
-            }, { once: true });
-
-            var url = new URL(window.location.href);
-
-            var count = parseInt(url.searchParams.get("candles"));
-            if (!isNaN(count) && count > 0) {
-                currentCandleCount = Math.min(count, 20);
-            }
-
-            buildCandles(currentCandleCount);
-            appendName(url.searchParams.get("name"));
-            appendMessages(url.searchParams.getAll("message"));
-        }
-
-        function appendMessages(messages) {
-            if (!Array.isArray(messages) || messages.length == 0) return;
-            let messageBox = document.getElementById("message_container");
-            if (messageBox) {
-                messages.forEach((message) => {
-                    messageBox.appendChild(document.createElement("br"));
-                    messageBox.appendChild(document.createTextNode(message));
-                });
-            }
-        }
-
-        function appendName(message) {
-            let messageBox = document.getElementById("message_container");
-            if (messageBox) {
-                messageBox.textContent = `Happy Birthday ${message != null ? message : "to you!"}`;
-            }
-        }
-
-        function buildCandles(candlesCount) {
-            let container = document.getElementById("candles_container");
-            if (!container) return;
-            container.innerHTML = "";
-
-            let candleHalfCount = 1;
-            for (var i = 0; i < candlesCount; i++) {
-                if ((i + 1) < (candlesCount / 2)) candleHalfCount++;
-                else if ((i + 1) > (candlesCount / 2)) candleHalfCount--;
-
-                let candleXPositionOffset = candleHalfCount * (20 / (candlesCount / 2));
-                let candleXPosition = ((-310 + (600 / candlesCount) / 2) + ((600 / candlesCount) * i));
-                let candleYPosition = -1 * Math.floor(Math.random() * ((325 + candleXPositionOffset) - (320 - candleXPositionOffset) + 1) + (320 - candleXPositionOffset));
-
-                const candleEl = document.createElement("div");
-                candleEl.id = `candle_${i}`;
-                candleEl.className = "candle";
-                candleEl.style.marginLeft = `${candleXPosition}px`;
-                candleEl.style.marginTop = `${candleYPosition}px`;
-
-                for (var j = 0; j < 5; j++) {
-                    const flameEl = document.createElement("div");
-                    flameEl.className = "flame";
-                    candleEl.appendChild(flameEl);
-                }
-
-                container.appendChild(candleEl);
-            }
-        }
-
-        function putOutCandle(candle) {
-            if (!candle) return;
-            const flames = candle.querySelectorAll(".flame");
-            if (flames.length > 0) {
-                playPuffSound();
-                flames.forEach(f => f.remove());
-            }
-        }
-
-        function putOutCandles() {
-            let candles = document.getElementsByClassName("candle");
-            let hadFlame = false;
-            for (var i = 0; i < candles.length; i++) {
-                const flames = candles[i].querySelectorAll(".flame");
-                if (flames.length > 0) {
-                    hadFlame = true;
-                    flames.forEach(f => f.remove());
-                }
-            }
-            if (hadFlame) playPuffSound();
-        }
-
-        function relightCandles() {
-            playChimeSound();
-            buildCandles(currentCandleCount);
-        }
-    </script>
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  </script>
 </body>
 </html>
