@@ -2231,9 +2231,27 @@
       update(progressRatio, leadingX, allDucks, dt = 1.0, groupMaxes = null) {
         if (this.isFinished) {
           if (this.glideSpeed > 0.05) {
-            this.glideSpeed *= Math.pow(0.955, dt);
+            this.glideSpeed *= Math.pow(0.91, dt);
             this.x += this.glideSpeed * dt;
           }
+
+          // Giới hạn điểm dừng sau vạch đích: vịt không bao giờ bơi quá đà ra khỏi mép phải màn hình
+          const s = this.scale || 1.0;
+          const w = STATE.canvasWidth || 1000;
+          let rankBonus = 12 * s;
+          if (this.rank === 1) rankBonus = 55 * s;
+          else if (this.rank === 2) rankBonus = 38 * s;
+          else if (this.rank === 3) rankBonus = 24 * s;
+
+          const maxFinishX = STATE.finishLineX + Math.min(rankBonus, w * 0.12);
+          const maxVisibleX = (STATE.cameraX || 0) + w - (75 * s);
+          const stopX = Math.min(maxFinishX, maxVisibleX);
+
+          if (this.x > stopX) {
+            this.x = stopX;
+            this.glideSpeed = 0;
+          }
+
           this.bobCycle += 0.06 * dt;
           this.y = this.baseY + Math.sin(this.bobCycle) * (2.2 * this.scale);
           return;
@@ -2397,13 +2415,13 @@
 
           // Vịt sau khi cán đích lướt chậm dần
           if (this.rank === 1) {
-            this.glideSpeed = this.currentSpeed * 1.05;
+            this.glideSpeed = this.currentSpeed * 0.85;
             AudioController.playCheer();
             ConfettiEngine.fire(this.x - STATE.cameraX, this.y, 110);
           } else if (this.rank === 2) {
-            this.glideSpeed = this.currentSpeed * 0.70;
+            this.glideSpeed = this.currentSpeed * 0.60;
           } else if (this.rank === 3) {
-            this.glideSpeed = this.currentSpeed * 0.45;
+            this.glideSpeed = this.currentSpeed * 0.40;
           } else {
             this.glideSpeed = this.currentSpeed * 0.15;
           }
@@ -3505,6 +3523,7 @@
           d.finishTime = prevTime;
           STATE.rankedResults.push(d);
           d.rank = STATE.rankedResults.length;
+          d.glideSpeed = 0;
         });
 
         // Đồng bộ ngay lập tức thanh Top HUD với bảng kết quả
@@ -3530,6 +3549,13 @@
               duck.bobCycle += duck.bobSpeed * 0.5;
               duck.y = duck.baseY + Math.sin(duck.bobCycle) * (3 * duck.scale);
             });
+            // Giữ cho camera luôn căn chuẩn vị trí đích khi cuộc đua đã hoàn tất (vạch đích ở 70% màn hình)
+            const finishCamX = Math.max(0, STATE.finishLineX - (STATE.canvasWidth * 0.70));
+            if (Math.abs(STATE.cameraX - finishCamX) > 0.5) {
+              STATE.cameraX += (finishCamX - STATE.cameraX) * 0.08;
+            } else {
+              STATE.cameraX = finishCamX;
+            }
           }
           return;
         }
@@ -3563,9 +3589,9 @@
         let activeCount = 0;
 
         STATE.ducks.forEach(duck => {
+          if (duck.x > leadingX) leadingX = duck.x;
           if (!duck.isFinished) {
             activeCount++;
-            if (duck.x > leadingX) leadingX = duck.x;
             if (duck.groupType === 1 && duck.x > g1MaxX) g1MaxX = duck.x;
             if (duck.groupType === 2 && duck.x > g2MaxX) g2MaxX = duck.x;
             if (duck.groupType === 3 && duck.x > g3MaxX) g3MaxX = duck.x;
@@ -3584,7 +3610,7 @@
         const w = STATE.canvasWidth;
         let targetCamX = leadingX - (w * 0.42);
         if (targetCamX < 0) targetCamX = 0;
-        const maxCamX = STATE.finishLineX - (w * 0.82);
+        const maxCamX = Math.max(0, STATE.finishLineX - (w * 0.70));
         if (targetCamX > maxCamX) targetCamX = maxCamX;
 
         STATE.cameraX += (targetCamX - STATE.cameraX) * Math.min(1.0, 0.08 * dt);
