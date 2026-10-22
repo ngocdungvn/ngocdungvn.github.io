@@ -2276,7 +2276,21 @@
         const s2Len = Math.max((STATE.stage2Group && STATE.stage2Group.length) || 1, 1);
         const s3Len = Math.max((STATE.stage3Group && STATE.stage3Group.length) || 1, 1);
 
-        // Sóng hoán đổi thứ hạng nội bộ của từng nhóm (đảm bảo các con vịt trong cùng nhóm liên tục vượt nhau)
+        // Rà soát vị trí x lớn nhất của từng nhóm hiện tại để kiểm soát vượt mặt vật lý
+        let g1MaxX = -Infinity;
+        let g2MaxX = -Infinity;
+        let g3MaxX = -Infinity;
+        if (allDucks && allDucks.length > 0) {
+          for (let i = 0; i < allDucks.length; i++) {
+            const od = allDucks[i];
+            if (od.isFinished) continue;
+            if (od.groupType === 1 && od.x > g1MaxX) g1MaxX = od.x;
+            if (od.groupType === 2 && od.x > g2MaxX) g2MaxX = od.x;
+            if (od.groupType === 3 && od.x > g3MaxX) g3MaxX = od.x;
+          }
+        }
+
+        const isTwoDucks = (allDucks && allDucks.length === 2);
         const g1Wave = Math.sin(timeMs * 0.0036 + (this.groupSlot * (Math.PI * 2) / s1Len)) * 0.14;
         const g2Wave = Math.sin(timeMs * 0.0034 + (this.groupSlot * (Math.PI * 2) / s2Len)) * 0.12;
         const g3Wave = Math.sin(timeMs * 0.0032 + (this.groupSlot * (Math.PI * 2) / s3Len)) * 0.11;
@@ -2284,61 +2298,91 @@
         let target = 1.0;
 
         if (stage === 1) {
-          // --- CHẶNG 1: Nhóm 1 dẫn đầu, Nhóm 2 bám đuổi trung tâm, Nhóm 3 ở sau ---
-          // Các nhóm đều có tốc độ khác nhau, so le tự nhiên và liên tục đổi vị trí nội bộ
+          // --- CHẶNG 1: 0% -> 40% (Nhóm 1 / Con 1 dẫn đầu rõ rệt) ---
           if (this.groupType === 1) {
-            // Nhóm 1 dẫn đầu: các con trong nhóm luân phiên đổi ngôi #1 liên tục
-            target = 1.20 + g1Wave + personalJitter; // 1.06x - 1.34x
+            target = 1.20 + g1Wave + personalJitter;
+            // Giữ cự ly dẫn trước vừa phải (khoảng 45-60px), không để bị giãn quá xa
+            const trailX = Math.max(g2MaxX, g3MaxX);
+            if (trailX > -Infinity && this.x > trailX + 55) {
+              target = Math.min(target, 1.05);
+            }
           } else if (this.groupType === 2) {
-            // Nhóm 2 bám đuổi ở cự ly trung tâm: các con liên tục vượt nhau đổi vị trí 4, 5, 6...
-            target = 1.04 + g2Wave + personalWave + personalJitter; // 0.92x - 1.16x
+            target = 1.00 + g2Wave + personalWave + personalJitter;
+            if (g1MaxX > -Infinity && this.x > g1MaxX - 25) {
+              target = Math.min(target, 0.94);
+            }
           } else {
-            // Nhóm 3 bơi ở tốp sau: các con bơi tốc độ riêng, hoán đổi liên tục ở nhóm sau
-            target = 0.92 + g3Wave + personalWave + personalJitter; // 0.81x - 1.03x
+            target = 0.92 + g3Wave + personalWave + personalJitter;
+            if (g1MaxX > -Infinity && this.x > g1MaxX - 45) {
+              target = Math.min(target, 0.88);
+            }
           }
         } else if (stage === 2) {
-          // --- CHẶNG 2: Nhóm 2 bứt phá dẫn đầu, Nhóm 3 tăng tốc lên trung tâm, Nhóm 1 lùi lại ---
+          // --- CHẶNG 2: 40% -> 70% (Nhóm 2 / Con 2 BẮT BUỘC VƯỢT QUA Nhóm 1 VÀ DẪN ĐẦU) ---
+          const g2PassedG1 = (g1MaxX > -Infinity && g2MaxX >= g1MaxX + 26);
+
           if (this.groupType === 2) {
-            // Nhóm 2 vượt lên dẫn đầu và luân phiên đổi vị trí #1
-            target = 1.28 + g2Wave + personalJitter; // 1.14x - 1.42x
-          } else if (this.groupType === 3) {
-            // Nhóm 3 tăng tốc áp sát nhóm dẫn đầu, vượt qua nhóm 1 và đổi vị trí liên tục
-            target = 1.10 + g3Wave + personalWave + personalJitter; // 0.98x - 1.22x
+            if (!g2PassedG1) {
+              // Bứt tốc tấn công cực mạnh để chắc chắn vượt qua Nhóm 1 trên màn hình!
+              target = 1.62 + personalJitter;
+            } else {
+              // Đã vượt qua thành công: giữ vị trí số 1 Chặng 2 với sóng đổi ngôi
+              target = 1.25 + g2Wave + personalJitter;
+            }
+          } else if (this.groupType === 1) {
+            // Nhóm 1 (người dẫn đầu cũ): hụt hơi lùi lại nhường ngôi đầu
+            target = (!g2PassedG1 ? 0.80 : 0.90) + g1Wave + personalJitter;
           } else {
-            // Nhóm 1 đuối sức lùi dần về phía sau nhưng các con vẫn đổi vị trí với nhau
-            target = 0.88 + g1Wave + personalWave + personalJitter; // 0.77x - 0.99x
+            // Nhóm 3: tăng tốc bám sát lên vị trí giữa để chuẩn bị cho Chặng 3
+            target = 1.10 + g3Wave + personalWave + personalJitter;
           }
         } else if (stage === 3) {
-          // --- CHẶNG 3A (70% -> 88%): Nhóm 3 bứt lên dẫn đầu, so kè kịch tính ---
-          if (this.groupType === 3) {
-            // Nhóm 3 bứt phá dẫn đầu, các con luân phiên so kè mỏ vịt tranh nhau #1
-            target = 1.32 + g3Wave + personalJitter; // 1.18x - 1.46x
-          } else if (this.groupType === 2) {
-            // Nhóm 2 hụt hơi tụt lại
-            target = 0.88 + g2Wave + personalWave + personalJitter;
+          // --- CHẶNG 3A: 70% -> 88% (Nhóm 3 / Người thắng cuộc BẮT BUỘC VƯỢT LÊN DẪN ĐẦU) ---
+          if (isTwoDucks) {
+            // Với 2 con vịt:
+            if (this.podiumRole === 'winner') {
+              // Con chiến thắng: Nếu đang ở sau con 2, bung sức phản công vượt mặt!
+              const hasOvertaken = (g2MaxX > -Infinity && this.x >= g2MaxX + 10);
+              target = (!hasOvertaken ? 1.60 : 1.32) + personalJitter;
+            } else {
+              // Con về nhì: chậm lại nhường ngôi cho con chiến thắng
+              target = 0.88 + personalJitter;
+            }
           } else {
-            // Nhóm 1 cố gắng bám đuổi
-            target = 1.02 + g1Wave + personalWave + personalJitter;
+            // Với >= 3 con vịt: Nhóm 3 bứt phá vượt qua Nhóm 2!
+            const g3PassedG2 = (g2MaxX > -Infinity && g3MaxX >= g2MaxX + 20);
+
+            if (this.groupType === 3) {
+              if (!g3PassedG2) {
+                target = 1.62 + personalJitter; // Bứt tốc vượt qua Nhóm 2!
+              } else {
+                target = 1.32 + g3Wave + personalJitter; // Dẫn đầu so kè mỏ vịt
+              }
+            } else if (this.groupType === 2) {
+              target = (!g3PassedG2 ? 0.80 : 0.88) + g2Wave + personalJitter;
+            } else {
+              target = 1.02 + g1Wave + personalWave + personalJitter;
+            }
           }
         } else {
-          // --- CHẶNG 3B (88% -> 100%): NƯỚC RÚT VỀ ĐÍCH VỚI KHOẢNG CÁCH RÕ RỆT ---
+          // --- CHẶNG 3B: 88% -> 100% (NƯỚC RÚT VỀ ĐÍCH: KHOẢNG CÁCH NỚI RỘNG RÕ RỆT) ---
           if (this.podiumRole === 'winner') {
-            target = 1.58; // Quán quân bung sức bứt tốc về đích đầu tiên!
+            target = 1.65; // Quán quân bung sức tối đa bứt tốc về đích đầu tiên!
           } else if (this.podiumRole === 'second') {
-            target = 1.30; // Á quân về nhì vững chắc (cách #1 khoảng cách rõ rệt)
+            target = 1.30; // Á quân về nhì vững chắc
           } else if (this.podiumRole === 'third') {
-            target = 1.12; // Quý quân về ba vững chắc (cách #2 khoảng cách rõ rệt)
+            target = 1.10; // Quý quân về ba
           } else if (this.groupType === 3) {
-            target = 0.96 + g3Wave * 0.4 + personalJitter;
+            target = 0.94 + g3Wave * 0.4 + personalJitter;
           } else if (this.groupType === 2) {
             target = 0.84 + g2Wave * 0.4 + personalJitter;
           } else {
-            target = 0.90 + g1Wave * 0.4 + personalJitter;
+            target = 0.89 + g1Wave * 0.4 + personalJitter;
           }
         }
 
-        // Cập nhật tốc độ 2D mượt mà
-        const blendRate = (stage === 4) ? 0.22 : (stage === 3 ? 0.18 : 0.14);
+        // Cập nhật tốc độ 2D mượt mà với blendRate phản hồi nhanh
+        const blendRate = (stage === 4) ? 0.30 : (stage === 3 ? 0.25 : 0.22);
         this.speedMultiplier += (target - this.speedMultiplier) * Math.min(1.0, blendRate * dt);
         this.currentSpeed = this.baseSpeed * this.speedMultiplier;
         this.x += this.currentSpeed * dt;
@@ -3253,32 +3297,58 @@
           [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
         }
 
-        const baseSize = Math.floor(totalDucks / 3);
-        const remainder = totalDucks % 3;
-        const groupSizes = [baseSize, baseSize, baseSize];
-        // Phân bổ phần dư ngẫu nhiên vào các nhóm
-        const extraSlotOrder = [0, 1, 2].sort(() => Math.random() - 0.5);
-        for (let r = 0; r < remainder; r++) {
-          groupSizes[extraSlotOrder[r]]++;
+        let stage1Group = [];
+        let stage2Group = [];
+        let stage3Group = [];
+        let stage3WinnerIdx;
+        let stage3SecondIdx;
+        let stage3ThirdIdx;
+
+        if (totalDucks === 2) {
+          // Trường hợp 2 con vịt:
+          // Con shuffled[0] là người dẫn đầu Chặng 1
+          // Con shuffled[1] BẮT BUỘC là người bứt phá vượt lên dẫn đầu Chặng 2
+          // Người thắng cuộc được bốc thăm ngẫu nhiên 50/50
+          const winnerIdx = Math.random() < 0.5 ? shuffled[0] : shuffled[1];
+          stage3WinnerIdx = winnerIdx;
+          stage3SecondIdx = (winnerIdx === shuffled[0]) ? shuffled[1] : shuffled[0];
+          stage3ThirdIdx = -1;
+
+          stage1Group = [shuffled[0]];
+          stage2Group = [shuffled[1]];
+          stage3Group = [winnerIdx];
+        } else if (totalDucks === 3) {
+          // Trường hợp 3 con vịt: mỗi chặng một con dẫn đầu khác nhau!
+          stage1Group = [shuffled[0]];
+          stage2Group = [shuffled[1]];
+          stage3Group = [shuffled[2]];
+
+          stage3WinnerIdx = shuffled[2]; // Con thứ 3 bứt phá từ sau lên vô địch
+          stage3SecondIdx = Math.random() < 0.5 ? shuffled[0] : shuffled[1];
+          stage3ThirdIdx = (stage3SecondIdx === shuffled[0]) ? shuffled[1] : shuffled[0];
+        } else {
+          // totalDucks >= 4: Phân bổ đều toàn bộ vịt vào 3 nhóm linh hoạt
+          const baseSize = Math.floor(totalDucks / 3);
+          const remainder = totalDucks % 3;
+          const groupSizes = [baseSize, baseSize, baseSize];
+          const extraSlotOrder = [0, 1, 2].sort(() => Math.random() - 0.5);
+          for (let r = 0; r < remainder; r++) {
+            groupSizes[extraSlotOrder[r]]++;
+          }
+
+          let ptr = 0;
+          for (let i = 0; i < groupSizes[0]; i++) stage1Group.push(shuffled[ptr++]);
+          for (let i = 0; i < groupSizes[1]; i++) stage2Group.push(shuffled[ptr++]);
+          for (let i = 0; i < groupSizes[2]; i++) stage3Group.push(shuffled[ptr++]);
+
+          stage3WinnerIdx = (stage3Group.length > 0)
+            ? stage3Group[Math.floor(Math.random() * stage3Group.length)]
+            : shuffled[0];
+          const remainingStage3 = stage3Group.filter(i => i !== stage3WinnerIdx);
+          const otherDucks = shuffled.filter(i => i !== stage3WinnerIdx && !remainingStage3.includes(i));
+          stage3SecondIdx = remainingStage3.length > 0 ? remainingStage3[0] : otherDucks[0];
+          stage3ThirdIdx = remainingStage3.length > 1 ? remainingStage3[1] : (remainingStage3.length > 0 ? otherDucks[0] : otherDucks[1]);
         }
-
-        const stage1Group = [];
-        const stage2Group = [];
-        const stage3Group = [];
-
-        let ptr = 0;
-        for (let i = 0; i < groupSizes[0]; i++) stage1Group.push(shuffled[ptr++]);
-        for (let i = 0; i < groupSizes[1]; i++) stage2Group.push(shuffled[ptr++]);
-        for (let i = 0; i < groupSizes[2]; i++) stage3Group.push(shuffled[ptr++]);
-
-        // Quán quân được chọn ngẫu nhiên từ nhóm 3 (xác suất 1/N công bằng 100% cho mọi chú vịt)
-        const stage3WinnerIdx = (stage3Group.length > 0)
-          ? stage3Group[Math.floor(Math.random() * stage3Group.length)]
-          : shuffled[0];
-        const remainingStage3 = stage3Group.filter(i => i !== stage3WinnerIdx);
-        const otherDucks = shuffled.filter(i => i !== stage3WinnerIdx && !remainingStage3.includes(i));
-        const stage3SecondIdx = remainingStage3.length > 0 ? remainingStage3[0] : otherDucks[0];
-        const stage3ThirdIdx = remainingStage3.length > 1 ? remainingStage3[1] : (remainingStage3.length > 0 ? otherDucks[0] : otherDucks[1]);
 
         STATE.stage1Group = stage1Group;
         STATE.stage2Group = stage2Group;
