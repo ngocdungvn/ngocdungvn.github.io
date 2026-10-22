@@ -210,6 +210,7 @@
     .cake-wrapper {
       position: relative;
       width: min(92vw, 540px);
+      max-width: 100%;
       max-height: 52vh;
       display: flex;
       align-items: center;
@@ -217,6 +218,7 @@
       cursor: pointer;
       touch-action: manipulation;
       transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      min-width: 0;
     }
 
     .cake-wrapper:hover {
@@ -229,8 +231,11 @@
 
     .cake-svg {
       width: 100%;
+      max-width: 100%;
       height: auto;
       max-height: 48vh;
+      flex-shrink: 1;
+      display: block;
       overflow: visible;
       filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.55));
     }
@@ -298,120 +303,15 @@
       }
     }
 
-    /* Chỉ dẫn tương tác dưới bánh */
-    .action-hint {
-      margin-top: 10px;
-      font-size: 13px;
-      font-weight: 500;
-      color: rgba(254, 243, 199, 0.85);
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 6px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-      transition: all 0.25s ease;
-      max-width: 92vw;
-      text-align: center;
-      line-height: 1.35;
-    }
-
-    .action-hint .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #fbbf24;
-      box-shadow: 0 0 8px #fbbf24;
-      animation: pulseDot 1.5s infinite;
-      flex-shrink: 0;
-    }
-
-    @keyframes pulseDot {
-      0%, 100% { opacity: 0.5; transform: scale(0.9); }
-      50% { opacity: 1; transform: scale(1.25); }
-    }
-
-    /* Thanh điều khiển hành động phía dưới */
-    .control-toolbar {
-      position: fixed;
-      bottom: calc(12px + env(safe-area-inset-bottom));
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      z-index: 40;
-      background: rgba(23, 11, 40, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      padding: 5px 10px;
-      border-radius: 999px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
-      max-width: 94vw;
-      width: max-content;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-
-    .control-toolbar::-webkit-scrollbar {
-      display: none;
-    }
-
-    .btn-action {
-      background: rgba(255, 255, 255, 0.10);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 999px;
-      padding: 6px 11px;
-      font-size: 12.5px;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      white-space: nowrap;
-      font-family: inherit;
-    }
-
-    .btn-action:hover {
-      background: rgba(255, 255, 255, 0.20);
-      transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.32);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    .btn-action:active {
-      transform: translateY(0);
-    }
-
-    .btn-action.primary {
-      background: linear-gradient(135deg, #f59e0b, #f43f5e);
-      border: none;
-      box-shadow: 0 3px 12px rgba(244, 63, 94, 0.45);
-    }
-
-    .btn-action.primary:hover {
-      background: linear-gradient(135deg, #fbbf24, #fb7185);
-      box-shadow: 0 6px 18px rgba(244, 63, 94, 0.6);
-    }
-
     @media (max-width: 600px) {
       .bunting-svg {
         height: 65px;
       }
 
       .stage-container {
-        padding: 6px 8px 56px 8px;
-        justify-content: space-evenly;
+        padding: 6px 8px;
+        justify-content: center;
+        gap: 14px;
       }
 
       .title-banner {
@@ -424,197 +324,23 @@
       }
 
       .main-title {
-        font-size: clamp(24px, 6.8vw, 34px);
+        font-size: clamp(26px, 7.5vw, 36px);
       }
 
       .custom-message {
-        font-size: 12.5px;
+        font-size: 13px;
         margin-top: 2px;
         min-height: 18px;
       }
 
       .cake-wrapper {
-        width: min(92vw, 400px);
-        max-height: 46vh;
+        width: min(92vw, 420px);
+        max-height: 52vh;
       }
 
       .cake-svg {
-        max-height: 42vh;
+        max-height: 48vh;
       }
-
-      .action-hint {
-        font-size: 11.5px;
-        padding: 5px 12px;
-        margin-top: 6px;
-      }
-
-      .control-toolbar {
-        bottom: calc(8px + env(safe-area-inset-bottom));
-        padding: 4px 6px;
-        gap: 4px;
-        max-width: calc(100vw - 16px);
-      }
-
-      .btn-action {
-        padding: 5px 8px;
-        font-size: 11px;
-        gap: 3px;
-      }
-    }
-
-    /* Modal tạo thiệp chúc mừng sinh nhật */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(8, 3, 16, 0.82);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      padding: 16px;
-    }
-
-    .modal-backdrop.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal-card {
-      background: linear-gradient(145deg, #231238, #18092a);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      border-radius: 24px;
-      width: 100%;
-      max-width: 440px;
-      padding: 24px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
-      transform: translateY(20px) scale(0.96);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .modal-backdrop.active .modal-card {
-      transform: translateY(0) scale(1);
-    }
-
-    .modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 18px;
-    }
-
-    .modal-title {
-      font-size: 19px;
-      font-weight: 700;
-      color: #fef08a;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-close {
-      background: rgba(255, 255, 255, 0.12);
-      border: none;
-      color: #fff;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background 0.2s;
-    }
-
-    .btn-close:hover {
-      background: rgba(255, 255, 255, 0.25);
-    }
-
-    .form-group {
-      margin-bottom: 14px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: #e2e8f0;
-      margin-bottom: 6px;
-    }
-
-    .form-input {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 12px;
-      padding: 10px 14px;
-      color: #ffffff;
-      font-size: 14px;
-      font-family: inherit;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .form-input:focus {
-      border-color: #fb7185;
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    .modal-footer {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .btn-modal-action {
-      flex: 1;
-      padding: 11px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      border: none;
-      font-family: inherit;
-      transition: all 0.2s;
-    }
-
-    .btn-modal-action.submit {
-      background: linear-gradient(135deg, #f59e0b, #f43f5e);
-      color: #ffffff;
-      box-shadow: 0 4px 14px rgba(244, 63, 94, 0.45);
-    }
-
-    .btn-modal-action.submit:hover {
-      opacity: 0.95;
-      transform: translateY(-1px);
-    }
-
-    /* Toast thông báo */
-    .toast-msg {
-      position: fixed;
-      top: 24px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-30px);
-      background: rgba(244, 63, 94, 0.92);
-      color: #fff;
-      padding: 8px 20px;
-      border-radius: 999px;
-      font-size: 13.5px;
-      font-weight: 600;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-      z-index: 200;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .toast-msg.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
     }
   </style>
 </head>
@@ -742,7 +468,7 @@
     </header>
 
     <!-- Khung Bánh Kem Sinh Nhật 2D Nghệ Thuật (Vector SVG) -->
-    <div class="cake-wrapper" id="cake_click_area" title="Nhấp chuột trái để thổi nến, nhấp đúp để thắp nến">
+    <div class="cake-wrapper" id="cake_click_area" title="Nhấp vào bánh để thổi nến hoặc thắp lại nến">
       <svg class="cake-svg" viewBox="0 0 540 440" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <!-- Gradient đĩa bánh viền vàng sang trọng -->
@@ -818,186 +544,102 @@
         <!-- ========================================== -->
         <g id="cake-stand">
           <!-- Bóng đổ đĩa bánh -->
-          <ellipse cx="270" cy="408" rx="230" ry="24" fill="#05020a" opacity="0.65" filter="blur(10px)"/>
-          <!-- Đế đĩa bánh -->
-          <path d="M 220,395 L 205,420 Q 270,428 335,420 L 320,395 Z" fill="#b45309"/>
+          <ellipse cx="270" cy="422" rx="225" ry="16" fill="#000000" opacity="0.4" filter="blur(8px)"/>
+          <!-- Chân đế đĩa bánh -->
+          <path d="M 215,398 L 202,418 Q 270,426 338,418 L 325,398 Z" fill="#92400e" opacity="0.85"/>
           <!-- Vành ngoài đĩa viền vàng ánh kim -->
-          <ellipse cx="270" cy="392" rx="235" ry="32" fill="url(#plate-rim)"/>
+          <ellipse cx="270" cy="396" rx="230" ry="26" fill="url(#plate-rim)"/>
           <!-- Lòng đĩa sứ trắng mịn màng -->
-          <ellipse cx="270" cy="390" rx="222" ry="26" fill="url(#plate-surface)"/>
+          <ellipse cx="270" cy="394" rx="218" ry="22" fill="url(#plate-surface)"/>
           <!-- Vệt sáng phản chiếu trên vành đĩa -->
-          <path d="M 90,393 Q 270,415 450,393" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.75"/>
+          <path d="M 90,396 Q 270,416 450,396" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.85"/>
         </g>
 
         <!-- ========================================== -->
-        <!-- 2. TẦNG BÁNH DƯỚI (BOTTOM TIER) -->
+        <!-- 2. TẦNG BÁNH DƯỚI (BOTTOM TIER) - TINH TẾ & GỌN GÀNG -->
         <!-- ========================================== -->
         <g id="bottom-tier" filter="url(#cake-shadow)">
-          <!-- Thân bánh tầng 1 -->
-          <path d="M 75,275 C 75,345 465,345 465,275 L 465,365 C 465,425 75,425 75,365 Z" fill="url(#bottom-tier-grad)"/>
+          <!-- Thân bánh hình trụ liền khối tầng 1 -->
+          <path d="M 85,268 L 85,365 A 185 30 0 0 0 455,365 L 455,268 Z" fill="url(#bottom-tier-grad)"/>
 
-          <!-- Mặt phẳng cắt phía trên tầng 1 -->
-          <ellipse cx="270" cy="275" rx="195" ry="32" fill="#fbcfe8"/>
+          <!-- Mặt phẳng trên tầng 1 -->
+          <ellipse cx="270" cy="268" rx="185" ry="30" fill="#fbcfe8"/>
 
-          <!-- Lớp viền kem sò chân tầng dưới -->
-          <g fill="#ffffff" opacity="0.95">
-            <circle cx="88" cy="368" r="8"/>
-            <circle cx="106" cy="374" r="8.5"/>
-            <circle cx="126" cy="380" r="9"/>
-            <circle cx="148" cy="385" r="9"/>
-            <circle cx="172" cy="389" r="9.5"/>
-            <circle cx="198" cy="392" r="9.5"/>
-            <circle cx="226" cy="394" r="10"/>
-            <circle cx="255" cy="395" r="10"/>
-            <circle cx="285" cy="395" r="10"/>
-            <circle cx="314" cy="394" r="10"/>
-            <circle cx="342" cy="392" r="9.5"/>
-            <circle cx="368" cy="389" r="9.5"/>
-            <circle cx="392" cy="385" r="9"/>
-            <circle cx="414" cy="380" r="9"/>
-            <circle cx="434" cy="374" r="8.5"/>
-            <circle cx="452" cy="368" r="8"/>
-          </g>
-
-          <!-- Lớp sốt kem vani dâu chảy lượn sóng tự nhiên (Dripping Glaze) -->
+          <!-- Lớp kem vani phủ lượn sóng mềm mại ôm trọn mặt trên và chảy nhẹ xuống thân -->
           <path d="
-            M 75,275
-            C 75,305 85,320 95,300
-            C 105,285 115,335 125,335
-            C 135,335 145,295 155,295
-            C 165,295 175,348 185,348
-            C 195,348 205,300 215,300
-            C 225,300 235,355 245,355
-            C 255,355 265,305 275,305
-            C 285,305 295,345 305,345
-            C 315,345 325,295 335,295
-            C 345,295 355,350 365,350
-            C 375,350 385,300 395,300
-            C 405,300 415,330 425,330
-            C 435,330 445,285 455,305
-            C 460,315 465,300 465,275
-            C 465,245 75,245 75,275 Z
-          " fill="url(#frosting-glaze)" opacity="0.96"/>
+            M 85,268
+            A 185 30 0 0 1 455,268
+            Q 435,306 415,290
+            Q 390,324 365,294
+            Q 335,328 305,296
+            Q 270,332 235,296
+            Q 205,328 175,294
+            Q 150,324 125,290
+            Q 105,306 85,268
+            Z
+          " fill="url(#frosting-glaze)" filter="drop-shadow(0 4px 6px rgba(190, 24, 93, 0.22))"/>
 
-          <!-- Đường viền highlight sáng bóng trên lớp kem chảy -->
-          <path d="
-            M 85,295
-            Q 125,345 130,332
-            Q 180,358 190,344
-            Q 240,366 250,351
-            Q 300,355 310,340
-            Q 360,360 370,346
-            Q 420,338 455,295
-          " fill="none" stroke="#ffffff" stroke-width="2.2" opacity="0.7"/>
+          <!-- Highlight phản quang mềm mại trên sóng kem -->
+          <path d="M 95,282 Q 135,316 175,290 Q 220,322 270,326 Q 320,322 365,290 Q 405,316 445,282" fill="none" stroke="#ffffff" stroke-width="2.4" opacity="0.75" stroke-linecap="round"/>
 
-          <!-- Cốm trang trí sắc màu rải trên tầng 1 (Sprinkles) -->
-          <g opacity="0.85">
-            <rect x="110" y="325" width="4" height="11" rx="2" fill="#fbbf24" transform="rotate(25 110 325)"/>
-            <rect x="160" y="315" width="4" height="11" rx="2" fill="#38bdf8" transform="rotate(-35 160 315)"/>
-            <rect x="210" y="330" width="4" height="11" rx="2" fill="#f43f5e" transform="rotate(40 210 330)"/>
-            <rect x="260" y="320" width="4" height="11" rx="2" fill="#4ade80" transform="rotate(-20 260 320)"/>
-            <rect x="315" y="330" width="4" height="11" rx="2" fill="#c084fc" transform="rotate(30 315 330)"/>
-            <rect x="370" y="315" width="4" height="11" rx="2" fill="#fbbf24" transform="rotate(-45 370 315)"/>
-            <rect x="420" y="325" width="4" height="11" rx="2" fill="#f43f5e" transform="rotate(15 420 325)"/>
-          </g>
+          <!-- Dải viền ruy-băng bóng nhẹ thanh lịch ở chân tầng 1 -->
+          <path d="M 85,365 A 185 30 0 0 0 455,365 L 455,371 A 185 30 0 0 1 85,371 Z" fill="#be185d" opacity="0.32"/>
         </g>
 
         <!-- ========================================== -->
         <!-- 3. TẦNG BÁNH TRÊN (TOP TIER) -->
         <!-- ========================================== -->
         <g id="top-tier" filter="url(#cake-shadow)">
-          <!-- Thân bánh tầng 2 -->
-          <path d="M 130,165 C 130,230 410,230 410,165 L 410,250 C 410,310 130,310 130,250 Z" fill="url(#top-tier-grad)"/>
+          <!-- Thân bánh hình trụ tầng 2 -->
+          <path d="M 145,168 L 145,248 A 125 24 0 0 0 395,248 L 395,168 Z" fill="url(#top-tier-grad)"/>
 
-          <!-- Mặt trên phẳng của tầng bánh 2 -->
-          <ellipse cx="270" cy="165" rx="140" ry="26" fill="#ffe4e6"/>
+          <!-- Mặt phẳng trên tầng 2 -->
+          <ellipse cx="270" cy="168" rx="125" ry="24" fill="#ffe4e6"/>
 
-          <!-- Lớp viền kem sò trắng quanh chân tầng 2 -->
-          <g fill="#ffffff" opacity="0.95">
-            <circle cx="142" cy="250" r="7"/>
-            <circle cx="160" cy="256" r="7.5"/>
-            <circle cx="180" cy="261" r="8"/>
-            <circle cx="202" cy="265" r="8.5"/>
-            <circle cx="226" cy="268" r="8.5"/>
-            <circle cx="252" cy="270" r="9"/>
-            <circle cx="279" cy="270" r="9"/>
-            <circle cx="305" cy="268" r="8.5"/>
-            <circle cx="329" cy="265" r="8.5"/>
-            <circle cx="351" cy="261" r="8"/>
-            <circle cx="371" cy="256" r="7.5"/>
-            <circle cx="389" cy="250" r="7"/>
-          </g>
-
-          <!-- Lớp kem phủ vani chảy lượn sóng trên tầng 2 -->
+          <!-- Lớp kem vani phủ lượn sóng mượt mà tầng 2 -->
           <path d="
-            M 130,165
-            C 130,190 140,210 150,195
-            C 160,180 170,230 180,230
-            C 190,230 200,185 210,185
-            C 220,185 230,238 240,238
-            C 250,238 260,195 270,195
-            C 280,195 290,235 300,235
-            C 310,235 320,185 330,185
-            C 340,185 350,225 360,225
-            C 370,225 380,190 390,205
-            C 400,220 410,190 410,165
-            C 410,135 130,135 130,165 Z
-          " fill="url(#frosting-glaze)" opacity="0.97"/>
+            M 145,168
+            A 125 24 0 0 1 395,168
+            Q 380,202 365,188
+            Q 345,216 325,190
+            Q 300,220 270,222
+            Q 240,220 215,190
+            Q 195,216 175,188
+            Q 160,202 145,168
+            Z
+          " fill="url(#frosting-glaze)" filter="drop-shadow(0 3px 5px rgba(225, 29, 72, 0.22))"/>
 
-          <!-- Highlight kem chảy tầng 2 -->
-          <path d="
-            M 140,185
-            Q 175,238 185,225
-            Q 235,246 245,233
-            Q 295,243 305,230
-            Q 355,233 390,190
-          " fill="none" stroke="#ffffff" stroke-width="2.2" opacity="0.75"/>
+          <!-- Highlight sóng kem tầng 2 -->
+          <path d="M 155,182 Q 185,208 215,186 Q 245,214 270,216 Q 295,214 325,186 Q 355,208 385,182" fill="none" stroke="#ffffff" stroke-width="2.2" opacity="0.75" stroke-linecap="round"/>
 
-          <!-- Bông kem xoắn trên đỉnh viền -->
-          <g fill="#ffffff">
-            <ellipse cx="152" cy="162" rx="13" ry="9" opacity="0.95"/>
-            <ellipse cx="188" cy="176" rx="14" ry="10" opacity="0.95"/>
-            <ellipse cx="230" cy="183" rx="15" ry="11" opacity="0.95"/>
-            <ellipse cx="275" cy="185" rx="15" ry="11" opacity="0.95"/>
-            <ellipse cx="320" cy="183" rx="15" ry="11" opacity="0.95"/>
-            <ellipse cx="362" cy="176" rx="14" ry="10" opacity="0.95"/>
-            <ellipse cx="395" cy="162" rx="13" ry="9" opacity="0.95"/>
-          </g>
+          <!-- Dải viền ruy-băng ở chân tầng 2 -->
+          <path d="M 145,248 A 125 24 0 0 0 395,248 L 395,253 A 125 24 0 0 1 145,253 Z" fill="#e11d48" opacity="0.28"/>
 
-          <!-- Dâu tây tươi mọng và quả việt quất trang trí -->
+          <!-- Bông kem vani xốp mềm mại -->
+          <ellipse cx="205" cy="178" rx="15" ry="9" fill="#ffffff" opacity="0.95"/>
+          <ellipse cx="270" cy="186" rx="17" ry="10" fill="#ffffff" opacity="0.95"/>
+          <ellipse cx="335" cy="178" rx="15" ry="9" fill="#ffffff" opacity="0.95"/>
+
+          <!-- 3 quả dâu tây đỏ tươi mọng và cuống lá xanh tươi -->
           <!-- Dâu tây trái -->
-          <g transform="translate(170, 160) scale(0.85)">
+          <g transform="translate(205, 172) scale(0.85)">
             <path d="M 0,-15 C 20,-15 22,12 0,22 C -22,12 -20,-15 0,-15 Z" fill="url(#strawberry-grad)"/>
             <ellipse cx="-4" cy="-6" rx="3" ry="5" fill="#ffffff" opacity="0.55" transform="rotate(-20 -4 -6)"/>
             <path d="M 0,-15 C -8,-24 -14,-18 -6,-14 M 0,-15 C 0,-25 6,-25 3,-14 M 0,-15 C 8,-24 14,-18 6,-14" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
           </g>
 
           <!-- Dâu tây giữa -->
-          <g transform="translate(268, 168) scale(0.95)">
+          <g transform="translate(270, 180) scale(0.95)">
             <path d="M 0,-15 C 20,-15 22,12 0,22 C -22,12 -20,-15 0,-15 Z" fill="url(#strawberry-grad)"/>
             <ellipse cx="-4" cy="-6" rx="3.5" ry="6" fill="#ffffff" opacity="0.55" transform="rotate(-20 -4 -6)"/>
             <path d="M 0,-15 C -8,-24 -14,-18 -6,-14 M 0,-15 C 0,-25 6,-25 3,-14 M 0,-15 C 8,-24 14,-18 6,-14" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
           </g>
 
           <!-- Dâu tây phải -->
-          <g transform="translate(365, 160) scale(0.85)">
+          <g transform="translate(335, 172) scale(0.85)">
             <path d="M 0,-15 C 20,-15 22,12 0,22 C -22,12 -20,-15 0,-15 Z" fill="url(#strawberry-grad)"/>
             <ellipse cx="-4" cy="-6" rx="3" ry="5" fill="#ffffff" opacity="0.55" transform="rotate(-20 -4 -6)"/>
             <path d="M 0,-15 C -8,-24 -14,-18 -6,-14 M 0,-15 C 0,-25 6,-25 3,-14 M 0,-15 C 8,-24 14,-18 6,-14" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
-          </g>
-
-          <!-- Quả việt quất xinh xắn -->
-          <circle cx="212" cy="182" r="7" fill="#1e1b4b"/>
-          <circle cx="210" cy="180" r="2.2" fill="#a5b4fc" opacity="0.6"/>
-          <circle cx="325" cy="182" r="7" fill="#1e1b4b"/>
-          <circle cx="323" cy="180" r="2.2" fill="#a5b4fc" opacity="0.6"/>
-
-          <!-- Cốm sắc màu rải trên đỉnh bánh -->
-          <g opacity="0.9">
-            <rect x="235" y="172" width="3" height="8" rx="1.5" fill="#f59e0b" transform="rotate(30 235 172)"/>
-            <rect x="250" y="180" width="3" height="8" rx="1.5" fill="#38bdf8" transform="rotate(-40 250 180)"/>
-            <rect x="288" y="178" width="3" height="8" rx="1.5" fill="#4ade80" transform="rotate(25 288 178)"/>
-            <rect x="300" y="170" width="3" height="8" rx="1.5" fill="#f43f5e" transform="rotate(-30 300 170)"/>
           </g>
         </g>
 
@@ -1014,66 +656,7 @@
       </svg>
     </div>
 
-    <!-- Hướng dẫn tương tác -->
-    <div class="action-hint" id="status_hint">
-      <span class="dot"></span>
-      <span id="hint_text">Nhấp vào bánh để thổi nến • Nhấp đúp để thắp nến</span>
-    </div>
-
   </main>
-
-  <!-- Thanh công cụ tiện ích sinh nhật phía dưới -->
-  <footer class="control-toolbar">
-    <button type="button" class="btn-action primary" id="btn_blow" title="Thổi tắt nến">
-      <span>💨</span> Thổi nến
-    </button>
-    <button type="button" class="btn-action" id="btn_relight" title="Thắp sáng lại nến" style="display: none;">
-      <span>✨</span> Thắp nến
-    </button>
-    <button type="button" class="btn-action" id="btn_confetti" title="Tung hoa giấy">
-      <span>🎊</span> Tung hoa
-    </button>
-    <button type="button" class="btn-action" id="btn_music" title="Bật/Tắt nhạc sinh nhật" aria-pressed="false">
-      <span id="music_icon">🎵</span> <span id="music_text">Bật nhạc</span>
-    </button>
-    <button type="button" class="btn-action" id="btn_customize" title="Tạo thiệp sinh nhật gửi bạn bè">
-      <span>💌</span> Tạo thiệp
-    </button>
-  </footer>
-
-  <!-- Modal Tạo thiệp mừng sinh nhật -->
-  <div class="modal-backdrop" id="custom_modal">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 class="modal-title"><span>🎂</span> Tùy Biến Thiệp Sinh Nhật</h3>
-        <button type="button" class="btn-close" id="btn_close_modal">&times;</button>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="input_name">Tên người nhận sinh nhật:</label>
-        <input type="text" id="input_name" class="form-input" placeholder="Ví dụ: Hoàng Yến, Tuấn Anh, My Darling..." />
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="input_candles">Số lượng nến (Tuổi):</label>
-        <input type="number" id="input_candles" class="form-input" min="1" max="15" value="7" placeholder="1 đến 15 nến" />
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="input_message">Lời chúc yêu thương:</label>
-        <input type="text" id="input_message" class="form-input" placeholder="Ví dụ: Tuổi mới luôn rạng ngời, bình an và hạnh phúc nhé!" />
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn-modal-action submit" id="btn_apply_modal">
-          Tạo Thiệp & Copy Link 🎁
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast thông báo -->
-  <div class="toast-msg" id="toast_msg">Đã sao chép liên kết chúc mừng!</div>
 
   <!-- JavaScript Logic -->
   <script>
@@ -1149,20 +732,6 @@
           musicEnabled = !musicEnabled;
           musicGain.gain.setTargetAtTime(musicEnabled ? 0.16 : 0, ctx.currentTime, 0.03);
         }
-
-        const icon = document.getElementById("music_icon");
-        const text = document.getElementById("music_text");
-        const btn = document.getElementById("btn_music");
-
-        if (musicEnabled) {
-          icon.textContent = "🔊";
-          text.textContent = "Tắt nhạc";
-          btn.setAttribute("aria-pressed", "true");
-        } else {
-          icon.textContent = "🎵";
-          text.textContent = "Bật nhạc";
-          btn.setAttribute("aria-pressed", "false");
-        }
       } catch (err) {
         console.warn("Audio Context:", err);
       }
@@ -1219,15 +788,14 @@
     }
 
     // =========================================================
-    // RENDER NẾN SINH NHẬT VÀ NGỌN LỬA NGHỆ THUẬT
+    // RENDER NẾN SINH NHẬT VÀ NGỌN LỬA TINH TẾ (KHÔNG RỐI)
     // =========================================================
     const CANDLE_PALETTE = [
-      { base: '#f43f5e', stripe: '#fecdd3' }, // Hồng dâu sọc pastel
-      { base: '#38bdf8', stripe: '#e0f2fe' }, // Xanh biển sọc trắng
-      { base: '#fbbf24', stripe: '#fef3c7' }, // Vàng mật ong sọc kem
-      { base: '#a855f7', stripe: '#f3e8ff' }, // Tím mộng mơ
-      { base: '#34d399', stripe: '#d1fae5' }, // Xanh mint thanh mát
-      { base: '#fb923c', stripe: '#ffedd5' }  // Cam ngọt ngào
+      '#f43f5e', // Hồng dâu pastel
+      '#38bdf8', // Xanh baby pastel
+      '#fbbf24', // Vàng kem pastel
+      '#c084fc', // Tím lavender
+      '#34d399'  // Xanh mint pastel
     ];
 
     function buildCandles(count) {
@@ -1236,23 +804,23 @@
       container.innerHTML = "";
 
       const n = Math.max(1, Math.min(15, count));
-      const startX = 180;
-      const endX = 360;
+      const startX = 195;
+      const endX = 345;
       const step = n > 1 ? (endX - startX) / (n - 1) : 0;
-      const candleWidth = Math.max(8, Math.min(13, 110 / n));
+      const candleWidth = Math.max(8, Math.min(12, 90 / n));
 
       for (let i = 0; i < n; i++) {
         const cx = n === 1 ? 270 : startX + i * step;
-        const norm = (cx - 270) / 95;
-        const cy = 158 + (norm * norm) * 10;
+        const norm = (cx - 270) / 80;
+        const cy = 162 + (norm * norm) * 8;
         const color = CANDLE_PALETTE[i % CANDLE_PALETTE.length];
-        const candleHeight = 52;
+        const candleHeight = 48;
 
         const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
         g.setAttribute("class", "candle-item");
         g.setAttribute("data-index", i);
 
-        // 1. Thân nến bo góc
+        // 1. Thân nến trơn bóng pastel cao cấp
         const candleX = cx - candleWidth / 2;
         const candleY = cy - candleHeight;
         const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
@@ -1261,34 +829,23 @@
         rect.setAttribute("width", candleWidth);
         rect.setAttribute("height", candleHeight);
         rect.setAttribute("rx", candleWidth / 3.5);
-        rect.setAttribute("fill", color.base);
-        rect.setAttribute("stroke", "rgba(0,0,0,0.18)");
-        rect.setAttribute("stroke-width", "1");
+        rect.setAttribute("fill", color);
+        rect.setAttribute("stroke", "rgba(0,0,0,0.12)");
+        rect.setAttribute("stroke-width", "0.8");
         g.appendChild(rect);
 
-        // 2. Các sọc xoắn chéo trên thân nến
-        const stripeClipId = `candle-clip-${i}`;
-        const clipPath = document.createElementNS("http://www.w3.org/2000/svg", "clipPath");
-        clipPath.setAttribute("id", stripeClipId);
-        const clipRect = rect.cloneNode();
-        clipPath.appendChild(clipRect);
-        g.appendChild(clipPath);
+        // Vệt sáng highlight thanh lịch dọc thân nến
+        const highlight = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        highlight.setAttribute("x1", candleX + 2.5);
+        highlight.setAttribute("y1", candleY + 3);
+        highlight.setAttribute("x2", candleX + 2.5);
+        highlight.setAttribute("y2", candleY + candleHeight - 3);
+        highlight.setAttribute("stroke", "rgba(255, 255, 255, 0.6)");
+        highlight.setAttribute("stroke-width", "1.6");
+        highlight.setAttribute("stroke-linecap", "round");
+        g.appendChild(highlight);
 
-        const stripesG = document.createElementNS("http://www.w3.org/2000/svg", "g");
-        stripesG.setAttribute("clip-path", `url(#${stripeClipId})`);
-        for (let s = -candleHeight; s < candleHeight * 2; s += 12) {
-          const stripe = document.createElementNS("http://www.w3.org/2000/svg", "line");
-          stripe.setAttribute("x1", candleX - 6);
-          stripe.setAttribute("y1", candleY + s);
-          stripe.setAttribute("x2", candleX + candleWidth + 6);
-          stripe.setAttribute("y2", candleY + s + 10);
-          stripe.setAttribute("stroke", color.stripe);
-          stripe.setAttribute("stroke-width", "3.2");
-          stripesG.appendChild(stripe);
-        }
-        g.appendChild(stripesG);
-
-        // 3. Bấc nến màu đen
+        // 2. Bấc nến màu than
         const wick = document.createElementNS("http://www.w3.org/2000/svg", "line");
         wick.setAttribute("x1", cx);
         wick.setAttribute("y1", candleY);
@@ -1299,7 +856,7 @@
         wick.setAttribute("stroke-linecap", "round");
         g.appendChild(wick);
 
-        // 4. Ngọn lửa nến ấm áp (Flame) - Đặt trong wrapper translate độc lập
+        // 3. Ngọn lửa nến ấm áp lung linh
         const flameWrapper = document.createElementNS("http://www.w3.org/2000/svg", "g");
         flameWrapper.setAttribute("class", "flame-wrapper");
         flameWrapper.setAttribute("id", `flame-wrap-${i}`);
@@ -1329,7 +886,7 @@
         flameWrapper.appendChild(flameG);
         g.appendChild(flameWrapper);
 
-        // 5. Khói bốc lên khi nến tắt (Smoke puff)
+        // 4. Khói bốc lên khi nến tắt (Smoke puff)
         const smoke = document.createElementNS("http://www.w3.org/2000/svg", "path");
         smoke.setAttribute("class", "smoke-puff");
         smoke.setAttribute("id", `smoke-${i}`);
@@ -1344,11 +901,10 @@
       }
 
       areCandlesLit = true;
-      updateStatusUI();
     }
 
     // =========================================================
-    // HÀNH ĐỘNG THỔI NẾN VÀ THẮP NẾN
+    // HÀNH ĐỘNG THỔI NẾN VÀ THẮP NẾN (TỰ ĐỘNG TUNG HOA KHI TẮT)
     // =========================================================
     function blowOutCandles() {
       if (!areCandlesLit) return;
@@ -1374,11 +930,14 @@
       const glow = document.getElementById("main_candle_glow");
       if (glow) glow.style.opacity = "0.08";
 
-      // Bắn pháo hoa giấy chúc mừng!
+      // TỰ ĐỘNG TUNG HOA CONFETTI RỰC RỠ!
       fireConfetti(true);
 
-      // Cập nhật trạng thái và lời chúc
-      updateStatusUI();
+      // Cập nhật thông điệp ước nguyện
+      const msgElem = document.getElementById("message_text");
+      if (msgElem) {
+        msgElem.innerHTML = "🌟 <strong>Mọi điều ước của bạn sẽ thành hiện thực!</strong> 🎂";
+      }
     }
 
     function relightCandles() {
@@ -1401,25 +960,9 @@
       const glow = document.getElementById("main_candle_glow");
       if (glow) glow.style.opacity = "1";
 
-      updateStatusUI();
-    }
-
-    function updateStatusUI() {
-      const hintText = document.getElementById("hint_text");
-      const messageText = document.getElementById("message_text");
-      const btnBlow = document.getElementById("btn_blow");
-      const btnRelight = document.getElementById("btn_relight");
-
-      if (areCandlesLit) {
-        hintText.textContent = "Nhấp vào bánh để thổi nến • Nhấp đúp để thắp nến";
-        messageText.textContent = customWish;
-        btnBlow.style.display = "inline-flex";
-        btnRelight.style.display = "none";
-      } else {
-        hintText.textContent = "🎉 Ước nguyện đã gửi gắm! Chúc mọi điều ước thành hiện thực! ✨";
-        messageText.innerHTML = "🌟 <strong>Mọi điều ước của bạn sẽ thành hiện thực!</strong> 🎂";
-        btnBlow.style.display = "none";
-        btnRelight.style.display = "inline-flex";
+      const msgElem = document.getElementById("message_text");
+      if (msgElem) {
+        msgElem.textContent = customWish;
       }
     }
 
@@ -1528,16 +1071,6 @@
     // =========================================================
     // KHỞI TẠO VÀ XỬ LÝ SỰ KIỆN TƯƠNG TÁC
     // =========================================================
-    let clickTimer = null;
-    let lastTap = 0;
-
-    function showToast(text) {
-      const toast = document.getElementById("toast_msg");
-      toast.textContent = text;
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 2800);
-    }
-
     function init() {
       createBokehLights();
 
@@ -1561,109 +1094,28 @@
         document.getElementById("message_text").textContent = customWish;
       }
 
-      // Xây dựng dàn nến
+      // Xây dựng dàn nến tinh gọn
       buildCandles(candleCount);
 
       // Tương tác trực tiếp trên Bánh sinh nhật
       const cakeArea = document.getElementById("cake_click_area");
 
-      cakeArea.addEventListener("click", (e) => {
-        if (clickTimer) {
-          clearTimeout(clickTimer);
-          clickTimer = null;
-          relightCandles();
+      cakeArea.addEventListener("click", () => {
+        // Tự động bật nhạc sinh nhật nếu chưa bật
+        if (!musicSource) toggleMusic();
+
+        // Nhấp vào bánh: nếu nến đang sáng -> thổi nến & tự động tung hoa; nếu đã tắt -> thắp nến lại
+        if (areCandlesLit) {
+          blowOutCandles();
         } else {
-          clickTimer = setTimeout(() => {
-            blowOutCandles();
-            clickTimer = null;
-          }, 240);
-        }
-      });
-
-      cakeArea.addEventListener("dblclick", (e) => {
-        if (clickTimer) clearTimeout(clickTimer);
-        clickTimer = null;
-        relightCandles();
-      });
-
-      cakeArea.addEventListener("touchend", (e) => {
-        const now = Date.now();
-        if (now - lastTap < 300) {
-          if (clickTimer) clearTimeout(clickTimer);
-          clickTimer = null;
           relightCandles();
-          if (e.cancelable) e.preventDefault();
         }
-        lastTap = now;
       });
 
-      // Tương tác các nút trên thanh công cụ
-      document.getElementById("btn_blow").addEventListener("click", blowOutCandles);
-      document.getElementById("btn_relight").addEventListener("click", relightCandles);
-      document.getElementById("btn_confetti").addEventListener("click", () => fireConfetti(true));
-      document.getElementById("btn_music").addEventListener("click", toggleMusic);
-
-      // Kích hoạt nhạc tự động khi người dùng nhấp tương tác đầu tiên
+      // Tự động khởi tạo AudioContext khi có tương tác đầu tiên
       window.addEventListener("pointerdown", () => {
         if (!musicSource) toggleMusic();
       }, { once: true });
-
-      // Modal Tùy biến thiệp sinh nhật
-      const modal = document.getElementById("custom_modal");
-      const btnCustomize = document.getElementById("btn_customize");
-      const btnCloseModal = document.getElementById("btn_close_modal");
-      const btnApplyModal = document.getElementById("btn_apply_modal");
-
-      btnCustomize.addEventListener("click", () => {
-        document.getElementById("input_name").value = (recipientName !== "to you!" ? recipientName : "");
-        document.getElementById("input_candles").value = candleCount;
-        document.getElementById("input_message").value = (customWish !== "Hãy ước một điều thật đẹp và nhấp thổi nến nhé!" ? customWish : "");
-        modal.classList.add("active");
-      });
-
-      btnCloseModal.addEventListener("click", () => modal.classList.remove("active"));
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) modal.classList.remove("active");
-      });
-
-      btnApplyModal.addEventListener("click", () => {
-        const newName = document.getElementById("input_name").value.trim();
-        const newCandles = parseInt(document.getElementById("input_candles").value) || candleCount;
-        const newMsg = document.getElementById("input_message").value.trim();
-
-        if (newName !== "") {
-          recipientName = newName;
-          document.getElementById("main_title_text").textContent = `Happy Birthday ${recipientName}!`;
-        }
-        if (newCandles > 0) {
-          candleCount = Math.min(15, newCandles);
-          buildCandles(candleCount);
-        }
-        if (newMsg !== "") {
-          customWish = newMsg;
-          document.getElementById("message_text").textContent = customWish;
-        }
-
-        // Tạo link chia sẻ
-        const shareUrl = new URL(window.location.origin + window.location.pathname);
-        if (newName) shareUrl.searchParams.set("name", newName);
-        if (newCandles) shareUrl.searchParams.set("candles", newCandles);
-        if (newMsg) shareUrl.searchParams.set("message", newMsg);
-
-        // Copy vào Clipboard
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(shareUrl.toString()).then(() => {
-            showToast("Đã tạo thiệp & sao chép link chia sẻ vào Clipboard! 💌");
-          }).catch(() => {
-            showToast("Đã áp dụng thiệp mới thành công! 🎂");
-          });
-        } else {
-          showToast("Đã áp dụng thiệp mới thành công! 🎂");
-        }
-
-        modal.classList.remove("active");
-        fireConfetti(true);
-      });
     }
 
     if (document.readyState === "loading") {
