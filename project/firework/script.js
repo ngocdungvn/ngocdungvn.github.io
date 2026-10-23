@@ -288,44 +288,44 @@ const scaleFactorSelector = () => store.state.config.scaleFactor;
 // Help Content
 const helpContent = {
   shellType: {
-    header: "Shell Type",
-    body: 'The type of firework that will be launched. Select "Random" for a nice assortment!',
+    header: "Kiểu Pháo Hoa",
+    body: 'Kiểu pháo hoa sẽ được bắn lên bầu trời. Bạn có thể chọn "Ngẫu nhiên" để chiêm ngưỡng đa dạng các hiệu ứng đặc sắc nhất!',
   },
   shellSize: {
-    header: "Shell Size",
-    body: "The size of the fireworks. Modeled after real firework shell sizes, larger shells have bigger bursts with more stars, and sometimes more complex effects. However, larger shells also require more processing power and may cause lag.",
+    header: "Cỡ Pháo Hoa",
+    body: "Kích thước của quả pháo hoa. Phỏng theo kích thước pháo hoa thực tế, cỡ pháo càng lớn thì chùm nổ càng hoành tráng với nhiều hạt sao sáng rực rỡ và hiệu ứng phức tạp hơn.",
   },
   quality: {
-    header: "Quality",
-    body: "Overall graphics quality. If the animation is not running smoothly, try lowering the quality. High quality greatly increases the amount of sparks rendered and may cause lag.",
+    header: "Chất Lượng Đồ Họa",
+    body: "Chất lượng hình ảnh tổng thể. Nếu hoạt ảnh chuyển động chưa thật sự mượt mà trên thiết bị của bạn, hãy thử giảm chất lượng xuống mức Thấp hoặc Bình thường.",
   },
   skyLighting: {
-    header: "Sky Lighting",
-    body: 'Illuminates the background as fireworks explode. If the background looks too bright on your screen, try setting it to "Dim" or "None".',
+    header: "Ánh Sáng Bầu Trời",
+    body: 'Mô phỏng ánh sáng chớp rực chiếu sáng nền trời khi pháo hoa phát nổ. Bạn có thể chọn mức "Dịu nhẹ" hoặc "Tắt" nếu muốn nền trời tối tĩnh lặng.',
   },
   scaleFactor: {
-    header: "Scale",
-    body: "Allows scaling the size of all fireworks, essentially moving you closer or farther away. For larger shell sizes, it can be convenient to decrease the scale a bit, especially on phones or tablets.",
+    header: "Tỷ Lệ Hiển Thị",
+    body: "Cho phép thu phóng toàn bộ quy mô pháo hoa, giúp bạn có cảm giác như đang đứng gần hơn hoặc nhìn ngắm từ xa.",
   },
   autoLaunch: {
-    header: "Auto Fire",
-    body: "Launches sequences of fireworks automatically. Sit back and enjoy the show, or disable to have full control.",
+    header: "Tự Động Bắn",
+    body: "Tự động kích hoạt chuỗi pháo hoa liên tục theo kịch bản. Hãy thư giãn thưởng thức màn trình diễn hoặc tắt đi nếu bạn muốn tự tay chạm bắn từng quả.",
   },
   finaleMode: {
-    header: "Finale Mode",
-    body: 'Launches intense bursts of fireworks. May cause lag. Requires "Auto Fire" to be enabled.',
+    header: "Chế Độ Bùng Nổ (Finale)",
+    body: 'Bắn liên hoàn các đợt pháo hoa dồn dập rực rỡ chào đón khoảnh khắc cao trào. Yêu cầu bật "Tự Động Bắn".',
   },
   hideControls: {
-    header: "Hide Controls",
-    body: "Hides the translucent controls along the top of the screen. Useful for screenshots, or just a more seamless experience. While hidden, you can still tap the top-right corner to re-open this menu.",
+    header: "Ẩn Bảng Điều Khiển",
+    body: "Ẩn các nút điều khiển mờ ở cạnh trên màn hình để bạn chụp ảnh hoặc thưởng thức trọn vẹn màn trình diễn. Khi ẩn, bạn vẫn có thể chạm vào góc trên bên phải để mở lại menu cài đặt.",
   },
   fullscreen: {
-    header: "Fullscreen",
-    body: "Toggles fullscreen mode.",
+    header: "Toàn Màn Hình",
+    body: "Bật hoặc tắt chế độ hiển thị toàn màn hình.",
   },
   longExposure: {
-    header: "Open Shutter",
-    body: "Experimental effect that preserves long streaks of light, similar to leaving a camera shutter open.",
+    header: "Phơi Sáng (Open Shutter)",
+    body: "Hiệu ứng phơi sáng nghệ thuật giữ lại các vệt sáng kéo dài của tia lửa tương tự như chụp ảnh ống kính mở lâu trong nhiếp ảnh chuyên nghiệp.",
   },
 };
 
@@ -822,9 +822,22 @@ function init() {
   }
 
   // shell type
+  const shellLabels = {
+    Random: "Ngẫu nhiên",
+    Crysanthemum: "Hoa cúc đại đóa",
+    Ring: "Vòng tròn thiên hà",
+    Palm: "Cây cọ rực rỡ",
+    Willow: "Liễu rủ ánh kim",
+    Floral: "Muôn hoa đua nở",
+    Ghost: "Bóng ma ảo diệu",
+    Strobe: "Ánh sao nhấp nháy",
+    Horsetail: "Đuôi ngựa sao rơi",
+    "Falling Leaves": "Lá mùa thu rơi",
+    Crackle: "Tiếng nổ lách tách"
+  };
   let options = "";
   shellNames.forEach(
-    (opt) => (options += `<option value="${opt}">${opt}</option>`)
+    (opt) => (options += `<option value="${opt}">${shellLabels[opt] || opt}</option>`)
   );
   appNodes.shellType.innerHTML = options;
   // shell size
@@ -835,15 +848,15 @@ function init() {
   appNodes.shellSize.innerHTML = options;
 
   setOptionsForSelect(appNodes.quality, [
-    { label: "Low", value: QUALITY_LOW },
-    { label: "Normal", value: QUALITY_NORMAL },
-    { label: "High", value: QUALITY_HIGH },
+    { label: "Thấp", value: QUALITY_LOW },
+    { label: "Tiêu chuẩn", value: QUALITY_NORMAL },
+    { label: "Cao", value: QUALITY_HIGH },
   ]);
 
   setOptionsForSelect(appNodes.skyLighting, [
-    { label: "None", value: SKY_LIGHT_NONE },
-    { label: "Dim", value: SKY_LIGHT_DIM },
-    { label: "Normal", value: SKY_LIGHT_NORMAL },
+    { label: "Tắt", value: SKY_LIGHT_NONE },
+    { label: "Dịu nhẹ", value: SKY_LIGHT_DIM },
+    { label: "Sáng chuẩn", value: SKY_LIGHT_NORMAL },
   ]);
 
   // 0.9 is mobile default
@@ -2305,7 +2318,7 @@ if (IS_HEADER) {
   init();
 } else {
   // Allow status to render, then preload assets and start app.
-  setLoadingStatus("Lighting Fuses");
+  setLoadingStatus("Đang châm ngòi pháo hoa...");
   setTimeout(() => {
     soundManager.preload().then(init, (reason) => {
       // Codepen preview doesn't like to load the audio, so just init to fix the preview for now.
