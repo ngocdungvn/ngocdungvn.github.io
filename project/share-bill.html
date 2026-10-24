@@ -391,58 +391,6 @@
       margin-top: 0.35rem;
     }
 
-    /* Quick Pick Chips for Losers */
-    .quick-pick-container {
-      margin-top: 0.45rem;
-      padding: 0.55rem 0.65rem;
-      background: #f8fafc;
-      border: 1px dashed var(--border);
-      border-radius: var(--radius-md);
-    }
-
-    .quick-pick-label {
-      display: block;
-      font-size: 0.74rem;
-      font-weight: 700;
-      color: var(--text-sub);
-      margin-bottom: 0.35rem;
-    }
-
-    .quick-pick-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem;
-    }
-
-    .quick-chip {
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.2rem 0.5rem;
-      border-radius: var(--radius-full);
-      background: #ffffff;
-      border: 1px solid var(--border);
-      color: var(--text-sub);
-      cursor: pointer;
-      user-select: none;
-      transition: all 0.15s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-
-    .quick-chip:hover {
-      border-color: #cbd5e1;
-      background: #f1f5f9;
-      color: var(--text-main);
-    }
-
-    .quick-chip.active {
-      background: #fef3c7;
-      border-color: #fcd34d;
-      color: #92400e;
-      font-weight: 700;
-    }
-
     /* Rounding options */
     .rounding-row {
       display: flex;
@@ -902,7 +850,7 @@
         <div class="input-wrapper">
           <i class="uil uil-money-bill input-icon"></i>
           <input type="text" id="bill-input" class="form-control num-font" placeholder="Ví dụ: 2500k hoặc 2.500.000..."
-            value="2.500.000" inputmode="text" />
+            value="" inputmode="text" />
           <span class="input-unit">đ</span>
         </div>
       </div>
@@ -911,15 +859,15 @@
       <div class="form-group">
         <div class="form-label-row">
           <label class="form-label">
-            <i class="uil uil-bolt-alt"></i> Tiền Kèo Trận (Mỗi người thua)
+            <i class="uil uil-bolt-alt"></i> Tiền Kèo Trận: <b id="penalty-current-display" style="color: var(--primary);">50.000đ</b>
           </label>
-          <span class="hint-text">Mặc định 50k</span>
+          <span class="hint-text">Cố định 50.000đ / người thua</span>
         </div>
         <div class="penalty-grid">
-          <button type="button" class="penalty-btn active num-font" data-penalty="50000">50k</button>
-          <button type="button" class="penalty-btn num-font" data-penalty="100000">100k</button>
-          <button type="button" class="penalty-btn num-font" data-penalty="150000">150k</button>
-          <button type="button" class="penalty-btn num-font" data-penalty="200000">200k</button>
+          <button type="button" class="penalty-btn active num-font" data-penalty="50000">50.000</button>
+          <button type="button" class="penalty-btn num-font" data-penalty="100000">100.000</button>
+          <button type="button" class="penalty-btn num-font" data-penalty="150000">150.000</button>
+          <button type="button" class="penalty-btn num-font" data-penalty="200000">200.000</button>
         </div>
       </div>
 
@@ -929,7 +877,7 @@
           <label class="form-label">
             <i class="uil uil-utensils"></i> Người Đi Ăn
           </label>
-          <span class="member-count-badge" id="badge-count-eaters">14 người</span>
+          <span class="member-count-badge" id="badge-count-eaters">0 người</span>
         </div>
         <div class="tags-container" id="box-eaters">
           <div class="chips-list" id="chips-eaters"></div>
@@ -944,18 +892,13 @@
           <label class="form-label">
             <i class="uil uil-shield-slash"></i> Người Đội Thua
           </label>
-          <span class="member-count-badge" id="badge-count-losers">9 người</span>
+          <span class="member-count-badge" id="badge-count-losers">0 người</span>
         </div>
         <div class="tags-container" id="box-losers">
           <div class="chips-list" id="chips-losers"></div>
           <input type="text" class="tag-input" id="input-losers" placeholder="Nhập tên hoặc dán danh sách người thua..." />
         </div>
-        <!-- Quick Pick Toolbar from Eaters -->
-        <div class="quick-pick-container" id="quick-pick-container">
-          <span class="quick-pick-label"><i class="uil uil-mouse-alt"></i> Chọn nhanh từ nhóm đi ăn:</span>
-          <div class="quick-pick-chips" id="quick-pick-chips"></div>
-        </div>
-        <div class="input-help-sub">Bao gồm cả người thua đi ăn và người thua vắng mặt (Minh, Hiệu...)</div>
+        <div class="input-help-sub">Bao gồm cả người thua đi ăn và người thua vắng mặt</div>
       </div>
 
       <!-- Làm tròn -->
@@ -970,13 +913,13 @@
       <div class="audit-box">
         <div class="audit-title">
           <span>Đối Soát Hóa Đơn</span>
-          <span class="audit-balance-badge" id="audit-badge">
-            <i class="uil uil-check-circle"></i> Khớp Bill 100%
+          <span class="audit-balance-badge" id="audit-badge" style="color: #475569; background: #f1f5f9; border: 1px solid #cbd5e1;">
+            <i class="uil uil-info-circle"></i> Sẵn sàng nhập liệu
           </span>
         </div>
         <div class="audit-row">
           <span>Tổng thực thu:</span>
-          <strong class="num-font" id="audit-total-collected" style="color: #2563eb;">2.508.000</strong>
+          <strong class="num-font" id="audit-total-collected" style="color: #2563eb;">0</strong>
         </div>
       </div>
 
@@ -1001,16 +944,16 @@
       <div class="team-card card-win">
         <div class="team-top">
           <span class="team-tag">🏆 Đội Thắng (Đi ăn)</span>
-          <span class="member-count-badge" id="badge-count-win">8 người</span>
+          <span class="member-count-badge" id="badge-count-win">0 người</span>
         </div>
         <div class="team-price-row">
           <div>
-            <div class="team-price num-font" id="price-win">147.000</div>
+            <div class="team-price num-font" id="price-win">0</div>
             <span style="font-size: 0.75rem; color: var(--text-dim);">mỗi người cần đóng</span>
           </div>
           <div class="team-subtotal">
             <div>Tổng nhóm</div>
-            <strong class="num-font" id="subtotal-win">1.176.000</strong>
+            <strong class="num-font" id="subtotal-win">0</strong>
           </div>
         </div>
         <div class="result-chips-wrap">
@@ -1022,16 +965,16 @@
       <div class="team-card card-lose-eat">
         <div class="team-top">
           <span class="team-tag">🥊 Đội Thua (Đi ăn)</span>
-          <span class="member-count-badge" id="badge-count-lose-eat">6 người</span>
+          <span class="member-count-badge" id="badge-count-lose-eat">0 người</span>
         </div>
         <div class="team-price-row">
           <div>
-            <div class="team-price num-font" id="price-lose-eat">197.000</div>
-            <span style="font-size: 0.75rem; color: var(--text-dim);" id="breakdown-lose-eat">mỗi người cần đóng (147k ăn + 50k kèo)</span>
+            <div class="team-price num-font" id="price-lose-eat">0</div>
+            <span style="font-size: 0.75rem; color: var(--text-dim);" id="breakdown-lose-eat">mỗi người cần đóng (tiền ăn + 50.000đ kèo)</span>
           </div>
           <div class="team-subtotal">
             <div>Tổng nhóm</div>
-            <strong class="num-font" id="subtotal-lose-eat">1.182.000</strong>
+            <strong class="num-font" id="subtotal-lose-eat">0</strong>
           </div>
         </div>
         <div class="result-chips-wrap">
@@ -1043,16 +986,16 @@
       <div class="team-card card-lose-home">
         <div class="team-top">
           <span class="team-tag">🏠 Đội Thua (Vắng mặt)</span>
-          <span class="member-count-badge" id="badge-count-lose-home">3 người</span>
+          <span class="member-count-badge" id="badge-count-lose-home">0 người</span>
         </div>
         <div class="team-price-row">
           <div>
-            <div class="team-price num-font" id="price-lose-home">50.000</div>
+            <div class="team-price num-font" id="price-lose-home">0</div>
             <span style="font-size: 0.75rem; color: var(--text-dim);">mỗi người chỉ nộp tiền phạt kèo</span>
           </div>
           <div class="team-subtotal">
             <div>Tổng nhóm</div>
-            <strong class="num-font" id="subtotal-lose-home">150.000</strong>
+            <strong class="num-font" id="subtotal-lose-home">0</strong>
           </div>
         </div>
         <div class="result-chips-wrap">
@@ -1086,13 +1029,13 @@
       ]
     };
 
-    // State variables
-    let bill = DEFAULT_DATA.bill;
-    let penalty = DEFAULT_DATA.penalty;
-    let roundMode = DEFAULT_DATA.roundMode; // 'none', '1000', '5000'
+    // State variables - Khởi tạo rỗng để sẵn sàng nhập trận mới
+    let bill = 0;
+    let penalty = 50000;
+    let roundMode = '1000'; // 'none', '1000', '5000'
 
-    let eaters = [...DEFAULT_DATA.eaters];
-    let losers = [...DEFAULT_DATA.losers];
+    let eaters = [];
+    let losers = [];
 
     // Trạng thái đã thanh toán / gạch tên của từng người { [name]: boolean }
     const paidStatus = {};
@@ -1100,6 +1043,7 @@
     // DOM elements
     const billInput = document.getElementById('bill-input');
     const penaltyBtns = document.querySelectorAll('.penalty-btn');
+    const penaltyCurrentDisplay = document.getElementById('penalty-current-display');
     const roundPills = document.querySelectorAll('.round-pill');
     const btnSample = document.getElementById('btn-sample');
     const btnClear = document.getElementById('btn-clear');
@@ -1135,7 +1079,6 @@
     const inputLosersEl = document.getElementById('input-losers');
     const boxEaters = document.getElementById('box-eaters');
     const boxLosers = document.getElementById('box-losers');
-    const quickPickChipsEl = document.getElementById('quick-pick-chips');
 
     const chipsResWin = document.getElementById('chips-res-win');
     const chipsResLoseEat = document.getElementById('chips-res-lose-eat');
@@ -1217,12 +1160,6 @@
       return { winnersWhoAte, losersWhoAte, losersWhoStayedHome };
     }
 
-    // Kiểm tra xem một người đi ăn có nằm trong danh sách đội thua hay không (trùng nhau 100%)
-    function isEaterInLosers(eaterName) {
-      const eClean = normalizeStr(eaterName);
-      return losers.some(l => normalizeStr(l) === eClean);
-    }
-
     // Render danh sách chip nhập liệu (Người đi ăn & Người đội thua)
     function renderInputChips() {
       // 1. Chips Eaters
@@ -1261,34 +1198,6 @@
           calculate();
         });
         chipsLosersEl.appendChild(chip);
-      });
-
-      // 3. Quick Pick Chips từ nhóm đi ăn
-      quickPickChipsEl.innerHTML = '';
-      eaters.forEach(name => {
-        const isSelected = isEaterInLosers(name);
-        const qBtn = document.createElement('button');
-        qBtn.type = 'button';
-        qBtn.className = `quick-chip ${isSelected ? 'active' : ''}`;
-        qBtn.innerHTML = `${isSelected ? '<i class="uil uil-check"></i>' : '<i class="uil uil-plus"></i>'} ${escapeHtml(name)}`;
-
-        qBtn.addEventListener('click', () => {
-          if (isSelected) {
-            // Xóa khỏi losers (chỉ khi tên trùng khớp 100%)
-            const eClean = normalizeStr(name);
-            const removeIdx = losers.findIndex(l => normalizeStr(l) === eClean);
-            if (removeIdx !== -1) {
-              losers.splice(removeIdx, 1);
-            }
-          } else {
-            // Thêm vào losers
-            losers.push(name);
-          }
-          renderInputChips();
-          calculate();
-        });
-
-        quickPickChipsEl.appendChild(qBtn);
       });
     }
 
@@ -1523,6 +1432,9 @@
         penaltyBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         penalty = parseInt(btn.dataset.penalty, 10);
+        if (penaltyCurrentDisplay) {
+          penaltyCurrentDisplay.innerText = `${formatVND(penalty)}đ`;
+        }
         calculate();
       });
     });
@@ -1564,10 +1476,10 @@
         `👉 Mỗi người: ${payWinText}đ\n` +
         `👥 Danh sách: ${listWinStr}\n\n` +
         `🥊 ĐỘI THUA (ĐI ĂN) (${currentCategorized.losersWhoAte.length} người):\n` +
-        `👉 Mỗi người: ${payLoseEatText}đ (ăn + kèo)\n` +
+        `👉 Mỗi người: ${payLoseEatText}đ (${payWinText}đ ăn + ${penalty.toLocaleString('vi-VN')}đ kèo)\n` +
         `👥 Danh sách: ${listLoseEatStr}\n\n` +
         `🏠 ĐỘI THUA (VẮNG MẶT) (${currentCategorized.losersWhoStayedHome.length} người):\n` +
-        `👉 Mỗi người: ${payLoseHomeText}đ (tiền kèo)\n` +
+        `👉 Mỗi người: ${payLoseHomeText}đ (tiền kèo ${penalty.toLocaleString('vi-VN')}đ)\n` +
         `👥 Danh sách: ${listLoseHomeStr}\n` +
         `----------------------------------------\n` +
         `💰 Tổng thực thu: ${auditTotalCollected.innerText}đ (${auditBadge.innerText})\n\n` +
@@ -1602,6 +1514,9 @@
         billInput.value = bill.toLocaleString('vi-VN');
 
         penalty = DEFAULT_DATA.penalty;
+        if (penaltyCurrentDisplay) {
+          penaltyCurrentDisplay.innerText = `${formatVND(penalty)}đ`;
+        }
         penaltyBtns.forEach(b => {
           b.classList.toggle('active', parseInt(b.dataset.penalty, 10) === penalty);
         });
@@ -1632,6 +1547,14 @@
         losers = [];
         inputEatersEl.value = '';
         inputLosersEl.value = '';
+
+        penalty = 50000;
+        if (penaltyCurrentDisplay) {
+          penaltyCurrentDisplay.innerText = `${formatVND(penalty)}đ`;
+        }
+        penaltyBtns.forEach(b => {
+          b.classList.toggle('active', parseInt(b.dataset.penalty, 10) === 50000);
+        });
 
         for (const k in paidStatus) delete paidStatus[k];
 
