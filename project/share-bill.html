@@ -6,7 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chia Tiền Kèo Đá Bóng | by DungX</title>
-  <meta name="description" content="Công cụ tính toán chia tiền sân bóng, tính tiền phạt theo bàn thắng / thua, tự động chia đều tiền nước và tiền sân nhanh chóng, chính xác." />
+  <meta name="description"
+    content="Công cụ chia tiền hóa đơn ăn nhậu sau trận bóng đá: tự động phân loại Đội Thắng, Đội Thua đi ăn và Đội Thua vắng mặt chỉ từ danh sách người đi ăn và người đội thua." />
   <meta name="author" content="Tạ Ngọc Dũng" />
   <link rel="canonical" href="https://ngocdungx.github.io/project/share-bill.html" />
 
@@ -16,7 +17,8 @@
   <meta property="og:locale" content="vi_VN" />
   <meta property="og:url" content="https://ngocdungx.github.io/project/share-bill.html" />
   <meta property="og:title" content="Chia Tiền Kèo Đá Bóng | by DungX" />
-  <meta property="og:description" content="Công cụ tính toán chia tiền sân bóng, tính tiền phạt theo bàn thắng / thua, tự động chia đều tiền nước và tiền sân nhanh chóng, chính xác." />
+  <meta property="og:description"
+    content="Công cụ chia tiền hóa đơn ăn nhậu sau trận bóng đá: tự động phân loại Đội Thắng, Đội Thua đi ăn và Đội Thua vắng mặt nhanh chóng, chính xác." />
   <meta property="og:image" content="https://ngocdungx.github.io/assets/img/og-cover.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -25,21 +27,21 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://ngocdungx.github.io/project/share-bill.html" />
   <meta name="twitter:title" content="Chia Tiền Kèo Đá Bóng | by DungX" />
-  <meta name="twitter:description" content="Công cụ tính toán chia tiền sân bóng, tính tiền phạt theo bàn thắng / thua, tự động chia đều tiền nước và tiền sân nhanh chóng, chính xác." />
+  <meta name="twitter:description"
+    content="Công cụ chia tiền kèo bóng đá tự động phân loại Đội Thắng, Đội Thua đi ăn và Đội Thua vắng mặt." />
   <meta name="twitter:image" content="https://ngocdungx.github.io/assets/img/og-cover.png" />
 
-
-  <!-- Google Font: Inter (Chuẩn typography quốc tế, cực kỳ sắc nét và dễ đọc) -->
+  <!-- Google Font: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Unicons -->
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
 
   <style>
     :root {
-      /* LIGHT THEME VARIABLES */
+      /* THEME VARIABLES */
       --bg-body: #f8fafc;
       --bg-card: #ffffff;
       --bg-input: #ffffff;
@@ -59,7 +61,7 @@
       --win-chip-text: #166534;
       --win-chip-border: #86efac;
 
-      /* Đội Thua (Có mặt): Cam Ấm Áp Đậm */
+      /* Đội Thua (Có mặt đi ăn): Cam Ấm Áp Đậm */
       --lose-eat-color: #d97706;
       --lose-eat-bg-card: linear-gradient(145deg, #fffbeb 0%, #ffffff 100%);
       --lose-eat-border: #fcd34d;
@@ -69,7 +71,7 @@
       --lose-eat-chip-text: #92400e;
       --lose-eat-chip-border: #fcd34d;
 
-      /* Đội Thua (Vắng): Cùng tông Cam nhưng nhạt hơn chút */
+      /* Đội Thua (Vắng mặt): Cam nhạt */
       --lose-home-color: #b45309;
       --lose-home-bg-card: linear-gradient(145deg, #fffdf5 0%, #ffffff 100%);
       --lose-home-border: #fef08a;
@@ -114,7 +116,6 @@
       align-items: center;
     }
 
-    /* Font số chuẩn quốc tế, không bị nét cắt */
     .num-font {
       font-family: 'Inter', sans-serif;
       font-variant-numeric: tabular-nums;
@@ -124,74 +125,104 @@
     /* Header Nav */
     .header-top {
       width: 100%;
-      max-width: 1050px;
+      max-width: 1080px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
     }
 
     .brand-badge {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 700;
       color: var(--primary);
       background: rgba(37, 99, 235, 0.08);
-      padding: 0.35rem 0.8rem;
+      padding: 0.35rem 0.85rem;
       border-radius: var(--radius-full);
       border: 1px solid rgba(37, 99, 235, 0.2);
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.45rem;
     }
 
     .main-title {
       text-align: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.4rem;
     }
 
     .main-title h1 {
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-size: clamp(1.4rem, 2.8vw, 2rem);
       font-weight: 800;
       letter-spacing: -0.02em;
       color: var(--text-main);
     }
 
+    .main-title p {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      margin-top: 0.3rem;
+    }
+
     /* Main Container */
     .calculator-wrapper {
       width: 100%;
-      max-width: 1050px;
+      max-width: 1080px;
       display: grid;
       grid-template-columns: 1fr;
       gap: 1.5rem;
     }
 
-    @media (min-width: 880px) {
+    @media (min-width: 900px) {
       .calculator-wrapper {
-        grid-template-columns: 1fr 1.35fr;
+        grid-template-columns: 1.05fr 1.15fr;
         gap: 1.75rem;
         align-items: start;
       }
     }
 
-    /* Left Panel Card */
+    /* Left Panel Card: Input Section */
     .panel-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 1.5rem;
+      padding: 1.4rem;
       box-shadow: var(--shadow-card);
     }
 
     .form-group {
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .form-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
     }
 
     .form-label {
-      display: block;
-      margin-bottom: 0.45rem;
       font-size: 0.88rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .hint-text {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    .member-count-badge {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 0.15rem 0.55rem;
+      border-radius: var(--radius-full);
     }
 
     .input-wrapper {
@@ -212,7 +243,7 @@
       position: absolute;
       right: 14px;
       color: var(--text-sub);
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 700;
       pointer-events: none;
     }
@@ -222,9 +253,9 @@
       background: var(--bg-input);
       border: 1.5px solid #cbd5e1;
       border-radius: var(--radius-md);
-      padding: 0.75rem 1rem 0.75rem 2.6rem;
+      padding: 0.7rem 2.2rem 0.7rem 2.5rem;
       color: var(--text-main);
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 700;
       transition: all 0.2s ease;
     }
@@ -240,16 +271,16 @@
     .penalty-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0.5rem;
+      gap: 0.45rem;
     }
 
     .penalty-btn {
       background: #f8fafc;
       border: 1.5px solid var(--border);
       color: var(--text-sub);
-      padding: 0.65rem 0.4rem;
+      padding: 0.6rem 0.3rem;
       border-radius: var(--radius-md);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 700;
       cursor: pointer;
       text-align: center;
@@ -269,16 +300,159 @@
       box-shadow: 0 0 0 1px var(--primary);
     }
 
+    /* Tag Input Container */
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem;
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.4rem 0.55rem;
+      min-height: 44px;
+      cursor: text;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+      transition: all 0.2s ease;
+    }
+
+    .tags-container:focus-within {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .chips-list {
+      display: contents;
+    }
+
+    .name-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.22rem 0.55rem;
+      border-radius: var(--radius-full);
+      user-select: none;
+      transition: all 0.15s ease;
+      line-height: 1.2;
+    }
+
+    .chip-eater {
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+    }
+
+    .chip-loser {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fcd34d;
+    }
+
+    .chip-remove {
+      background: transparent;
+      border: none;
+      color: inherit;
+      font-size: 1.05rem;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0.6;
+      padding: 0 0 0 2px;
+      display: inline-flex;
+      align-items: center;
+      transition: opacity 0.15s ease;
+    }
+
+    .chip-remove:hover {
+      opacity: 1;
+    }
+
+    .tag-input {
+      flex: 1 1 90px;
+      min-width: 90px;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      padding: 0.25rem 0.3rem;
+      font-family: inherit;
+    }
+
+    .tag-input::placeholder {
+      color: var(--text-dim);
+      font-size: 0.78rem;
+    }
+
+    .input-help-sub {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-top: 0.35rem;
+    }
+
+    /* Quick Pick Chips for Losers */
+    .quick-pick-container {
+      margin-top: 0.45rem;
+      padding: 0.55rem 0.65rem;
+      background: #f8fafc;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .quick-pick-label {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-sub);
+      margin-bottom: 0.35rem;
+    }
+
+    .quick-pick-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .quick-chip {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-full);
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .quick-chip:hover {
+      border-color: #cbd5e1;
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .quick-chip.active {
+      background: #fef3c7;
+      border-color: #fcd34d;
+      color: #92400e;
+      font-weight: 700;
+    }
+
     /* Rounding options */
     .rounding-row {
       display: flex;
       align-items: center;
       gap: 0.45rem;
       flex-wrap: wrap;
-      margin-top: 1.25rem;
-      padding-top: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
       border-top: 1px solid var(--border);
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
     }
 
     .rounding-label {
@@ -315,8 +489,8 @@
       background: #f8fafc;
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 1rem;
-      margin-bottom: 1.25rem;
+      padding: 0.9rem;
+      margin-bottom: 1.15rem;
     }
 
     .audit-title {
@@ -328,7 +502,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.5rem;
     }
 
     .audit-row {
@@ -361,7 +535,7 @@
     .action-grid {
       display: grid;
       grid-template-columns: 1.8fr 1fr;
-      gap: 0.65rem;
+      gap: 0.6rem;
     }
 
     .btn-action {
@@ -369,9 +543,9 @@
       align-items: center;
       justify-content: center;
       gap: 0.45rem;
-      padding: 0.85rem 1rem;
+      padding: 0.8rem 0.9rem;
       border-radius: var(--radius-md);
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
       border: none;
@@ -401,7 +575,7 @@
       color: var(--text-main);
     }
 
-    /* ================= RIGHT PANEL: 3 TEAM CARDS ================= */
+    /* ================= RIGHT PANEL: 3 AUTO CATEGORIZED TEAM CARDS ================= */
     .results-panel {
       display: flex;
       flex-direction: column;
@@ -410,7 +584,7 @@
 
     .team-card {
       border-radius: var(--radius-lg);
-      padding: 1.35rem;
+      padding: 1.3rem;
       position: relative;
       overflow: hidden;
       box-shadow: var(--shadow-card);
@@ -440,7 +614,7 @@
       background: var(--win-color);
     }
 
-    /* Card Đội Thua Có mặt: Cam ấm áp đậm */
+    /* Card Đội Thua Có mặt đi ăn: Cam ấm áp đậm */
     .card-lose-eat {
       background: var(--lose-eat-bg-card);
       border: 1.5px solid var(--lose-eat-border);
@@ -450,7 +624,7 @@
       background: var(--lose-eat-color);
     }
 
-    /* Card Đội Thua Vắng: Cùng tông Cam nhưng nhạt hơn chút */
+    /* Card Đội Thua Vắng: Cam nhạt */
     .card-lose-home {
       background: var(--lose-home-bg-card);
       border: 1.5px solid var(--lose-home-border);
@@ -464,7 +638,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.55rem;
     }
 
     .team-tag {
@@ -497,12 +671,6 @@
       border: 1px solid var(--lose-home-border);
     }
 
-    .member-count-badge {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--text-sub);
-    }
-
     .team-price-row {
       display: flex;
       align-items: baseline;
@@ -513,7 +681,7 @@
     }
 
     .team-price {
-      font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+      font-size: clamp(1.6rem, 2.4vw, 2.1rem);
       font-weight: 800;
       letter-spacing: -0.02em;
     }
@@ -552,47 +720,31 @@
       color: var(--lose-home-color);
     }
 
-    /* Tag Input Container: Sáng, nền trắng cao cấp */
-    .tags-container {
+    /* Result Chips Area */
+    .result-chips-wrap {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       gap: 0.35rem;
-      background: #ffffff;
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 0.45rem 0.6rem;
-      min-height: 44px;
-      cursor: text;
-      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
-      transition: all 0.2s ease;
+      padding-top: 0.65rem;
+      border-top: 1px dashed rgba(0, 0, 0, 0.08);
     }
 
-    .tags-container:focus-within {
-      border-color: var(--border-focus);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-    }
-
-    /* display: contents để chip và input luôn nằm tiếp nối nhau trên cùng 1 hàng */
-    .chips-list {
-      display: contents;
-    }
-
-    .name-chip {
+    .res-chip {
       display: inline-flex;
       align-items: center;
       gap: 0.3rem;
       font-size: 0.8rem;
       font-weight: 600;
-      padding: 0.22rem 0.55rem;
+      padding: 0.22rem 0.6rem;
       border-radius: var(--radius-full);
       user-select: none;
-      transition: all 0.15s ease;
       cursor: pointer;
+      transition: all 0.15s ease;
       line-height: 1.2;
     }
 
-    .name-chip:hover {
+    .res-chip:hover {
       transform: translateY(-1px);
     }
 
@@ -614,58 +766,28 @@
       border: 1px solid var(--lose-home-chip-border);
     }
 
-    .chip-remove {
-      background: transparent;
-      border: none;
-      color: inherit;
-      font-size: 1.05rem;
-      line-height: 1;
-      cursor: pointer;
-      opacity: 0.6;
-      padding: 0 0 0 2px;
-      display: inline-flex;
-      align-items: center;
-      transition: opacity 0.15s ease;
-    }
-
-    .chip-remove:hover {
-      opacity: 1;
-    }
-
-    .name-chip.paid {
-      background: #f1f5f9;
-      color: #94a3b8;
-      border-color: #cbd5e1;
+    .res-chip.paid {
+      background: #f1f5f9 !important;
+      color: #94a3b8 !important;
+      border-color: #cbd5e1 !important;
       text-decoration: line-through;
       opacity: 0.6;
     }
 
-    .name-chip .check-mark {
+    .res-chip .check-mark {
       display: none;
       color: #10b981;
       font-size: 0.85rem;
     }
 
-    .name-chip.paid .check-mark {
+    .res-chip.paid .check-mark {
       display: inline;
     }
 
-    /* Ô gõ tiếp nối ngay sau chip cuối cùng trên dòng */
-    .tag-input {
-      flex: 1 1 60px;
-      min-width: 60px;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: var(--text-main);
-      font-size: 0.85rem;
-      padding: 0.2rem 0.25rem;
-      font-family: inherit;
-    }
-
-    .tag-input::placeholder {
-      color: var(--text-dim);
+    .empty-state-text {
       font-size: 0.78rem;
+      color: var(--text-dim);
+      font-style: italic;
     }
 
     /* Toast notification */
@@ -711,6 +833,8 @@
       font-size: 0.82rem;
       font-weight: 600;
       margin-bottom: 1rem;
+      width: 100%;
+      max-width: 1080px;
     }
 
     .error-banner.show {
@@ -732,7 +856,8 @@
 
   <!-- Page Title -->
   <div class="main-title">
-    <h1>Chia Tiền Kèo Bóng đá</h1>
+    <h1>Chia Tiền Kèo Bóng Đá</h1>
+    <p>Chỉ cần nhập Hóa đơn, Kèo, Người đi ăn & Người đội thua — Tự động phân loại 100%</p>
   </div>
 
   <!-- Error Banner -->
@@ -744,22 +869,33 @@
   <!-- Calculator Grid -->
   <main class="calculator-wrapper">
 
-    <!-- LEFT PANEL: BILL & SETTINGS -->
+    <!-- LEFT PANEL: INPUT SECTION -->
     <section class="panel-card">
 
-      <!-- Total Bill Input (Tự nhập số tiền) -->
+      <!-- 1. Hóa đơn -->
       <div class="form-group">
-        <label class="form-label" for="bill-input">Tổng Tiền Hóa Đơn</label>
+        <div class="form-label-row">
+          <label class="form-label" for="bill-input">
+            <i class="uil uil-receipt"></i> Tổng Tiền Hóa Đơn
+          </label>
+          <span class="hint-text">Gõ 2500k hoặc 2.500.000</span>
+        </div>
         <div class="input-wrapper">
-          <i class="uil uil-receipt input-icon"></i>
-          <input type="text" id="bill-input" class="form-control num-font" placeholder="Nhập số tiền..."
-            value="" inputmode="numeric" />
+          <i class="uil uil-money-bill input-icon"></i>
+          <input type="text" id="bill-input" class="form-control num-font" placeholder="Ví dụ: 2500k hoặc 2.500.000..."
+            value="2.500.000" inputmode="text" />
+          <span class="input-unit">đ</span>
         </div>
       </div>
 
-      <!-- Kèo trận (Các mức cố định) -->
+      <!-- 2. Kèo trận -->
       <div class="form-group">
-        <label class="form-label">Kèo trận</label>
+        <div class="form-label-row">
+          <label class="form-label">
+            <i class="uil uil-bolt-alt"></i> Tiền Kèo Trận (Mỗi người thua)
+          </label>
+          <span class="hint-text">Mặc định 50k</span>
+        </div>
         <div class="penalty-grid">
           <button type="button" class="penalty-btn active num-font" data-penalty="50000">50k</button>
           <button type="button" class="penalty-btn num-font" data-penalty="100000">100k</button>
@@ -768,15 +904,50 @@
         </div>
       </div>
 
-      <!-- Rounding option (Chỉ 3 mức: Chính xác, 1.000, 5.000) -->
+      <!-- 3. Người đi ăn -->
+      <div class="form-group">
+        <div class="form-label-row">
+          <label class="form-label">
+            <i class="uil uil-utensils"></i> Người Đi Ăn
+          </label>
+          <span class="member-count-badge" id="badge-count-eaters">14 người</span>
+        </div>
+        <div class="tags-container" id="box-eaters">
+          <div class="chips-list" id="chips-eaters"></div>
+          <input type="text" class="tag-input" id="input-eaters" placeholder="Nhập tên rồi ấn phẩy (,), hoặc dán danh sách..." />
+        </div>
+        <div class="input-help-sub">Nhập hoặc dán tất cả người có mặt đi ăn chia bill</div>
+      </div>
+
+      <!-- 4. Người đội thua -->
+      <div class="form-group">
+        <div class="form-label-row">
+          <label class="form-label">
+            <i class="uil uil-shield-slash"></i> Người Đội Thua
+          </label>
+          <span class="member-count-badge" id="badge-count-losers">9 người</span>
+        </div>
+        <div class="tags-container" id="box-losers">
+          <div class="chips-list" id="chips-losers"></div>
+          <input type="text" class="tag-input" id="input-losers" placeholder="Nhập tên hoặc dán danh sách người thua..." />
+        </div>
+        <!-- Quick Pick Toolbar from Eaters -->
+        <div class="quick-pick-container" id="quick-pick-container">
+          <span class="quick-pick-label"><i class="uil uil-mouse-alt"></i> Chọn nhanh từ nhóm đi ăn:</span>
+          <div class="quick-pick-chips" id="quick-pick-chips"></div>
+        </div>
+        <div class="input-help-sub">Bao gồm cả người thua đi ăn và người thua vắng mặt (Minh, Hiệu...)</div>
+      </div>
+
+      <!-- Làm tròn -->
       <div class="rounding-row">
         <span class="rounding-label">Làm tròn:</span>
         <button type="button" class="round-pill" data-round="none">Chính xác</button>
-        <button type="button" class="round-pill active" data-round="1000">1.000</button>
-        <button type="button" class="round-pill" data-round="5000">5.000</button>
+        <button type="button" class="round-pill active" data-round="1000">1.000đ</button>
+        <button type="button" class="round-pill" data-round="5000">5.000đ</button>
       </div>
 
-      <!-- Audit box (Gọn gàng, chuẩn sáng) -->
+      <!-- Audit box -->
       <div class="audit-box">
         <div class="audit-title">
           <span>Đối Soát Hóa Đơn</span>
@@ -786,7 +957,7 @@
         </div>
         <div class="audit-row">
           <span>Tổng thực thu:</span>
-          <strong class="num-font" id="audit-total-collected" style="color: #2563eb;">0</strong>
+          <strong class="num-font" id="audit-total-collected" style="color: #2563eb;">2.508.000</strong>
         </div>
       </div>
 
@@ -795,81 +966,75 @@
         <button type="button" class="btn-action btn-copy" id="btn-copy">
           <i class="uil uil-copy-alt"></i> Sao Chép Zalo
         </button>
-        <button type="button" class="btn-action btn-reset" id="btn-reset">
-          <i class="uil uil-redo"></i> Đặt Lại
+        <button type="button" class="btn-action btn-reset" id="btn-reset" title="Khôi phục mẫu ban đầu">
+          <i class="uil uil-redo"></i> Đặt Lại Mẫu
         </button>
       </div>
     </section>
 
-    <!-- RIGHT PANEL: 3 TEAM CARDS -->
+    <!-- RIGHT PANEL: 3 AUTO CATEGORIZED RESULTS -->
     <section class="results-panel">
 
-      <!-- Card 1: Đội Thắng (Có mặt) -->
+      <!-- Card 1: Đội Thắng (Đi ăn) -->
       <div class="team-card card-win">
         <div class="team-top">
-          <span class="team-tag">🏆 Đội Thắng (Có mặt)</span>
-          <span class="member-count-badge" id="badge-count-win">0 người</span>
+          <span class="team-tag">🏆 Đội Thắng (Đi ăn)</span>
+          <span class="member-count-badge" id="badge-count-win">7 người</span>
         </div>
         <div class="team-price-row">
           <div>
-            <div class="team-price num-font" id="price-win">0</div>
+            <div class="team-price num-font" id="price-win">147.000</div>
             <span style="font-size: 0.75rem; color: var(--text-dim);">mỗi người cần đóng</span>
           </div>
           <div class="team-subtotal">
             <div>Tổng nhóm</div>
-            <strong class="num-font" id="subtotal-win">0</strong>
+            <strong class="num-font" id="subtotal-win">1.029.000</strong>
           </div>
         </div>
-        <!-- Inline Tag Input Container -->
-        <div class="tags-container" id="box-win" data-team="win">
-          <div class="chips-list" id="chips-win"></div>
-          <input type="text" class="tag-input" id="input-win" placeholder="Nhập tên rồi gõ dấu phẩy (,)..." />
+        <div class="result-chips-wrap">
+          <div class="chips-list" id="chips-res-win"></div>
         </div>
       </div>
 
-      <!-- Card 2: Đội Thua (Có mặt) - Cam ấm áp đậm -->
+      <!-- Card 2: Đội Thua (Đi ăn) -->
       <div class="team-card card-lose-eat">
         <div class="team-top">
-          <span class="team-tag">🥊 Đội Thua (Có mặt)</span>
-          <span class="member-count-badge" id="badge-count-lose-eat">0 người</span>
+          <span class="team-tag">🥊 Đội Thua (Đi ăn)</span>
+          <span class="member-count-badge" id="badge-count-lose-eat">7 người</span>
         </div>
         <div class="team-price-row">
           <div>
-            <div class="team-price num-font" id="price-lose-eat">0</div>
-            <span style="font-size: 0.75rem; color: var(--text-dim);">mỗi người cần đóng</span>
+            <div class="team-price num-font" id="price-lose-eat">197.000</div>
+            <span style="font-size: 0.75rem; color: var(--text-dim);" id="breakdown-lose-eat">mỗi người cần đóng (147k ăn + 50k kèo)</span>
           </div>
           <div class="team-subtotal">
             <div>Tổng nhóm</div>
-            <strong class="num-font" id="subtotal-lose-eat">0</strong>
+            <strong class="num-font" id="subtotal-lose-eat">1.379.000</strong>
           </div>
         </div>
-        <!-- Inline Tag Input Container -->
-        <div class="tags-container" id="box-lose-eat" data-team="lose-eat">
-          <div class="chips-list" id="chips-lose-eat"></div>
-          <input type="text" class="tag-input" id="input-lose-eat" placeholder="Nhập tên rồi gõ dấu phẩy (,)..." />
+        <div class="result-chips-wrap">
+          <div class="chips-list" id="chips-res-lose-eat"></div>
         </div>
       </div>
 
-      <!-- Card 3: Đội Thua (Vắng) - Cùng màu Cam nhưng nhạt hơn chút -->
+      <!-- Card 3: Đội Thua (Vắng mặt) -->
       <div class="team-card card-lose-home">
         <div class="team-top">
-          <span class="team-tag">🏠 Đội Thua (Vắng)</span>
-          <span class="member-count-badge" id="badge-count-lose-home">0 người</span>
+          <span class="team-tag">🏠 Đội Thua (Vắng mặt)</span>
+          <span class="member-count-badge" id="badge-count-lose-home">2 người</span>
         </div>
         <div class="team-price-row">
           <div>
-            <div class="team-price num-font" id="price-lose-home">0</div>
-            <span style="font-size: 0.75rem; color: var(--text-dim);">mỗi người cần đóng</span>
+            <div class="team-price num-font" id="price-lose-home">50.000</div>
+            <span style="font-size: 0.75rem; color: var(--text-dim);">mỗi người chỉ nộp tiền phạt kèo</span>
           </div>
           <div class="team-subtotal">
             <div>Tổng nhóm</div>
-            <strong class="num-font" id="subtotal-lose-home">0</strong>
+            <strong class="num-font" id="subtotal-lose-home">100.000</strong>
           </div>
         </div>
-        <!-- Inline Tag Input Container -->
-        <div class="tags-container" id="box-lose-home" data-team="lose-home">
-          <div class="chips-list" id="chips-lose-home"></div>
-          <input type="text" class="tag-input" id="input-lose-home" placeholder="Nhập tên rồi gõ dấu phẩy (,)..." />
+        <div class="result-chips-wrap">
+          <div class="chips-list" id="chips-res-lose-home"></div>
         </div>
       </div>
 
@@ -885,22 +1050,33 @@
 
   <!-- Script Logic -->
   <script>
-    // State variables
-    let bill = 0;
-    let penalty = 50000;
-    let roundMode = '1000'; // 'none', '1000', '5000'
+    // Dữ liệu mẫu chuẩn xác theo yêu cầu
+    const DEFAULT_DATA = {
+      bill: 2500000,
+      penalty: 50000,
+      roundMode: '1000',
+      eaters: [
+        'Toàn', 'Tuân', 'Tùng', 'Tuấn', 'Triều', 'Trung Quý', 'Tuấn Anh',
+        'Thành Thịnh', 'Tú', 'Giang', 'Quý', 'Dũng', 'Nam', 'Thanh vịt'
+      ],
+      losers: [
+        'Toàn', 'Minh', 'Dũng', 'Hiệu', 'Quý', 'Nam', 'Tuấn Anh', 'Thịnh', 'Thanh vịt'
+      ]
+    };
 
-    // Member arrays: array of objects { name: string, paid: boolean }
-    let membersWin = [];
-    let membersLoseEat = [];
-    let membersLoseHome = [];
+    // State variables
+    let bill = DEFAULT_DATA.bill;
+    let penalty = DEFAULT_DATA.penalty;
+    let roundMode = DEFAULT_DATA.roundMode; // 'none', '1000', '5000'
+
+    let eaters = [...DEFAULT_DATA.eaters];
+    let losers = [...DEFAULT_DATA.losers];
+
+    // Trạng thái đã thanh toán / gạch tên của từng người { [name]: boolean }
+    const paidStatus = {};
 
     // DOM elements
     const billInput = document.getElementById('bill-input');
-    const badgeCountWin = document.getElementById('badge-count-win');
-    const badgeCountLoseEat = document.getElementById('badge-count-lose-eat');
-    const badgeCountLoseHome = document.getElementById('badge-count-lose-home');
-
     const penaltyBtns = document.querySelectorAll('.penalty-btn');
     const roundPills = document.querySelectorAll('.round-pill');
     const btnReset = document.getElementById('btn-reset');
@@ -909,6 +1085,13 @@
     const errorBanner = document.getElementById('error-banner');
     const errorMsg = document.getElementById('error-msg');
 
+    // Badges
+    const badgeCountEaters = document.getElementById('badge-count-eaters');
+    const badgeCountLosers = document.getElementById('badge-count-losers');
+    const badgeCountWin = document.getElementById('badge-count-win');
+    const badgeCountLoseEat = document.getElementById('badge-count-lose-eat');
+    const badgeCountLoseHome = document.getElementById('badge-count-lose-home');
+
     // Results DOM
     const priceWin = document.getElementById('price-win');
     const priceLoseEat = document.getElementById('price-lose-eat');
@@ -916,132 +1099,45 @@
     const subtotalWin = document.getElementById('subtotal-win');
     const subtotalLoseEat = document.getElementById('subtotal-lose-eat');
     const subtotalLoseHome = document.getElementById('subtotal-lose-home');
+    const breakdownLoseEat = document.getElementById('breakdown-lose-eat');
 
     // Audit DOM
     const auditTotalCollected = document.getElementById('audit-total-collected');
     const auditBadge = document.getElementById('audit-badge');
 
-    // Helper: format money (không kèm chữ đ)
+    // Chip container DOMs
+    const chipsEatersEl = document.getElementById('chips-eaters');
+    const chipsLosersEl = document.getElementById('chips-losers');
+    const inputEatersEl = document.getElementById('input-eaters');
+    const inputLosersEl = document.getElementById('input-losers');
+    const boxEaters = document.getElementById('box-eaters');
+    const boxLosers = document.getElementById('box-losers');
+    const quickPickChipsEl = document.getElementById('quick-pick-chips');
+
+    const chipsResWin = document.getElementById('chips-res-win');
+    const chipsResLoseEat = document.getElementById('chips-res-lose-eat');
+    const chipsResLoseHome = document.getElementById('chips-res-lose-home');
+
+    // Helper: format money
     function formatVND(num) {
       if (isNaN(num) || num === null || num === undefined) return '0';
       return Math.round(num).toLocaleString('vi-VN');
     }
 
-    // Helper: parse money string
-    function parseVND(str) {
+    // Helper: parse flexible money string (supports 2500k, 2.5tr, 2.500.000)
+    function parseMoneyInput(str) {
       if (!str) return 0;
-      const cleaned = str.toString().replace(/[^\d]/g, '');
-      return parseInt(cleaned, 10) || 0;
-    }
-
-    // Helper: get array by key
-    function getMemberList(team) {
-      if (team === 'win') return membersWin;
-      if (team === 'lose-eat') return membersLoseEat;
-      if (team === 'lose-home') return membersLoseHome;
-      return [];
-    }
-
-    // Render chips inside tag container
-    function renderTeamChips(team) {
-      const listEl = document.getElementById(`chips-${team}`);
-      const members = getMemberList(team);
-      listEl.innerHTML = '';
-
-      members.forEach((m, idx) => {
-        const chip = document.createElement('span');
-        chip.className = `name-chip chip-${team} ${m.paid ? 'paid' : ''}`;
-        chip.innerHTML = `
-          <span class="chip-name"></span>
-          <i class="uil uil-check check-mark"></i>
-          <button type="button" class="chip-remove" title="Xóa">&times;</button>
-        `;
-        chip.querySelector('.chip-name').textContent = m.name;
-
-        // Toggle paid state when clicking name text
-        chip.querySelector('.chip-name').addEventListener('click', (e) => {
-          e.stopPropagation();
-          m.paid = !m.paid;
-          chip.classList.toggle('paid', m.paid);
-        });
-
-        // Remove chip when clicking ×
-        chip.querySelector('.chip-remove').addEventListener('click', (e) => {
-          e.stopPropagation();
-          members.splice(idx, 1);
-          renderTeamChips(team);
-          calculate();
-        });
-
-        listEl.appendChild(chip);
-      });
-    }
-
-    // Add member name to a team
-    function addMember(team, name) {
-      const clean = name.trim();
-      if (!clean) return;
-      const members = getMemberList(team);
-      members.push({ name: clean, paid: false });
-    }
-
-    // Setup unified Tag Input events
-    function setupTagInput(team) {
-      const box = document.getElementById(`box-${team}`);
-      const input = document.getElementById(`input-${team}`);
-
-      // Focus input on container click
-      box.addEventListener('click', (e) => {
-        if (!e.target.closest('.name-chip')) {
-          input.focus();
-        }
-      });
-
-      // Handle typing comma or enter
-      input.addEventListener('keydown', (e) => {
-        if (e.key === ',' || e.key === 'Enter') {
-          e.preventDefault();
-          submitTag(team, input);
-        } else if (e.key === 'Backspace' && input.value === '') {
-          const members = getMemberList(team);
-          if (members.length > 0) {
-            members.pop();
-            renderTeamChips(team);
-            calculate();
-          }
-        }
-      });
-
-      input.addEventListener('input', () => {
-        if (input.value.includes(',')) {
-          submitTag(team, input);
-        }
-      });
-
-      // Handle paste comma-separated list
-      input.addEventListener('paste', (e) => {
-        e.preventDefault();
-        const pasteData = (e.clipboardData || window.clipboardData).getData('text');
-        if (pasteData) {
-          const parts = pasteData.split(/[,;\n]+/).map(s => s.trim()).filter(Boolean);
-          parts.forEach(p => addMember(team, p));
-          input.value = '';
-          renderTeamChips(team);
-          calculate();
-        }
-      });
-    }
-
-    function submitTag(team, inputEl) {
-      const raw = inputEl.value.replace(/[,;\n]/g, '').trim();
-      if (raw) {
-        addMember(team, raw);
-        inputEl.value = '';
-        renderTeamChips(team);
-        calculate();
-      } else {
-        inputEl.value = '';
+      const s = str.toString().trim().toLowerCase();
+      if (s.endsWith('k')) {
+        const num = parseFloat(s.slice(0, -1).replace(/[^\d.,]/g, '').replace(',', '.'));
+        return isNaN(num) ? 0 : Math.round(num * 1000);
       }
+      if (s.endsWith('tr') || s.endsWith('m') || s.includes('triệu')) {
+        const num = parseFloat(s.replace(/(tr|m|triệu)/g, '').replace(/[^\d.,]/g, '').replace(',', '.'));
+        return isNaN(num) ? 0 : Math.round(num * 1000000);
+      }
+      const digits = s.replace(/[^\d]/g, '');
+      return parseInt(digits, 10) || 0;
     }
 
     // Rounding function
@@ -1052,22 +1148,267 @@
       return Math.round(val);
     }
 
+    // Chuẩn hóa chuỗi so sánh tên (bỏ khoảng trắng thừa, chữ thường)
+    function normalizeStr(s) {
+      return (s || '').trim().toLowerCase().replace(/\s+/g, ' ');
+    }
+
+    // Thuật toán phân loại thông minh 3 nhóm từ 2 danh sách Người Đi Ăn & Người Đội Thua
+    function categorizeTeams(eatersList, losersList) {
+      const matchedLoserEaters = new Set();
+      const losersWhoAte = [];
+      const losersWhoStayedHome = [];
+
+      const eatingNormalized = eatersList.map((name, idx) => ({
+        originalName: name.trim(),
+        clean: normalizeStr(name),
+        lastWord: normalizeStr(name.split(/\s+/).pop()),
+        idx
+      }));
+
+      losersList.forEach(loserName => {
+        const lClean = normalizeStr(loserName);
+        if (!lClean) return;
+
+        // 1. So khớp chính xác tuyệt đối
+        let match = eatingNormalized.find(e => !matchedLoserEaters.has(e.idx) && e.clean === lClean);
+
+        // 2. So khớp theo tên gọi duy nhất (ví dụ: Thịnh -> Thành Thịnh khi chỉ có 1 người tên Thịnh)
+        if (!match && !loserName.trim().includes(' ')) {
+          const candidates = eatingNormalized.filter(e => !matchedLoserEaters.has(e.idx) && e.lastWord === lClean);
+          if (candidates.length === 1) {
+            match = candidates[0];
+          }
+        }
+
+        // 3. So khớp phần đuôi tên
+        if (!match) {
+          const candidates = eatingNormalized.filter(e => !matchedLoserEaters.has(e.idx) && e.clean.endsWith(' ' + lClean));
+          if (candidates.length === 1) {
+            match = candidates[0];
+          }
+        }
+
+        if (match) {
+          matchedLoserEaters.add(match.idx);
+          losersWhoAte.push({
+            name: match.originalName,
+            loserKey: loserName.trim()
+          });
+        } else {
+          losersWhoStayedHome.push({
+            name: loserName.trim(),
+            loserKey: loserName.trim()
+          });
+        }
+      });
+
+      // Đội Thắng (Đi ăn): tất cả người đi ăn không thuộc nhóm thua
+      const winnersWhoAte = eatingNormalized
+        .filter(e => !matchedLoserEaters.has(e.idx))
+        .map(e => ({ name: e.originalName }));
+
+      return { winnersWhoAte, losersWhoAte, losersWhoStayedHome };
+    }
+
+    // Kiểm tra xem một người đi ăn có nằm trong danh sách đội thua hay không
+    function isEaterInLosers(eaterName) {
+      const eClean = normalizeStr(eaterName);
+      const eLastWord = normalizeStr(eaterName.split(/\s+/).pop());
+
+      return losers.some(l => {
+        const lClean = normalizeStr(l);
+        if (lClean === eClean) return true;
+        if (!l.includes(' ') && lClean === eLastWord) return true;
+        if (eClean.endsWith(' ' + lClean)) return true;
+        return false;
+      });
+    }
+
+    // Render danh sách chip nhập liệu (Người đi ăn & Người đội thua)
+    function renderInputChips() {
+      // 1. Chips Eaters
+      badgeCountEaters.innerText = `${eaters.length} người`;
+      chipsEatersEl.innerHTML = '';
+      eaters.forEach((name, idx) => {
+        const chip = document.createElement('span');
+        chip.className = 'name-chip chip-eater';
+        chip.innerHTML = `
+          <span>${escapeHtml(name)}</span>
+          <button type="button" class="chip-remove" title="Xóa">&times;</button>
+        `;
+        chip.querySelector('.chip-remove').addEventListener('click', (e) => {
+          e.stopPropagation();
+          eaters.splice(idx, 1);
+          renderInputChips();
+          calculate();
+        });
+        chipsEatersEl.appendChild(chip);
+      });
+
+      // 2. Chips Losers
+      badgeCountLosers.innerText = `${losers.length} người`;
+      chipsLosersEl.innerHTML = '';
+      losers.forEach((name, idx) => {
+        const chip = document.createElement('span');
+        chip.className = 'name-chip chip-loser';
+        chip.innerHTML = `
+          <span>${escapeHtml(name)}</span>
+          <button type="button" class="chip-remove" title="Xóa">&times;</button>
+        `;
+        chip.querySelector('.chip-remove').addEventListener('click', (e) => {
+          e.stopPropagation();
+          losers.splice(idx, 1);
+          renderInputChips();
+          calculate();
+        });
+        chipsLosersEl.appendChild(chip);
+      });
+
+      // 3. Quick Pick Chips từ nhóm đi ăn
+      quickPickChipsEl.innerHTML = '';
+      eaters.forEach(name => {
+        const isSelected = isEaterInLosers(name);
+        const qBtn = document.createElement('button');
+        qBtn.type = 'button';
+        qBtn.className = `quick-chip ${isSelected ? 'active' : ''}`;
+        qBtn.innerHTML = `${isSelected ? '<i class="uil uil-check"></i>' : '<i class="uil uil-plus"></i>'} ${escapeHtml(name)}`;
+
+        qBtn.addEventListener('click', () => {
+          if (isSelected) {
+            // Xóa khỏi losers
+            const eClean = normalizeStr(name);
+            const eLastWord = normalizeStr(name.split(/\s+/).pop());
+            const removeIdx = losers.findIndex(l => {
+              const lClean = normalizeStr(l);
+              return lClean === eClean || (!l.includes(' ') && lClean === eLastWord) || eClean.endsWith(' ' + lClean);
+            });
+            if (removeIdx !== -1) {
+              losers.splice(removeIdx, 1);
+            }
+          } else {
+            // Thêm vào losers
+            losers.push(name);
+          }
+          renderInputChips();
+          calculate();
+        });
+
+        quickPickChipsEl.appendChild(qBtn);
+      });
+    }
+
+    // Render chips trong 3 thẻ kết quả (Đội thắng, Đội thua ăn, Đội thua vắng)
+    function renderResultGroup(containerEl, memberList, chipClass) {
+      containerEl.innerHTML = '';
+      if (!memberList || memberList.length === 0) {
+        containerEl.innerHTML = '<span class="empty-state-text">(Không có ai)</span>';
+        return;
+      }
+
+      memberList.forEach(m => {
+        const isPaid = !!paidStatus[m.name];
+        const chip = document.createElement('span');
+        chip.className = `res-chip ${chipClass} ${isPaid ? 'paid' : ''}`;
+        chip.title = 'Bấm để đánh dấu đã chuyển khoản';
+        chip.innerHTML = `
+          <span>${escapeHtml(m.name)}</span>
+          <i class="uil uil-check check-mark"></i>
+        `;
+
+        chip.addEventListener('click', () => {
+          paidStatus[m.name] = !paidStatus[m.name];
+          chip.classList.toggle('paid', paidStatus[m.name]);
+        });
+
+        containerEl.appendChild(chip);
+      });
+    }
+
+    // Helper: Escape HTML
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // Setup input listeners for tags
+    function setupTagInput(boxEl, inputEl, arrayRef, onUpdate) {
+      boxEl.addEventListener('click', (e) => {
+        if (!e.target.closest('.name-chip')) {
+          inputEl.focus();
+        }
+      });
+
+      inputEl.addEventListener('keydown', (e) => {
+        if (e.key === ',' || e.key === 'Enter') {
+          e.preventDefault();
+          submitTag();
+        } else if (e.key === 'Backspace' && inputEl.value === '') {
+          if (arrayRef.length > 0) {
+            arrayRef.pop();
+            renderInputChips();
+            onUpdate();
+          }
+        }
+      });
+
+      inputEl.addEventListener('input', () => {
+        if (inputEl.value.includes(',')) {
+          submitTag();
+        }
+      });
+
+      inputEl.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const pasteData = (e.clipboardData || window.clipboardData).getData('text');
+        if (pasteData) {
+          const parts = pasteData.split(/[,;\n]+/).map(s => s.trim()).filter(Boolean);
+          parts.forEach(p => {
+            if (!arrayRef.some(item => normalizeStr(item) === normalizeStr(p))) {
+              arrayRef.push(p);
+            }
+          });
+          inputEl.value = '';
+          renderInputChips();
+          onUpdate();
+        }
+      });
+
+      function submitTag() {
+        const raw = inputEl.value.replace(/[,;\n]/g, '').trim();
+        if (raw) {
+          if (!arrayRef.some(item => normalizeStr(item) === normalizeStr(raw))) {
+            arrayRef.push(raw);
+          }
+          inputEl.value = '';
+          renderInputChips();
+          onUpdate();
+        } else {
+          inputEl.value = '';
+        }
+      }
+    }
+
     // Main Calculation
+    let currentCategorized = null;
+
     function calculate() {
-      const nWin = membersWin.length;
-      const nLoseEat = membersLoseEat.length;
-      const nLoseHome = membersLoseHome.length;
+      const categorized = categorizeTeams(eaters, losers);
+      currentCategorized = categorized;
+
+      const nWin = categorized.winnersWhoAte.length;
+      const nLoseEat = categorized.losersWhoAte.length;
+      const nLoseHome = categorized.losersWhoStayedHome.length;
+      const nEating = eaters.length;
 
       badgeCountWin.innerText = `${nWin} người`;
       badgeCountLoseEat.innerText = `${nLoseEat} người`;
       badgeCountLoseHome.innerText = `${nLoseHome} người`;
 
-      const nEating = nWin + nLoseEat;
-
       if (nEating === 0) {
         if (bill > 0) {
           errorBanner.classList.add('show');
-          errorMsg.innerText = 'Cần ít nhất 1 người có mặt đi ăn để chia hóa đơn!';
+          errorMsg.innerText = 'Cần ít nhất 1 người đi ăn để chia hóa đơn!';
         } else {
           errorBanner.classList.remove('show');
         }
@@ -1082,11 +1423,16 @@
         auditBadge.style.color = '#475569';
         auditBadge.style.background = '#f1f5f9';
         auditBadge.style.border = '1px solid #cbd5e1';
+
+        renderResultGroup(chipsResWin, [], 'chip-win');
+        renderResultGroup(chipsResLoseEat, [], 'chip-lose-eat');
+        renderResultGroup(chipsResLoseHome, categorized.losersWhoStayedHome, 'chip-lose-home');
         return;
       } else {
         errorBanner.classList.remove('show');
       }
 
+      // Tổng tiền phạt kèo từ TẤT CẢ người thua (cả đi ăn và vắng mặt)
       const totalPenalty = (nLoseHome + nLoseEat) * penalty;
       const remainingBill = Math.max(0, bill - totalPenalty);
       const rawX = remainingBill / nEating;
@@ -1114,11 +1460,20 @@
       priceLoseEat.innerText = nLoseEat > 0 ? formatVND(payLoseEat) : '0';
       priceLoseHome.innerText = nLoseHome > 0 ? formatVND(payLoseHome) : '0';
 
+      if (breakdownLoseEat) {
+        breakdownLoseEat.innerText = `mỗi người cần đóng (${formatVND(payWin)} ăn + ${formatVND(penalty)} kèo)`;
+      }
+
       subtotalWin.innerText = formatVND(totalWinSub);
       subtotalLoseEat.innerText = formatVND(totalLoseEatSub);
       subtotalLoseHome.innerText = formatVND(totalLoseHomeSub);
 
       auditTotalCollected.innerText = formatVND(grandTotal);
+
+      // Render các nhóm kết quả
+      renderResultGroup(chipsResWin, categorized.winnersWhoAte, 'chip-win');
+      renderResultGroup(chipsResLoseEat, categorized.losersWhoAte, 'chip-lose-eat');
+      renderResultGroup(chipsResLoseHome, categorized.losersWhoStayedHome, 'chip-lose-home');
 
       if (bill === 0 && grandTotal === 0) {
         auditBadge.innerHTML = '<i class="uil uil-info-circle"></i> Sẵn sàng nhập liệu';
@@ -1147,17 +1502,25 @@
       }
     }
 
-    // Bill input formatting
+    // Bill Input Event
     billInput.addEventListener('input', () => {
-      const raw = billInput.value.replace(/[^\d]/g, '');
-      if (raw) {
-        bill = parseInt(raw, 10) || 0;
-        billInput.value = bill.toLocaleString('vi-VN');
-      } else {
-        bill = 0;
-        billInput.value = '';
-      }
+      bill = parseMoneyInput(billInput.value);
       calculate();
+    });
+
+    billInput.addEventListener('blur', () => {
+      bill = parseMoneyInput(billInput.value);
+      billInput.value = bill > 0 ? bill.toLocaleString('vi-VN') : '';
+      calculate();
+    });
+
+    billInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        bill = parseMoneyInput(billInput.value);
+        billInput.value = bill > 0 ? bill.toLocaleString('vi-VN') : '';
+        calculate();
+        billInput.blur();
+      }
     });
 
     // Kèo trận Selection
@@ -1170,6 +1533,7 @@
       });
     });
 
+    // Rounding Selection
     roundPills.forEach(pill => {
       pill.addEventListener('click', () => {
         roundPills.forEach(p => p.classList.remove('active'));
@@ -1179,32 +1543,41 @@
       });
     });
 
-    // Copy summary to clipboard
+    // Sao chép báo cáo Zalo
     btnCopy.addEventListener('click', async () => {
-      const payWinText = membersWin.length > 0 ? priceWin.innerText : '0';
-      const payLoseEatText = membersLoseEat.length > 0 ? priceLoseEat.innerText : '0';
-      const payLoseHomeText = membersLoseHome.length > 0 ? priceLoseHome.innerText : '0';
+      if (!currentCategorized) calculate();
 
-      const listWinStr = membersWin.length > 0 ? membersWin.map(m => m.name).join(', ') : '(Không có)';
-      const listLoseEatStr = membersLoseEat.length > 0 ? membersLoseEat.map(m => m.name).join(', ') : '(Không có)';
-      const listLoseHomeStr = membersLoseHome.length > 0 ? membersLoseHome.map(m => m.name).join(', ') : '(Không có)';
+      const payWinText = currentCategorized.winnersWhoAte.length > 0 ? priceWin.innerText : '0';
+      const payLoseEatText = currentCategorized.losersWhoAte.length > 0 ? priceLoseEat.innerText : '0';
+      const payLoseHomeText = currentCategorized.losersWhoStayedHome.length > 0 ? priceLoseHome.innerText : '0';
 
-      const summary = `⚽ KÈO BÓNG ĐÁ & CHIA TIỀN\n` +
-        `🧾 Hóa đơn: ${bill.toLocaleString('vi-VN')}\n` +
-        `⚡ Kèo trận: ${penalty.toLocaleString('vi-VN')}/người\n` +
+      const listWinStr = currentCategorized.winnersWhoAte.length > 0
+        ? currentCategorized.winnersWhoAte.map(m => m.name).join(', ')
+        : '(Không có)';
+      const listLoseEatStr = currentCategorized.losersWhoAte.length > 0
+        ? currentCategorized.losersWhoAte.map(m => m.name).join(', ')
+        : '(Không có)';
+      const listLoseHomeStr = currentCategorized.losersWhoStayedHome.length > 0
+        ? currentCategorized.losersWhoStayedHome.map(m => m.name).join(', ')
+        : '(Không có)';
+
+      const summary = `⚽ KÈO BÓNG ĐÁ & CHIA TIỀN NHẬU\n` +
+        `🧾 Hóa đơn: ${bill.toLocaleString('vi-VN')}đ\n` +
+        `⚡ Kèo trận: ${penalty.toLocaleString('vi-VN')}đ/người thua\n` +
+        `👥 Tổng số đi ăn: ${eaters.length} người | Đội thua: ${losers.length} người\n` +
         `----------------------------------------\n` +
-        `🏆 ĐỘI THẮNG (${membersWin.length} người):\n` +
-        `👉 Mỗi người: ${payWinText}\n` +
+        `🏆 ĐỘI THẮNG (ĐI ĂN) (${currentCategorized.winnersWhoAte.length} người):\n` +
+        `👉 Mỗi người: ${payWinText}đ\n` +
         `👥 Danh sách: ${listWinStr}\n\n` +
-        `🥊 ĐỘI THUA (CÓ MẶT) (${membersLoseEat.length} người):\n` +
-        `👉 Mỗi người: ${payLoseEatText}\n` +
+        `🥊 ĐỘI THUA (ĐI ĂN) (${currentCategorized.losersWhoAte.length} người):\n` +
+        `👉 Mỗi người: ${payLoseEatText}đ (ăn + kèo)\n` +
         `👥 Danh sách: ${listLoseEatStr}\n\n` +
-        `🏠 ĐỘI THUA (VẮNG) (${membersLoseHome.length} người):\n` +
-        `👉 Mỗi người: ${payLoseHomeText}\n` +
+        `🏠 ĐỘI THUA (VẮNG MẶT) (${currentCategorized.losersWhoStayedHome.length} người):\n` +
+        `👉 Mỗi người: ${payLoseHomeText}đ (tiền kèo)\n` +
         `👥 Danh sách: ${listLoseHomeStr}\n` +
         `----------------------------------------\n` +
-        `💰 Tổng thu: ${auditTotalCollected.innerText} (${auditBadge.innerText})\n\n` +
-        `Mọi người chuyển khoản theo số tài khoản bên dưới`;
+        `💰 Tổng thực thu: ${auditTotalCollected.innerText}đ (${auditBadge.innerText})\n\n` +
+        `Mọi người chuyển khoản theo STK bên dưới nhé!`;
 
       try {
         await navigator.clipboard.writeText(summary);
@@ -1228,47 +1601,38 @@
       }, 3000);
     }
 
-    // Reset - Xóa trắng toàn bộ thông tin nhập
+    // Đặt lại mẫu ban đầu chuẩn yêu cầu
     btnReset.addEventListener('click', () => {
-      bill = 0;
-      billInput.value = '';
+      bill = DEFAULT_DATA.bill;
+      billInput.value = bill.toLocaleString('vi-VN');
 
-      membersWin = [];
-      membersLoseEat = [];
-      membersLoseHome = [];
+      penalty = DEFAULT_DATA.penalty;
+      penaltyBtns.forEach(b => {
+        b.classList.toggle('active', parseInt(b.dataset.penalty, 10) === penalty);
+      });
 
-      const inputWin = document.getElementById('input-win');
-      const inputLoseEat = document.getElementById('input-lose-eat');
-      const inputLoseHome = document.getElementById('input-lose-home');
-      if (inputWin) inputWin.value = '';
-      if (inputLoseEat) inputLoseEat.value = '';
-      if (inputLoseHome) inputLoseHome.value = '';
+      roundMode = DEFAULT_DATA.roundMode;
+      roundPills.forEach(p => {
+        p.classList.toggle('active', p.dataset.round === roundMode);
+      });
 
-      penaltyBtns.forEach(b => b.classList.remove('active'));
-      penaltyBtns[0].classList.add('active');
-      penalty = parseInt(penaltyBtns[0].dataset.penalty, 10);
+      eaters = [...DEFAULT_DATA.eaters];
+      losers = [...DEFAULT_DATA.losers];
 
-      roundPills.forEach(p => p.classList.remove('active'));
-      roundPills[1].classList.add('active');
-      roundMode = roundPills[1].dataset.round;
+      // Reset paid status
+      for (const k in paidStatus) delete paidStatus[k];
 
-      renderTeamChips('win');
-      renderTeamChips('lose-eat');
-      renderTeamChips('lose-home');
-
+      renderInputChips();
       calculate();
-      showToast('Đã đặt lại toàn bộ tên người và số tiền hóa đơn!');
+      showToast('Đã khôi phục lại mẫu mặc định theo yêu cầu!');
     });
 
     // Initialize Tag Inputs
-    setupTagInput('win');
-    setupTagInput('lose-eat');
-    setupTagInput('lose-home');
+    setupTagInput(boxEaters, inputEatersEl, eaters, calculate);
+    setupTagInput(boxLosers, inputLosersEl, losers, calculate);
 
-    renderTeamChips('win');
-    renderTeamChips('lose-eat');
-    renderTeamChips('lose-home');
-
+    // Initial render
+    renderInputChips();
     calculate();
   </script>
 </body>
