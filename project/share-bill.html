@@ -40,58 +40,39 @@
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
 
   <style>
+    /* Neobrutalism duotone palette: cyan */
     :root {
-      /* THEME VARIABLES */
-      --bg-body: #f8fafc;
-      --bg-card: #ffffff;
-      --bg-input: #ffffff;
-      --border: #e2e8f0;
-      --border-focus: #3b82f6;
+      --background: hsl(28, 100%, 80%);
+      --secondary-background: #ffffff;
+      --foreground: #000000;
+      --main-foreground: #000000;
+      --main: hsl(190, 100%, 47%);
+      --border: #000000;
+      --ring: #000000;
+      --overlay: rgba(0, 0, 0, 0.8);
+      --shadow: 4px 4px 0px 0px var(--border);
+      --chart-1: #00C8F0;
+      --chart-2: #FF7A05;
+      --chart-3: #7A83FF;
+      --chart-4: #FF4D50;
+      --chart-5: #FACC00;
+      --chart-active-dot: #000;
 
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
+      --spacing-boxShadowX: 4px;
+      --spacing-boxShadowY: 4px;
+      --radius-base: 5px;
+      --font-weight-base: 500;
+      --font-weight-heading: 800;
 
-      /* Đội Thắng: Xanh Lá Tươi Sáng */
-      --win-color: #059669;
-      --win-bg-card: linear-gradient(145deg, #f0fdf4 0%, #ffffff 100%);
-      --win-border: #86efac;
-      --win-tag-bg: #dcfce7;
-      --win-tag-text: #15803d;
-      --win-chip-bg: #dcfce7;
-      --win-chip-text: #166534;
-      --win-chip-border: #86efac;
+      /* Team specific Neobrutalism accents */
+      --win-accent: var(--chart-5);
+      --win-chip-bg: #fef08a;
 
-      /* Đội Thua (Có mặt đi ăn): Cam Ấm Áp Đậm */
-      --lose-eat-color: #d97706;
-      --lose-eat-bg-card: linear-gradient(145deg, #fffbeb 0%, #ffffff 100%);
-      --lose-eat-border: #fcd34d;
-      --lose-eat-tag-bg: #fef3c7;
-      --lose-eat-tag-text: #b45309;
-      --lose-eat-chip-bg: #fef3c7;
-      --lose-eat-chip-text: #92400e;
-      --lose-eat-chip-border: #fcd34d;
+      --lose-eat-accent: var(--chart-4);
+      --lose-eat-chip-bg: #fed7aa;
 
-      /* Đội Thua (Vắng mặt): Cam nhạt */
-      --lose-home-color: #b45309;
-      --lose-home-bg-card: linear-gradient(145deg, #fffdf5 0%, #ffffff 100%);
-      --lose-home-border: #fef08a;
-      --lose-home-tag-bg: #fffbeb;
-      --lose-home-tag-text: #92400e;
-      --lose-home-chip-bg: #fffbeb;
-      --lose-home-chip-text: #92400e;
-      --lose-home-chip-border: #fef08a;
-
-      --text-main: #0f172a;
-      --text-sub: #475569;
-      --text-dim: #94a3b8;
-
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-      --radius-full: 9999px;
-
-      --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.04);
-      --shadow-hover: 0 14px 30px -5px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05);
+      --lose-home-accent: var(--chart-3);
+      --lose-home-chip-bg: #e0e7ff;
     }
 
     * {
@@ -104,13 +85,11 @@
 
     body {
       min-height: 100vh;
-      background-color: var(--bg-body);
-      background-image:
-        linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
-      background-size: 32px 32px;
-      color: var(--text-main);
-      padding: 1.25rem 1rem 3.5rem;
+      background-color: var(--background);
+      background-image: radial-gradient(var(--border) 1.2px, transparent 1.2px);
+      background-size: 20px 20px;
+      color: var(--foreground);
+      padding: 1.5rem 1rem 4rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -119,7 +98,7 @@
     .num-font {
       font-family: 'Inter', sans-serif;
       font-variant-numeric: tabular-nums;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     /* Header Nav */
@@ -129,38 +108,50 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
     }
 
     .brand-badge {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--primary);
-      background: rgba(37, 99, 235, 0.08);
-      padding: 0.35rem 0.85rem;
-      border-radius: var(--radius-full);
-      border: 1px solid rgba(37, 99, 235, 0.2);
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: var(--main-foreground);
+      background: var(--main);
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-base);
+      border: 2.5px solid var(--border);
+      box-shadow: 3px 3px 0px 0px var(--border);
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .main-title {
       text-align: center;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.75rem;
     }
 
     .main-title h1 {
-      font-size: clamp(1.4rem, 2.8vw, 2rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--text-main);
+      font-size: clamp(1.8rem, 3.8vw, 2.6rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--foreground);
+      text-transform: uppercase;
+      line-height: 1.15;
     }
 
     .main-title p {
       font-size: 0.88rem;
-      color: var(--text-sub);
-      margin-top: 0.3rem;
+      font-weight: 700;
+      color: var(--foreground);
+      background: var(--secondary-background);
+      border: 2px solid var(--border);
+      box-shadow: 3px 3px 0px 0px var(--border);
+      border-radius: var(--radius-base);
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      margin-top: 0.6rem;
     }
 
     /* Main Container */
@@ -175,54 +166,51 @@
     @media (min-width: 900px) {
       .calculator-wrapper {
         grid-template-columns: 1.05fr 1.15fr;
-        gap: 1.75rem;
+        gap: 2rem;
         align-items: start;
       }
     }
 
     /* Left Panel Card: Input Section */
     .panel-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.4rem;
-      box-shadow: var(--shadow-card);
+      background: var(--secondary-background);
+      border: 3px solid var(--border);
+      border-radius: var(--radius-base);
+      padding: 1.6rem;
+      box-shadow: 6px 6px 0px 0px var(--border);
     }
 
     .form-group {
-      margin-bottom: 1.15rem;
+      margin-bottom: 1.25rem;
     }
 
     .form-label-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.45rem;
     }
 
     .form-label {
       font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--text-main);
+      font-weight: 800;
+      color: var(--foreground);
       display: flex;
       align-items: center;
       gap: 0.35rem;
-    }
-
-    .hint-text {
-      font-size: 0.75rem;
-      color: var(--text-dim);
-      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
     }
 
     .member-count-badge {
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--primary);
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      padding: 0.15rem 0.55rem;
-      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--foreground);
+      background: var(--chart-1);
+      border: 2px solid var(--border);
+      box-shadow: 2px 2px 0px 0px var(--border);
+      padding: 0.15rem 0.6rem;
+      border-radius: var(--radius-base);
     }
 
     .input-wrapper {
@@ -234,70 +222,80 @@
     .input-icon {
       position: absolute;
       left: 14px;
-      color: var(--text-dim);
-      font-size: 1.15rem;
+      color: var(--foreground);
+      font-size: 1.25rem;
       pointer-events: none;
+      font-weight: 700;
     }
 
     .input-unit {
       position: absolute;
       right: 14px;
-      color: var(--text-sub);
-      font-size: 0.9rem;
-      font-weight: 700;
+      color: var(--foreground);
+      font-size: 1.1rem;
+      font-weight: 900;
       pointer-events: none;
     }
 
     .form-control {
       width: 100%;
-      background: var(--bg-input);
-      border: 1.5px solid #cbd5e1;
-      border-radius: var(--radius-md);
-      padding: 0.7rem 2.2rem 0.7rem 2.5rem;
-      color: var(--text-main);
-      font-size: 1.1rem;
-      font-weight: 700;
-      transition: all 0.2s ease;
+      background: var(--secondary-background);
+      border: 2.5px solid var(--border);
+      border-radius: var(--radius-base);
+      box-shadow: 3px 3px 0px 0px var(--border);
+      padding: 0.75rem 2.5rem 0.75rem 2.6rem;
+      color: var(--foreground);
+      font-size: 1.15rem;
+      font-weight: 800;
+      transition: all 0.15s ease;
     }
 
     .form-control:focus {
       outline: none;
-      border-color: var(--border-focus);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-      background: #ffffff;
+      background: var(--secondary-background);
+      border-color: var(--border);
+      box-shadow: 5px 5px 0px 0px var(--border);
+      transform: translate(-1px, -1px);
     }
 
     /* Kèo trận Buttons */
     .penalty-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0.45rem;
+      gap: 0.5rem;
     }
 
     .penalty-btn {
-      background: #f8fafc;
-      border: 1.5px solid var(--border);
-      color: var(--text-sub);
-      padding: 0.6rem 0.3rem;
-      border-radius: var(--radius-md);
+      background: var(--secondary-background);
+      border: 2.5px solid var(--border);
+      box-shadow: 3px 3px 0px 0px var(--border);
+      color: var(--foreground);
+      padding: 0.65rem 0.25rem;
+      border-radius: var(--radius-base);
       font-size: 0.92rem;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
       text-align: center;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
+      user-select: none;
     }
 
     .penalty-btn:hover {
-      border-color: #cbd5e1;
-      background: #f1f5f9;
-      color: var(--text-main);
+      background: #fdf2e9;
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0px 0px var(--border);
+    }
+
+    .penalty-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px 0px var(--border);
     }
 
     .penalty-btn.active {
-      background: #eff6ff;
-      border-color: var(--primary);
-      color: var(--primary);
-      box-shadow: 0 0 0 1px var(--primary);
+      background: var(--main);
+      color: var(--main-foreground);
+      box-shadow: 3px 3px 0px 0px var(--border);
+      font-weight: 900;
     }
 
     /* Tag Input Container */
@@ -305,20 +303,20 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.35rem;
-      background: #ffffff;
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 0.4rem 0.55rem;
-      min-height: 44px;
+      gap: 0.4rem;
+      background: var(--secondary-background);
+      border: 2.5px solid var(--border);
+      border-radius: var(--radius-base);
+      box-shadow: 3px 3px 0px 0px var(--border);
+      padding: 0.45rem 0.6rem;
+      min-height: 48px;
       cursor: text;
-      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }
 
     .tags-container:focus-within {
-      border-color: var(--border-focus);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+      box-shadow: 5px 5px 0px 0px var(--border);
+      transform: translate(-1px, -1px);
     }
 
     .chips-list {
@@ -328,36 +326,37 @@
     .name-chip {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 0.22rem 0.55rem;
-      border-radius: var(--radius-full);
+      gap: 0.35rem;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-base);
+      border: 2px solid var(--border);
+      box-shadow: 2px 2px 0px 0px var(--border);
       user-select: none;
       transition: all 0.15s ease;
       line-height: 1.2;
     }
 
     .chip-eater {
-      background: #eff6ff;
-      color: #1e40af;
-      border: 1px solid #bfdbfe;
+      background: #a5f3fc;
+      color: var(--foreground);
     }
 
     .chip-loser {
-      background: #fef3c7;
-      color: #92400e;
-      border: 1px solid #fcd34d;
+      background: #fecdd3;
+      color: var(--foreground);
     }
 
     .chip-remove {
       background: transparent;
       border: none;
       color: inherit;
-      font-size: 1.05rem;
+      font-size: 1.15rem;
+      font-weight: 900;
       line-height: 1;
       cursor: pointer;
-      opacity: 0.6;
+      opacity: 0.75;
       padding: 0 0 0 2px;
       display: inline-flex;
       align-items: center;
@@ -366,104 +365,111 @@
 
     .chip-remove:hover {
       opacity: 1;
+      transform: scale(1.15);
     }
 
     .tag-input {
-      flex: 1 1 90px;
-      min-width: 90px;
+      flex: 1 1 100px;
+      min-width: 100px;
       background: transparent;
       border: none;
       outline: none;
-      color: var(--text-main);
-      font-size: 0.85rem;
+      color: var(--foreground);
+      font-size: 0.88rem;
+      font-weight: 700;
       padding: 0.25rem 0.3rem;
       font-family: inherit;
     }
 
     .tag-input::placeholder {
-      color: var(--text-dim);
-      font-size: 0.78rem;
-    }
-
-    .input-help-sub {
-      font-size: 0.75rem;
-      color: var(--text-dim);
-      margin-top: 0.35rem;
+      color: #71717a;
+      font-weight: 600;
+      font-size: 0.82rem;
     }
 
     /* Rounding options */
     .rounding-row {
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
-      margin-top: 1rem;
-      padding-top: 0.8rem;
-      border-top: 1px solid var(--border);
-      margin-bottom: 1rem;
+      margin-top: 1.1rem;
+      padding-top: 0.9rem;
+      border-top: 2px dashed var(--border);
+      margin-bottom: 1.1rem;
     }
 
     .rounding-label {
-      font-size: 0.8rem;
-      color: var(--text-sub);
-      font-weight: 600;
+      font-size: 0.82rem;
+      color: var(--foreground);
+      font-weight: 800;
+      text-transform: uppercase;
     }
 
     .round-pill {
-      font-size: 0.78rem;
-      padding: 0.25rem 0.65rem;
-      background: #f1f5f9;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-full);
-      color: var(--text-sub);
+      font-size: 0.8rem;
+      padding: 0.3rem 0.75rem;
+      background: var(--secondary-background);
+      border: 2px solid var(--border);
+      box-shadow: 2px 2px 0px 0px var(--border);
+      border-radius: var(--radius-base);
+      color: var(--foreground);
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.15s ease;
     }
 
     .round-pill:hover {
-      border-color: #cbd5e1;
-      color: var(--text-main);
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0px 0px var(--border);
+    }
+
+    .round-pill:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px 0px var(--border);
     }
 
     .round-pill.active {
-      background: #dbeafe;
-      border-color: #3b82f6;
-      color: #1e40af;
-      font-weight: 700;
+      background: var(--main);
+      color: var(--main-foreground);
+      font-weight: 900;
     }
 
     /* Audit box */
     .audit-box {
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 0.9rem;
-      margin-bottom: 1.15rem;
+      background: #fdf2e9;
+      border: 2.5px solid var(--border);
+      box-shadow: 3px 3px 0px 0px var(--border);
+      border-radius: var(--radius-base);
+      padding: 1rem;
+      margin-bottom: 1.25rem;
     }
 
     .audit-title {
-      font-size: 0.8rem;
-      font-weight: 700;
+      font-size: 0.82rem;
+      font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-sub);
+      letter-spacing: 0.04em;
+      color: var(--foreground);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
     }
 
     .audit-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.88rem;
-      color: var(--text-sub);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--foreground);
     }
 
     .audit-row strong {
-      color: var(--text-main);
-      font-size: 1.05rem;
+      color: var(--foreground);
+      font-size: 1.2rem;
+      font-weight: 900;
     }
 
     .audit-balance-badge {
@@ -471,19 +477,21 @@
       align-items: center;
       gap: 0.3rem;
       font-size: 0.75rem;
-      font-weight: 700;
-      color: #065f46;
-      background: #d1fae5;
-      border: 1px solid #a7f3d0;
-      padding: 0.2rem 0.55rem;
-      border-radius: var(--radius-full);
+      font-weight: 800;
+      color: var(--foreground);
+      background: var(--secondary-background);
+      border: 2px solid var(--border);
+      box-shadow: 2px 2px 0px 0px var(--border);
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-base);
+      text-transform: uppercase;
     }
 
     /* Action Buttons */
     .action-grid {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: 0.5rem;
+      gap: 0.65rem;
     }
 
     @media (max-width: 520px) {
@@ -496,59 +504,72 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.45rem;
-      padding: 0.75rem 0.8rem;
-      border-radius: var(--radius-md);
-      font-size: 0.88rem;
-      font-weight: 700;
+      gap: 0.5rem;
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-base);
+      font-size: 0.92rem;
+      font-weight: 900;
       cursor: pointer;
-      border: none;
-      transition: all 0.2s ease;
+      border: 2.5px solid var(--border);
+      box-shadow: 4px 4px 0px 0px var(--border);
+      transition: all 0.15s ease;
       white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
     }
 
     .btn-copy {
-      background: linear-gradient(135deg, #2563eb, #3b82f6);
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      background: var(--main);
+      color: var(--main-foreground);
     }
 
     .btn-copy:hover {
-      background: linear-gradient(135deg, #1d4ed8, #2563eb);
-      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
-      transform: translateY(-1px);
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px 0px var(--border);
+    }
+
+    .btn-copy:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px 0px var(--border);
     }
 
     .btn-clear {
-      background: #f1f5f9;
-      color: var(--text-sub);
-      border: 1px solid var(--border);
+      background: var(--secondary-background);
+      color: var(--foreground);
     }
 
     .btn-clear:hover {
       background: #fee2e2;
-      border-color: #fca5a5;
-      color: #b91c1c;
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px 0px var(--border);
+    }
+
+    .btn-clear:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px 0px var(--border);
     }
 
     /* ================= RIGHT PANEL: 3 AUTO CATEGORIZED TEAM CARDS ================= */
     .results-panel {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.25rem;
     }
 
     .team-card {
-      border-radius: var(--radius-lg);
-      padding: 1.3rem;
+      background: var(--secondary-background);
+      border: 3px solid var(--border);
+      border-radius: var(--radius-base);
+      box-shadow: 6px 6px 0px 0px var(--border);
+      padding: 1.4rem;
       position: relative;
       overflow: hidden;
-      box-shadow: var(--shadow-card);
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }
 
     .team-card:hover {
-      box-shadow: var(--shadow-hover);
+      transform: translate(-1px, -1px);
+      box-shadow: 7px 7px 0px 0px var(--border);
     }
 
     .team-card::before {
@@ -556,75 +577,61 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 4px;
+      width: 8px;
       height: 100%;
+      border-right: 2px solid var(--border);
     }
 
-    /* Card Đội Thắng: Xanh tươi sáng */
-    .card-win {
-      background: var(--win-bg-card);
-      border: 1.5px solid var(--win-border);
-    }
-
+    /* Card Đội Thắng nhậu: Accent Yellow */
     .card-win::before {
-      background: var(--win-color);
+      background: var(--win-accent);
     }
 
-    /* Card Đội Thua Có mặt đi ăn: Cam ấm áp đậm */
-    .card-lose-eat {
-      background: var(--lose-eat-bg-card);
-      border: 1.5px solid var(--lose-eat-border);
-    }
-
+    /* Card Đội Thua nhậu: Accent Coral Red */
     .card-lose-eat::before {
-      background: var(--lose-eat-color);
+      background: var(--lose-eat-accent);
     }
 
-    /* Card Đội Thua Vắng: Cam nhạt */
-    .card-lose-home {
-      background: var(--lose-home-bg-card);
-      border: 1.5px solid var(--lose-home-border);
-    }
-
+    /* Card Đội Thua về: Accent Periwinkle */
     .card-lose-home::before {
-      background: rgba(217, 119, 6, 0.45);
+      background: var(--lose-home-accent);
     }
 
     .team-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 0.55rem;
+      margin-bottom: 0.65rem;
+      padding-left: 0.4rem;
     }
 
     .team-tag {
-      font-size: 0.82rem;
-      font-weight: 800;
+      font-size: 0.85rem;
+      font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 0.03em;
-      padding: 0.25rem 0.7rem;
-      border-radius: var(--radius-full);
+      padding: 0.3rem 0.8rem;
+      border-radius: var(--radius-base);
+      border: 2px solid var(--border);
+      box-shadow: 2px 2px 0px 0px var(--border);
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.4rem;
     }
 
     .card-win .team-tag {
-      background: var(--win-tag-bg);
-      color: var(--win-tag-text);
-      border: 1px solid var(--win-border);
+      background: var(--win-accent);
+      color: #000000;
     }
 
     .card-lose-eat .team-tag {
-      background: var(--lose-eat-tag-bg);
-      color: var(--lose-eat-tag-text);
-      border: 1px solid var(--lose-eat-border);
+      background: var(--lose-eat-accent);
+      color: #ffffff;
     }
 
     .card-lose-home .team-tag {
-      background: var(--lose-home-tag-bg);
-      color: var(--lose-home-tag-text);
-      border: 1px solid var(--lose-home-border);
+      background: var(--lose-home-accent);
+      color: #ffffff;
     }
 
     .team-price-row {
@@ -633,47 +640,36 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 0.5rem;
-      margin-bottom: 0.85rem;
+      margin-bottom: 1rem;
+      padding-left: 0.4rem;
     }
 
     .team-price {
-      font-size: clamp(1.6rem, 2.4vw, 2.1rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
+      font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--foreground);
     }
 
-    .card-win .team-price {
-      color: var(--win-color);
-    }
-
-    .card-lose-eat .team-price {
-      color: var(--lose-eat-color);
-    }
-
-    .card-lose-home .team-price {
-      color: var(--lose-home-color);
+    .price-caption {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #374151;
+      display: block;
+      margin-top: 0.15rem;
     }
 
     .team-subtotal {
-      font-size: 0.82rem;
-      color: var(--text-dim);
+      font-size: 0.85rem;
+      color: #4b5563;
       text-align: right;
+      font-weight: 700;
     }
 
     .team-subtotal strong {
-      font-size: 0.95rem;
-    }
-
-    .card-win .team-subtotal strong {
-      color: var(--win-color);
-    }
-
-    .card-lose-eat .team-subtotal strong {
-      color: var(--lose-eat-color);
-    }
-
-    .card-lose-home .team-subtotal strong {
-      color: var(--lose-home-color);
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--foreground);
     }
 
     /* Result Chips Area */
@@ -681,19 +677,22 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.35rem;
-      padding-top: 0.65rem;
-      border-top: 1px dashed rgba(0, 0, 0, 0.08);
+      gap: 0.4rem;
+      padding-top: 0.8rem;
+      border-top: 2px dashed var(--border);
+      padding-left: 0.4rem;
     }
 
     .res-chip {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 0.22rem 0.6rem;
-      border-radius: var(--radius-full);
+      gap: 0.35rem;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-base);
+      border: 2px solid var(--border);
+      box-shadow: 2px 2px 0px 0px var(--border);
       user-select: none;
       cursor: pointer;
       transition: all 0.15s ease;
@@ -701,39 +700,44 @@
     }
 
     .res-chip:hover {
-      transform: translateY(-1px);
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0px 0px var(--border);
+    }
+
+    .res-chip:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px 0px var(--border);
     }
 
     .chip-win {
       background: var(--win-chip-bg);
-      color: var(--win-chip-text);
-      border: 1px solid var(--win-chip-border);
+      color: var(--foreground);
     }
 
     .chip-lose-eat {
       background: var(--lose-eat-chip-bg);
-      color: var(--lose-eat-chip-text);
-      border: 1px solid var(--lose-eat-chip-border);
+      color: var(--foreground);
     }
 
     .chip-lose-home {
       background: var(--lose-home-chip-bg);
-      color: var(--lose-home-chip-text);
-      border: 1px solid var(--lose-home-chip-border);
+      color: var(--foreground);
     }
 
     .res-chip.paid {
-      background: #f1f5f9 !important;
-      color: #94a3b8 !important;
-      border-color: #cbd5e1 !important;
+      background: #e2e8f0 !important;
+      color: #64748b !important;
+      border-color: var(--border) !important;
       text-decoration: line-through;
-      opacity: 0.6;
+      box-shadow: 1px 1px 0px 0px var(--border) !important;
+      opacity: 0.65;
     }
 
     .res-chip .check-mark {
       display: none;
-      color: #10b981;
-      font-size: 0.85rem;
+      color: #000;
+      font-size: 0.95rem;
+      font-weight: 900;
     }
 
     .res-chip.paid .check-mark {
@@ -741,8 +745,9 @@
     }
 
     .empty-state-text {
-      font-size: 0.78rem;
-      color: var(--text-dim);
+      font-size: 0.82rem;
+      color: #6b7280;
+      font-weight: 700;
       font-style: italic;
     }
 
@@ -752,20 +757,23 @@
       bottom: 2rem;
       left: 50%;
       transform: translateX(-50%) translateY(100px);
-      background: #0f172a;
-      color: #fff;
-      padding: 0.75rem 1.3rem;
-      border-radius: var(--radius-full);
-      font-size: 0.85rem;
-      font-weight: 600;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      background: var(--main);
+      color: var(--main-foreground);
+      border: 3px solid var(--border);
+      box-shadow: 5px 5px 0px 0px var(--border);
+      padding: 0.85rem 1.4rem;
+      border-radius: var(--radius-base);
+      font-size: 0.92rem;
+      font-weight: 900;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
       opacity: 0;
       pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       z-index: 999;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
     }
 
     .toast.show {
@@ -774,21 +782,23 @@
     }
 
     .toast i {
-      color: #34d399;
-      font-size: 1.1rem;
+      color: #000;
+      font-size: 1.25rem;
+      font-weight: 900;
     }
 
     /* Error state */
     .error-banner {
       display: none;
       background: #fee2e2;
-      border: 1px solid #fca5a5;
-      color: #b91c1c;
-      padding: 0.65rem 0.9rem;
-      border-radius: var(--radius-md);
-      font-size: 0.82rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
+      border: 2.5px solid var(--border);
+      box-shadow: 4px 4px 0px 0px var(--border);
+      color: #000;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-base);
+      font-size: 0.88rem;
+      font-weight: 800;
+      margin-bottom: 1.2rem;
       width: 100%;
       max-width: 1080px;
     }
@@ -847,7 +857,7 @@
       <div class="form-group">
         <div class="form-label-row">
           <label class="form-label">
-            <i class="uil uil-bolt-alt"></i> Tiền Kèo Trận: <b id="penalty-current-display" style="color: var(--primary);">50.000đ</b>
+            <i class="uil uil-bolt-alt"></i> Tiền Kèo Trận: <b id="penalty-current-display">50.000đ</b>
           </label>
         </div>
         <div class="penalty-grid">
@@ -898,13 +908,13 @@
       <div class="audit-box">
         <div class="audit-title">
           <span>Đối Soát Hóa Đơn</span>
-          <span class="audit-balance-badge" id="audit-badge" style="color: #475569; background: #f1f5f9; border: 1px solid #cbd5e1;">
+          <span class="audit-balance-badge" id="audit-badge">
             <i class="uil uil-info-circle"></i> Sẵn sàng nhập liệu
           </span>
         </div>
         <div class="audit-row">
           <span>Tổng thực thu:</span>
-          <strong class="num-font" id="audit-total-collected" style="color: #2563eb;">0</strong>
+          <strong class="num-font" id="audit-total-collected">0</strong>
         </div>
       </div>
 
@@ -931,7 +941,7 @@
         <div class="team-price-row">
           <div>
             <div class="team-price num-font" id="price-win">0</div>
-            <span style="font-size: 0.75rem; color: var(--text-dim);">mỗi người cần đóng</span>
+            <span class="price-caption">mỗi người cần đóng</span>
           </div>
           <div class="team-subtotal">
             <div>Tổng nhóm</div>
@@ -952,7 +962,7 @@
         <div class="team-price-row">
           <div>
             <div class="team-price num-font" id="price-lose-eat">0</div>
-            <span style="font-size: 0.75rem; color: var(--text-dim);" id="breakdown-lose-eat">mỗi người cần đóng (tiền ăn + kèo)</span>
+            <span class="price-caption" id="breakdown-lose-eat">mỗi người cần đóng (tiền ăn + kèo)</span>
           </div>
           <div class="team-subtotal">
             <div>Tổng nhóm</div>
@@ -973,7 +983,7 @@
         <div class="team-price-row">
           <div>
             <div class="team-price num-font" id="price-lose-home">0</div>
-            <span style="font-size: 0.75rem; color: var(--text-dim);">mỗi người chỉ nộp tiền phạt kèo</span>
+            <span class="price-caption">mỗi người chỉ nộp tiền phạt kèo</span>
           </div>
           <div class="team-subtotal">
             <div>Tổng nhóm</div>
@@ -1300,9 +1310,10 @@
         subtotalLoseHome.innerText = formatVND(nLoseHome * penalty);
         auditTotalCollected.innerText = formatVND(nLoseHome * penalty);
         auditBadge.innerHTML = '<i class="uil uil-info-circle"></i> Sẵn sàng nhập liệu';
-        auditBadge.style.color = '#475569';
-        auditBadge.style.background = '#f1f5f9';
-        auditBadge.style.border = '1px solid #cbd5e1';
+        auditBadge.style.color = '#000000';
+        auditBadge.style.background = '#ffffff';
+        auditBadge.style.border = '2px solid var(--border)';
+        auditBadge.style.boxShadow = '2px 2px 0px var(--border)';
 
         renderResultGroup(chipsResWin, [], 'chip-win');
         renderResultGroup(chipsResLoseEat, [], 'chip-lose-eat');
@@ -1357,28 +1368,32 @@
 
       if (bill === 0 && grandTotal === 0) {
         auditBadge.innerHTML = '<i class="uil uil-info-circle"></i> Sẵn sàng nhập liệu';
-        auditBadge.style.color = '#475569';
-        auditBadge.style.background = '#f1f5f9';
-        auditBadge.style.border = '1px solid #cbd5e1';
+        auditBadge.style.color = '#000000';
+        auditBadge.style.background = '#ffffff';
+        auditBadge.style.border = '2px solid var(--border)';
+        auditBadge.style.boxShadow = '2px 2px 0px var(--border)';
         return;
       }
 
       const diff = grandTotal - bill;
       if (diff === 0) {
         auditBadge.innerHTML = '<i class="uil uil-check-circle"></i> Khớp Bill 100%';
-        auditBadge.style.color = '#065f46';
-        auditBadge.style.background = '#d1fae5';
-        auditBadge.style.border = '1px solid #a7f3d0';
+        auditBadge.style.color = '#000000';
+        auditBadge.style.background = '#86efac';
+        auditBadge.style.border = '2px solid var(--border)';
+        auditBadge.style.boxShadow = '2px 2px 0px var(--border)';
       } else if (diff > 0) {
         auditBadge.innerHTML = `<i class="uil uil-plus-circle"></i> Dư ${formatVND(diff)}`;
-        auditBadge.style.color = '#1e40af';
-        auditBadge.style.background = '#dbeafe';
-        auditBadge.style.border = '1px solid #bfdbfe';
+        auditBadge.style.color = '#000000';
+        auditBadge.style.background = 'var(--main)';
+        auditBadge.style.border = '2px solid var(--border)';
+        auditBadge.style.boxShadow = '2px 2px 0px var(--border)';
       } else {
         auditBadge.innerHTML = `<i class="uil uil-exclamation-triangle"></i> Hụt ${formatVND(Math.abs(diff))}`;
-        auditBadge.style.color = '#b91c1c';
-        auditBadge.style.background = '#fee2e2';
-        auditBadge.style.border = '1px solid #fca5a5';
+        auditBadge.style.color = '#ffffff';
+        auditBadge.style.background = 'var(--chart-4)';
+        auditBadge.style.border = '2px solid var(--border)';
+        auditBadge.style.boxShadow = '2px 2px 0px var(--border)';
       }
     }
 
