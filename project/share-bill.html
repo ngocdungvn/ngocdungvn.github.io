@@ -849,7 +849,6 @@
           <label class="form-label">
             <i class="uil uil-bolt-alt"></i> Tiền Kèo Trận: <b id="penalty-current-display" style="color: var(--primary);">50.000đ</b>
           </label>
-          <span class="hint-text">Cố định 50.000đ / người thua</span>
         </div>
         <div class="penalty-grid">
           <button type="button" class="penalty-btn active num-font" data-penalty="50000">50.000</button>
@@ -871,7 +870,6 @@
           <div class="chips-list" id="chips-eaters"></div>
           <input type="text" class="tag-input" id="input-eaters" placeholder="Nhập tên rồi ấn phẩy (,), hoặc dán danh sách..." />
         </div>
-        <div class="input-help-sub">Nhập hoặc dán tất cả người có mặt đi ăn chia bill</div>
       </div>
 
       <!-- 4. Người đội thua -->
@@ -886,7 +884,6 @@
           <div class="chips-list" id="chips-losers"></div>
           <input type="text" class="tag-input" id="input-losers" placeholder="Nhập tên hoặc dán danh sách người thua..." />
         </div>
-        <div class="input-help-sub">Bao gồm cả người thua đi ăn và người thua vắng mặt</div>
       </div>
 
       <!-- Làm tròn -->
@@ -955,7 +952,7 @@
         <div class="team-price-row">
           <div>
             <div class="team-price num-font" id="price-lose-eat">0</div>
-            <span style="font-size: 0.75rem; color: var(--text-dim);" id="breakdown-lose-eat">mỗi người cần đóng (tiền ăn + 50.000đ kèo)</span>
+            <span style="font-size: 0.75rem; color: var(--text-dim);" id="breakdown-lose-eat">mỗi người cần đóng (tiền ăn + kèo)</span>
           </div>
           <div class="team-subtotal">
             <div>Tổng nhóm</div>
@@ -1295,6 +1292,9 @@
         priceWin.innerText = '0';
         priceLoseEat.innerText = '0';
         priceLoseHome.innerText = nLoseHome > 0 ? formatVND(penalty) : '0';
+        if (breakdownLoseEat) {
+          breakdownLoseEat.innerText = `mỗi người cần đóng (tiền ăn + ${formatVND(penalty)}đ kèo)`;
+        }
         subtotalWin.innerText = '0';
         subtotalLoseEat.innerText = '0';
         subtotalLoseHome.innerText = formatVND(nLoseHome * penalty);
@@ -1341,7 +1341,7 @@
       priceLoseHome.innerText = nLoseHome > 0 ? formatVND(payLoseHome) : '0';
 
       if (breakdownLoseEat) {
-        breakdownLoseEat.innerText = `mỗi người cần đóng (${formatVND(payWin)} ăn + ${formatVND(penalty)} kèo)`;
+        breakdownLoseEat.innerText = `mỗi người cần đóng (${formatVND(payWin)}đ ăn + ${formatVND(penalty)}đ kèo)`;
       }
 
       subtotalWin.innerText = formatVND(totalWinSub);
