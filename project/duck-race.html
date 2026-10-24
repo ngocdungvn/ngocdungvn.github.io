@@ -1139,52 +1139,40 @@
       background: #f87171;
     }
 
-    /* Floating View Results Button - Neobrutalism */
-    .floating-results-btn {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 60;
-      display: none;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 22px;
+    /* Header View Results Icon Button - Retro Cartoon Trophy */
+    #btnViewResultsHeader {
       background: #fed033;
       color: #000000;
-      border: 3px solid #000000;
-      border-radius: 12px;
-      font-size: 14.5px;
-      font-weight: 900;
-      box-shadow: 4px 4px 0px #000000;
+      border: 2.5px solid #000000;
+      box-shadow: 2.5px 2.5px 0px #000000;
+      flex-shrink: 0;
       cursor: pointer;
       transition: all 0.15s ease;
     }
 
-    .floating-results-btn:hover {
-      transform: translate(-1.5px, -1.5px);
-      box-shadow: 6px 6px 0px #000000;
+    #btnViewResultsHeader:hover {
       background: #fde047;
+      transform: translate(-1.5px, -1.5px);
+      box-shadow: 4px 4px 0px #000000;
     }
 
-    .floating-results-btn:active {
-      transform: translate(2px, 2px);
+    #btnViewResultsHeader:active {
+      transform: translate(1.5px, 1.5px);
       box-shadow: 1px 1px 0px #000000;
     }
 
-    .floating-results-btn.active,
-    .floating-results-btn.show {
-      display: inline-flex !important;
-      animation: float-btn-bounce 2.2s infinite ease-in-out;
+    #btnViewResultsHeader.pulse-attention {
+      animation: trophy-pulse 2s infinite ease-in-out;
     }
 
-    @keyframes float-btn-bounce {
+    @keyframes trophy-pulse {
       0%, 100% {
-        transform: translateY(0);
-        box-shadow: 4px 4px 0px #000000;
+        transform: scale(1);
+        box-shadow: 2.5px 2.5px 0px #000000;
       }
       50% {
-        transform: translateY(-5px);
-        box-shadow: 4px 9px 0px #000000;
+        transform: scale(1.08);
+        box-shadow: 3.5px 3.5px 0px #000000;
       }
     }
 
@@ -1427,14 +1415,6 @@
         align-items: stretch;
         gap: 4px;
       }
-
-      .floating-results-btn {
-        bottom: 14px;
-        right: 14px;
-        padding: 10px 16px;
-        font-size: 13px;
-        border-radius: 10px;
-      }
     }
 
     @media (max-width: 600px) {
@@ -1675,8 +1655,7 @@
 
       <!-- Top Right: Action Tools (Kết quả, Nhãn tên, Toàn màn hình, Xoay ngang, Cài đặt) -->
       <div class="os-right-controls">
-        <button class="os-icon-btn" id="btnViewResultsHeader" title="Xem lại kết quả"
-          style="display: none; background: #fed033; color: #000000;">
+        <button class="os-icon-btn" id="btnViewResultsHeader" title="Xem lại kết quả" style="display: none;">
           <i class="uil uil-trophy"></i>
         </button>
         <button class="os-icon-btn" id="btnToggleLabels" title="Bật / Tắt nhãn tên trên vịt">
@@ -1838,11 +1817,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Floating View Results Button (khi đóng modal) -->
-    <button class="floating-results-btn" id="btnFloatingResults">
-      <i class="uil uil-trophy"></i> <span>Xem Lại Kết Quả</span>
-    </button>
 
     <!-- Toast Popup -->
     <div class="toast-msg" id="toastMsg">
@@ -3360,8 +3334,11 @@
         document.getElementById('hudOverlay').classList.add('active');
         document.getElementById('setupModal').classList.add('hidden');
         document.getElementById('resultsModal').classList.add('hidden');
-        document.getElementById('btnFloatingResults').classList.remove('show');
-        document.getElementById('btnViewResultsHeader').style.display = 'none';
+        const btnVR = document.getElementById('btnViewResultsHeader');
+        if (btnVR) {
+          btnVR.style.display = 'none';
+          btnVR.classList.remove('pulse-attention');
+        }
 
         AudioController.playAirhorn();
         AudioController.playQuack();
@@ -3408,8 +3385,11 @@
         updateStartButtonUI(false);
         document.getElementById('hudOverlay').classList.remove('active');
         document.getElementById('resultsModal').classList.add('hidden');
-        document.getElementById('btnFloatingResults').classList.remove('show');
-        document.getElementById('btnViewResultsHeader').style.display = 'none';
+        const btnVR = document.getElementById('btnViewResultsHeader');
+        if (btnVR) {
+          btnVR.style.display = 'none';
+          btnVR.classList.remove('pulse-attention');
+        }
 
         STATE.stage1Group = [];
         STATE.stage2Group = [];
@@ -3487,8 +3467,11 @@
         if (lead2El) lead2El.innerText = STATE.rankedResults[1] ? '#2 ' + STATE.rankedResults[1].name : '-';
         if (lead3El) lead3El.innerText = STATE.rankedResults[2] ? '#3 ' + STATE.rankedResults[2].name : '-';
 
-        document.getElementById('btnViewResultsHeader').style.display = 'inline-flex';
-        document.getElementById('btnFloatingResults').classList.add('show');
+        const btnVR = document.getElementById('btnViewResultsHeader');
+        if (btnVR) {
+          btnVR.style.display = 'inline-flex';
+          btnVR.classList.add('pulse-attention');
+        }
 
         setTimeout(() => {
           showResultsModal();
@@ -4139,16 +4122,14 @@
       });
       updateRotateButtonUI();
 
-      // Nút Xem lại kết quả trên Header & Nút nổi
-      document.getElementById('btnViewResultsHeader').addEventListener('click', () => {
-        AudioController.playClick();
-        showResultsModal();
-      });
-
-      document.getElementById('btnFloatingResults').addEventListener('click', () => {
-        AudioController.playClick();
-        showResultsModal();
-      });
+      // Nút Xem lại kết quả trên Top Header (Icon cúp)
+      const btnVRHeader = document.getElementById('btnViewResultsHeader');
+      if (btnVRHeader) {
+        btnVRHeader.addEventListener('click', () => {
+          AudioController.playClick();
+          showResultsModal();
+        });
+      }
 
       // Nút Đóng bảng kết quả góc trên
       document.getElementById('btnCloseResultsCorner').addEventListener('click', () => {
@@ -4174,7 +4155,6 @@
       document.getElementById('btnReplay').addEventListener('click', () => {
         AudioController.playClick();
         document.getElementById('resultsModal').classList.add('hidden');
-        document.getElementById('btnFloatingResults').classList.remove('show');
         GameEngine.startRace();
       });
 
@@ -4275,14 +4255,17 @@
 
       tableBody.innerHTML = html;
       modal.classList.remove('hidden');
-      document.getElementById('btnFloatingResults').classList.remove('show');
     }
 
     function closeResultsModal() {
       document.getElementById('resultsModal').classList.add('hidden');
-      // Hiện nút nổi "Xem Lại Kết Quả" để người dùng mở lại bất kỳ lúc nào
-      document.getElementById('btnFloatingResults').classList.add('show');
-      document.getElementById('btnViewResultsHeader').style.display = 'inline-flex';
+      // Hiện icon cúp vàng trên top header để người dùng mở lại bất kỳ lúc nào
+      const btnVR = document.getElementById('btnViewResultsHeader');
+      if (btnVR) {
+        btnVR.style.display = 'inline-flex';
+        btnVR.classList.add('pulse-attention');
+      }
+      showToast('Bấm icon cúp 🏆 trên cùng để xem lại kết quả!');
     }
 
     function copyRaceResults() {
