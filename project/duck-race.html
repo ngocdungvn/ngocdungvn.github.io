@@ -1214,13 +1214,22 @@
     @media (max-width: 640px) {
 
       /* Mobile HUD & Header Optimization */
-      .game-header {
-        padding: 6px 10px;
+      header.game-header {
+        height: auto;
+        min-height: 46px;
+        padding: 6px 8px;
         gap: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
       }
 
       .os-left-controls {
+        display: flex;
+        align-items: center;
         gap: 4px;
+        flex-shrink: 0;
       }
 
       .os-icon-btn {
@@ -1228,73 +1237,72 @@
         height: 32px;
         font-size: 15px;
         border-radius: 6px;
-      }
-
-      .os-right-controls {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-      }
-
-      .btn-rotate-screen {
-        background: #fed033 !important;
-        color: #000000 !important;
-        border: 2px solid #000000 !important;
-        font-weight: 800;
-      }
-
-      @media (max-width: 480px) {
-        .os-right-controls #btnFullscreen {
-          display: none;
-        }
-
-        #btnVoiceHeader,
-        #btnToggleTagsHeader {
-          display: none;
-        }
+        box-shadow: 2px 2px 0px #000000;
       }
 
       .os-stopwatch-hud {
-        gap: 6px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        flex-shrink: 1;
+        min-width: 0;
+        justify-content: center;
       }
 
       .os-stopwatch-box {
-        min-width: 130px;
-        padding: 3px 10px;
-        border: 2.5px solid #000000;
-        border-radius: 10px;
+        min-width: 95px;
+        max-width: 110px;
+        padding: 2px 6px;
+        border: 2px solid #000000;
+        border-radius: 8px;
+        box-shadow: 2px 2px 0px #000000;
       }
 
       #stopwatchDigits {
-        font-size: 22px;
-        letter-spacing: 1px;
+        font-size: 17px;
+        letter-spacing: 0.5px;
+        font-weight: 900;
       }
 
       .os-btn-group {
-        gap: 5px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
       }
 
       .os-ctrl-btn {
-        height: 34px;
+        height: 32px;
         padding: 0 8px;
         font-size: 12px;
         border-radius: 6px;
         box-shadow: 2px 2px 0px #000000;
       }
 
-      @media (max-width: 600px) {
-        .os-ctrl-btn span {
-          display: none;
-        }
+      .os-right-controls {
+        display: flex !important;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0 !important;
+        margin-left: auto;
+      }
 
-        .os-ctrl-btn {
-          width: 34px;
-          padding: 0;
-        }
-
-        .os-ctrl-btn i {
-          font-size: 16px;
-        }
+      .btn-rotate-screen {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 34px !important;
+        height: 34px !important;
+        min-width: 34px !important;
+        background: #fed033 !important;
+        color: #000000 !important;
+        border: 2.5px solid #000000 !important;
+        border-radius: 8px !important;
+        box-shadow: 2px 2px 0px #000000 !important;
+        font-size: 17px !important;
+        font-weight: 800;
+        cursor: pointer;
+        flex-shrink: 0 !important;
       }
 
       /* Mobile Modals */
@@ -1413,20 +1421,57 @@
       }
     }
 
+    @media (max-width: 600px) {
+      .os-ctrl-btn span {
+        display: none !important;
+      }
+
+      .os-ctrl-btn {
+        width: 32px !important;
+        padding: 0 !important;
+      }
+
+      .os-ctrl-btn i {
+        font-size: 15px !important;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .os-right-controls #btnFullscreen {
+        display: none !important;
+      }
+
+      /* Ẩn các nút phụ trên header để chừa diện tích tuyệt đối cho nút xoay */
+      #btnMusicToggle,
+      #btnToggleLabels {
+        display: none !important;
+      }
+    }
+
     @media (max-width: 400px) {
-      .os-icon-btn {
-        width: 28px;
-        height: 28px;
-        font-size: 13px;
+      #btnSoundToggle {
+        display: none !important;
+      }
+
+      .os-icon-btn,
+      .os-ctrl-btn {
+        width: 30px !important;
+        height: 30px !important;
+      }
+
+      .btn-rotate-screen {
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
       }
 
       .os-stopwatch-box {
-        min-width: 115px;
-        padding: 2px 8px;
+        min-width: 82px !important;
+        padding: 2px 4px !important;
       }
 
       #stopwatchDigits {
-        font-size: 18px;
+        font-size: 15px !important;
       }
 
       .podium-slot {
@@ -1436,6 +1481,23 @@
       .podium-name {
         max-width: 78px;
         font-size: 11px;
+      }
+    }
+
+    @media (max-width: 640px) and (orientation: portrait) {
+      .btn-rotate-screen {
+        animation: rotate-btn-pulse 2.2s infinite ease-in-out;
+      }
+
+      @keyframes rotate-btn-pulse {
+        0%, 100% {
+          transform: scale(1);
+          box-shadow: 2px 2px 0px #000000;
+        }
+        50% {
+          transform: scale(1.08);
+          box-shadow: 3px 3px 0px #000000;
+        }
       }
     }
 
@@ -1595,11 +1657,8 @@
           <span id="stopwatchDigits">00:00:00</span>
         </div>
         <div class="os-btn-group" id="osBtnGroup">
-          <button class="os-ctrl-btn os-btn-start" id="btnStartRaceTop" title="Bắt đầu cuộc đua">
-            <i class="uil uil-play"></i> <span>Bắt đầu</span>
-          </button>
-          <button class="os-ctrl-btn os-btn-pause" id="btnPauseRace" title="Tạm dừng / Tiếp tục">
-            <i class="uil uil-pause" id="pauseIcon"></i> <span id="pauseText">Tạm dừng</span>
+          <button class="os-ctrl-btn os-btn-start" id="btnPlayPauseRace" title="Bắt đầu cuộc đua">
+            <i class="uil uil-play" id="playPauseIcon"></i> <span id="playPauseText">Bắt đầu</span>
           </button>
           <button class="os-ctrl-btn os-btn-clear" id="btnClearRace" title="Đặt lại cuộc đua">
             <i class="uil uil-redo"></i> <span>Đặt lại</span>
@@ -3755,36 +3814,47 @@
       }
     };
 
-    // Helper đồng bộ trạng thái nút Pause / Continue
-    function updatePauseButtonUI(isPaused) {
-      const btn = document.getElementById('btnPauseRace');
-      const icon = document.getElementById('pauseIcon');
-      const text = document.getElementById('pauseText');
+    // Helper đồng bộ trạng thái nút Play / Pause / Resume kết hợp (Top HUD)
+    function updatePlayPauseButtonUI() {
+      const btn = document.getElementById('btnPlayPauseRace');
+      const icon = document.getElementById('playPauseIcon');
+      const text = document.getElementById('playPauseText');
       if (!btn) return;
 
-      if (isPaused) {
-        btn.classList.add('is-paused');
-        if (icon) icon.className = 'uil uil-play';
-        if (text) text.innerText = 'Tiếp tục';
-        btn.title = 'Tiếp tục cuộc đua (Resume)';
+      btn.disabled = false;
+      if (!STATE.isRunning) {
+        if (STATE.isFinished) {
+          btn.className = 'os-ctrl-btn os-btn-start';
+          if (icon) icon.className = 'uil uil-redo';
+          if (text) text.innerText = 'Đua lại';
+          btn.title = 'Bắt đầu lại cuộc đua';
+        } else {
+          btn.className = 'os-ctrl-btn os-btn-start';
+          if (icon) icon.className = 'uil uil-play';
+          if (text) text.innerText = 'Bắt đầu';
+          btn.title = 'Bắt đầu cuộc đua (Start)';
+        }
       } else {
-        btn.classList.remove('is-paused');
-        if (icon) icon.className = 'uil uil-pause';
-        if (text) text.innerText = 'Tạm dừng';
-        btn.title = 'Tạm dừng cuộc đua (Pause)';
+        if (STATE.isPaused) {
+          btn.className = 'os-ctrl-btn os-btn-pause is-paused';
+          if (icon) icon.className = 'uil uil-play';
+          if (text) text.innerText = 'Tiếp tục';
+          btn.title = 'Tiếp tục cuộc đua (Resume)';
+        } else {
+          btn.className = 'os-ctrl-btn os-btn-pause';
+          if (icon) icon.className = 'uil uil-pause';
+          if (text) text.innerText = 'Tạm dừng';
+          btn.title = 'Tạm dừng cuộc đua (Pause)';
+        }
       }
     }
 
-    // Helper đồng bộ trạng thái nút Bắt đầu (Top HUD)
+    // Tương thích an toàn với các lời gọi hàm cũ
+    function updatePauseButtonUI(isPaused) {
+      updatePlayPauseButtonUI();
+    }
     function updateStartButtonUI(isRunning) {
-      const btn = document.getElementById('btnStartRaceTop');
-      if (!btn) return;
-      btn.disabled = isRunning;
-      if (isRunning) {
-        btn.title = 'Cuộc đua đang diễn ra...';
-      } else {
-        btn.title = 'Bắt đầu cuộc đua (Start)';
-      }
+      updatePlayPauseButtonUI();
     }
 
     // --- 6. UI & INTERACTIONS ---
@@ -3859,25 +3929,26 @@
         GameEngine.startRace();
       });
 
-      // Nút Bắt đầu đua trên thanh Top HUD
-      const btnStartRaceTop = document.getElementById('btnStartRaceTop');
-      if (btnStartRaceTop) {
-        btnStartRaceTop.addEventListener('click', () => {
+      // Nút Play / Pause / Resume kết hợp trên thanh Top HUD
+      const btnPlayPauseRace = document.getElementById('btnPlayPauseRace');
+      if (btnPlayPauseRace) {
+        btnPlayPauseRace.addEventListener('click', () => {
           AudioController.playClick();
-          buildDucksFromInput();
-          if (STATE.ducks.length === 0) {
-            alert('Vui lòng nhập ít nhất 1 tên hoặc số tham gia!');
-            return;
+          if (!STATE.isRunning) {
+            if (STATE.isFinished) {
+              GameEngine.clearRace(false);
+            }
+            buildDucksFromInput();
+            if (STATE.ducks.length === 0) {
+              alert('Vui lòng nhập ít nhất 1 tên hoặc số tham gia!');
+              return;
+            }
+            GameEngine.startRace();
+          } else {
+            GameEngine.pauseRace();
           }
-          GameEngine.startRace();
         });
       }
-
-      // Nút Tạm dừng / Tiếp tục trên thanh Top HUD
-      document.getElementById('btnPauseRace').addEventListener('click', () => {
-        AudioController.playClick();
-        GameEngine.pauseRace();
-      });
 
       // Nút Đặt lại trên thanh Top HUD
       document.getElementById('btnClearRace').addEventListener('click', () => {
