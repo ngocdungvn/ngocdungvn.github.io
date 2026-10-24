@@ -979,7 +979,7 @@
       <div class="team-card card-win">
         <div class="team-top">
           <span class="team-tag">🏆 Đội Thắng (Đi ăn)</span>
-          <span class="member-count-badge" id="badge-count-win">7 người</span>
+          <span class="member-count-badge" id="badge-count-win">8 người</span>
         </div>
         <div class="team-price-row">
           <div>
@@ -988,7 +988,7 @@
           </div>
           <div class="team-subtotal">
             <div>Tổng nhóm</div>
-            <strong class="num-font" id="subtotal-win">1.029.000</strong>
+            <strong class="num-font" id="subtotal-win">1.176.000</strong>
           </div>
         </div>
         <div class="result-chips-wrap">
@@ -1000,7 +1000,7 @@
       <div class="team-card card-lose-eat">
         <div class="team-top">
           <span class="team-tag">🥊 Đội Thua (Đi ăn)</span>
-          <span class="member-count-badge" id="badge-count-lose-eat">7 người</span>
+          <span class="member-count-badge" id="badge-count-lose-eat">6 người</span>
         </div>
         <div class="team-price-row">
           <div>
@@ -1009,7 +1009,7 @@
           </div>
           <div class="team-subtotal">
             <div>Tổng nhóm</div>
-            <strong class="num-font" id="subtotal-lose-eat">1.379.000</strong>
+            <strong class="num-font" id="subtotal-lose-eat">1.182.000</strong>
           </div>
         </div>
         <div class="result-chips-wrap">
@@ -1021,7 +1021,7 @@
       <div class="team-card card-lose-home">
         <div class="team-top">
           <span class="team-tag">🏠 Đội Thua (Vắng mặt)</span>
-          <span class="member-count-badge" id="badge-count-lose-home">2 người</span>
+          <span class="member-count-badge" id="badge-count-lose-home">3 người</span>
         </div>
         <div class="team-price-row">
           <div>
@@ -1030,7 +1030,7 @@
           </div>
           <div class="team-subtotal">
             <div>Tổng nhóm</div>
-            <strong class="num-font" id="subtotal-lose-home">100.000</strong>
+            <strong class="num-font" id="subtotal-lose-home">150.000</strong>
           </div>
         </div>
         <div class="result-chips-wrap">
@@ -1153,7 +1153,7 @@
       return (s || '').trim().toLowerCase().replace(/\s+/g, ' ');
     }
 
-    // Thuật toán phân loại thông minh 3 nhóm từ 2 danh sách Người Đi Ăn & Người Đội Thua
+    // Thuật toán phân loại: chỉ xác định là cùng 1 người khi tên trùng nhau 100% (Thịnh != Thành Thịnh, Trung Quý != Quý)
     function categorizeTeams(eatersList, losersList) {
       const matchedLoserEaters = new Set();
       const losersWhoAte = [];
@@ -1162,7 +1162,6 @@
       const eatingNormalized = eatersList.map((name, idx) => ({
         originalName: name.trim(),
         clean: normalizeStr(name),
-        lastWord: normalizeStr(name.split(/\s+/).pop()),
         idx
       }));
 
@@ -1170,24 +1169,8 @@
         const lClean = normalizeStr(loserName);
         if (!lClean) return;
 
-        // 1. So khớp chính xác tuyệt đối
-        let match = eatingNormalized.find(e => !matchedLoserEaters.has(e.idx) && e.clean === lClean);
-
-        // 2. So khớp theo tên gọi duy nhất (ví dụ: Thịnh -> Thành Thịnh khi chỉ có 1 người tên Thịnh)
-        if (!match && !loserName.trim().includes(' ')) {
-          const candidates = eatingNormalized.filter(e => !matchedLoserEaters.has(e.idx) && e.lastWord === lClean);
-          if (candidates.length === 1) {
-            match = candidates[0];
-          }
-        }
-
-        // 3. So khớp phần đuôi tên
-        if (!match) {
-          const candidates = eatingNormalized.filter(e => !matchedLoserEaters.has(e.idx) && e.clean.endsWith(' ' + lClean));
-          if (candidates.length === 1) {
-            match = candidates[0];
-          }
-        }
+        // So khớp chính xác 100%
+        const match = eatingNormalized.find(e => !matchedLoserEaters.has(e.idx) && e.clean === lClean);
 
         if (match) {
           matchedLoserEaters.add(match.idx);
@@ -1211,18 +1194,10 @@
       return { winnersWhoAte, losersWhoAte, losersWhoStayedHome };
     }
 
-    // Kiểm tra xem một người đi ăn có nằm trong danh sách đội thua hay không
+    // Kiểm tra xem một người đi ăn có nằm trong danh sách đội thua hay không (trùng nhau 100%)
     function isEaterInLosers(eaterName) {
       const eClean = normalizeStr(eaterName);
-      const eLastWord = normalizeStr(eaterName.split(/\s+/).pop());
-
-      return losers.some(l => {
-        const lClean = normalizeStr(l);
-        if (lClean === eClean) return true;
-        if (!l.includes(' ') && lClean === eLastWord) return true;
-        if (eClean.endsWith(' ' + lClean)) return true;
-        return false;
-      });
+      return losers.some(l => normalizeStr(l) === eClean);
     }
 
     // Render danh sách chip nhập liệu (Người đi ăn & Người đội thua)
@@ -1276,13 +1251,9 @@
 
         qBtn.addEventListener('click', () => {
           if (isSelected) {
-            // Xóa khỏi losers
+            // Xóa khỏi losers (chỉ khi tên trùng khớp 100%)
             const eClean = normalizeStr(name);
-            const eLastWord = normalizeStr(name.split(/\s+/).pop());
-            const removeIdx = losers.findIndex(l => {
-              const lClean = normalizeStr(l);
-              return lClean === eClean || (!l.includes(' ') && lClean === eLastWord) || eClean.endsWith(' ' + lClean);
-            });
+            const removeIdx = losers.findIndex(l => normalizeStr(l) === eClean);
             if (removeIdx !== -1) {
               losers.splice(removeIdx, 1);
             }
