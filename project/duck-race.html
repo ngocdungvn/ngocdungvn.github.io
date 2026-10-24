@@ -1543,159 +1543,7 @@
       }
     }
 
-    /* Rotate Orientation Hint (Mobile Portrait) */
-    .rotate-hint {
-      position: absolute;
-      top: 52px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #fed033;
-      color: #000000;
-      border: 2.5px solid #000000;
-      border-radius: 999px;
-      padding: 5px 12px;
-      font-size: 11.5px;
-      font-weight: 800;
-      box-shadow: 2.5px 2.5px 0px #000000;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      z-index: 35;
-      animation: hintSlideDown 0.4s ease;
-      white-space: nowrap;
-      cursor: pointer;
-      pointer-events: auto;
-    }
 
-    .rotate-hint-icon {
-      font-size: 14px;
-      display: inline-block;
-      animation: rotateBounce 1.8s infinite ease-in-out;
-    }
-
-    @keyframes rotateBounce {
-
-      0%,
-      20% {
-        transform: rotate(0deg);
-      }
-
-      50% {
-        transform: rotate(90deg);
-      }
-
-      80%,
-      100% {
-        transform: rotate(0deg);
-      }
-    }
-
-    @keyframes hintSlideDown {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translate(-50%, 0);
-      }
-    }
-
-    .close-hint-btn {
-      background: transparent;
-      border: none;
-      font-weight: 900;
-      font-size: 13px;
-      cursor: pointer;
-      padding: 0 3px;
-      color: #000000;
-      opacity: 0.6;
-    }
-
-    .close-hint-btn:hover {
-      opacity: 1;
-    }
-
-    @media (orientation: landscape),
-    (min-width: 641px),
-    (max-height: 520px) {
-      .rotate-hint {
-        display: none !important;
-      }
-    }
-
-    /* Exit Landscape Hint (Mobile Landscape) */
-    .landscape-exit-hint {
-      display: none;
-      position: absolute;
-      top: 60px;
-      right: 20px;
-      left: auto;
-      transform: none;
-      background: #ffffff;
-      color: #000000;
-      border: 2.5px solid #000000;
-      border-radius: 999px;
-      padding: 4px 12px;
-      font-size: 11px;
-      font-weight: 800;
-      box-shadow: 2.5px 2.5px 0px #000000;
-      align-items: center;
-      gap: 7px;
-      z-index: 35;
-      animation: landscapeSlideDown 0.4s ease;
-      white-space: nowrap;
-      cursor: pointer;
-      pointer-events: auto;
-    }
-
-    @keyframes landscapeSlideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .landscape-exit-hint:hover {
-      background: #fffbeb;
-      box-shadow: 3.5px 3.5px 0px #000000;
-    }
-
-    .landscape-exit-hint .exit-link {
-      color: #dc2626;
-      text-decoration: underline;
-      font-weight: 900;
-    }
-
-    .landscape-exit-icon {
-      font-size: 13px;
-      display: inline-block;
-      animation: exitRotateBounce 2s infinite ease-in-out;
-    }
-
-    @keyframes exitRotateBounce {
-      0%, 20% {
-        transform: rotate(0deg);
-      }
-      50% {
-        transform: rotate(-90deg);
-      }
-      80%, 100% {
-        transform: rotate(0deg);
-      }
-    }
-
-    @media (orientation: landscape) and (max-height: 520px),
-    (orientation: landscape) and (hover: none) and (pointer: coarse) {
-      .landscape-exit-hint {
-        display: flex;
-      }
-    }
   </style>
 </head>
 
@@ -1752,19 +1600,7 @@
       </div>
     </header>
 
-    <!-- Rotate Orientation Hint for Mobile Portrait -->
-    <div id="rotateHint" class="rotate-hint" title="Bấm để phóng to toàn màn hình & xoay ngang">
-      <span class="rotate-hint-icon">📱</span>
-      <span>Xoay ngang để đường đua dài & đã mắt hơn!</span>
-      <button id="btnCloseRotateHint" class="close-hint-btn" title="Đóng gợi ý">✕</button>
-    </div>
 
-    <!-- Exit Landscape Hint for Mobile Landscape -->
-    <div id="landscapeExitHint" class="landscape-exit-hint" title="Bấm để thoát xoay ngang hoặc xoay dọc máy">
-      <span class="landscape-exit-icon">🔄</span>
-      <span>Xoay dọc máy hoặc <strong class="exit-link">bấm vào đây</strong> để thoát xoay ngang</span>
-      <button id="btnCloseLandscapeHint" class="close-hint-btn" title="Đóng hướng dẫn">✕</button>
-    </div>
 
     <!-- Canvas Simulation -->
     <div id="duckTooltip" class="duck-tooltip"></div>
@@ -2859,6 +2695,13 @@
       }
 
       drawNameTag(ctx, s, isHovered) {
+        // Kiểm tra xem vịt có đang nằm trong khung nhìn màn hình hay không
+        // Nếu vịt ra khỏi mép trái hoặc mép phải màn hình thì không vẽ bong bóng tên
+        const screenDuckX = this.x - (STATE.cameraX || 0);
+        if (screenDuckX < -35 || screenDuckX > (STATE.canvasWidth || 0) + 45) {
+          return;
+        }
+
         ctx.save();
 
         const text = this.name;
@@ -2873,18 +2716,14 @@
         const boxH = Math.max(fontSize + padY * 2, Math.round(22 * s));
         const r = Math.min(Math.round(7 * s), boxH / 2);
 
-        // Tọa độ bong bóng: đặt phía trên lưng vịt (lùi nhẹ về sau đầu giống hệt ảnh tham chiếu)
+        // Tọa độ bong bóng: đặt phía trên lưng vịt, luôn neo chặt 1:1 theo thân vịt
         let bubbleCenterX = this.x - Math.round(18 * s);
         let bubbleCenterY = this.y - Math.round(48 * s);
 
         const halfW = boxW / 2;
         const halfH = boxH / 2;
-        const minY = STATE.topBankH + halfH + 8;
+        const minY = STATE.topBankH + halfH + 6;
         if (bubbleCenterY < minY) bubbleCenterY = minY;
-        const camLeft = (STATE.cameraX || 0) + halfW + 10;
-        const camRight = (STATE.cameraX || 0) + STATE.canvasWidth - halfW - 10;
-        if (bubbleCenterX < camLeft) bubbleCenterX = camLeft;
-        if (bubbleCenterX > camRight) bubbleCenterX = camRight;
 
         ctx.translate(bubbleCenterX, bubbleCenterY);
 
@@ -4064,13 +3903,13 @@
       // Nút Toàn màn hình & Tự động xoay ngang trên Mobile
       const btnFullscreen = document.getElementById('btnFullscreen');
       function updateFullscreenUI() {
-        const isFs = !!document.fullscreenElement;
+        const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
         if (btnFullscreen) {
           const icon = btnFullscreen.querySelector('i');
           if (icon) {
             icon.className = isFs ? 'uil uil-compress-arrows' : 'uil uil-expand-arrows';
           }
-          btnFullscreen.title = isFs ? 'Thoát toàn màn hình & mở khóa xoay' : 'Toàn màn hình & xoay ngang';
+          btnFullscreen.title = isFs ? 'Thoát toàn màn hình' : 'Toàn màn hình';
         }
       }
 
@@ -4082,36 +3921,18 @@
         } catch (e) { }
       }
 
-      function exitLandscape() {
-        AudioController.playClick();
-        safeUnlockOrientation();
-        if (document.fullscreenElement) {
-          const exit = document.exitFullscreen || document.webkitExitFullscreen;
-          if (exit) exit.call(document).catch(() => { });
-        }
-        const exitHint = document.getElementById('landscapeExitHint');
-        if (exitHint) exitHint.style.display = 'none';
-        showToast('Đã mở khóa xoay! Bạn có thể xoay dọc điện thoại để xem bình thường.');
-        setTimeout(() => {
-          GameEngine.layoutLanes();
-        }, 200);
-      }
-
       if (btnFullscreen) {
         btnFullscreen.addEventListener('click', () => {
           AudioController.playClick();
-          if (!document.fullscreenElement) {
+          if (!document.fullscreenElement && !document.webkitFullscreenElement) {
             const docEl = document.documentElement;
             const req = docEl.requestFullscreen || docEl.webkitRequestFullscreen;
             if (req) {
-              req.call(docEl).then(() => {
-                if (screen.orientation && screen.orientation.lock) {
-                  screen.orientation.lock('landscape').catch(() => { });
-                }
-              }).catch(() => { });
+              req.call(docEl).catch(() => { });
             }
           } else {
-            exitLandscape();
+            const exit = document.exitFullscreen || document.webkitExitFullscreen;
+            if (exit) exit.call(document).catch(() => { });
           }
         });
       }
@@ -4121,59 +3942,21 @@
         if (!document.fullscreenElement) {
           safeUnlockOrientation();
         }
+        setTimeout(() => GameEngine.initCanvas(), 100);
       });
       document.addEventListener('webkitfullscreenchange', () => {
         updateFullscreenUI();
-        if (!document.fullscreenElement) {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
           safeUnlockOrientation();
         }
+        setTimeout(() => GameEngine.initCanvas(), 100);
       });
 
-      // Gợi ý xoay ngang màn hình (Mobile Portrait Hint)
-      const rotateHint = document.getElementById('rotateHint');
-      const btnCloseRotateHint = document.getElementById('btnCloseRotateHint');
-      if (btnCloseRotateHint && rotateHint) {
-        btnCloseRotateHint.addEventListener('click', (e) => {
-          e.stopPropagation();
-          rotateHint.style.display = 'none';
-        });
-        rotateHint.addEventListener('click', () => {
-          const docEl = document.documentElement;
-          const req = docEl.requestFullscreen || docEl.webkitRequestFullscreen;
-          if (req) {
-            req.call(docEl).then(() => {
-              if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock('landscape').catch(() => { });
-              }
-            }).catch(() => { });
-          }
-        });
-      }
-
-      // Gợi ý & hướng dẫn thoát màn hình xoay ngang (Mobile Landscape Exit Hint)
-      const landscapeExitHint = document.getElementById('landscapeExitHint');
-      const btnCloseLandscapeHint = document.getElementById('btnCloseLandscapeHint');
-      if (btnCloseLandscapeHint && landscapeExitHint) {
-        btnCloseLandscapeHint.addEventListener('click', (e) => {
-          e.stopPropagation();
-          landscapeExitHint.style.display = 'none';
-        });
-        landscapeExitHint.addEventListener('click', () => {
-          exitLandscape();
-        });
-      }
-
-      // Reset hiển thị hint khi thay đổi hướng thiết bị
+      // Tự động căn chỉnh lại canvas và đường đua khi xoay thiết bị
       window.addEventListener('orientationchange', () => {
         setTimeout(() => {
-          if (landscapeExitHint && window.matchMedia('(orientation: portrait)').matches) {
-            landscapeExitHint.style.display = '';
-          }
-          if (rotateHint && window.matchMedia('(orientation: landscape)').matches) {
-            rotateHint.style.display = '';
-          }
-          GameEngine.layoutLanes();
-        }, 300);
+          GameEngine.initCanvas();
+        }, 250);
       });
 
       // Nút Xem lại kết quả trên Header & Nút nổi
