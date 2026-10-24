@@ -1144,7 +1144,7 @@
       position: fixed;
       bottom: 24px;
       right: 24px;
-      z-index: 40;
+      z-index: 60;
       display: none;
       align-items: center;
       gap: 8px;
@@ -1171,8 +1171,21 @@
       box-shadow: 1px 1px 0px #000000;
     }
 
-    .floating-results-btn.active {
-      display: inline-flex;
+    .floating-results-btn.active,
+    .floating-results-btn.show {
+      display: inline-flex !important;
+      animation: float-btn-bounce 2.2s infinite ease-in-out;
+    }
+
+    @keyframes float-btn-bounce {
+      0%, 100% {
+        transform: translateY(0);
+        box-shadow: 4px 4px 0px #000000;
+      }
+      50% {
+        transform: translateY(-5px);
+        box-shadow: 4px 9px 0px #000000;
+      }
     }
 
     /* Toast Notification - Neobrutalism */
@@ -3477,6 +3490,7 @@
         if (lead3El) lead3El.innerText = STATE.rankedResults[2] ? '#3 ' + STATE.rankedResults[2].name : '-';
 
         document.getElementById('btnViewResultsHeader').style.display = 'inline-flex';
+        document.getElementById('btnFloatingResults').classList.add('show');
 
         setTimeout(() => {
           showResultsModal();
@@ -4148,6 +4162,14 @@
       document.getElementById('btnCloseResultsAction').addEventListener('click', () => {
         AudioController.playClick();
         closeResultsModal();
+      });
+
+      // Bấm vào nền backdrop mờ bên ngoài cũng đóng và hiện nút Xem lại kết quả
+      document.getElementById('resultsModal').addEventListener('click', (e) => {
+        if (e.target.id === 'resultsModal') {
+          AudioController.playClick();
+          closeResultsModal();
+        }
       });
 
       // Nút Đua lại
