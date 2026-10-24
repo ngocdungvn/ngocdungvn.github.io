@@ -534,8 +534,14 @@
     /* Action Buttons */
     .action-grid {
       display: grid;
-      grid-template-columns: 1.8fr 1fr;
-      gap: 0.6rem;
+      grid-template-columns: 1.4fr 1.1fr 1fr;
+      gap: 0.5rem;
+    }
+
+    @media (max-width: 520px) {
+      .action-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .btn-action {
@@ -543,13 +549,14 @@
       align-items: center;
       justify-content: center;
       gap: 0.45rem;
-      padding: 0.8rem 0.9rem;
+      padding: 0.75rem 0.8rem;
       border-radius: var(--radius-md);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
       border: none;
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
     .btn-copy {
@@ -564,15 +571,27 @@
       transform: translateY(-1px);
     }
 
-    .btn-reset {
+    .btn-sample {
+      background: #eff6ff;
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+    }
+
+    .btn-sample:hover {
+      background: #dbeafe;
+      color: var(--primary-hover);
+    }
+
+    .btn-clear {
       background: #f1f5f9;
       color: var(--text-sub);
       border: 1px solid var(--border);
     }
 
-    .btn-reset:hover {
-      background: #e2e8f0;
-      color: var(--text-main);
+    .btn-clear:hover {
+      background: #fee2e2;
+      border-color: #fca5a5;
+      color: #b91c1c;
     }
 
     /* ================= RIGHT PANEL: 3 AUTO CATEGORIZED TEAM CARDS ================= */
@@ -966,8 +985,11 @@
         <button type="button" class="btn-action btn-copy" id="btn-copy">
           <i class="uil uil-copy-alt"></i> Sao Chép Zalo
         </button>
-        <button type="button" class="btn-action btn-reset" id="btn-reset" title="Khôi phục mẫu ban đầu">
-          <i class="uil uil-redo"></i> Đặt Lại Mẫu
+        <button type="button" class="btn-action btn-sample" id="btn-sample" title="Nạp nhanh dữ liệu ví dụ mẫu">
+          <i class="uil uil-file-bookmark-alt"></i> Ví Dụ Mẫu
+        </button>
+        <button type="button" class="btn-action btn-clear" id="btn-clear" title="Xóa trắng để nhập trận mới">
+          <i class="uil uil-trash-alt"></i> Xóa Trắng
         </button>
       </div>
     </section>
@@ -1079,7 +1101,8 @@
     const billInput = document.getElementById('bill-input');
     const penaltyBtns = document.querySelectorAll('.penalty-btn');
     const roundPills = document.querySelectorAll('.round-pill');
-    const btnReset = document.getElementById('btn-reset');
+    const btnSample = document.getElementById('btn-sample');
+    const btnClear = document.getElementById('btn-clear');
     const btnCopy = document.getElementById('btn-copy');
     const toast = document.getElementById('toast');
     const errorBanner = document.getElementById('error-banner');
@@ -1572,31 +1595,51 @@
       }, 3000);
     }
 
-    // Đặt lại mẫu ban đầu chuẩn yêu cầu
-    btnReset.addEventListener('click', () => {
-      bill = DEFAULT_DATA.bill;
-      billInput.value = bill.toLocaleString('vi-VN');
+    // Nạp dữ liệu ví dụ mẫu
+    if (btnSample) {
+      btnSample.addEventListener('click', () => {
+        bill = DEFAULT_DATA.bill;
+        billInput.value = bill.toLocaleString('vi-VN');
 
-      penalty = DEFAULT_DATA.penalty;
-      penaltyBtns.forEach(b => {
-        b.classList.toggle('active', parseInt(b.dataset.penalty, 10) === penalty);
+        penalty = DEFAULT_DATA.penalty;
+        penaltyBtns.forEach(b => {
+          b.classList.toggle('active', parseInt(b.dataset.penalty, 10) === penalty);
+        });
+
+        roundMode = DEFAULT_DATA.roundMode;
+        roundPills.forEach(p => {
+          p.classList.toggle('active', p.dataset.round === roundMode);
+        });
+
+        eaters = [...DEFAULT_DATA.eaters];
+        losers = [...DEFAULT_DATA.losers];
+
+        for (const k in paidStatus) delete paidStatus[k];
+
+        renderInputChips();
+        calculate();
+        showToast('Đã nạp bộ dữ liệu ví dụ mẫu!');
       });
+    }
 
-      roundMode = DEFAULT_DATA.roundMode;
-      roundPills.forEach(p => {
-        p.classList.toggle('active', p.dataset.round === roundMode);
+    // Xóa trắng toàn bộ để nhập trận mới
+    if (btnClear) {
+      btnClear.addEventListener('click', () => {
+        bill = 0;
+        billInput.value = '';
+
+        eaters = [];
+        losers = [];
+        inputEatersEl.value = '';
+        inputLosersEl.value = '';
+
+        for (const k in paidStatus) delete paidStatus[k];
+
+        renderInputChips();
+        calculate();
+        showToast('Đã xóa trắng để sẵn sàng nhập trận mới!');
       });
-
-      eaters = [...DEFAULT_DATA.eaters];
-      losers = [...DEFAULT_DATA.losers];
-
-      // Reset paid status
-      for (const k in paidStatus) delete paidStatus[k];
-
-      renderInputChips();
-      calculate();
-      showToast('Đã khôi phục lại mẫu mặc định theo yêu cầu!');
-    });
+    }
 
     // Initialize Tag Inputs
     setupTagInput(boxEaters, inputEatersEl, eaters, calculate);
