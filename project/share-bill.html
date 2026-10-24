@@ -482,7 +482,7 @@
     /* Action Buttons */
     .action-grid {
       display: grid;
-      grid-template-columns: 1.4fr 1.1fr 1fr;
+      grid-template-columns: 2fr 1fr;
       gap: 0.5rem;
     }
 
@@ -517,17 +517,6 @@
       background: linear-gradient(135deg, #1d4ed8, #2563eb);
       box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
       transform: translateY(-1px);
-    }
-
-    .btn-sample {
-      background: #eff6ff;
-      color: var(--primary);
-      border: 1px solid #bfdbfe;
-    }
-
-    .btn-sample:hover {
-      background: #dbeafe;
-      color: var(--primary-hover);
     }
 
     .btn-clear {
@@ -845,11 +834,10 @@
           <label class="form-label" for="bill-input">
             <i class="uil uil-receipt"></i> Tổng Tiền Hóa Đơn
           </label>
-          <span class="hint-text">Gõ 2500k hoặc 2.500.000</span>
         </div>
         <div class="input-wrapper">
           <i class="uil uil-money-bill input-icon"></i>
-          <input type="text" id="bill-input" class="form-control num-font" placeholder="Ví dụ: 2500k hoặc 2.500.000..."
+          <input type="text" id="bill-input" class="form-control num-font" placeholder="0"
             value="" inputmode="text" />
           <span class="input-unit">đ</span>
         </div>
@@ -928,9 +916,6 @@
         <button type="button" class="btn-action btn-copy" id="btn-copy">
           <i class="uil uil-copy-alt"></i> Sao Chép Zalo
         </button>
-        <button type="button" class="btn-action btn-sample" id="btn-sample" title="Nạp nhanh dữ liệu ví dụ mẫu">
-          <i class="uil uil-file-bookmark-alt"></i> Ví Dụ Mẫu
-        </button>
         <button type="button" class="btn-action btn-clear" id="btn-clear" title="Xóa trắng để nhập trận mới">
           <i class="uil uil-trash-alt"></i> Xóa Trắng
         </button>
@@ -940,10 +925,10 @@
     <!-- RIGHT PANEL: 3 AUTO CATEGORIZED RESULTS -->
     <section class="results-panel">
 
-      <!-- Card 1: Đội Thắng (Đi ăn) -->
+      <!-- Card 1: Đội Thắng nhậu -->
       <div class="team-card card-win">
         <div class="team-top">
-          <span class="team-tag">🏆 Đội Thắng (Đi ăn)</span>
+          <span class="team-tag">🏆 Đội Thắng nhậu</span>
           <span class="member-count-badge" id="badge-count-win">0 người</span>
         </div>
         <div class="team-price-row">
@@ -961,10 +946,10 @@
         </div>
       </div>
 
-      <!-- Card 2: Đội Thua (Đi ăn) -->
+      <!-- Card 2: Đội Thua nhậu -->
       <div class="team-card card-lose-eat">
         <div class="team-top">
-          <span class="team-tag">🥊 Đội Thua (Đi ăn)</span>
+          <span class="team-tag">🥊 Đội Thua nhậu</span>
           <span class="member-count-badge" id="badge-count-lose-eat">0 người</span>
         </div>
         <div class="team-price-row">
@@ -982,10 +967,10 @@
         </div>
       </div>
 
-      <!-- Card 3: Đội Thua (Vắng mặt) -->
+      <!-- Card 3: Đội Thua về -->
       <div class="team-card card-lose-home">
         <div class="team-top">
-          <span class="team-tag">🏠 Đội Thua (Vắng mặt)</span>
+          <span class="team-tag">🏠 Đội Thua về</span>
           <span class="member-count-badge" id="badge-count-lose-home">0 người</span>
         </div>
         <div class="team-price-row">
@@ -1015,20 +1000,6 @@
 
   <!-- Script Logic -->
   <script>
-    // Dữ liệu mẫu chuẩn xác theo yêu cầu
-    const DEFAULT_DATA = {
-      bill: 2500000,
-      penalty: 50000,
-      roundMode: '1000',
-      eaters: [
-        'Toàn', 'Tuân', 'Tùng', 'Tuấn', 'Triều', 'Trung Quý', 'Tuấn Anh',
-        'Thành Thịnh', 'Tú', 'Giang', 'Quý', 'Dũng', 'Nam', 'Thanh vịt'
-      ],
-      losers: [
-        'Toàn', 'Minh', 'Dũng', 'Hiệu', 'Quý', 'Nam', 'Tuấn Anh', 'Thịnh', 'Thanh vịt'
-      ]
-    };
-
     // State variables - Khởi tạo rỗng để sẵn sàng nhập trận mới
     let bill = 0;
     let penalty = 50000;
@@ -1045,7 +1016,6 @@
     const penaltyBtns = document.querySelectorAll('.penalty-btn');
     const penaltyCurrentDisplay = document.getElementById('penalty-current-display');
     const roundPills = document.querySelectorAll('.round-pill');
-    const btnSample = document.getElementById('btn-sample');
     const btnClear = document.getElementById('btn-clear');
     const btnCopy = document.getElementById('btn-copy');
     const toast = document.getElementById('toast');
@@ -1088,6 +1058,13 @@
     function formatVND(num) {
       if (isNaN(num) || num === null || num === undefined) return '0';
       return Math.round(num).toLocaleString('vi-VN');
+    }
+
+    // Helper: format k money (ví dụ: 150000 -> 150k, 1176000 -> 1.176k)
+    function formatK(num) {
+      if (isNaN(num) || num === null || num === undefined) return '0k';
+      const k = Math.round(num / 1000);
+      return k.toLocaleString('vi-VN') + 'k';
     }
 
     // Helper: parse flexible money string (supports 2500k, 2.5tr, 2.500.000)
@@ -1453,37 +1430,66 @@
     btnCopy.addEventListener('click', async () => {
       if (!currentCategorized) calculate();
 
-      const payWinText = currentCategorized.winnersWhoAte.length > 0 ? priceWin.innerText : '0';
-      const payLoseEatText = currentCategorized.losersWhoAte.length > 0 ? priceLoseEat.innerText : '0';
-      const payLoseHomeText = currentCategorized.losersWhoStayedHome.length > 0 ? priceLoseHome.innerText : '0';
+      const nWin = currentCategorized.winnersWhoAte.length;
+      const nLoseEat = currentCategorized.losersWhoAte.length;
+      const nLoseHome = currentCategorized.losersWhoStayedHome.length;
+      const nEating = eaters.length;
 
-      const listWinStr = currentCategorized.winnersWhoAte.length > 0
-        ? currentCategorized.winnersWhoAte.map(m => m.name).join(', ')
-        : '(Không có)';
-      const listLoseEatStr = currentCategorized.losersWhoAte.length > 0
-        ? currentCategorized.losersWhoAte.map(m => m.name).join(', ')
-        : '(Không có)';
-      const listLoseHomeStr = currentCategorized.losersWhoStayedHome.length > 0
-        ? currentCategorized.losersWhoStayedHome.map(m => m.name).join(', ')
-        : '(Không có)';
+      let payWin = 0;
+      let payLoseEat = 0;
+      let payLoseHome = 0;
 
-      const summary = `⚽ KÈO BÓNG ĐÁ & CHIA TIỀN NHẬU\n` +
-        `🧾 Hóa đơn: ${bill.toLocaleString('vi-VN')}đ\n` +
-        `⚡ Kèo trận: ${penalty.toLocaleString('vi-VN')}đ/người thua\n` +
-        `👥 Tổng số đi ăn: ${eaters.length} người | Đội thua: ${losers.length} người\n` +
-        `----------------------------------------\n` +
-        `🏆 ĐỘI THẮNG (ĐI ĂN) (${currentCategorized.winnersWhoAte.length} người):\n` +
-        `👉 Mỗi người: ${payWinText}đ\n` +
-        `👥 Danh sách: ${listWinStr}\n\n` +
-        `🥊 ĐỘI THUA (ĐI ĂN) (${currentCategorized.losersWhoAte.length} người):\n` +
-        `👉 Mỗi người: ${payLoseEatText}đ (${payWinText}đ ăn + ${penalty.toLocaleString('vi-VN')}đ kèo)\n` +
-        `👥 Danh sách: ${listLoseEatStr}\n\n` +
-        `🏠 ĐỘI THUA (VẮNG MẶT) (${currentCategorized.losersWhoStayedHome.length} người):\n` +
-        `👉 Mỗi người: ${payLoseHomeText}đ (tiền kèo ${penalty.toLocaleString('vi-VN')}đ)\n` +
-        `👥 Danh sách: ${listLoseHomeStr}\n` +
-        `----------------------------------------\n` +
-        `💰 Tổng thực thu: ${auditTotalCollected.innerText}đ (${auditBadge.innerText})\n\n` +
-        `Mọi người chuyển khoản theo STK bên dưới nhé!`;
+      if (nEating > 0) {
+        const totalPenalty = (nLoseHome + nLoseEat) * penalty;
+        const remainingBill = Math.max(0, bill - totalPenalty);
+        const rawX = remainingBill / nEating;
+        const finalX = applyRounding(rawX, roundMode);
+
+        payWin = finalX;
+        payLoseEat = finalX + penalty;
+        payLoseHome = penalty;
+
+        if (totalPenalty >= bill && bill > 0) {
+          payWin = 0;
+          payLoseEat = penalty;
+        } else if (bill === 0) {
+          payWin = 0;
+          payLoseEat = 0;
+          payLoseHome = 0;
+        }
+      } else {
+        payLoseHome = nLoseHome > 0 ? penalty : 0;
+      }
+
+      const totalWinSub = payWin * nWin;
+      const totalLoseEatSub = payLoseEat * nLoseEat;
+      const totalLoseHomeSub = payLoseHome * nLoseHome;
+
+      const listLoseHomeStr = currentCategorized.losersWhoStayedHome.map(m => m.name).join(', ');
+      const listWinStr = currentCategorized.winnersWhoAte.map(m => m.name).join(', ');
+      const listLoseEatStr = currentCategorized.losersWhoAte.map(m => m.name).join(', ');
+
+      const header = `BẢNG CHIA TIỀN (BILL: ${formatVND(bill)}đ - KÈO ${formatK(penalty).toUpperCase()})`;
+      const sections = [];
+
+      // 1. Đội Thua về
+      if (nLoseHome > 0) {
+        sections.push(`${formatK(payLoseHome)}. Đội Thua về (${nLoseHome}). Tổng: ${formatK(totalLoseHomeSub)}\n${listLoseHomeStr}`);
+      }
+
+      // 2. Đội Thắng nhậu
+      if (nWin > 0) {
+        sections.push(`${formatK(payWin)}. Đội Thắng nhậu (${nWin}). Tổng: ${formatK(totalWinSub)}\n${listWinStr}`);
+      }
+
+      // 3. Đội Thua nhậu
+      if (nLoseEat > 0) {
+        sections.push(`${formatK(payLoseEat)}. Đội Thua nhậu (${nLoseEat}). Tổng: ${formatK(totalLoseEatSub)}\n${listLoseEatStr}`);
+      }
+
+      const summary = sections.length > 0
+        ? `${header}\n${sections.join('\n\n')}`
+        : header;
 
       try {
         await navigator.clipboard.writeText(summary);
@@ -1505,36 +1511,6 @@
       setTimeout(() => {
         toast.classList.remove('show');
       }, 3000);
-    }
-
-    // Nạp dữ liệu ví dụ mẫu
-    if (btnSample) {
-      btnSample.addEventListener('click', () => {
-        bill = DEFAULT_DATA.bill;
-        billInput.value = bill.toLocaleString('vi-VN');
-
-        penalty = DEFAULT_DATA.penalty;
-        if (penaltyCurrentDisplay) {
-          penaltyCurrentDisplay.innerText = `${formatVND(penalty)}đ`;
-        }
-        penaltyBtns.forEach(b => {
-          b.classList.toggle('active', parseInt(b.dataset.penalty, 10) === penalty);
-        });
-
-        roundMode = DEFAULT_DATA.roundMode;
-        roundPills.forEach(p => {
-          p.classList.toggle('active', p.dataset.round === roundMode);
-        });
-
-        eaters = [...DEFAULT_DATA.eaters];
-        losers = [...DEFAULT_DATA.losers];
-
-        for (const k in paidStatus) delete paidStatus[k];
-
-        renderInputChips();
-        calculate();
-        showToast('Đã nạp bộ dữ liệu ví dụ mẫu!');
-      });
     }
 
     // Xóa trắng toàn bộ để nhập trận mới
