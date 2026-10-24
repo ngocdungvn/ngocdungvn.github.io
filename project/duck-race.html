@@ -1457,14 +1457,18 @@
         display: none !important;
       }
 
-      /* Ẩn các nút phụ trên header để chừa diện tích tuyệt đối cho nút xoay */
+      /* Ẩn các nút phụ để 2 bên cân đối và thoáng đãng */
       #btnMusicToggle,
       #btnToggleLabels {
         display: none !important;
       }
     }
 
-    @media (max-width: 400px) {
+    @media (max-width: 420px) {
+      #btnSoundToggle {
+        display: none !important;
+      }
+
       .os-icon-btn,
       .os-ctrl-btn {
         width: 30px !important;
@@ -1493,12 +1497,6 @@
       .podium-name {
         max-width: 78px;
         font-size: 11px;
-      }
-    }
-
-    @media (max-width: 350px) {
-      #btnSoundToggle {
-        display: none !important;
       }
     }
 
@@ -1650,24 +1648,8 @@
   <div id="app-container">
     <!-- Header: Online-Stopwatch Navigation & HUD -->
     <header class="game-header">
-      <!-- Top Left: Controls (Sound, Music, Labels) -->
+      <!-- Top Left: Controls (Bắt đầu, Đặt lại, Âm thanh, Nhạc) -->
       <div class="os-left-controls">
-        <button class="os-icon-btn active-glow" id="btnSoundToggle" title="Bật / Tắt âm thanh hiệu ứng">
-          <i class="uil uil-bell"></i>
-        </button>
-        <button class="os-icon-btn active-glow" id="btnMusicToggle" title="Bật / Tắt nhạc nền">
-          <i class="uil uil-music"></i>
-        </button>
-        <button class="os-icon-btn" id="btnToggleLabels" title="Bật / Tắt nhãn tên trên vịt">
-          <i class="uil uil-tag"></i>
-        </button>
-      </div>
-
-      <!-- Top Center: Đồng Hồ Bấm Giờ & Bộ Nút Điều Khiển Neobrutalism (Chính Giữa) -->
-      <div class="os-stopwatch-hud" id="stopwatchHUD">
-        <div class="os-stopwatch-box" id="stopwatchBox">
-          <span id="stopwatchDigits">00:00:00</span>
-        </div>
         <div class="os-btn-group" id="osBtnGroup">
           <button class="os-ctrl-btn os-btn-start" id="btnPlayPauseRace" title="Bắt đầu cuộc đua">
             <i class="uil uil-play" id="playPauseIcon"></i> <span id="playPauseText">Bắt đầu</span>
@@ -1676,13 +1658,29 @@
             <i class="uil uil-redo"></i> <span>Đặt lại</span>
           </button>
         </div>
+        <button class="os-icon-btn active-glow" id="btnSoundToggle" title="Bật / Tắt âm thanh hiệu ứng">
+          <i class="uil uil-bell"></i>
+        </button>
+        <button class="os-icon-btn active-glow" id="btnMusicToggle" title="Bật / Tắt nhạc nền">
+          <i class="uil uil-music"></i>
+        </button>
       </div>
 
-      <!-- Top Right: Action Tools (Cài đặt ngoài cùng bên phải, kế đó là xoay ngang) -->
+      <!-- Top Center: Đồng Hồ Thời Gian Đua (Chính Giữa) -->
+      <div class="os-stopwatch-hud" id="stopwatchHUD">
+        <div class="os-stopwatch-box" id="stopwatchBox">
+          <span id="stopwatchDigits">00:00:00</span>
+        </div>
+      </div>
+
+      <!-- Top Right: Action Tools (Kết quả, Nhãn tên, Toàn màn hình, Xoay ngang, Cài đặt) -->
       <div class="os-right-controls">
         <button class="os-icon-btn" id="btnViewResultsHeader" title="Xem lại kết quả"
           style="display: none; background: #fed033; color: #000000;">
           <i class="uil uil-trophy"></i>
+        </button>
+        <button class="os-icon-btn" id="btnToggleLabels" title="Bật / Tắt nhãn tên trên vịt">
+          <i class="uil uil-tag"></i>
         </button>
         <button class="os-icon-btn" id="btnFullscreen" title="Toàn màn hình">
           <i class="uil uil-expand-arrows"></i>
