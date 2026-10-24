@@ -42,26 +42,25 @@ Hệ thống mini apps được phân chia khoa học thành 3 danh mục chính
 |:---:|---|---|---|
 | 01 | **Quay Số Ngẫu Nhiên** | [`project/random-number.html`](project/random-number.html) | Bốc thăm trúng thưởng và quay số ngẫu nhiên dải tùy chỉnh (A-Z), thời gian quay 1.5s mượt mà, hiệu ứng pháo giấy Confetti Canvas, giao diện Light sang trọng. |
 | 02 | **Chia Tiền Kèo Bóng Đá** | [`project/share-bill.html`](project/share-bill.html) | Tính toán chia tiền ăn nhậu, kèo phạt bóng đá theo tag chips liền dòng; hỗ trợ làm tròn linh hoạt, kiểm tra khớp bill thông minh và sao chép thông báo gửi Zalo chuẩn format. |
-| 03 | **Máy Tính Neumorphic** | [`project/calculator.html`](project/calculator.html) | Máy tính cầm tay bỏ túi phong cách kính mờ Neumorphism, bộ phân tích biểu thức toán học an toàn (Safe Math Parser), hỗ trợ đầy đủ phím số học. |
-| 04 | **Downloads Android TV** | [`project/downloads.html`](project/downloads.html) | Cổng tải nhanh các tệp tin APK xem phim, truyền hình và tiện ích tối ưu cho Android Box / Smart TV với bộ lọc danh mục và nút sao chép link 1 chạm. |
-| 05 | **Đồng Hồ Số Digital Clock** | [`project/digital-clock.html`](project/digital-clock.html) | Đồng hồ kỹ thuật số toàn màn hình cỡ lớn, cập nhật thời gian thực và ngày tháng năm với nền đổi màu HSL sống động, tích hợp drawer tùy chỉnh hiển thị. |
+| 03 | **Downloads Android TV** | [`project/downloads.html`](project/downloads.html) | Cổng tải nhanh các tệp tin APK xem phim, truyền hình và tiện ích tối ưu cho Android Box / Smart TV với bộ lọc danh mục và nút sao chép link 1 chạm. |
+| 04 | **Đồng Hồ Số Digital Clock** | [`project/digital-clock.html`](project/digital-clock.html) | Đồng hồ kỹ thuật số toàn màn hình cỡ lớn, cập nhật thời gian thực và ngày tháng năm với nền đổi màu HSL sống động, tích hợp drawer tùy chỉnh hiển thị. |
 
 ### 🎮 2. Nhóm Trò Chơi (Interactive Games)
 
 | STT | Trò Chơi | Tệp Tin | Mô Tả & Cơ Chế Điều Khiển |
 |:---:|---|---|---|
-| 06 | **Đua Vịt Chọn Người Thắng** | [`project/duck-race.html`](project/duck-race.html) | Mini game Đua Vịt bốc thăm may mắn, quay số trúng thưởng online với hiệu ứng đồ họa Canvas 60 FPS, âm thanh Web Audio và cơ chế quay ngẫu nhiên hoàn toàn công bằng. |
-| 07 | **Bé Măm Măm Hoa Quả** | [`project/fishies.html`](project/fishies.html) | Trò chơi tương tác đáng yêu điều khiển em bé bò đi măm măm các loại hoa quả, bánh kẹo và bình sữa, hỗ trợ chạm vuốt đa điểm (`touchstart`/`touchmove`). |
-| 08 | **Miu Đi Tìm Sữa** | [`project/baby-wants-milk.html`](project/baby-wants-milk.html) | Game phiêu lưu mê cung tìm bình sữa cho bé Miu, hỗ trợ cụm phím D-pad 4 hướng và nút Action cảm ứng ảo. |
-| 09 | **Thử Thách Simon Memory** | [`project/simon-game.html`](project/simon-game.html) | Game rèn luyện trí nhớ thính giác và thị giác qua chuỗi tín hiệu màu sắc, âm thanh tổng hợp bằng Web Audio API không có độ trễ. |
+| 05 | **Đua Vịt Chọn Người Thắng** | [`project/duck-race.html`](project/duck-race.html) | Mini game Đua Vịt bốc thăm may mắn, quay số trúng thưởng online với hiệu ứng đồ họa Canvas 60 FPS, âm thanh Web Audio và cơ chế quay ngẫu nhiên hoàn toàn công bằng. |
+| 06 | **Bé Măm Măm Hoa Quả** | [`project/fishies.html`](project/fishies.html) | Trò chơi tương tác đáng yêu điều khiển em bé bò đi măm măm các loại hoa quả, bánh kẹo và bình sữa, hỗ trợ chạm vuốt đa điểm (`touchstart`/`touchmove`). |
+| 07 | **Miu Đi Tìm Sữa** | [`project/baby-wants-milk.html`](project/baby-wants-milk.html) | Game phiêu lưu mê cung tìm bình sữa cho bé Miu, hỗ trợ cụm phím D-pad 4 hướng và nút Action cảm ứng ảo. |
+| 08 | **Thử Thách Simon Memory** | [`project/simon-game.html`](project/simon-game.html) | Game rèn luyện trí nhớ thính giác và thị giác qua chuỗi tín hiệu màu sắc, âm thanh tổng hợp bằng Web Audio API không có độ trễ. |
 
 ### 🎨 3. Nhóm Hiệu Ứng & Nghệ Thuật (Visual & Creative Arts)
 
 | STT | Trải Nghiệm | Tệp Tin | Mô Tả & Hiệu Ứng |
 |:---:|---|---|---|
-| 10 | **Bánh Sinh Nhật Thổi Nến** | [`project/birthday-cake.html`](project/birthday-cake.html) | Chiếc bánh sinh nhật 3 tầng tương tác trực quan, tự động scale vừa mọi kích cỡ màn hình, tương tác 1 click để thổi nến hoặc double click để thắp lại nến kèm âm thanh puff & chime. |
-| 11 | **Pháo Hoa Chạm Bắn** | [`project/click-fireworks.html`](project/click-fireworks.html) | Chạm hoặc nhấp chuột vào bất kỳ vị trí nào trên màn hình để kích nổ chùm pháo hoa rực rỡ với âm thanh nổ sống động và fade-out tự nhiên. |
-| 12 | **Pháo Hoa Tương Tác** | [`project/firework/index.html`](project/firework/index.html) | Trình diễn pháo hoa chào năm mới với hệ thống điều khiển âm thanh, pause/play và thanh chỉnh kích thước hạt. |
+| 09 | **Bánh Sinh Nhật Thổi Nến** | [`project/birthday-cake.html`](project/birthday-cake.html) | Chiếc bánh sinh nhật 3 tầng tương tác trực quan, tự động scale vừa mọi kích cỡ màn hình, tương tác 1 click để thổi nến hoặc double click để thắp lại nến kèm âm thanh puff & chime. |
+| 10 | **Pháo Hoa Chạm Bắn** | [`project/click-fireworks.html`](project/click-fireworks.html) | Chạm hoặc nhấp chuột vào bất kỳ vị trí nào trên màn hình để kích nổ chùm pháo hoa rực rỡ với âm thanh nổ sống động và fade-out tự nhiên. |
+| 11 | **Pháo Hoa Tương Tác** | [`project/firework/index.html`](project/firework/index.html) | Trình diễn pháo hoa chào năm mới với hệ thống điều khiển âm thanh, pause/play và thanh chỉnh kích thước hạt. |
 
 ---
 
@@ -124,10 +123,9 @@ ngocdungx.github.io/
 │   └── img/                 # Hình ảnh, chứng chỉ, favicons, PWA icons
 ├── tai-nguyen/              # Kho tài nguyên chia sẻ, tài liệu IT & AI
 │   └── index.html           # Trang trung tâm tài nguyên công nghệ
-├── project/                 # Thư mục chứa 12 Mini Apps độc lập
+├── project/                 # Thư mục chứa 11 Mini Apps độc lập
 │   ├── random-number.html   # Quay số ngẫu nhiên A-Z
 │   ├── share-bill.html      # Chia tiền kèo bóng đá
-│   ├── calculator.html      # Máy tính Neumorphic
 │   ├── downloads.html       # Cổng tải app Android TV
 │   ├── digital-clock.html   # Đồng hồ kỹ thuật số Digital Clock
 │   ├── duck-race.html       # Đua vịt chọn người thắng (Lucky Draw)
