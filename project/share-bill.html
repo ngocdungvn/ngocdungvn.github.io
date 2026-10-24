@@ -487,27 +487,16 @@
       text-transform: uppercase;
     }
 
-    /* Action Buttons */
-    .action-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 0.65rem;
-    }
-
-    @media (max-width: 520px) {
-      .action-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
+    /* Action Button */
     .btn-action {
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      padding: 0.85rem 1rem;
+      padding: 0.95rem 1rem;
       border-radius: var(--radius-base);
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       font-weight: 900;
       cursor: pointer;
       border: 2.5px solid var(--border);
@@ -529,22 +518,6 @@
     }
 
     .btn-copy:active {
-      transform: translate(2px, 2px);
-      box-shadow: 2px 2px 0px 0px var(--border);
-    }
-
-    .btn-clear {
-      background: var(--secondary-background);
-      color: var(--foreground);
-    }
-
-    .btn-clear:hover {
-      background: #fee2e2;
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0px 0px var(--border);
-    }
-
-    .btn-clear:active {
       transform: translate(2px, 2px);
       box-shadow: 2px 2px 0px 0px var(--border);
     }
@@ -906,12 +879,6 @@
         font-size: 1.1rem;
       }
 
-      /* Nút hành động: full-width dễ chạm ngón tay */
-      .action-grid {
-        grid-template-columns: 1fr;
-        gap: 0.65rem;
-      }
-
       .btn-action {
         padding: 0.85rem 1rem;
         font-size: 0.95rem;
@@ -1053,15 +1020,10 @@
         </div>
       </div>
 
-      <!-- Action Buttons -->
-      <div class="action-grid">
-        <button type="button" class="btn-action btn-copy" id="btn-copy">
-          <i class="uil uil-copy-alt"></i> Sao Chép Zalo
-        </button>
-        <button type="button" class="btn-action btn-clear" id="btn-clear" title="Xóa trắng để nhập trận mới">
-          <i class="uil uil-trash-alt"></i> Xóa Trắng
-        </button>
-      </div>
+      <!-- Action Button -->
+      <button type="button" class="btn-action btn-copy" id="btn-copy">
+        <i class="uil uil-copy-alt"></i> Sao Chép Zalo
+      </button>
     </section>
 
     <!-- RIGHT PANEL: 3 AUTO CATEGORIZED RESULTS -->
@@ -1158,7 +1120,6 @@
     const penaltyBtns = document.querySelectorAll('.penalty-btn');
     const penaltyCurrentDisplay = document.getElementById('penalty-current-display');
     const roundPills = document.querySelectorAll('.round-pill');
-    const btnClear = document.getElementById('btn-clear');
     const btnCopy = document.getElementById('btn-copy');
     const toast = document.getElementById('toast');
     const errorBanner = document.getElementById('error-banner');
@@ -1670,32 +1631,7 @@
       }, 3000);
     }
 
-    // Xóa trắng toàn bộ để nhập trận mới
-    if (btnClear) {
-      btnClear.addEventListener('click', () => {
-        bill = 0;
-        billInput.value = '';
 
-        eaters = [];
-        losers = [];
-        inputEatersEl.value = '';
-        inputLosersEl.value = '';
-
-        penalty = 50000;
-        if (penaltyCurrentDisplay) {
-          penaltyCurrentDisplay.innerText = `${formatVND(penalty)}đ`;
-        }
-        penaltyBtns.forEach(b => {
-          b.classList.toggle('active', parseInt(b.dataset.penalty, 10) === 50000);
-        });
-
-        for (const k in paidStatus) delete paidStatus[k];
-
-        renderInputChips();
-        calculate();
-        showToast('Đã xóa trắng để sẵn sàng nhập trận mới!');
-      });
-    }
 
     // Initialize Tag Inputs
     setupTagInput(boxEaters, inputEatersEl, eaters, calculate);
