@@ -102,9 +102,9 @@
       right: 0;
       height: 72px;
       padding: 0 16px;
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
       z-index: 40;
       background: transparent;
       pointer-events: none;
@@ -114,10 +114,11 @@
       pointer-events: auto;
     }
 
-    /* Top Left: 3 Black Rounded-Square Control Buttons */
+    /* Top Left: Control Buttons */
     .os-left-controls {
       display: flex;
       align-items: center;
+      justify-self: start;
       gap: 6px;
     }
 
@@ -157,10 +158,11 @@
       box-shadow: 3px 3px 0px #000000;
     }
 
-    /* Top Center: Iconic White Stopwatch HUD */
+    /* Top Center: Iconic White Stopwatch HUD (Chính Giữa) */
     .os-stopwatch-hud {
       display: flex;
       align-items: center;
+      justify-self: center;
       gap: 12px;
     }
 
@@ -271,10 +273,11 @@
       line-height: 1;
     }
 
-    /* Top Right: Brand Logo matching Online-Stopwatch style */
+    /* Top Right Controls */
     .os-right-controls {
       display: flex;
       align-items: center;
+      justify-self: end;
       gap: 8px;
     }
 
@@ -1218,18 +1221,18 @@
         height: auto;
         min-height: 46px;
         padding: 6px 8px;
-        gap: 6px;
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
         align-items: center;
-        justify-content: space-between;
         box-sizing: border-box;
       }
 
       .os-left-controls {
         display: flex;
         align-items: center;
+        justify-self: start;
         gap: 4px;
-        flex-shrink: 0;
+        min-width: 0;
       }
 
       .os-icon-btn {
@@ -1238,28 +1241,28 @@
         font-size: 15px;
         border-radius: 6px;
         box-shadow: 2px 2px 0px #000000;
+        flex-shrink: 0;
       }
 
       .os-stopwatch-hud {
         display: flex;
         align-items: center;
-        gap: 5px;
-        flex-shrink: 1;
+        justify-self: center;
+        gap: 4px;
         min-width: 0;
-        justify-content: center;
       }
 
       .os-stopwatch-box {
-        min-width: 95px;
-        max-width: 110px;
-        padding: 2px 6px;
+        min-width: 88px;
+        max-width: 104px;
+        padding: 2px 5px;
         border: 2px solid #000000;
         border-radius: 8px;
         box-shadow: 2px 2px 0px #000000;
       }
 
       #stopwatchDigits {
-        font-size: 17px;
+        font-size: 16px;
         letter-spacing: 0.5px;
         font-weight: 900;
       }
@@ -1282,9 +1285,9 @@
       .os-right-controls {
         display: flex !important;
         align-items: center;
+        justify-self: end;
         gap: 4px;
-        flex-shrink: 0 !important;
-        margin-left: auto;
+        min-width: 0;
       }
 
       .btn-rotate-screen {
@@ -1449,10 +1452,6 @@
     }
 
     @media (max-width: 400px) {
-      #btnSoundToggle {
-        display: none !important;
-      }
-
       .os-icon-btn,
       .os-ctrl-btn {
         width: 30px !important;
@@ -1481,6 +1480,12 @@
       .podium-name {
         max-width: 78px;
         font-size: 11px;
+      }
+    }
+
+    @media (max-width: 350px) {
+      #btnSoundToggle {
+        display: none !important;
       }
     }
 
@@ -1632,23 +1637,20 @@
   <div id="app-container">
     <!-- Header: Online-Stopwatch Navigation & HUD -->
     <header class="game-header">
-      <!-- Top Left: Controls (Settings, Sound, Music) -->
+      <!-- Top Left: Controls (Sound, Music, Labels) -->
       <div class="os-left-controls">
-        <button class="os-icon-btn" id="btnSettingsToggle" title="Cài đặt cuộc đua (Settings)">
-          <i class="uil uil-setting"></i>
+        <button class="os-icon-btn active-glow" id="btnSoundToggle" title="Bật / Tắt âm thanh hiệu ứng">
+          <i class="uil uil-bell"></i>
         </button>
         <button class="os-icon-btn active-glow" id="btnMusicToggle" title="Bật / Tắt nhạc nền">
           <i class="uil uil-music"></i>
-        </button>
-        <button class="os-icon-btn active-glow" id="btnSoundToggle" title="Bật / Tắt âm thanh hiệu ứng">
-          <i class="uil uil-bell"></i>
         </button>
         <button class="os-icon-btn" id="btnToggleLabels" title="Bật / Tắt nhãn tên trên vịt">
           <i class="uil uil-tag"></i>
         </button>
       </div>
 
-      <!-- Top Center: Đồng Hồ Bấm Giờ & Bộ Nút Điều Khiển Neobrutalism -->
+      <!-- Top Center: Đồng Hồ Bấm Giờ & Bộ Nút Điều Khiển Neobrutalism (Chính Giữa) -->
       <div class="os-stopwatch-hud" id="stopwatchHUD">
         <div class="os-stopwatch-box" id="stopwatchBox">
           <span id="stopwatchDigits">00:00:00</span>
@@ -1663,18 +1665,21 @@
         </div>
       </div>
 
-      <!-- Top Right: Action Tools -->
+      <!-- Top Right: Action Tools (Cài đặt ngoài cùng bên phải, kế đó là xoay ngang) -->
       <div class="os-right-controls">
         <button class="os-icon-btn" id="btnViewResultsHeader" title="Xem lại kết quả"
           style="display: none; background: #fed033; color: #000000;">
           <i class="uil uil-trophy"></i>
         </button>
+        <button class="os-icon-btn" id="btnFullscreen" title="Toàn màn hình">
+          <i class="uil uil-expand-arrows"></i>
+        </button>
         <button class="os-icon-btn btn-rotate-screen" id="btnRotateScreen" title="Xoay ngang màn hình"
           style="background: #fed033; color: #000000;">
           <i class="uil uil-sync" id="rotateIcon"></i>
         </button>
-        <button class="os-icon-btn" id="btnFullscreen" title="Toàn màn hình">
-          <i class="uil uil-expand-arrows"></i>
+        <button class="os-icon-btn" id="btnSettingsToggle" title="Cài đặt cuộc đua (Settings)">
+          <i class="uil uil-setting"></i>
         </button>
       </div>
     </header>
@@ -3820,17 +3825,10 @@
 
       btn.disabled = false;
       if (!STATE.isRunning) {
-        if (STATE.isFinished) {
-          btn.className = 'os-ctrl-btn os-btn-start';
-          if (icon) icon.className = 'uil uil-redo';
-          if (text) text.innerText = 'Đua lại';
-          btn.title = 'Bắt đầu lại cuộc đua';
-        } else {
-          btn.className = 'os-ctrl-btn os-btn-start';
-          if (icon) icon.className = 'uil uil-play';
-          if (text) text.innerText = 'Bắt đầu';
-          btn.title = 'Bắt đầu cuộc đua (Start)';
-        }
+        btn.className = 'os-ctrl-btn os-btn-start';
+        if (icon) icon.className = 'uil uil-play';
+        if (text) text.innerText = 'Bắt đầu';
+        btn.title = STATE.isFinished ? 'Bắt đầu cuộc đua mới (Start)' : 'Bắt đầu cuộc đua (Start)';
       } else {
         if (STATE.isPaused) {
           btn.className = 'os-ctrl-btn os-btn-pause is-paused';
