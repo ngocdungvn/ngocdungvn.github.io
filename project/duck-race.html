@@ -1231,8 +1231,27 @@
       }
 
       .os-right-controls {
-        display: none;
-        /* Hide fullscreen button on mobile to preserve stopwatch space */
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .btn-rotate-screen {
+        background: #fed033 !important;
+        color: #000000 !important;
+        border: 2px solid #000000 !important;
+        font-weight: 800;
+      }
+
+      @media (max-width: 480px) {
+        .os-right-controls #btnFullscreen {
+          display: none;
+        }
+
+        #btnVoiceHeader,
+        #btnToggleTagsHeader {
+          display: none;
+        }
       }
 
       .os-stopwatch-hud {
@@ -1593,6 +1612,10 @@
         <button class="os-icon-btn" id="btnViewResultsHeader" title="Xem lại kết quả"
           style="display: none; background: #fed033; color: #000000;">
           <i class="uil uil-trophy"></i>
+        </button>
+        <button class="os-icon-btn btn-rotate-screen" id="btnRotateScreen" title="Xoay ngang màn hình"
+          style="background: #fed033; color: #000000;">
+          <i class="uil uil-sync" id="rotateIcon"></i>
         </button>
         <button class="os-icon-btn" id="btnFullscreen" title="Toàn màn hình">
           <i class="uil uil-expand-arrows"></i>
@@ -3900,6 +3923,78 @@
         });
       }
 
+      // Nút Xoay ngang màn hình (Mobile Screen Rotation Button)
+      const btnRotateScreen = document.getElementById('btnRotateScreen');
+      function updateRotateButtonUI() {
+        if (!btnRotateScreen) return;
+        const isLandscape = window.innerWidth > window.innerHeight;
+        const rotateIcon = document.getElementById('rotateIcon') || btnRotateScreen.querySelector('i');
+        if (isLandscape) {
+          btnRotateScreen.title = 'Xoay dọc màn hình';
+          if (rotateIcon) {
+            rotateIcon.className = 'uil uil-mobile-android';
+          }
+        } else {
+          btnRotateScreen.title = 'Xoay ngang màn hình';
+          if (rotateIcon) {
+            rotateIcon.className = 'uil uil-sync';
+          }
+        }
+      }
+
+      async function toggleScreenRotation() {
+        AudioController.playClick();
+        const docEl = document.documentElement;
+        const isLandscape = window.innerWidth > window.innerHeight;
+
+        if (!isLandscape) {
+          // Muốn xoay ngang màn hình
+          try {
+            const reqFs = docEl.requestFullscreen || docEl.webkitRequestFullscreen;
+            if (reqFs && !document.fullscreenElement && !document.webkitFullscreenElement) {
+              await reqFs.call(docEl);
+            }
+            if (screen.orientation && typeof screen.orientation.lock === 'function') {
+              await screen.orientation.lock('landscape');
+            }
+            showToast('Đã xoay ngang màn hình!');
+          } catch (err) {
+            console.warn('Orientation lock notice:', err);
+            showToast('Hãy bật Tự động xoay và nghiêng điện thoại sang ngang!');
+          }
+        } else {
+          // Muốn chuyển lại màn hình dọc
+          try {
+            if (screen.orientation && typeof screen.orientation.unlock === 'function') {
+              screen.orientation.unlock();
+            }
+            if (screen.orientation && typeof screen.orientation.lock === 'function') {
+              screen.orientation.lock('portrait').catch(() => {});
+            }
+            const exitFs = document.exitFullscreen || document.webkitExitFullscreen;
+            if (exitFs && (document.fullscreenElement || document.webkitFullscreenElement)) {
+              await exitFs.call(document);
+            }
+            showToast('Đã chuyển về màn hình dọc!');
+          } catch (err) {
+            console.warn(err);
+            if (screen.orientation && typeof screen.orientation.unlock === 'function') {
+              screen.orientation.unlock();
+            }
+          }
+        }
+
+        updateRotateButtonUI();
+        updateFullscreenUI();
+        setTimeout(() => {
+          GameEngine.initCanvas();
+        }, 200);
+      }
+
+      if (btnRotateScreen) {
+        btnRotateScreen.addEventListener('click', toggleScreenRotation);
+      }
+
       // Nút Toàn màn hình & Tự động xoay ngang trên Mobile
       const btnFullscreen = document.getElementById('btnFullscreen');
       function updateFullscreenUI() {
@@ -3939,6 +4034,7 @@
 
       document.addEventListener('fullscreenchange', () => {
         updateFullscreenUI();
+        updateRotateButtonUI();
         if (!document.fullscreenElement) {
           safeUnlockOrientation();
         }
@@ -3946,6 +4042,7 @@
       });
       document.addEventListener('webkitfullscreenchange', () => {
         updateFullscreenUI();
+        updateRotateButtonUI();
         if (!document.fullscreenElement && !document.webkitFullscreenElement) {
           safeUnlockOrientation();
         }
@@ -3955,9 +4052,14 @@
       // Tự động căn chỉnh lại canvas và đường đua khi xoay thiết bị
       window.addEventListener('orientationchange', () => {
         setTimeout(() => {
+          updateRotateButtonUI();
           GameEngine.initCanvas();
         }, 250);
       });
+      window.addEventListener('resize', () => {
+        updateRotateButtonUI();
+      });
+      updateRotateButtonUI();
 
       // Nút Xem lại kết quả trên Header & Nút nổi
       document.getElementById('btnViewResultsHeader').addEventListener('click', () => {
